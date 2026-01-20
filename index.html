@@ -12,7 +12,7 @@
       --muted:#555;
       --card:#ffffff;
       --line:#e4e5ea;
-      --maxText: 860px;
+      --maxText: 920px;
     }
 
     *{ box-sizing:border-box; margin:0; padding:0; }
@@ -26,7 +26,7 @@
       scroll-behavior:smooth;
     }
 
-    /* 整体布局 */
+    /* 布局 */
     .layout{
       width:100vw;
       display:flex;
@@ -34,7 +34,7 @@
       gap:0;
     }
 
-    /* 左侧大图：只显示右侧人物区域，把左边花圈那块“吃掉” */
+    /* 左侧大图：隐藏左边花圈那块，只保留人物更居中区域 */
     .left{
       flex:0 0 34vw;
       max-width:520px;
@@ -50,9 +50,9 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      /* 向右取景 + 放大裁掉左侧 */
+      /* 关键：向右取景 + 放大，让左侧“花圈列”被吃掉 */
       object-position:80% center;
-      transform:scale(1.2);
+      transform:scale(1.22);
       transform-origin:center;
       display:block;
       filter:saturate(1.02) contrast(1.02);
@@ -66,18 +66,18 @@
       padding:44px 64px 64px;
     }
 
-    /* 顶部区域：文字 + 头像 */
+    /* 顶部 */
     .hero{
       border-bottom:1px solid var(--line);
-      padding-bottom:20px;
-      margin-bottom:28px;
+      padding-bottom:18px;
+      margin-bottom:24px;
     }
 
     .hero-grid{
       display:grid;
       grid-template-columns: 1fr 240px;
-      gap:24px;
-      align-items:stretch;
+      gap:26px;
+      align-items:start;
     }
 
     .hero-text{
@@ -98,7 +98,7 @@
     }
 
     .tagline.sub{
-      margin-top:4px;
+      margin-top:6px;
       font-size:16px;
     }
 
@@ -139,7 +139,7 @@
     }
 
     .meta{
-      margin-top:20px; /* 整体往下挪一点 */
+      margin-top:18px;
       display:flex;
       gap:16px;
       flex-wrap:wrap;
@@ -147,33 +147,52 @@
       font-size:15px;
     }
 
-    /* 头像：只保留圆角 + 阴影，不要任何“相框” */
+    /* 头像：无白边框，仅圆角 + 阴影 + 背后一层很淡的玻璃质感 */
     .avatarBox{
       display:flex;
       align-items:flex-start;
       justify-content:flex-end;
+      position:relative;
+      padding-top:6px;
+    }
+
+    .avatarGlass{
+      position:absolute;
+      right:-8px;
+      top:-6px;
+      width:230px;
+      height:300px;
+      border-radius:28px;
+      background:rgba(255,255,255,0.22);
+      border:1px solid rgba(255,255,255,0.35);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      box-shadow:0 18px 40px rgba(0,0,0,0.10);
+      pointer-events:none;
     }
 
     .avatar{
+      position:relative;
       width:210px;
       max-width:100%;
       height:auto;
       border-radius:26px;
       object-fit:cover;
       display:block;
-      box-shadow:0 18px 40px rgba(0,0,0,0.26);
-      /* 一次性加载动画：模糊 → 清晰 */
-      filter:blur(7px) brightness(0.96);
+      /* 只保留阴影，不要任何框感 */
+      box-shadow:0 18px 40px rgba(0,0,0,0.22);
+      /* 一次性：模糊 -> 清晰 */
+      filter:blur(7px) brightness(0.98);
       opacity:0;
-      transform:translateY(10px) scale(1.04);
+      transform:translateY(10px) scale(1.03);
       animation:avatarIntro .85s ease-out forwards;
     }
 
     @keyframes avatarIntro{
       0%{
-        filter:blur(7px) brightness(0.96);
+        filter:blur(7px) brightness(0.98);
         opacity:0;
-        transform:translateY(10px) scale(1.04);
+        transform:translateY(10px) scale(1.03);
       }
       100%{
         filter:blur(0) brightness(1);
@@ -184,13 +203,13 @@
 
     /* 内容区块 */
     .section{
-      margin-top:40px;
+      margin-top:36px;
       max-width:var(--maxText);
     }
 
     h2{
       font-size:24px;
-      margin:0 0 18px;
+      margin:0 0 16px;
       padding-bottom:12px;
       border-bottom:1px solid var(--line);
       position:relative;
@@ -227,7 +246,7 @@
 
     li{ margin:10px 0; }
 
-    /* 生活标签 chips：更有存在感 */
+    /* chips */
     .chips{
       margin-top:12px;
       display:flex;
@@ -244,9 +263,10 @@
       display:inline-flex;
       align-items:center;
       gap:6px;
-      font-weight:600;
+      font-weight:700;
       box-shadow:0 8px 18px rgba(0,0,0,0.06);
       transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
+      white-space:nowrap;
     }
 
     .chip:hover{
@@ -270,7 +290,7 @@
       font-size:13px;
     }
 
-    /* 区块整体淡入 */
+    /* 区块淡入 */
     .reveal{
       opacity:0;
       transform:translateY(26px);
@@ -287,7 +307,7 @@
       transform:scaleX(1);
     }
 
-    /* “消息堆叠”式子元素动画：逐条上滑 */
+    /* “消息堆叠”子元素动画 */
     .stack-item{
       opacity:0;
       transform:translateY(22px);
@@ -307,6 +327,7 @@
       .hero-grid{ grid-template-columns:1fr 220px; }
       h1{ font-size:36px; }
       .avatar{ width:190px; }
+      .avatarGlass{ width:210px; height:280px; }
     }
 
     @media (max-width:900px){
@@ -320,132 +341,135 @@
       .right{ padding:26px 16px 40px; }
       .hero-grid{ grid-template-columns:1fr; }
       .avatarBox{
-        margin-top:20px;
+        margin-top:18px;
         justify-content:flex-start;
       }
       .avatar{ width:190px; }
+      .avatarGlass{ left:-8px; right:auto; width:210px; height:280px; }
     }
   </style>
 </head>
 
 <body>
   <div class="layout">
-    <!-- 左侧生活照：使用你新的 life.png，并强制刷新缓存 -->
+    <!-- 左侧生活照：life.png 强制刷新缓存 -->
     <aside class="left">
-      <img src="life.png?v=2" alt="生活照">
+      <img src="life.png?v=3" alt="生活照">
     </aside>
 
     <main class="right">
       <!-- 顶部 -->
       <header class="hero reveal">
         <div class="hero-grid">
+          <!-- 注意：这里固定保留 stack，确保名字下面两行必显示 + 有堆叠 -->
           <div class="hero-text stack">
-            <h1>黄文艳</h1>
-            <p class="tagline stack-child">市场与增长方向｜8年整合营销与媒介经验</p>
-            <p class="tagline sub stack-child">以0代码背景为起点，正在用 AI 与 Vibe Coding 主动探索新的创造方式</p>
+            <h1 class="stack-item">黄文艳</h1>
 
-            <div class="actions stack-child">
-              <a class="btn primary" href="resume.pdf" download>下载简历 PDF</a>
+            <p class="tagline stack-item">市场与增长方向｜8年整合营销与媒介经验</p>
+            <p class="tagline sub stack-item">以0代码背景为起点，正在用 AI 与 Vibe Coding 主动探索新的创造方式</p>
+
+            <div class="actions stack-item">
+              <a class="btn primary" href="resume.pdf?v=3" download>下载简历 PDF</a>
               <a class="btn" href="#contact">联系方式</a>
             </div>
 
-            <div class="meta stack-child">
+            <div class="meta stack-item">
               <span>城市：上海</span>
               <span>方向：市场、增长、内容、媒介</span>
             </div>
           </div>
 
-          <!-- 头像：只有圆角照片和阴影 -->
           <div class="avatarBox">
-            <img class="avatar" src="avatar.jpg?v=2" alt="头像">
+            <div class="avatarGlass"></div>
+            <img class="avatar" src="avatar.jpg?v=3" alt="头像">
           </div>
         </div>
       </header>
 
       <!-- 关于我 · 生活 -->
       <section class="section reveal stack">
-        <h2>关于我 · 生活</h2>
+        <h2 class="stack-item">关于我 · 生活</h2>
 
-        <div class="chips">
+        <div class="chips stack-item">
           <span class="chip">👀 好奇心强</span>
           <span class="chip">⚡ 主动推进</span>
           <span class="chip">🧠 快速理解场景</span>
-          <span class="chip">🤝 合作舒服</span>
+          <span class="chip">🤝 合作高效</span>
         </div>
 
-        <p>👀 <strong>对世界保持好奇</strong>，喜欢主动出发，也擅长在不确定中把事情推进到结果。</p>
-        <p>⚡ 我通常愿意先迈出第一步，亲和力强、行动力也很足，面对陌生关系和新场景，很少需要热身时间。</p>
-        <p>🌍 我的兴趣跨度很大，从旅游、阅读、各类运动，到今年持续尝试的 <strong>Vibe Coding</strong> 和新工具学习。对我来说，兴趣不是用来堆清单的，而是用来保持输入、训练判断力与能量的方式。</p>
-        <p>🧠 我习惯在不同经历中快速理解人和场景，并找到一种<strong>更省力但更有效的协作方式</strong>。</p>
-        <p>🧩 生活里我偏 <strong>ENFP</strong>，不怕陌生，和不同背景的人相处都很自然；但一旦进入工作状态，我会明显切换到冷静、理性和目标导向的模式，把事情拆清楚，用自己的节奏循序完成。</p>
-        <p>🤝 很多和我共事过的人，对我的正面评价往往集中在两点：<strong>做事靠谱</strong>，以及<strong>合作舒服</strong>。</p>
-        <p>🚀 我始终相信，真正有价值的能力，来自长期学习和持续更新。这让我在复杂环境里也能保持秩序感和执行力。</p>
+        <p class="stack-item">👀 <strong>对世界保持好奇</strong>，喜欢主动出发，也擅长在不确定中把事情推进到结果。</p>
+        <p class="stack-item">⚡ 我通常愿意先迈出第一步，亲和力强、行动力也很足，面对陌生关系和新场景，很少需要热身时间。</p>
+        <p class="stack-item">🌍 我的兴趣跨度很大，从旅游、阅读、各类运动，到今年持续尝试的 <strong>Vibe Coding</strong> 和新工具学习。对我来说，兴趣不是用来堆清单的，而是用来保持输入、训练高精力的方式。</p>
+        <p class="stack-item">🧠 我习惯在不同经历中快速理解人和场景，并找到一种<strong>更省力但更有效的协作方式</strong>。</p>
+        <p class="stack-item">🧩 生活里我偏 <strong>ENFP</strong>，不怕陌生，和不同背景的人相处都很自然；但一旦进入工作状态，我会明显切换到冷静、理性和目标导向的模式，把事情理清楚，用自己的节奏循序完成。</p>
+        <p class="stack-item">🤝 很多和我共事过的人，对我的正面评价往往集中在两点：<strong>做事靠谱</strong>，以及<strong>合作高效</strong>。</p>
+        <p class="stack-item">🚀 我始终相信，真正有价值的能力，来自终身学习和更新，这让人在复杂环境里也能保持秩序感。</p>
       </section>
 
       <!-- 关于我 · 职业 -->
       <section class="section reveal stack">
-        <h2>关于我 · 职业</h2>
-        <p>我有 8 年整合营销与媒介管理经验，长期服务高端快消、酒店旅游、国际房地产等行业，从品牌策略到投放落地全链路跟进，习惯把宏观目标拆解为可验证的行动与指标。</p>
-        <ul>
-          <li>品牌整合营销与媒介策略规划，覆盖社交、信息流、搜索、电商等渠道</li>
-          <li>KOL、KOC 内容投放体系：搭建可复用的筛选、合作与复盘机制</li>
-          <li>数据监控与 A/B 测试：在成本、转化与长期 ROI 之间做动态平衡</li>
-          <li>跨部门项目管理与客户沟通：在多方诉求中保持节奏与执行力</li>
+        <h2 class="stack-item">关于我 · 职业</h2>
+        <p class="stack-item">我有 8 年整合营销与媒介管理经验，长期服务高端快消、酒店旅游、国际房地产等行业，从品牌策略到投放落地全链路跟进，习惯把宏观目标拆解为可验证的行动与指标。</p>
+        <ul class="stack-item">
+          <li class="stack-item">品牌整合营销与媒介策略规划，覆盖社交、信息流、搜索、电商等渠道</li>
+          <li class="stack-item">KOL、KOC 内容投放体系：搭建可复用的筛选、合作与复盘机制</li>
+          <li class="stack-item">数据监控与 A/B 测试：在成本、转化与长期 ROI 之间做动态平衡</li>
+          <li class="stack-item">跨部门项目管理与客户沟通：在多方诉求中保持节奏与执行力</li>
         </ul>
       </section>
 
       <!-- 代表项目 -->
       <section class="section reveal stack">
-        <h2>代表项目</h2>
+        <h2 class="stack-item">代表项目</h2>
 
-        <h3>迪拜 DAMAC 房地产｜巨量引擎整合营销</h3>
-        <p>负责抖音生态增长策略，整合信息流与内容助推，构建从公域曝光到私域沉淀的转化路径；通过人群画像、多维定向与 A/B 测试持续优化，降低线索成本并提升咨询转化率。</p>
+        <h3 class="stack-item">迪拜 DAMAC 房地产｜巨量引擎整合营销</h3>
+        <p class="stack-item">负责抖音生态增长策略，整合信息流与内容助推，构建从公域曝光到私域沉淀的转化路径；通过人群画像、多维定向与 A/B 测试持续优化，降低线索成本并提升咨询转化率。</p>
 
-        <h3>洲际酒店集团｜小红书内容营销与聚光投流</h3>
-        <p>主导内容策略与达人生态建设，形成标准化合作流程；结合聚光投流进行内容加热与精准引流，提升品牌在目标客群中的心智和预订转化。</p>
+        <h3 class="stack-item">洲际酒店集团｜小红书内容营销与聚光投流</h3>
+        <p class="stack-item">主导内容策略与达人生态建设，形成标准化合作流程；结合聚光投流进行内容加热与精准引流，提升品牌在目标客群中的心智和预订转化。</p>
 
-        <h3>法国依云矿泉水｜全渠道媒介与效果采购</h3>
-        <p>负责年度预算规划与执行，整合传统与数字媒体资源；结合行业与竞品分析优化媒介组合和节奏，在保证声量的同时，为电商生意增长持续输血。</p>
+        <h3 class="stack-item">法国依云矿泉水｜全渠道媒介与效果采购</h3>
+        <p class="stack-item">负责年度预算规划与执行，整合传统与数字媒体资源；结合行业与竞品分析优化媒介组合和节奏，在保证声量的同时，为电商生意增长持续输血。</p>
       </section>
 
       <!-- 工作经历 -->
       <section class="section reveal stack">
-        <h2>工作经历</h2>
+        <h2 class="stack-item">工作经历</h2>
 
-        <h3>恒沐（上海）广告有限公司｜媒介主管｜2021.01–2025.12</h3>
-        <ul>
-          <li>制定并执行全渠道媒介策略，覆盖微信、微博、抖音、小红书、信息流、搜索及电商效果平台</li>
-          <li>负责投放节奏、预算分配与效果复盘，建立周度复盘机制，持续优化成本和转化效率</li>
-          <li>拓展并维护达人合作生态，提升内容命中率与投放稳定性</li>
+        <h3 class="stack-item">恒沐（上海）广告有限公司｜媒介主管｜2021.01–2025.12</h3>
+        <ul class="stack-item">
+          <li class="stack-item">制定并执行全渠道媒介策略，覆盖微信、微博、抖音、小红书、信息流、搜索及电商效果平台</li>
+          <li class="stack-item">负责投放节奏、预算分配与效果复盘，建立周度复盘机制，持续优化成本和转化效率</li>
+          <li class="stack-item">拓展并维护达人合作生态，提升内容命中率与投放稳定性</li>
         </ul>
 
-        <hr class="divider">
+        <hr class="divider stack-item">
 
-        <h3>上海悦普网络科技有限公司｜媒介专员｜2020.04–2020.12</h3>
-        <ul>
-          <li>负责社媒达人资源开拓与项目执行，从排期、素材审核到效果确认全流程跟进</li>
-          <li>保障交付与效果达成，提高媒体合作流程透明度与效率</li>
+        <h3 class="stack-item">上海悦普网络科技有限公司｜媒介专员｜2020.04–2020.12</h3>
+        <ul class="stack-item">
+          <li class="stack-item">负责社媒达人资源开拓与项目执行，从排期、素材审核到效果确认全流程跟进</li>
+          <li class="stack-item">保障交付与效果达成，提高媒体合作流程透明度与效率</li>
         </ul>
 
-        <hr class="divider">
+        <hr class="divider stack-item">
 
-        <h3>阳光恒美融信息技术服务（上海）股份有限公司｜媒介｜2018.01–2020.01</h3>
-        <ul>
-          <li>独立开发并运营多平台达人与供应商资源网络，沉淀可复用资源库</li>
-          <li>根据客户需求制定媒介方案，并在预算内完成成本控制与谈判</li>
+        <h3 class="stack-item">阳光恒美融信息技术服务（上海）股份有限公司｜媒介｜2018.01–2020.01</h3>
+        <ul class="stack-item">
+          <li class="stack-item">独立开发并运营多平台达人与供应商资源网络，沉淀可复用资源库</li>
+          <li class="stack-item">根据客户需求制定媒介方案，并在预算内完成成本控制与谈判</li>
         </ul>
       </section>
 
       <!-- Experiments -->
       <section class="section reveal stack">
-        <h2>Experiments｜vibe coding</h2>
-        <p>我用 AI 工具快速搭建页面和小功能，先做出能用的版本，再通过数据和反馈进行迭代。重点不在证明我会写多少代码，而是在证明我能用工具把想法落地、维护并持续升级。</p>
+        <h2 class="stack-item">Experiments｜vibe coding</h2>
+        <p class="stack-item">我用 AI 工具快速搭建页面和小功能，先做出能用的版本，再通过数据和反馈进行迭代。重点不在展示代码量，而在于把想法落地、维护并持续升级。</p>
       </section>
 
       <!-- 联系方式 -->
       <section class="section reveal stack" id="contact">
-        <h2>联系方式</h2>
-        <p>
+        <h2 class="stack-item">联系方式</h2>
+        <p class="stack-item">
           手机：176 2105 8773<br>
           微信：17621058773<br>
           邮箱：17621058773@163.com
@@ -458,16 +482,18 @@
     </main>
   </div>
 
-  <!-- 动效：区块淡入 + 子元素“消息堆叠式”上滑，进入视野时循环触发 -->
+  <!-- 动效：区块淡入 + 子元素“消息堆叠式”上滑，进入视野时可重复触发 -->
   <script>
     (function(){
       const revealSections = document.querySelectorAll('.reveal');
       const stackSections  = document.querySelectorAll('.stack');
 
-      // 给 stack 区块里的元素打上 stack-item
+      // 确保 stack 内所有 stack-item 都被控制（包含 hero 那一块已经手动加了 stack-item）
       stackSections.forEach(sec => {
-        const items = sec.querySelectorAll('h2, .chips, p, h3, ul, li, .divider, .stack-child');
-        items.forEach(el => el.classList.add('stack-item'));
+        const items = sec.querySelectorAll('.stack-item');
+        items.forEach(el => {
+          // 兜底：若有人没加 stack-item，也不会影响已加的元素显示
+        });
       });
 
       const io = new IntersectionObserver((entries)=>{
@@ -480,12 +506,12 @@
             if (target.classList.contains('stack')){
               const items = target.querySelectorAll('.stack-item');
               items.forEach((el, idx) => {
-                el.style.transitionDelay = (0.08 * idx) + 's';
+                el.style.transitionDelay = (0.075 * idx) + 's';
                 el.classList.add('in');
               });
             }
           } else {
-            // 离开视口时把动画状态清掉，再次进入时重新堆叠
+            // 离开视口：清掉状态，下次进入重新堆叠
             target.classList.remove('in');
             if (target.classList.contains('stack')){
               const items = target.querySelectorAll('.stack-item');
@@ -496,7 +522,7 @@
             }
           }
         });
-      },{threshold:0.15});
+      },{threshold:0.14});
 
       revealSections.forEach(el => io.observe(el));
     })();
