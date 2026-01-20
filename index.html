@@ -13,9 +13,7 @@
       --line:rgba(20,20,20,.12);
       --card:#ffffff;
       --shadow: 0 18px 50px rgba(0,0,0,.10);
-      --shadow-soft: 0 12px 28px rgba(0,0,0,.10);
       --radius: 22px;
-      --radius-sm: 16px;
     }
 
     *{box-sizing:border-box}
@@ -29,14 +27,13 @@
       letter-spacing:.1px;
     }
 
-    /* layout */
     .page{
       width:100%;
-      max-width:none;
       margin:0;
       padding:0;
     }
 
+    /* 顶部三列布局 */
     .hero{
       display:grid;
       grid-template-columns: 38vw 1fr 340px;
@@ -46,7 +43,7 @@
       min-height: 560px;
     }
 
-    /* left image */
+    /* 左侧生活照：通过 object-position 把不想要的区域藏掉 */
     .life-wrap{
       position:relative;
       height: 100%;
@@ -60,13 +57,11 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      /* 关键：用 object-position 隐藏你不想要的那一块边缘
-         你如果觉得左边还露出多了，把第一个数调大一点比如 62%  */
       object-position: 58% 50%;
       transform: scale(1.01);
     }
 
-    /* middle card */
+    /* 中间文字区 */
     .mid{
       padding: 56px 28px 40px 28px;
     }
@@ -136,7 +131,7 @@
       border-top:1px solid var(--line);
     }
 
-    /* right avatar area */
+    /* 右侧头像 */
     .avatar-col{
       padding: 40px 34px 40px 0;
       display:flex;
@@ -149,7 +144,6 @@
       height: 300px;
       border-radius: 28px;
       position:relative;
-      /* iOS 控制中心质感 */
       background: rgba(255,255,255,.22);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
@@ -161,24 +155,23 @@
       padding: 14px;
     }
 
-    /* 头像不要白边框：图片本身直接贴到 glass 内 */
     .avatar-img{
       width:100%;
       height:100%;
       object-fit: cover;
       border-radius: 22px;
       filter: blur(10px);
-      opacity: .0;
+      opacity: 0;
       transform: scale(1.01);
-      transition: filter .85s cubic-bezier(.2,.9,.2,1), opacity .85s cubic-bezier(.2,.9,.2,1);
+      transition: filter .85s cubic-bezier(.2,.9,.2,1),
+                  opacity .85s cubic-bezier(.2,.9,.2,1);
     }
-    /* 页面加载触发一次：模糊 -> 清晰 */
     .avatar-img.ready{
       filter: blur(0px);
       opacity: 1;
     }
 
-    /* section */
+    /* 下方内容 */
     .content{
       max-width:none;
       padding: 24px 28px 80px 28px;
@@ -225,10 +218,8 @@
       box-shadow: 0 8px 18px rgba(0,0,0,.06);
     }
 
-    /* “消息堆叠”容器：每个段落会像消息一样依次进来 */
-    .stack{
-      position:relative;
-    }
+    /* 堆叠动效容器 */
+    .stack{ position:relative; }
     .stack .stack-child{
       opacity:0;
       transform: translateY(18px);
@@ -237,19 +228,13 @@
                   transform .55s cubic-bezier(.18,.9,.2,1),
                   filter .55s cubic-bezier(.18,.9,.2,1);
       will-change: opacity, transform, filter;
+      position:relative;
     }
     .stack .stack-child.in{
       opacity:1;
       transform: translateY(0);
       filter: blur(0);
-    }
-
-    /* 轻微“堆叠层次”感：进入时前后段落有一点 z 变化 */
-    .stack .stack-child{
-      position:relative;
-    }
-    .stack .stack-child.in{
-      z-index: 2;
+      z-index:2;
     }
 
     .life-text p{
@@ -259,9 +244,6 @@
       font-weight:650;
     }
 
-    .life-text strong{font-weight:900}
-
-    /* responsive */
     @media (max-width: 1180px){
       .hero{
         grid-template-columns: 44vw 1fr;
@@ -304,29 +286,27 @@
 <body>
   <div class="page">
 
+    <!-- 顶部：左图 + 名字 + 头像 -->
     <section class="hero">
-      <!-- Left image -->
+      <!-- 左侧生活照 -->
       <div class="life-wrap">
-        <!-- 你仓库里的生活照文件名：life.png -->
         <img src="life.png" alt="生活照"/>
       </div>
 
-      <!-- Middle -->
+      <!-- 中间文字 -->
       <div class="mid">
         <div class="stack" id="heroStack">
           <h1 class="name stack-child">黄文艳</h1>
 
           <p class="tagline stack-child">市场与增长方向｜8年整合营销与媒介经验</p>
-
           <p class="tagline sub stack-child">以0代码背景为起点，正在用 AI 与 Vibe Coding 主动探索新的创造方式</p>
 
           <div class="actions stack-child">
-            <!-- 你的简历 PDF 放到仓库里，命名为 resume.pdf -->
             <a class="btn primary" href="resume.pdf" download>下载简历 PDF</a>
             <button class="btn ghost" type="button" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">联系方式</button>
           </div>
 
-          <div class="meta stack-child" style="margin-top:18px;">
+          <div class="meta stack-child">
             城市：上海　方向：市场、增长、内容、媒介
           </div>
         </div>
@@ -334,15 +314,15 @@
         <div class="divider"></div>
       </div>
 
-      <!-- Right avatar -->
+      <!-- 右侧头像 -->
       <div class="avatar-col">
         <div class="avatar-glass" aria-label="头像">
-          <!-- 你仓库里的头像文件名：avatar.jpg -->
           <img class="avatar-img" id="avatarImg" src="avatar.jpg" alt="头像"/>
         </div>
       </div>
     </section>
 
+    <!-- 下方内容 -->
     <section class="content">
       <div class="section">
         <h2 class="stack" id="lifeTitleStack">
@@ -350,6 +330,7 @@
         </h2>
         <div class="rule"></div>
 
+        <!-- 四个标签：按你要求改成“快速理解” -->
         <div class="chips stack" id="chipStack">
           <span class="chip stack-child">👀 好奇心强</span>
           <span class="chip stack-child">⚡ 主动推进</span>
@@ -357,6 +338,7 @@
           <span class="chip stack-child">🤝 合作高效</span>
         </div>
 
+        <!-- 这里是你给的整段新文案，逐字照抄 -->
         <div class="life-text stack" id="lifeStack">
           <p class="stack-child">🌍 对世界保持好奇心，热衷于主动出发，擅长在不确定中把事情推进到结果。</p>
           <p class="stack-child">⚡ 通常愿意先迈出第一步，亲和力强、行动力足，面对陌生关系和新场景，需要较少热身时间。</p>
@@ -376,7 +358,7 @@
 
   <script>
     (function () {
-      // 头像：加载后一次性“模糊->清晰”
+      // 头像：一次性模糊 -> 清晰
       const avatar = document.getElementById('avatarImg');
       if (avatar) {
         const onReady = () => requestAnimationFrame(() => avatar.classList.add('ready'));
@@ -384,21 +366,18 @@
         else avatar.addEventListener('load', onReady, { once: true });
       }
 
-      // “消息堆叠”动画：让 .stack 里的 .stack-child 依次进场
+      // 堆叠动画
       function runStack(el, { stagger = 70, reset = true } = {}) {
         if (!el) return;
         const children = Array.from(el.querySelectorAll('.stack-child'));
         if (!children.length) return;
 
-        if (reset) {
-          children.forEach(c => c.classList.remove('in'));
-        }
+        if (reset) children.forEach(c => c.classList.remove('in'));
         children.forEach((c, i) => {
           setTimeout(() => c.classList.add('in'), i * stagger);
         });
       }
 
-      // 观察滚动：进入视野就堆叠一次
       const stacks = [
         document.getElementById('heroStack'),
         document.getElementById('lifeTitleStack'),
@@ -407,17 +386,13 @@
       ].filter(Boolean);
 
       const seen = new WeakMap();
-
       const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
           const el = entry.target;
-
-          // 每次进入视野都触发一次“堆叠”，但节制一点，避免闪烁
           const last = seen.get(el) || 0;
           const now = Date.now();
           if (now - last < 1200) return;
-
           seen.set(el, now);
           runStack(el, { stagger: 85, reset: true });
         });
@@ -425,24 +400,20 @@
 
       stacks.forEach(el => io.observe(el));
 
-      // 初始进场：顶部区域立即堆叠一次
+      // 初始进场
       runStack(document.getElementById('heroStack'), { stagger: 90, reset: true });
       runStack(document.getElementById('lifeTitleStack'), { stagger: 90, reset: true });
       runStack(document.getElementById('chipStack'), { stagger: 80, reset: true });
       runStack(document.getElementById('lifeStack'), { stagger: 95, reset: true });
 
-      // 轻循环：每隔一段时间让“生活段落”再堆叠一次，营造你要的循环堆叠感
-      // 为了不打扰阅读，这里做了较长间隔，并且只对 lifeStack 生效
+      // 轻循环：只对“关于我·生活”做周期堆叠
       setInterval(() => {
         const life = document.getElementById('lifeStack');
         if (!life) return;
-
-        // 只有当 lifeStack 在视野中时才循环
         const rect = life.getBoundingClientRect();
         const inView = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
         if (inView) runStack(life, { stagger: 85, reset: true });
       }, 15000);
-
     })();
   </script>
 </body>
