@@ -11,9 +11,7 @@
       --text:#141414;
       --muted:#5a5a5a;
       --line:rgba(20,20,20,.12);
-      --card:#ffffff;
       --shadow: 0 18px 50px rgba(0,0,0,.10);
-      --radius: 22px;
     }
 
     *{box-sizing:border-box}
@@ -27,49 +25,48 @@
       letter-spacing:.1px;
     }
 
-    .page{
-      width:100%;
-      margin:0;
-      padding:0;
-    }
-
-    /* 顶部三列布局：左图 / 中间文字 / 右侧头像 */
-    .hero{
+    /* 整体：左侧整列长竖图 + 右侧内容 */
+    .layout{
       display:grid;
-      grid-template-columns: 38vw 1fr 340px;
-      gap:28px;
-      align-items:stretch;
-      padding:0;
-      min-height: 560px;
+      grid-template-columns: 40vw 1fr;
+      gap:0;
+      width:100%;
+      min-height:100vh;
     }
 
-    /* 左侧生活照：通过 object-position 把左边花圈藏掉一部分 */
-    .life-wrap{
-      position:relative;
-      height: 100%;
-      min-height: 560px;
+    /* 左侧整列长竖图：固定在左边、随页面滚动也一直在 */
+    .left-rail{
+      position:sticky;
+      top:0;
+      height:100vh;
       overflow:hidden;
       background:#ddd;
     }
-    .life-wrap img{
-      position:absolute;
-      inset:0;
+    .left-rail img{
       width:100%;
       height:100%;
       object-fit:cover;
-      /* 想多裁一点左边就把 58% 调大一点，比如 62% */
-      object-position: 58% 50%;
-      transform: scale(1.01);
+      /* 想把左侧花圈那部分藏掉：把 X 调大一点 */
+      object-position: 60% 50%;
+      transform: scale(1.02);
     }
 
-    /* 中间文字区 */
-    .mid{
-      padding: 56px 28px 40px 28px;
+    /* 右侧内容区域 */
+    .right{
+      padding: 56px 56px 90px 56px;
+    }
+
+    /* 顶部区域：文字 + 头像 */
+    .top{
+      display:grid;
+      grid-template-columns: 1fr 340px;
+      gap:40px;
+      align-items:start;
     }
 
     .name{
-      font-size:48px;
-      font-weight:800;
+      font-size:52px;
+      font-weight:850;
       margin:0 0 10px 0;
       letter-spacing:.2px;
     }
@@ -78,13 +75,13 @@
       margin:0;
       font-size:18px;
       color:var(--muted);
-      font-weight:520;
+      font-weight:560;
     }
     .tagline.sub{
       margin-top:6px;
       font-size:18px;
       color:var(--muted);
-      font-weight:520;
+      font-weight:560;
     }
 
     .actions{
@@ -100,11 +97,15 @@
       cursor:pointer;
       padding:12px 18px;
       border-radius:14px;
-      font-weight:700;
+      font-weight:750;
       font-size:14px;
       letter-spacing:.2px;
       transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
       user-select:none;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
     }
     .btn:active{transform:translateY(1px)}
     .btn.primary{
@@ -128,40 +129,38 @@
     }
 
     .divider{
-      margin-top:34px;
+      margin: 34px 0 0 0;
       border-top:1px solid var(--line);
     }
 
-    /* 右侧头像 */
-    .avatar-col{
-      padding: 40px 34px 40px 0;
+    /* 头像：长方形，不裁成方形，不要边框 */
+    .avatar-area{
       display:flex;
-      align-items:flex-start;
       justify-content:flex-end;
     }
 
-    .avatar-glass{
-      width: 300px;
-      height: 300px;
-      border-radius: 28px;
-      position:relative;
-      background: rgba(255,255,255,.24);
-      border:1px solid rgba(255,255,255,.55);
+    /* 背后玻璃卡片：很淡，像 iOS 控制中心那种 */
+    .glass{
+      width: 320px;
+      height: 420px;
+      border-radius: 26px;
+      background: rgba(255,255,255,.18);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       box-shadow: var(--shadow);
+      position:relative;
       overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 14px;
+      padding: 0; /* 不要内边框 */
     }
 
     .avatar-img{
       width:100%;
       height:100%;
       object-fit: cover;
-      border-radius: 22px;
+      /* 这里关键：不做圆角边框，只做图片本身圆角 */
+      border-radius: 26px;
+
+      /* 一次性：模糊->清晰 */
       filter: blur(10px);
       opacity: 0;
       transform: scale(1.01);
@@ -173,21 +172,16 @@
       opacity: 1;
     }
 
-    /* 下方内容 */
-    .content{
-      max-width:none;
-      padding: 24px 28px 80px 28px;
-    }
-
+    /* 内容区 */
     .section{
       max-width: 980px;
-      margin: 0 auto;
-      padding: 0 0 34px 0;
+      margin: 0;
+      padding: 0;
     }
 
     .section h2{
-      margin: 26px 0 12px 0;
-      font-size:30px;
+      margin: 36px 0 12px 0;
+      font-size:32px;
       font-weight:850;
       letter-spacing:.2px;
     }
@@ -220,17 +214,15 @@
       box-shadow: 0 8px 18px rgba(0,0,0,.06);
     }
 
-    /* 堆叠动效：默认就可见，只是轻微上浮一点 */
-    .stack{ position:relative; }
-    .stack .stack-child{
-      opacity:1;
-      transform: translateY(0);
-      filter: none;
+    /* “消息堆叠感”：滚动进入视口时，每段文字做一次上滑堆叠 */
+    .stack-child{
+      opacity: 1;            /* 永远可见，避免再“整段消失” */
+      transform: translateY(14px);
       transition: transform .55s cubic-bezier(.18,.9,.2,1);
-      position:relative;
+      will-change: transform;
     }
-    .stack .stack-child.in{
-      transform: translateY(-4px);
+    .stack-child.show{
+      transform: translateY(0);
     }
 
     .life-text p{
@@ -240,60 +232,41 @@
       font-weight:650;
     }
 
+    /* 响应式 */
     @media (max-width: 1180px){
-      .hero{
-        grid-template-columns: 44vw 1fr;
-      }
-      .avatar-col{
-        grid-column: 2 / 3;
-        justify-content:flex-start;
-        padding-right: 0;
-      }
-      .avatar-glass{
-        width: 260px;
-        height: 260px;
-      }
+      .layout{ grid-template-columns: 44vw 1fr; }
+      .right{ padding: 44px 34px 80px 34px; }
+      .top{ grid-template-columns: 1fr 300px; gap:28px; }
+      .glass{ width: 290px; height: 380px; }
     }
 
     @media (max-width: 860px){
-      .hero{
-        grid-template-columns: 1fr;
+      .layout{ grid-template-columns: 1fr; }
+      .left-rail{
+        position:relative;
+        height: 56vh;
       }
-      .life-wrap{
-        min-height: 520px;
-      }
-      .mid{
-        padding: 28px 20px 18px 20px;
-      }
-      .avatar-col{
-        padding: 8px 20px 18px 20px;
-        justify-content:flex-start;
-      }
-      .content{
-        padding: 10px 20px 70px 20px;
-      }
-      .section{
-        max-width: 100%;
-      }
+      .right{ padding: 22px 18px 70px 18px; }
+      .top{ grid-template-columns: 1fr; }
+      .avatar-area{ justify-content:flex-start; margin-top:14px; }
+      .glass{ width: 260px; height: 330px; }
+      .name{ font-size:44px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="page">
+  <div class="layout">
+    <!-- 左侧整列长竖图 -->
+    <aside class="left-rail" aria-label="生活照">
+      <img src="life.png" alt="生活照"/>
+    </aside>
 
-    <!-- 顶部：左图 / 中间文案 / 右侧头像 -->
-    <section class="hero">
-      <!-- 左侧生活照 -->
-      <div class="life-wrap">
-        <img src="life.png" alt="生活照"/>
-      </div>
-
-      <!-- 中间文案 -->
-      <div class="mid">
-        <div class="stack" id="heroStack">
+    <!-- 右侧内容 -->
+    <main class="right">
+      <section class="top">
+        <div>
           <h1 class="name stack-child">黄文艳</h1>
-
           <p class="tagline stack-child">市场与增长方向｜8年整合营销与媒介经验</p>
           <p class="tagline sub stack-child">以0代码背景为起点，正在用 AI 与 Vibe Coding 主动探索新的创造方式</p>
 
@@ -305,37 +278,30 @@
           <div class="meta stack-child">
             城市：上海　方向：市场、增长、内容、媒介
           </div>
+
+          <div class="divider"></div>
         </div>
 
-        <div class="divider"></div>
-      </div>
-
-      <!-- 右侧头像 -->
-      <div class="avatar-col">
-        <div class="avatar-glass" aria-label="头像">
-          <img class="avatar-img" id="avatarImg" src="avatar.jpg" alt="头像"/>
+        <!-- 右侧头像：长方形，无边框 -->
+        <div class="avatar-area">
+          <div class="glass" aria-label="头像玻璃卡片">
+            <img class="avatar-img" id="avatarImg" src="avatar.jpg" alt="头像"/>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 下方内容：关于我 · 生活 -->
-    <section class="content">
-      <div class="section">
-        <h2 class="stack" id="lifeTitleStack">
-          <span class="stack-child">关于我 · 生活</span>
-        </h2>
+      <section class="section">
+        <h2 class="stack-child">关于我 · 生活</h2>
         <div class="rule"></div>
 
-        <!-- 标签：按你要求改成“快速理解” -->
-        <div class="chips stack" id="chipStack">
+        <div class="chips">
           <span class="chip stack-child">👀 好奇心强</span>
           <span class="chip stack-child">⚡ 主动推进</span>
           <span class="chip stack-child">🧠 快速理解</span>
           <span class="chip stack-child">🤝 合作高效</span>
         </div>
 
-        <!-- 正文：完全用你给的文本 -->
-        <div class="life-text stack" id="lifeStack">
+        <div class="life-text" id="lifeText">
           <p class="stack-child">🌍 对世界保持好奇心，热衷于主动出发，擅长在不确定中把事情推进到结果。</p>
           <p class="stack-child">⚡ 通常愿意先迈出第一步，亲和力强、行动力足，面对陌生关系和新场景，需要较少热身时间。</p>
           <p class="stack-child">🌠 我的业余爱好广泛，从旅游阅读、健身运动、到今年持续尝试的Vibe Coding新工具学习。对我来说，兴趣是一种用来保持输入、训练高精力的方式。</p>
@@ -345,11 +311,9 @@
           <p class="stack-child">📖 我始终相信，真正有价值的能力，来自终身学习，这会让人在复杂环境里也能保持秩序感。</p>
         </div>
 
-        <!-- 联系方式锚点（后面你要再加内容可以接着写） -->
-        <div id="contact" style="height:1px;"></div>
-      </div>
-    </section>
-
+        <div id="contact" style="margin-top:30px;"></div>
+      </section>
+    </main>
   </div>
 
   <script>
@@ -362,19 +326,34 @@
         else avatar.addEventListener('load', onReady, { once: true });
       }
 
-      // 简化版“堆叠”：只做轻微上浮，不再控制透明度，保证文字始终可见
-      function runStack(el, stagger) {
-        if (!el) return;
-        const children = Array.from(el.querySelectorAll('.stack-child'));
-        children.forEach((c, i) => {
-          setTimeout(() => c.classList.add('in'), i * stagger);
-        });
-      }
+      // “消息堆叠感”：进入视口时依次 show（永远不改 opacity，避免消失）
+      const items = Array.from(document.querySelectorAll('.stack-child'));
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          const el = e.target;
 
-      runStack(document.getElementById('heroStack'), 90);
-      runStack(document.getElementById('lifeTitleStack'), 90);
-      runStack(document.getElementById('chipStack'), 80);
-      runStack(document.getElementById('lifeStack'), 95);
+          // 只触发一次
+          if (el.dataset.shown === "1") return;
+          el.dataset.shown = "1";
+
+          // 让同一块内容有点“堆叠节奏”
+          const group = el.closest('.chips') || el.closest('#lifeText') || el.closest('.top') || el.closest('.section') || document.body;
+          const groupItems = Array.from(group.querySelectorAll('.stack-child')).filter(x => x.dataset.shown !== "1" || x === el);
+
+          const baseIndex = Math.max(0, groupItems.indexOf(el));
+          setTimeout(() => el.classList.add('show'), baseIndex * 80);
+        });
+      }, { threshold: 0.12 });
+
+      items.forEach(el => io.observe(el));
+
+      // 首屏：立即触发一波，让顶部看起来就有堆叠感
+      const firstWave = items.slice(0, 8);
+      firstWave.forEach((el, i) => {
+        el.dataset.shown = "1";
+        setTimeout(() => el.classList.add('show'), i * 85);
+      });
     })();
   </script>
 </body>
