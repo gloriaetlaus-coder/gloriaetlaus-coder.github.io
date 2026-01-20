@@ -8,36 +8,40 @@
   <style>
     :root{
       --bg:#f4f5f8;
-      --text:#222;
+      --text:#1f1f1f;
       --muted:#555;
       --card:#ffffff;
       --line:#e4e5ea;
       --shadow:0 10px 30px rgba(0,0,0,0.06);
       --radius:18px;
+      --maxText: 860px;
     }
 
-    *{ box-sizing:border-box; }
+    *{ box-sizing:border-box; margin:0; padding:0; }
 
     body{
-      margin:0;
       font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
       background:var(--bg);
       color:var(--text);
-      line-height:1.8;
+      line-height:1.85;
+      font-size:18px;
     }
 
+    /* 全屏结构 */
     .layout{
       width:100vw;
-      max-width:none;
       margin:0;
       padding:0;
       display:flex;
-      gap:0;
       align-items:flex-start;
+      gap:0;
     }
 
+    /* 左侧生活照（已裁掉红框位置） */
     .left{
-      flex:0 0 38vw;
+      flex:0 0 34vw;
+      max-width:520px;
+      min-width:360px;
       height:100vh;
       position:sticky;
       top:0;
@@ -49,63 +53,62 @@
       width:100%;
       height:100%;
       object-fit:cover;
+      object-position:60% center; /* ← 关键：向右偏移隐藏红框区域 */
       display:block;
+      filter:saturate(1.02) contrast(1.02);
     }
 
+    /* 右侧内容区 */
     .right{
       flex:1 1 auto;
       background:var(--card);
       min-height:100vh;
-      padding:36px 56px 56px;
+      padding:44px 64px 64px;
     }
 
+    /* 头部结构：文字 + 蓝框头像 */
     .hero{
-      padding-bottom:22px;
       border-bottom:1px solid var(--line);
-      margin-bottom:28px;
+      padding-bottom:24px;
+      margin-bottom:30px;
     }
 
-    .hero-main{
-      display:flex;
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1fr 260px;
+      gap:20px;
       align-items:stretch;
-      gap:8px;
-    }
-
-    .hero-text{
-      flex:1 1 auto;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
     }
 
     h1{
-      font-size:36px;
+      font-size:40px;
       margin:0;
+      letter-spacing:0.2px;
     }
 
     .tagline{
-      font-size:16px;
+      margin-top:12px;
       color:var(--muted);
-      margin:0;
+      font-size:17px;
     }
 
     .actions{
+      margin-top:16px;
       display:flex;
-      gap:10px;
-      margin-top:4px;
+      gap:12px;
       flex-wrap:wrap;
     }
 
     .btn{
-      padding:10px 14px;
-      border-radius:12px;
+      padding:12px 16px;
+      border-radius:14px;
       border:1px solid var(--line);
       background:#fff;
-      color:#222;
+      font-size:15px;
+      color:var(--text);
       text-decoration:none;
-      font-size:14px;
       cursor:pointer;
-      transition:all .1s ease;
+      transition:all .12s ease;
     }
 
     .btn.primary{
@@ -115,133 +118,256 @@
     }
 
     .btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 6px 16px rgba(0,0,0,0.12);
+      transform:translateY(-2px);
+      box-shadow:0 10px 22px rgba(0,0,0,0.12);
     }
 
     .meta{
+      margin-top:12px;
       display:flex;
       gap:16px;
       flex-wrap:wrap;
-      font-size:14px;
       color:var(--muted);
+      font-size:15px;
+    }
+
+    /* 蓝框头像位置 */
+    .avatarBox{
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:#fff;
+      padding:14px;
+      box-shadow:0 10px 26px rgba(0,0,0,0.10);
+      min-height:190px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
     .avatar{
-      width:160px;
-      border-radius:22px;
+      width:100%;
+      height:100%;
+      border-radius:18px;
       object-fit:cover;
-      border:1px solid var(--line);
-      box-shadow:0 10px 24px rgba(0,0,0,0.12);
-      align-self:stretch;
+      max-height:260px;
+      animation:breathe 3.6s ease-in-out infinite;
     }
 
+    @keyframes breathe{
+      0%{ transform:scale(1); }
+      50%{ transform:scale(1.015); }
+      100%{ transform:scale(1); }
+    }
+
+    /* 内容排版 */
     .section{
-      margin-top:36px;
-      max-width:820px;
+      margin-top:40px;
+      max-width:var(--maxText);
     }
 
     h2{
-      font-size:22px;
-      margin:0 0 16px;
-      padding-bottom:10px;
+      font-size:24px;
+      padding-bottom:12px;
+      margin-bottom:18px;
       border-bottom:1px solid var(--line);
     }
 
-    p{
-      margin:12px 0;
-      color:#262626;
-      font-size:16px;
+    h3{ font-size:18px; margin:18px 0 10px; }
+
+    p{ margin:12px 0; }
+
+    ul{ margin:12px 0 0; padding-left:20px; }
+    li{ margin:10px 0; }
+
+    /* 标签 chips */
+    .chips{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
-    ul{
-      margin:12px 0 0;
-      padding-left:18px;
+    .chip{
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:10px 12px;
+      font-size:15px;
+      background:#fff;
     }
 
-    li{
-      margin:8px 0;
+    .divider{
+      margin:24px 0;
+      border:none;
+      border-top:1px dashed #ddd;
     }
 
     footer{
-      margin-top:60px;
-      font-size:13px;
-      color:#777;
-      border-top:1px solid var(--line);
+      margin-top:70px;
       padding-top:18px;
+      border-top:1px solid var(--line);
+      color:#777;
+      font-size:13px;
     }
 
-    @media(max-width:1000px){
-      .layout{
-        flex-direction:column;
+    /* 克制滚动淡入动效 */
+    .reveal{
+      opacity:0;
+      transform:translateY(10px);
+      transition:opacity .55s ease, transform .55s ease;
+    }
+
+    .reveal.in{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .reveal{ opacity:1 !important; transform:none !important; }
+      .avatar{ animation:none !important; }
+      .btn{ transition:none !important; }
+    }
+
+    /* 响应式 */
+    @media (max-width:1100px){
+      body{ font-size:17px; }
+      .left{ flex:0 0 42vw; }
+      .right{ padding:34px 22px 46px; }
+      .hero-grid{
+        grid-template-columns:1fr 220px;
       }
-      .left{
-        width:100%;
-        height:360px;
-        position:relative;
-      }
-      .right{
-        padding:28px 20px 40px;
-      }
-      .hero-main{
-        flex-direction:row;
-      }
-      .avatar{
-        width:120px;
-      }
+      h1{ font-size:36px; }
+    }
+
+    @media (max-width:900px){
+      .layout{ flex-direction:column; }
+      .left{ width:100%; height:360px; position:relative; }
+      .right{ padding:26px 16px 40px; }
+      .hero-grid{ grid-template-columns:1fr; }
+      .avatarBox{ max-width:320px; margin-top:20px; }
     }
   </style>
 </head>
 
 <body>
   <div class="layout">
+
+    <!-- 左侧生活照（代码自动裁掉红框） -->
     <aside class="left">
-      <img src="life.jpg" alt="生活照">
+      <img src="life.jpg">
     </aside>
 
     <main class="right">
-      <header class="hero">
-        <div class="hero-main">
-          <div class="hero-text">
+
+      <!-- 顶部区域 -->
+      <header class="hero reveal">
+        <div class="hero-grid">
+
+          <div>
             <h1>黄文艳</h1>
             <p class="tagline">市场与增长方向｜8年整合营销与媒介经验｜正在用 AI 与 vibe coding 做个人实验</p>
+
             <div class="actions">
               <a class="btn primary" href="resume.pdf" download>下载简历 PDF</a>
               <a class="btn" href="#contact">联系方式</a>
             </div>
+
             <div class="meta">
               <span>城市：上海</span>
               <span>方向：市场、增长、内容、媒介</span>
             </div>
           </div>
-          <img class="avatar" src="avatar.jpg" alt="头像">
+
+          <!-- 蓝框头像 -->
+          <div class="avatarBox">
+            <img class="avatar" src="avatar.jpg">
+          </div>
+
         </div>
       </header>
 
-      <section class="section">
+      <!-- 关于我 · 生活 -->
+      <section class="section reveal">
         <h2>关于我 · 生活</h2>
+
+        <div class="chips">
+          <span class="chip">👀 好奇心强</span>
+          <span class="chip">⚡ 主动推进</span>
+          <span class="chip">🧠 快速理解场景</span>
+          <span class="chip">🤝 合作舒服</span>
+        </div>
+
         <p>👀 <strong>对世界保持好奇</strong>，喜欢主动出发，也擅长在不确定中把事情推进到结果。</p>
-        <p>✨ 我通常愿意先迈出第一步，亲和力强、行动力也很足，面对陌生关系和新场景，很少需要热身时间。</p>
-        <p>🌍 我的兴趣跨度很大，从旅游、阅读、各类运动，到今年持续尝试的 <strong>Vibe Coding</strong> 和新工具学习。对我来说，兴趣不是用来堆清单的，而是用来保持输入、训练高能量和判断力的方式。</p>
-        <p>🧠 我习惯在不同经历中快速理解人、识别场景，并找到一种<strong>更省力但更有效的协作方式</strong>。</p>
-        <p>🧩 生活里我偏 <strong>ENFP</strong>，不怕陌生，和不同背景的人相处都很自然；但一旦进入工作状态，我会明显切换到冷静、理性和目标导向的模式，把事情拆清楚，用自己的节奏循序完成。</p>
-        <p>🤝 很多和我共事过的人，对我的正面评价往往集中在两点：<strong>做事靠谱</strong>，以及<strong>合作舒服</strong>。</p>
-        <p>📊 从 APESK 大五人格特质来看，我的开放性和责任感较高，既愿意尝试新事物，也能在复杂环境里保持秩序感和执行力，在关键节点承担压力、推动结果。</p>
-        <p>🚀 我始终相信，真正有价值的能力，来自终身学习和持续更新。我会不断设定目标，通过实践和复盘，让自己走得更远。</p>
+        <p>⚡ 我通常愿意先迈出第一步，亲和力强、行动力也足，面对陌生关系和新场景很少需要热身。</p>
+        <p>🌍 兴趣从旅行、阅读、运动到今年持续尝试的 <strong>Vibe Coding</strong>，兴趣对我来说是保持输入、训练判断力与能量的方式。</p>
+        <p>🧠 我习惯在不同经历中快速理解人和场景，找到<strong>更省力又有效</strong>的协作方式。</p>
+        <p>🧩 生活里偏 <strong>ENFP</strong>，不怕陌生；工作状态则会切换到冷静、理性、目标导向。</p>
+        <p>🤝 与我共事的人常说：<strong>做事靠谱、合作舒服</strong>。</p>
+        <p>🚀 我相信真正有价值的能力来自持续学习和复盘，这让我能在复杂环境里保持秩序感与执行力。</p>
       </section>
 
-      <section class="section">
+      <!-- 关于我 · 职业 -->
+      <section class="section reveal">
         <h2>关于我 · 职业</h2>
-        <p>我有 8 年整合营销与媒介管理经验，长期服务高端快消、酒店旅游、国际房地产等行业，从品牌策略到投放落地全链路跟进，习惯把宏观目标拆解为可验证的行动与指标。</p>
+        <p>拥有 8 年整合营销与媒介经验，长期服务高端快消、酒店旅游、国际房地产等行业，从策略到投放全链路负责，擅长把宏观目标拆解为可验证的行动与指标。</p>
+
         <ul>
-          <li>品牌整合营销与媒介策略规划，覆盖社交、信息流、搜索、电商等渠道</li>
-          <li>KOL、KOC 合作与内容投放，建立可复用的筛选、合作与复盘机制</li>
-          <li>数据监控与 A/B 测试，基于指标管理成本、转化与长期 ROI</li>
-          <li>跨部门项目管理与客户沟通，在多方诉求中推进结果落地</li>
+          <li>整合营销与媒介策略：覆盖社交、信息流、搜索、电商渠道</li>
+          <li>KOL / KOC 内容投放体系：流程化筛选、合作、复盘机制</li>
+          <li>投放策略 + A/B 测试：成本、转化、ROI 管理</li>
+          <li>跨部门项目推进：多方诉求中保持节奏和执行力</li>
         </ul>
       </section>
 
-      <section class="section" id="contact">
+      <!-- 代表项目 -->
+      <section class="section reveal">
+        <h2>代表项目</h2>
+
+        <h3>迪拜 DAMAC｜巨量引擎整合营销</h3>
+        <p>负责抖音生态增长策略，构建从曝光到咨询的完整路径，通过分层定向与 A/B 测试稳定降低线索成本与提升转化。</p>
+
+        <h3>洲际酒店集团｜小红书内容 + 聚光投流</h3>
+        <p>规划内容策略与达人生态，构建标准化投放流程，提高爆文率并推动目标客群的预订转化。</p>
+
+        <h3>法国依云矿泉水｜全渠道媒介与效果采购</h3>
+        <p>负责年度媒介预算分配与执行，整合传统 + 数字媒体资源，为生意增长提供持续稳定的投放支持。</p>
+      </section>
+
+      <!-- 工作经历 -->
+      <section class="section reveal">
+        <h2>工作经历</h2>
+
+        <h3>恒沐广告｜媒介主管｜2021–2025</h3>
+        <ul>
+          <li>负责策略制定、预算节奏与全渠道媒体投放</li>
+          <li>建立周度复盘体系，提升成本与转化稳定性</li>
+          <li>拓展达人资源，提高内容命中率与投放效率</li>
+        </ul>
+
+        <hr class="divider">
+
+        <h3>悦普网络｜媒介专员｜2020</h3>
+        <ul>
+          <li>负责达人排期、素材审核、数据确认全流程</li>
+          <li>提升项目交付效率与合作流转透明度</li>
+        </ul>
+
+        <hr class="divider">
+
+        <h3>阳光恒美融｜媒介｜2018–2020</h3>
+        <ul>
+          <li>搭建多平台达人资源库，沉淀可复用库存</li>
+          <li>根据客户需求制定媒介方案与成本控制</li>
+        </ul>
+      </section>
+
+      <!-- vibe coding -->
+      <section class="section reveal">
+        <h2>Experiments｜vibe coding</h2>
+        <p>通过 AI 工具做轻量的原型与功能，先跑起来再迭代，以最低成本验证方向、保持更新节奏。</p>
+      </section>
+
+      <!-- 联系方式 -->
+      <section class="section reveal" id="contact">
         <h2>联系方式</h2>
         <p>
           手机：176 2105 8773<br>
@@ -253,7 +379,27 @@
       <footer>
         © 2026 Huang Wenyan
       </footer>
+
     </main>
   </div>
+
+  <!-- 滚动淡入逻辑 -->
+  <script>
+    (function(){
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const els = document.querySelectorAll('.reveal');
+      if(prefersReduced){
+        els.forEach(el=>el.classList.add('in'));
+        return;
+      }
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){ e.target.classList.add('in'); }
+        });
+      },{threshold:0.12});
+      els.forEach(el=>io.observe(el));
+    })();
+  </script>
+
 </body>
 </html>
