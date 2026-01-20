@@ -33,7 +33,7 @@
       padding:0;
     }
 
-    /* 顶部三列布局 */
+    /* 顶部三列布局：左图 / 中间文字 / 右侧头像 */
     .hero{
       display:grid;
       grid-template-columns: 38vw 1fr 340px;
@@ -43,7 +43,7 @@
       min-height: 560px;
     }
 
-    /* 左侧生活照：通过 object-position 把不想要的区域藏掉 */
+    /* 左侧生活照：通过 object-position 把左边花圈藏掉一部分 */
     .life-wrap{
       position:relative;
       height: 100%;
@@ -57,6 +57,7 @@
       width:100%;
       height:100%;
       object-fit:cover;
+      /* 想多裁一点左边就把 58% 调大一点，比如 62% */
       object-position: 58% 50%;
       transform: scale(1.01);
     }
@@ -144,7 +145,8 @@
       height: 300px;
       border-radius: 28px;
       position:relative;
-      background: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.24);
+      border:1px solid rgba(255,255,255,.55);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       box-shadow: var(--shadow);
@@ -218,23 +220,17 @@
       box-shadow: 0 8px 18px rgba(0,0,0,.06);
     }
 
-    /* 堆叠动效容器 */
+    /* 堆叠动效：默认就可见，只是轻微上浮一点 */
     .stack{ position:relative; }
     .stack .stack-child{
-      opacity:0;
-      transform: translateY(18px);
-      filter: blur(6px);
-      transition: opacity .55s cubic-bezier(.18,.9,.2,1),
-                  transform .55s cubic-bezier(.18,.9,.2,1),
-                  filter .55s cubic-bezier(.18,.9,.2,1);
-      will-change: opacity, transform, filter;
+      opacity:1;
+      transform: translateY(0);
+      filter: none;
+      transition: transform .55s cubic-bezier(.18,.9,.2,1);
       position:relative;
     }
     .stack .stack-child.in{
-      opacity:1;
-      transform: translateY(0);
-      filter: blur(0);
-      z-index:2;
+      transform: translateY(-4px);
     }
 
     .life-text p{
@@ -286,14 +282,14 @@
 <body>
   <div class="page">
 
-    <!-- 顶部：左图 + 名字 + 头像 -->
+    <!-- 顶部：左图 / 中间文案 / 右侧头像 -->
     <section class="hero">
       <!-- 左侧生活照 -->
       <div class="life-wrap">
         <img src="life.png" alt="生活照"/>
       </div>
 
-      <!-- 中间文字 -->
+      <!-- 中间文案 -->
       <div class="mid">
         <div class="stack" id="heroStack">
           <h1 class="name stack-child">黄文艳</h1>
@@ -322,7 +318,7 @@
       </div>
     </section>
 
-    <!-- 下方内容 -->
+    <!-- 下方内容：关于我 · 生活 -->
     <section class="content">
       <div class="section">
         <h2 class="stack" id="lifeTitleStack">
@@ -330,7 +326,7 @@
         </h2>
         <div class="rule"></div>
 
-        <!-- 四个标签：按你要求改成“快速理解” -->
+        <!-- 标签：按你要求改成“快速理解” -->
         <div class="chips stack" id="chipStack">
           <span class="chip stack-child">👀 好奇心强</span>
           <span class="chip stack-child">⚡ 主动推进</span>
@@ -338,7 +334,7 @@
           <span class="chip stack-child">🤝 合作高效</span>
         </div>
 
-        <!-- 这里是你给的整段新文案，逐字照抄 -->
+        <!-- 正文：完全用你给的文本 -->
         <div class="life-text stack" id="lifeStack">
           <p class="stack-child">🌍 对世界保持好奇心，热衷于主动出发，擅长在不确定中把事情推进到结果。</p>
           <p class="stack-child">⚡ 通常愿意先迈出第一步，亲和力强、行动力足，面对陌生关系和新场景，需要较少热身时间。</p>
@@ -349,7 +345,7 @@
           <p class="stack-child">📖 我始终相信，真正有价值的能力，来自终身学习，这会让人在复杂环境里也能保持秩序感。</p>
         </div>
 
-        <!-- 联系方式锚点 -->
+        <!-- 联系方式锚点（后面你要再加内容可以接着写） -->
         <div id="contact" style="height:1px;"></div>
       </div>
     </section>
@@ -366,54 +362,19 @@
         else avatar.addEventListener('load', onReady, { once: true });
       }
 
-      // 堆叠动画
-      function runStack(el, { stagger = 70, reset = true } = {}) {
+      // 简化版“堆叠”：只做轻微上浮，不再控制透明度，保证文字始终可见
+      function runStack(el, stagger) {
         if (!el) return;
         const children = Array.from(el.querySelectorAll('.stack-child'));
-        if (!children.length) return;
-
-        if (reset) children.forEach(c => c.classList.remove('in'));
         children.forEach((c, i) => {
           setTimeout(() => c.classList.add('in'), i * stagger);
         });
       }
 
-      const stacks = [
-        document.getElementById('heroStack'),
-        document.getElementById('lifeTitleStack'),
-        document.getElementById('chipStack'),
-        document.getElementById('lifeStack')
-      ].filter(Boolean);
-
-      const seen = new WeakMap();
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target;
-          const last = seen.get(el) || 0;
-          const now = Date.now();
-          if (now - last < 1200) return;
-          seen.set(el, now);
-          runStack(el, { stagger: 85, reset: true });
-        });
-      }, { threshold: 0.25 });
-
-      stacks.forEach(el => io.observe(el));
-
-      // 初始进场
-      runStack(document.getElementById('heroStack'), { stagger: 90, reset: true });
-      runStack(document.getElementById('lifeTitleStack'), { stagger: 90, reset: true });
-      runStack(document.getElementById('chipStack'), { stagger: 80, reset: true });
-      runStack(document.getElementById('lifeStack'), { stagger: 95, reset: true });
-
-      // 轻循环：只对“关于我·生活”做周期堆叠
-      setInterval(() => {
-        const life = document.getElementById('lifeStack');
-        if (!life) return;
-        const rect = life.getBoundingClientRect();
-        const inView = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
-        if (inView) runStack(life, { stagger: 85, reset: true });
-      }, 15000);
+      runStack(document.getElementById('heroStack'), 90);
+      runStack(document.getElementById('lifeTitleStack'), 90);
+      runStack(document.getElementById('chipStack'), 80);
+      runStack(document.getElementById('lifeStack'), 95);
     })();
   </script>
 </body>
