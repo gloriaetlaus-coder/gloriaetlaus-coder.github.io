@@ -34,7 +34,7 @@
       gap:0;
     }
 
-    /* 左侧大图：隐藏整块黑框+花圈那边，只保留右侧画面 */
+    /* 左侧大图：只显示右侧人物这边，黑框+花圈都藏掉 */
     .left{
       flex:0 0 34vw;
       max-width:520px;
@@ -50,9 +50,8 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      /* 向右偏+放大，只显示未被你黑框圈起来的那一侧 */
-      object-position:85% center;
-      transform:scale(1.15);
+      object-position:85% center; /* 向右取景 */
+      transform:scale(1.18);      /* 略微放大裁掉左边 */
       transform-origin:center;
       display:block;
       filter:saturate(1.02) contrast(1.02);
@@ -70,7 +69,7 @@
     .hero{
       border-bottom:1px solid var(--line);
       padding-bottom:20px;
-      margin-bottom:28px; /* 收紧与“关于我·生活”的间距 */
+      margin-bottom:28px;
     }
 
     .hero-grid{
@@ -139,7 +138,7 @@
     }
 
     .meta{
-      margin-top:16px; /* 整体往下挪一点 */
+      margin-top:16px;
       display:flex;
       gap:16px;
       flex-wrap:wrap;
@@ -147,41 +146,50 @@
       font-size:15px;
     }
 
-    /* 头像区域：玻璃拟物卡片 + 一次性动画 */
+    /* 头像：去掉白色大边框，改成紧贴头像的玻璃光晕 */
     .avatarBox{
-      position:relative;
       display:flex;
       align-items:center;
-      justify-content:center;
-      padding:20px;
+      justify-content:flex-end;
+    }
+
+    .avatarWrap{
+      position:relative;
+      display:inline-block;
       border-radius:26px;
-      /* 玻璃质感背景 */
-      background:rgba(255,255,255,0.22);
-      border:1px solid rgba(255,255,255,0.6);
-      box-shadow:0 18px 40px rgba(0,0,0,0.22);
+    }
+
+    .avatarWrap::before{
+      content:"";
+      position:absolute;
+      inset:-10px;
+      border-radius:30px;
+      background:rgba(255,255,255,0.18);
+      box-shadow:0 18px 40px rgba(0,0,0,0.25);
       backdrop-filter:blur(22px);
       -webkit-backdrop-filter:blur(22px);
+      z-index:0;
     }
 
     .avatar{
       position:relative;
       z-index:1;
-      width:100%;
-      max-width:210px;
+      width:210px;
+      max-width:100%;
       height:auto;
-      border-radius:22px;
+      border-radius:24px;
       object-fit:cover;
       display:block;
-      /* 一次性加载动画：从模糊变清晰 */
-      filter:blur(8px) brightness(0.96);
+      /* 一次性加载动画：模糊 → 清晰 */
+      filter:blur(7px) brightness(0.96);
       opacity:0;
       transform:translateY(10px) scale(1.04);
-      animation:avatarIntro .8s ease-out forwards;
+      animation:avatarIntro .85s ease-out forwards;
     }
 
     @keyframes avatarIntro{
       0%{
-        filter:blur(8px) brightness(0.96);
+        filter:blur(7px) brightness(0.96);
         opacity:0;
         transform:translateY(10px) scale(1.04);
       }
@@ -237,7 +245,7 @@
 
     li{ margin:10px 0; }
 
-    /* 生活标签 chips：整体更有存在感 */
+    /* 生活标签 chips：更有存在感 */
     .chips{
       margin-top:12px;
       display:flex;
@@ -280,11 +288,11 @@
       font-size:13px;
     }
 
-    /* 容器淡入 */
+    /* 区块整体淡入 */
     .reveal{
       opacity:0;
-      transform:translateY(22px);
-      transition:opacity .6s ease, transform .6s ease;
+      transform:translateY(26px);
+      transition:opacity .6s ease-out, transform .6s ease-out;
       will-change:opacity,transform;
     }
 
@@ -300,8 +308,8 @@
     /* “消息堆叠”式子元素动画：逐条上滑 */
     .stack-item{
       opacity:0;
-      transform:translateY(18px);
-      transition:opacity .45s ease, transform .45s ease;
+      transform:translateY(20px);
+      transition:opacity .45s ease-out, transform .45s ease-out;
       will-change:opacity,transform;
     }
 
@@ -310,35 +318,13 @@
       transform:translateY(0);
     }
 
-    /* 减少动态设置 */
-    @media (prefers-reduced-motion: reduce){
-      .reveal{
-        opacity:1 !important;
-        transform:none !important;
-        transition:none !important;
-      }
-      .stack-item{
-        opacity:1 !important;
-        transform:none !important;
-        transition:none !important;
-      }
-      .avatar{
-        animation:none !important;
-        filter:none !important;
-        opacity:1 !important;
-        transform:none !important;
-      }
-      .btn, .chip{ transition:none !important; }
-      h2::after{ transform:scaleX(1) !important; }
-    }
-
-    /* 响应式 */
     @media (max-width:1100px){
       body{ font-size:17px; }
       .left{ flex:0 0 42vw; }
       .right{ padding:34px 22px 46px; }
       .hero-grid{ grid-template-columns:1fr 220px; }
       h1{ font-size:36px; }
+      .avatar{ width:190px; }
     }
 
     @media (max-width:900px){
@@ -354,18 +340,15 @@
       .avatarBox{
         margin-top:20px;
         justify-content:flex-start;
-        max-width:260px;
       }
-      .avatar{
-        max-width:200px;
-      }
+      .avatar{ width:190px; }
     }
   </style>
 </head>
 
 <body>
   <div class="layout">
-    <!-- 左侧大图：只显示未被黑框圈起来的那部分 -->
+    <!-- 左侧生活照 -->
     <aside class="left">
       <img src="life.jpg" alt="生活照">
     </aside>
@@ -390,9 +373,11 @@
             </div>
           </div>
 
-          <!-- 头像：玻璃卡片 + 一次性模糊过渡 -->
+          <!-- 头像：无大边框，只保留紧贴头像的玻璃光晕 -->
           <div class="avatarBox">
-            <img class="avatar" src="avatar.jpg" alt="头像">
+            <div class="avatarWrap">
+              <img class="avatar" src="avatar.jpg" alt="头像">
+            </div>
           </div>
         </div>
       </header>
@@ -493,29 +478,17 @@
     </main>
   </div>
 
-  <!-- 动效脚本：容器淡入 + 子元素“消息堆叠”式上滑 -->
+  <!-- 动效：区块淡入 + 子元素“消息堆叠式”上滑 -->
   <script>
     (function(){
-      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
       const revealSections = document.querySelectorAll('.reveal');
       const stackSections  = document.querySelectorAll('.stack');
 
-      // 为 stack 区块里的元素打上 stack-item 标签
+      // 给 stack 区块里的元素打上 stack-item
       stackSections.forEach(sec => {
-        const items = sec.querySelectorAll('h2, .chips, p, h3, ul, li');
+        const items = sec.querySelectorAll('h2, .chips, p, h3, ul, li, .divider');
         items.forEach(el => el.classList.add('stack-item'));
       });
-
-      if (prefersReduced){
-        revealSections.forEach(el => el.classList.add('in'));
-        const items = document.querySelectorAll('.stack-item');
-        items.forEach(el => {
-          el.classList.add('in');
-          el.style.transitionDelay = '0s';
-        });
-        return;
-      }
 
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(entry => {
@@ -527,12 +500,15 @@
           if (target.classList.contains('stack')){
             const items = target.querySelectorAll('.stack-item');
             items.forEach((el, idx) => {
-              el.classList.add('in');
-              el.style.transitionDelay = (0.05 * idx) + 's';
+              el.style.transitionDelay = (0.08 * idx) + 's';
+              requestAnimationFrame(()=> el.classList.add('in'));
             });
           }
+
+          // 出现一次就不再反复触发
+          io.unobserve(target);
         });
-      },{threshold:0.16});
+      },{threshold:0.15});
 
       revealSections.forEach(el => io.observe(el));
     })();
