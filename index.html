@@ -6,147 +6,282 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background: #f6f7f9;
-      color: #222;
-      line-height: 1.7;
+    :root{
+      --bg:#f6f7f9;
+      --text:#222;
+      --muted:#555;
+      --card:#ffffff;
+      --line:#e6e7ea;
+      --shadow: 0 10px 30px rgba(0,0,0,0.06);
+      --radius: 18px;
     }
 
-    .container {
-      max-width: 900px;
+    *{ box-sizing: border-box; }
+
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    /* 整体两栏布局 */
+    .layout{
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 60px 24px;
+      padding: 40px 18px;
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
     }
 
-    .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      display: block;
-      margin-bottom: 24px;
+    /* 左侧生活照 */
+    .left{
+      flex: 0 0 360px;
+      position: sticky;
+      top: 24px;
+      height: calc(100vh - 80px);
+      min-height: 560px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: #ddd;
+    }
+    .left img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
     }
 
-    h1 {
+    /* 右侧内容卡片 */
+    .right{
+      flex: 1 1 auto;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 34px 34px 44px;
+      min-width: 0;
+    }
+
+    /* 顶部信息区 */
+    .hero{
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 26px;
+    }
+
+    .nameRow{
+      display:flex;
+      align-items:flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    h1{
       font-size: 36px;
-      margin-bottom: 8px;
+      margin: 0;
+      letter-spacing: 0.2px;
     }
 
-    .tagline {
-      font-size: 18px;
-      color: #555;
-      margin-bottom: 48px;
+    /* “做个人实验”行 + 头像在右侧 */
+    .taglineRow{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
     }
 
-    .section {
-      margin-top: 56px;
+    .tagline{
+      font-size: 16px;
+      color: var(--muted);
+      margin: 0;
     }
 
-    h2 {
-      font-size: 24px;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 8px;
-      margin-bottom: 20px;
+    .avatar{
+      width: 78px;
+      height: 92px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      flex: 0 0 auto;
     }
 
-    h3 {
-      font-size: 18px;
-      margin-top: 24px;
-      margin-bottom: 8px;
+    /* 下载按钮 */
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
     }
 
-    p {
-      margin: 12px 0;
-    }
-
-    footer {
-      margin-top: 80px;
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      text-decoration: none;
       font-size: 14px;
-      color: #777;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .btn.primary{
+      background:#111;
+      color:#fff;
+      border-color:#111;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn:active{ transform: translateY(0px); }
+
+    /* 正文结构 */
+    .section{ margin-top: 34px; }
+    h2{
+      font-size: 22px;
+      margin: 0 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    h3{
+      font-size: 16px;
+      margin: 18px 0 8px;
+    }
+    p{ margin: 10px 0; color: #2a2a2a; }
+    ul{ margin: 10px 0 0; padding-left: 18px; color:#2a2a2a; }
+    li{ margin: 8px 0; }
+
+    .meta{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    footer{
+      margin-top: 50px;
+      color:#777;
+      font-size: 13px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    /* 响应式：手机改为上下结构 */
+    @media (max-width: 980px){
+      .layout{ flex-direction: column; }
+      .left{
+        position: relative;
+        top: 0;
+        width: 100%;
+        flex: 0 0 auto;
+        height: 360px;
+        min-height: 360px;
+      }
+      .right{ padding: 26px 18px 34px; }
+      .avatar{ width: 72px; height: 86px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <img src="avatar.jpg" alt="黄文艳的照片" class="avatar" />
+  <div class="layout">
+    <!-- 左侧生活照：把你的照片命名为 life.jpg 上传 -->
+    <aside class="left">
+      <img src="life.jpg" alt="生活照" />
+    </aside>
 
-    <h1>黄文艳</h1>
-    <div class="tagline">
-      市场与增长方向｜8年整合营销与媒介经验｜正在用 AI 与 vibe coding 做个人实验
-    </div>
+    <!-- 右侧内容 -->
+    <main class="right">
+      <header class="hero">
+        <div class="nameRow">
+          <h1>黄文艳</h1>
+        </div>
 
-    <div class="section">
-      <h2>关于我</h2>
-      <p>
-        拥有8年整合营销与媒介管理经验，长期服务于高端快消、酒店旅游、国际房地产等行业，
-        具备从品牌策略规划到全链路执行落地的完整能力。
-      </p>
-      <p>
-        擅长基于数据洞察制定并优化营销策略，通过跨渠道资源整合与精细化运营，
-        持续提升品牌曝光、用户互动与销售转化。
-      </p>
-      <p>
-        目前开始将 AI 工具与个人表达结合，用 vibe coding 的方式进行个人实验，
-        这个网站本身也是我从 0 开始的记录。
-      </p>
-    </div>
+        <div class="taglineRow">
+          <p class="tagline">市场与增长方向｜8年整合营销与媒介经验｜正在用 AI 与 vibe coding 做个人实验</p>
+          <!-- 头像：把头像命名为 avatar.jpg 上传 -->
+          <img class="avatar" src="avatar.jpg" alt="头像" />
+        </div>
 
-    <div class="section">
-      <h2>核心能力</h2>
-      <p>
-        · 品牌整合营销与媒介策略规划<br>
-        · 社交媒体、信息流、搜索、电商渠道投放<br>
-        · KOL / KOC 生态搭建与内容营销<br>
-        · 数据复盘、A/B 测试与投放 ROI 管理<br>
-        · 跨部门项目管理与客户沟通
-      </p>
-    </div>
+        <div class="actions">
+          <!-- 简历 PDF：把文件命名为 resume.pdf 上传 -->
+          <a class="btn primary" href="resume.pdf" download>下载简历 PDF</a>
+          <a class="btn" href="#contact">联系方式</a>
+        </div>
 
-    <div class="section">
-      <h2>代表项目</h2>
+        <div class="meta">
+          <div>城市：上海</div>
+          <div>方向：市场、增长、内容、媒介</div>
+        </div>
+      </header>
 
-      <h3>法国依云矿泉水｜全渠道媒介 & 效果采购</h3>
-      <p>
-        负责品牌年度千万级预算规划与执行，整合户外、分众及数字媒体资源，
-        在电商效果渠道侧通过策略迭代使综合 ROI 稳定在约 3。
-      </p>
+      <section class="section">
+        <h2>关于我</h2>
+        <p>
+          我有8年整合营销与媒介管理经验，长期服务高端快消、酒店旅游、国际房地产等行业，
+          擅长从策略规划到全链路落地，把品牌目标拆成可执行路径，并用数据复盘推动持续优化。
+        </p>
 
-      <h3>洲际酒店集团｜小红书内容营销与聚光投流</h3>
-      <p>
-        主导多酒店品牌在小红书平台的内容策略与达人合作，爆文率超 70%，
-        结合聚光投流工具有效促进预订转化与品牌声量提升。
-      </p>
+        <p>
+          另外，我很重视真实的人际协作能力。过去我在寻找旅游搭子的过程中反复练习破冰、对齐预期与现场协调。
+          即使旅途中发现性格与节奏不完全匹配，我也会把沟通和执行做到位，让行程顺利收尾。
+          这类经验让我在陌生关系里建立信任、在不确定里推进项目更有把握。
+        </p>
 
-      <h3>迪拜 DAMAC 房地产｜巨量引擎整合营销</h3>
-      <p>
-        负责抖音生态广告增长策略，通过人群定向与 A/B 测试，
-        将线索成本降低约 25%，咨询转化率提升约 15%。
-      </p>
-    </div>
+        <p>
+          我喜欢结识不同圈层的朋友，也保持多元兴趣输入。对我来说，重要的不是把兴趣清单写得很长，
+          而是把好奇心转化为内容洞察、用户理解与协作效率。
+        </p>
+      </section>
 
-    <div class="section">
-      <h2>Experiments｜vibe coding</h2>
-      <p>
-        记录使用 AI 搭建页面、学习工具、不断试错和迭代的过程。
-        这里不是成果展示，而是过程本身。
-      </p>
-    </div>
+      <section class="section">
+        <h2>核心能力</h2>
+        <ul>
+          <li>品牌整合营销与媒介策略规划，覆盖社交、信息流、搜索、电商等渠道</li>
+          <li>KOL、KOC合作与内容投放，建立可复用的筛选、合作与复盘机制</li>
+          <li>数据监控、A/B测试与投放ROI管理，基于指标驱动策略迭代</li>
+          <li>跨部门项目管理与客户沟通，推动资源对齐与按期高质量交付</li>
+        </ul>
+      </section>
 
-    <div class="section">
-      <h2>联系方式</h2>
-      <p>
-        手机：176 2105 8773<br>
-        微信：17621058773<br>
-        邮箱：17621058773@163.com<br>
-        城市：上海
-      </p>
-    </div>
+      <section class="section">
+        <h2>代表项目</h2>
 
-    <footer>
-      © 2026 Huang Wenyan
-    </footer>
-  </div>
-</body>
-</html>
+        <h3>迪拜 DAMAC 房地产｜巨量引擎整合营销</h3>
+        <p>
+          负责抖音生态增长策略，整合信息流与内容助推，构建从公域曝光到私域沉淀的转化链路；
+          通过人群画像、多维定向与A/B测试持续优化，降低线索成本并提升咨询转化率。
+        </p>
+
+        <h3>洲际酒店集团｜小红书内容营销与聚光投流</h3>
+        <p>
+          主导内容策略与达人生态建设，形成标准化合作流程；结合聚光投流进行内容加热与精准引流，
+          促进品牌声量与预订转化。
+        </p>
+
+        <h3>法国依云矿泉水｜全渠道媒介与效果采购</h3>
+        <p>
+          负责年度预算规划与执行，整合传统与数字媒体资源；结合行业竞品分析优化媒介组合与节奏，
+          推动触达效率与生意增长。
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>工作经历</h2>
+
+        <h3>恒沐（上海）广告有限公司｜媒介主管（2021.01–2025.12）</h3>
+        <p>
+          制定并执行全渠道媒介策略，覆盖微信、微博、抖音、小红书、信息流、搜索与电商效果平台；
+          搭建周度复盘机制，持续优化成本与转化效率；拓展并维护达人合作生态，提升品牌心智与互动。
