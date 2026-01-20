@@ -12,8 +12,6 @@
       --muted:#555;
       --card:#ffffff;
       --line:#e4e5ea;
-      --shadow:0 10px 30px rgba(0,0,0,0.06);
-      --radius:18px;
       --maxText: 860px;
     }
 
@@ -28,7 +26,7 @@
       scroll-behavior:smooth;
     }
 
-    /* 整体双栏布局 */
+    /* 整体布局 */
     .layout{
       width:100vw;
       display:flex;
@@ -36,7 +34,7 @@
       gap:0;
     }
 
-    /* 左侧大图：用代码“裁掉”左边红框区域 */
+    /* 左侧大图：隐藏整块黑框+花圈那边，只保留右侧画面 */
     .left{
       flex:0 0 34vw;
       max-width:520px;
@@ -52,16 +50,15 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      /* 向右偏一点 + 略微放大，把左侧红框那一块藏出去 */
-      object-position:72% center;
-      transform:scale(1.08);
+      /* 向右偏+放大，只显示未被你黑框圈起来的那一侧 */
+      object-position:85% center;
+      transform:scale(1.15);
       transform-origin:center;
       display:block;
       filter:saturate(1.02) contrast(1.02);
-      transition:transform .6s ease, object-position .6s ease;
     }
 
-    /* 右侧内容卡片 */
+    /* 右侧内容 */
     .right{
       flex:1 1 auto;
       background:var(--card);
@@ -72,13 +69,13 @@
     /* 顶部区域：文字 + 头像 */
     .hero{
       border-bottom:1px solid var(--line);
-      padding-bottom:24px;
-      margin-bottom:30px;
+      padding-bottom:20px;
+      margin-bottom:28px; /* 收紧与“关于我·生活”的间距 */
     }
 
     .hero-grid{
       display:grid;
-      grid-template-columns: 1fr 250px;
+      grid-template-columns: 1fr 240px;
       gap:24px;
       align-items:stretch;
     }
@@ -142,7 +139,7 @@
     }
 
     .meta{
-      margin-top:12px;
+      margin-top:16px; /* 整体往下挪一点 */
       display:flex;
       gap:16px;
       flex-wrap:wrap;
@@ -150,30 +147,49 @@
       font-size:15px;
     }
 
-    /* 头像容器：只做布局，不再有白边框 */
+    /* 头像区域：玻璃拟物卡片 + 一次性动画 */
     .avatarBox{
+      position:relative;
       display:flex;
       align-items:center;
       justify-content:center;
-      min-height:190px;
+      padding:20px;
+      border-radius:26px;
+      /* 玻璃质感背景 */
+      background:rgba(255,255,255,0.22);
+      border:1px solid rgba(255,255,255,0.6);
+      box-shadow:0 18px 40px rgba(0,0,0,0.22);
+      backdrop-filter:blur(22px);
+      -webkit-backdrop-filter:blur(22px);
     }
 
     .avatar{
+      position:relative;
+      z-index:1;
       width:100%;
       max-width:210px;
       height:auto;
       border-radius:22px;
       object-fit:cover;
-      box-shadow:0 14px 30px rgba(0,0,0,0.18);
-      animation:breathe 3.2s ease-in-out infinite;
-      transform-origin:center;
+      display:block;
+      /* 一次性加载动画：从模糊变清晰 */
+      filter:blur(8px) brightness(0.96);
+      opacity:0;
+      transform:translateY(10px) scale(1.04);
+      animation:avatarIntro .8s ease-out forwards;
     }
 
-    /* 头像轻微“呼吸感” */
-    @keyframes breathe{
-      0%{ transform:translateY(0) scale(1); }
-      50%{ transform:translateY(-4px) scale(1.02); }
-      100%{ transform:translateY(0) scale(1); }
+    @keyframes avatarIntro{
+      0%{
+        filter:blur(8px) brightness(0.96);
+        opacity:0;
+        transform:translateY(10px) scale(1.04);
+      }
+      100%{
+        filter:blur(0) brightness(1);
+        opacity:1;
+        transform:translateY(0) scale(1);
+      }
     }
 
     /* 内容区块 */
@@ -221,15 +237,16 @@
 
     li{ margin:10px 0; }
 
+    /* 生活标签 chips：整体更有存在感 */
     .chips{
-      margin-top:14px;
+      margin-top:12px;
       display:flex;
       gap:10px;
       flex-wrap:wrap;
     }
 
     .chip{
-      border:1px solid var(--line);
+      border:1px solid #d4d4dd;
       border-radius:999px;
       padding:9px 12px;
       font-size:15px;
@@ -237,13 +254,15 @@
       display:inline-flex;
       align-items:center;
       gap:6px;
+      font-weight:600;
+      box-shadow:0 8px 18px rgba(0,0,0,0.06);
       transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
     }
 
     .chip:hover{
       transform:translateY(-2px);
-      box-shadow:0 8px 18px rgba(0,0,0,0.12);
-      border-color:#ccc;
+      box-shadow:0 10px 22px rgba(0,0,0,0.14);
+      border-color:#c4c4d4;
       background:#fafafa;
     }
 
@@ -261,7 +280,7 @@
       font-size:13px;
     }
 
-    /* 更明显的滚动淡入动效 */
+    /* 容器淡入 */
     .reveal{
       opacity:0;
       transform:translateY(22px);
@@ -278,11 +297,37 @@
       transform:scaleX(1);
     }
 
-    /* 减少动态时关掉动画 */
+    /* “消息堆叠”式子元素动画：逐条上滑 */
+    .stack-item{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .45s ease, transform .45s ease;
+      will-change:opacity,transform;
+    }
+
+    .stack-item.in{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* 减少动态设置 */
     @media (prefers-reduced-motion: reduce){
-      .avatar{ animation:none !important; }
-      .left img{ transform:none !important; }
-      .reveal{ opacity:1 !important; transform:none !important; }
+      .reveal{
+        opacity:1 !important;
+        transform:none !important;
+        transition:none !important;
+      }
+      .stack-item{
+        opacity:1 !important;
+        transform:none !important;
+        transition:none !important;
+      }
+      .avatar{
+        animation:none !important;
+        filter:none !important;
+        opacity:1 !important;
+        transform:none !important;
+      }
       .btn, .chip{ transition:none !important; }
       h2::after{ transform:scaleX(1) !important; }
     }
@@ -309,9 +354,10 @@
       .avatarBox{
         margin-top:20px;
         justify-content:flex-start;
+        max-width:260px;
       }
       .avatar{
-        max-width:190px;
+        max-width:200px;
       }
     }
   </style>
@@ -319,20 +365,18 @@
 
 <body>
   <div class="layout">
-    <!-- 左侧生活照：用 object-position + scale 隐藏左边红框区域 -->
+    <!-- 左侧大图：只显示未被黑框圈起来的那部分 -->
     <aside class="left">
       <img src="life.jpg" alt="生活照">
     </aside>
 
     <main class="right">
-      <!-- 顶部区域 -->
+      <!-- 顶部 -->
       <header class="hero reveal">
         <div class="hero-grid">
           <div class="hero-text">
             <h1>黄文艳</h1>
-            <!-- 第一行：职位 + 年限 -->
             <p class="tagline">市场与增长方向｜8年整合营销与媒介经验</p>
-            <!-- 第二行单独一行：正在用 AI 与 vibe coding 做个人实验 -->
             <p class="tagline sub">正在用 AI 与 vibe coding 做个人实验</p>
 
             <div class="actions">
@@ -346,7 +390,7 @@
             </div>
           </div>
 
-          <!-- 头像：去掉白色边框，只保留照片和阴影 -->
+          <!-- 头像：玻璃卡片 + 一次性模糊过渡 -->
           <div class="avatarBox">
             <img class="avatar" src="avatar.jpg" alt="头像">
           </div>
@@ -354,7 +398,7 @@
       </header>
 
       <!-- 关于我 · 生活 -->
-      <section class="section reveal">
+      <section class="section reveal stack">
         <h2>关于我 · 生活</h2>
 
         <div class="chips">
@@ -374,7 +418,7 @@
       </section>
 
       <!-- 关于我 · 职业 -->
-      <section class="section reveal">
+      <section class="section reveal stack">
         <h2>关于我 · 职业</h2>
         <p>我有 8 年整合营销与媒介管理经验，长期服务高端快消、酒店旅游、国际房地产等行业，从品牌策略到投放落地全链路跟进，习惯把宏观目标拆解为可验证的行动与指标。</p>
         <ul>
@@ -386,7 +430,7 @@
       </section>
 
       <!-- 代表项目 -->
-      <section class="section reveal">
+      <section class="section reveal stack">
         <h2>代表项目</h2>
 
         <h3>迪拜 DAMAC 房地产｜巨量引擎整合营销</h3>
@@ -400,7 +444,7 @@
       </section>
 
       <!-- 工作经历 -->
-      <section class="section reveal">
+      <section class="section reveal stack">
         <h2>工作经历</h2>
 
         <h3>恒沐（上海）广告有限公司｜媒介主管｜2021.01–2025.12</h3>
@@ -427,14 +471,14 @@
         </ul>
       </section>
 
-      <!-- vibe coding -->
-      <section class="section reveal">
+      <!-- Experiments -->
+      <section class="section reveal stack">
         <h2>Experiments｜vibe coding</h2>
         <p>我用 AI 工具快速搭建页面和小功能，先做出能用的版本，再通过数据和反馈进行迭代。重点不在证明我会写多少代码，而是在证明我能用工具把想法落地、维护并持续升级。</p>
       </section>
 
       <!-- 联系方式 -->
-      <section class="section reveal" id="contact">
+      <section class="section reveal stack" id="contact">
         <h2>联系方式</h2>
         <p>
           手机：176 2105 8773<br>
@@ -449,36 +493,48 @@
     </main>
   </div>
 
-  <!-- 整体动效逻辑：滚动淡入 + 左图轻微视差 -->
+  <!-- 动效脚本：容器淡入 + 子元素“消息堆叠”式上滑 -->
   <script>
     (function(){
       const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const sections = document.querySelectorAll('.reveal');
-      const leftImg = document.querySelector('.left img');
 
-      if (prefersReduced) {
-        sections.forEach(el => el.classList.add('in'));
+      const revealSections = document.querySelectorAll('.reveal');
+      const stackSections  = document.querySelectorAll('.stack');
+
+      // 为 stack 区块里的元素打上 stack-item 标签
+      stackSections.forEach(sec => {
+        const items = sec.querySelectorAll('h2, .chips, p, h3, ul, li');
+        items.forEach(el => el.classList.add('stack-item'));
+      });
+
+      if (prefersReduced){
+        revealSections.forEach(el => el.classList.add('in'));
+        const items = document.querySelectorAll('.stack-item');
+        items.forEach(el => {
+          el.classList.add('in');
+          el.style.transitionDelay = '0s';
+        });
         return;
       }
 
-      // 区块滚动淡入
       const io = new IntersectionObserver((entries)=>{
-        entries.forEach((e)=>{
-          if(e.isIntersecting){
-            e.target.classList.add('in');
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+
+          const target = entry.target;
+          target.classList.add('in');
+
+          if (target.classList.contains('stack')){
+            const items = target.querySelectorAll('.stack-item');
+            items.forEach((el, idx) => {
+              el.classList.add('in');
+              el.style.transitionDelay = (0.05 * idx) + 's';
+            });
           }
         });
       },{threshold:0.16});
 
-      sections.forEach(el => io.observe(el));
-
-      // 左侧大图轻微视差
-      window.addEventListener('scroll', ()=>{
-        const y = window.scrollY || window.pageYOffset;
-        if(leftImg){
-          leftImg.style.transform = `scale(1.08) translateY(${y * -0.03}px)`;
-        }
-      }, {passive:true});
+      revealSections.forEach(el => io.observe(el));
     })();
   </script>
 </body>
