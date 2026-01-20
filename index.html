@@ -25,19 +25,18 @@
       color:var(--text);
       line-height:1.85;
       font-size:18px;
+      scroll-behavior:smooth;
     }
 
-    /* 全屏结构 */
+    /* 整体双栏布局 */
     .layout{
       width:100vw;
-      margin:0;
-      padding:0;
       display:flex;
       align-items:flex-start;
       gap:0;
     }
 
-    /* 左侧生活照（已裁掉红框位置） */
+    /* 左侧大图：用代码“裁掉”左边红框区域 */
     .left{
       flex:0 0 34vw;
       max-width:520px;
@@ -46,19 +45,23 @@
       position:sticky;
       top:0;
       overflow:hidden;
-      background:#ddd;
+      background:#000;
     }
 
     .left img{
       width:100%;
       height:100%;
       object-fit:cover;
-      object-position:60% center; /* ← 关键：向右偏移隐藏红框区域 */
+      /* 向右偏一点 + 略微放大，把左侧红框那一块藏出去 */
+      object-position:72% center;
+      transform:scale(1.08);
+      transform-origin:center;
       display:block;
       filter:saturate(1.02) contrast(1.02);
+      transition:transform .6s ease, object-position .6s ease;
     }
 
-    /* 右侧内容区 */
+    /* 右侧内容卡片 */
     .right{
       flex:1 1 auto;
       background:var(--card);
@@ -66,7 +69,7 @@
       padding:44px 64px 64px;
     }
 
-    /* 头部结构：文字 + 蓝框头像 */
+    /* 顶部区域：文字 + 头像 */
     .hero{
       border-bottom:1px solid var(--line);
       padding-bottom:24px;
@@ -75,21 +78,31 @@
 
     .hero-grid{
       display:grid;
-      grid-template-columns: 1fr 260px;
-      gap:20px;
+      grid-template-columns: 1fr 250px;
+      gap:24px;
       align-items:stretch;
+    }
+
+    .hero-text{
+      max-width:var(--maxText);
     }
 
     h1{
       font-size:40px;
       margin:0;
       letter-spacing:0.2px;
+      line-height:1.2;
     }
 
     .tagline{
-      margin-top:12px;
+      margin-top:10px;
       color:var(--muted);
       font-size:17px;
+    }
+
+    .tagline.sub{
+      margin-top:4px;
+      font-size:16px;
     }
 
     .actions{
@@ -108,7 +121,8 @@
       color:var(--text);
       text-decoration:none;
       cursor:pointer;
-      transition:all .12s ease;
+      transition:transform .14s ease, box-shadow .14s ease, background .14s ease, border-color .14s ease;
+      user-select:none;
     }
 
     .btn.primary{
@@ -118,8 +132,13 @@
     }
 
     .btn:hover{
-      transform:translateY(-2px);
-      box-shadow:0 10px 22px rgba(0,0,0,0.12);
+      transform:translateY(-2px) scale(1.02);
+      box-shadow:0 10px 22px rgba(0,0,0,0.15);
+    }
+
+    .btn:active{
+      transform:translateY(0) scale(1);
+      box-shadow:none;
     }
 
     .meta{
@@ -131,35 +150,33 @@
       font-size:15px;
     }
 
-    /* 蓝框头像位置 */
+    /* 头像容器：只做布局，不再有白边框 */
     .avatarBox{
-      border:1px solid var(--line);
-      border-radius:22px;
-      background:#fff;
-      padding:14px;
-      box-shadow:0 10px 26px rgba(0,0,0,0.10);
-      min-height:190px;
       display:flex;
       align-items:center;
       justify-content:center;
+      min-height:190px;
     }
 
     .avatar{
       width:100%;
-      height:100%;
-      border-radius:18px;
+      max-width:210px;
+      height:auto;
+      border-radius:22px;
       object-fit:cover;
-      max-height:260px;
-      animation:breathe 3.6s ease-in-out infinite;
+      box-shadow:0 14px 30px rgba(0,0,0,0.18);
+      animation:breathe 3.2s ease-in-out infinite;
+      transform-origin:center;
     }
 
+    /* 头像轻微“呼吸感” */
     @keyframes breathe{
-      0%{ transform:scale(1); }
-      50%{ transform:scale(1.015); }
-      100%{ transform:scale(1); }
+      0%{ transform:translateY(0) scale(1); }
+      50%{ transform:translateY(-4px) scale(1.02); }
+      100%{ transform:translateY(0) scale(1); }
     }
 
-    /* 内容排版 */
+    /* 内容区块 */
     .section{
       margin-top:40px;
       max-width:var(--maxText);
@@ -167,19 +184,43 @@
 
     h2{
       font-size:24px;
+      margin:0 0 18px;
       padding-bottom:12px;
-      margin-bottom:18px;
       border-bottom:1px solid var(--line);
+      position:relative;
+      overflow:hidden;
     }
 
-    h3{ font-size:18px; margin:18px 0 10px; }
+    h2::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:100%;
+      height:2px;
+      background:linear-gradient(90deg,#111,#999);
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform .5s ease;
+    }
 
-    p{ margin:12px 0; }
+    h3{
+      font-size:18px;
+      margin:18px 0 10px;
+    }
 
-    ul{ margin:12px 0 0; padding-left:20px; }
+    p{
+      margin:12px 0;
+      color:#262626;
+    }
+
+    ul{
+      margin:12px 0 0;
+      padding-left:20px;
+    }
+
     li{ margin:10px 0; }
 
-    /* 标签 chips */
     .chips{
       margin-top:14px;
       display:flex;
@@ -190,9 +231,20 @@
     .chip{
       border:1px solid var(--line);
       border-radius:999px;
-      padding:10px 12px;
+      padding:9px 12px;
       font-size:15px;
       background:#fff;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
+    }
+
+    .chip:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 18px rgba(0,0,0,0.12);
+      border-color:#ccc;
+      background:#fafafa;
     }
 
     .divider{
@@ -209,11 +261,12 @@
       font-size:13px;
     }
 
-    /* 克制滚动淡入动效 */
+    /* 更明显的滚动淡入动效 */
     .reveal{
       opacity:0;
-      transform:translateY(10px);
-      transition:opacity .55s ease, transform .55s ease;
+      transform:translateY(22px);
+      transition:opacity .6s ease, transform .6s ease;
+      will-change:opacity,transform;
     }
 
     .reveal.in{
@@ -221,10 +274,17 @@
       transform:translateY(0);
     }
 
-    @media(prefers-reduced-motion:reduce){
-      .reveal{ opacity:1 !important; transform:none !important; }
+    .reveal.in h2::after{
+      transform:scaleX(1);
+    }
+
+    /* 减少动态时关掉动画 */
+    @media (prefers-reduced-motion: reduce){
       .avatar{ animation:none !important; }
-      .btn{ transition:none !important; }
+      .left img{ transform:none !important; }
+      .reveal{ opacity:1 !important; transform:none !important; }
+      .btn, .chip{ transition:none !important; }
+      h2::after{ transform:scaleX(1) !important; }
     }
 
     /* 响应式 */
@@ -232,39 +292,48 @@
       body{ font-size:17px; }
       .left{ flex:0 0 42vw; }
       .right{ padding:34px 22px 46px; }
-      .hero-grid{
-        grid-template-columns:1fr 220px;
-      }
+      .hero-grid{ grid-template-columns:1fr 220px; }
       h1{ font-size:36px; }
     }
 
     @media (max-width:900px){
       .layout{ flex-direction:column; }
-      .left{ width:100%; height:360px; position:relative; }
+      .left{
+        width:100%;
+        height:360px;
+        position:relative;
+        min-width:0;
+      }
       .right{ padding:26px 16px 40px; }
       .hero-grid{ grid-template-columns:1fr; }
-      .avatarBox{ max-width:320px; margin-top:20px; }
+      .avatarBox{
+        margin-top:20px;
+        justify-content:flex-start;
+      }
+      .avatar{
+        max-width:190px;
+      }
     }
   </style>
 </head>
 
 <body>
   <div class="layout">
-
-    <!-- 左侧生活照（代码自动裁掉红框） -->
+    <!-- 左侧生活照：用 object-position + scale 隐藏左边红框区域 -->
     <aside class="left">
-      <img src="life.jpg">
+      <img src="life.jpg" alt="生活照">
     </aside>
 
     <main class="right">
-
       <!-- 顶部区域 -->
       <header class="hero reveal">
         <div class="hero-grid">
-
-          <div>
+          <div class="hero-text">
             <h1>黄文艳</h1>
-            <p class="tagline">市场与增长方向｜8年整合营销与媒介经验｜正在用 AI 与 vibe coding 做个人实验</p>
+            <!-- 第一行：职位 + 年限 -->
+            <p class="tagline">市场与增长方向｜8年整合营销与媒介经验</p>
+            <!-- 第二行单独一行：正在用 AI 与 vibe coding 做个人实验 -->
+            <p class="tagline sub">正在用 AI 与 vibe coding 做个人实验</p>
 
             <div class="actions">
               <a class="btn primary" href="resume.pdf" download>下载简历 PDF</a>
@@ -277,11 +346,10 @@
             </div>
           </div>
 
-          <!-- 蓝框头像 -->
+          <!-- 头像：去掉白色边框，只保留照片和阴影 -->
           <div class="avatarBox">
-            <img class="avatar" src="avatar.jpg">
+            <img class="avatar" src="avatar.jpg" alt="头像">
           </div>
-
         </div>
       </header>
 
@@ -297,24 +365,23 @@
         </div>
 
         <p>👀 <strong>对世界保持好奇</strong>，喜欢主动出发，也擅长在不确定中把事情推进到结果。</p>
-        <p>⚡ 我通常愿意先迈出第一步，亲和力强、行动力也足，面对陌生关系和新场景很少需要热身。</p>
-        <p>🌍 兴趣从旅行、阅读、运动到今年持续尝试的 <strong>Vibe Coding</strong>，兴趣对我来说是保持输入、训练判断力与能量的方式。</p>
-        <p>🧠 我习惯在不同经历中快速理解人和场景，找到<strong>更省力又有效</strong>的协作方式。</p>
-        <p>🧩 生活里偏 <strong>ENFP</strong>，不怕陌生；工作状态则会切换到冷静、理性、目标导向。</p>
-        <p>🤝 与我共事的人常说：<strong>做事靠谱、合作舒服</strong>。</p>
-        <p>🚀 我相信真正有价值的能力来自持续学习和复盘，这让我能在复杂环境里保持秩序感与执行力。</p>
+        <p>⚡ 我通常愿意先迈出第一步，亲和力强、行动力也很足，面对陌生关系和新场景，很少需要热身时间。</p>
+        <p>🌍 我的兴趣跨度很大，从旅游、阅读、各类运动，到今年持续尝试的 <strong>Vibe Coding</strong> 和新工具学习。对我来说，兴趣不是用来堆清单的，而是用来保持输入、训练判断力与能量的方式。</p>
+        <p>🧠 我习惯在不同经历中快速理解人和场景，并找到一种<strong>更省力但更有效的协作方式</strong>。</p>
+        <p>🧩 生活里我偏 <strong>ENFP</strong>，不怕陌生，和不同背景的人相处都很自然；但一旦进入工作状态，我会明显切换到冷静、理性和目标导向的模式，把事情拆清楚，用自己的节奏循序完成。</p>
+        <p>🤝 很多和我共事过的人，对我的正面评价往往集中在两点：<strong>做事靠谱</strong>，以及<strong>合作舒服</strong>。</p>
+        <p>🚀 我始终相信，真正有价值的能力，来自长期学习和持续更新。这让我在复杂环境里也能保持秩序感和执行力。</p>
       </section>
 
       <!-- 关于我 · 职业 -->
       <section class="section reveal">
         <h2>关于我 · 职业</h2>
-        <p>拥有 8 年整合营销与媒介经验，长期服务高端快消、酒店旅游、国际房地产等行业，从策略到投放全链路负责，擅长把宏观目标拆解为可验证的行动与指标。</p>
-
+        <p>我有 8 年整合营销与媒介管理经验，长期服务高端快消、酒店旅游、国际房地产等行业，从品牌策略到投放落地全链路跟进，习惯把宏观目标拆解为可验证的行动与指标。</p>
         <ul>
-          <li>整合营销与媒介策略：覆盖社交、信息流、搜索、电商渠道</li>
-          <li>KOL / KOC 内容投放体系：流程化筛选、合作、复盘机制</li>
-          <li>投放策略 + A/B 测试：成本、转化、ROI 管理</li>
-          <li>跨部门项目推进：多方诉求中保持节奏和执行力</li>
+          <li>品牌整合营销与媒介策略规划，覆盖社交、信息流、搜索、电商等渠道</li>
+          <li>KOL、KOC 内容投放体系：搭建可复用的筛选、合作与复盘机制</li>
+          <li>数据监控与 A/B 测试：在成本、转化与长期 ROI 之间做动态平衡</li>
+          <li>跨部门项目管理与客户沟通：在多方诉求中保持节奏与执行力</li>
         </ul>
       </section>
 
@@ -322,48 +389,48 @@
       <section class="section reveal">
         <h2>代表项目</h2>
 
-        <h3>迪拜 DAMAC｜巨量引擎整合营销</h3>
-        <p>负责抖音生态增长策略，构建从曝光到咨询的完整路径，通过分层定向与 A/B 测试稳定降低线索成本与提升转化。</p>
+        <h3>迪拜 DAMAC 房地产｜巨量引擎整合营销</h3>
+        <p>负责抖音生态增长策略，整合信息流与内容助推，构建从公域曝光到私域沉淀的转化路径；通过人群画像、多维定向与 A/B 测试持续优化，降低线索成本并提升咨询转化率。</p>
 
-        <h3>洲际酒店集团｜小红书内容 + 聚光投流</h3>
-        <p>规划内容策略与达人生态，构建标准化投放流程，提高爆文率并推动目标客群的预订转化。</p>
+        <h3>洲际酒店集团｜小红书内容营销与聚光投流</h3>
+        <p>主导内容策略与达人生态建设，形成标准化合作流程；结合聚光投流进行内容加热与精准引流，提升品牌在目标客群中的心智和预订转化。</p>
 
         <h3>法国依云矿泉水｜全渠道媒介与效果采购</h3>
-        <p>负责年度媒介预算分配与执行，整合传统 + 数字媒体资源，为生意增长提供持续稳定的投放支持。</p>
+        <p>负责年度预算规划与执行，整合传统与数字媒体资源；结合行业与竞品分析优化媒介组合和节奏，在保证声量的同时，为电商生意增长持续输血。</p>
       </section>
 
       <!-- 工作经历 -->
       <section class="section reveal">
         <h2>工作经历</h2>
 
-        <h3>恒沐广告｜媒介主管｜2021–2025</h3>
+        <h3>恒沐（上海）广告有限公司｜媒介主管｜2021.01–2025.12</h3>
         <ul>
-          <li>负责策略制定、预算节奏与全渠道媒体投放</li>
-          <li>建立周度复盘体系，提升成本与转化稳定性</li>
-          <li>拓展达人资源，提高内容命中率与投放效率</li>
+          <li>制定并执行全渠道媒介策略，覆盖微信、微博、抖音、小红书、信息流、搜索及电商效果平台</li>
+          <li>负责投放节奏、预算分配与效果复盘，建立周度复盘机制，持续优化成本和转化效率</li>
+          <li>拓展并维护达人合作生态，提升内容命中率与投放稳定性</li>
         </ul>
 
         <hr class="divider">
 
-        <h3>悦普网络｜媒介专员｜2020</h3>
+        <h3>上海悦普网络科技有限公司｜媒介专员｜2020.04–2020.12</h3>
         <ul>
-          <li>负责达人排期、素材审核、数据确认全流程</li>
-          <li>提升项目交付效率与合作流转透明度</li>
+          <li>负责社媒达人资源开拓与项目执行，从排期、素材审核到效果确认全流程跟进</li>
+          <li>保障交付与效果达成，提高媒体合作流程透明度与效率</li>
         </ul>
 
         <hr class="divider">
 
-        <h3>阳光恒美融｜媒介｜2018–2020</h3>
+        <h3>阳光恒美融信息技术服务（上海）股份有限公司｜媒介｜2018.01–2020.01</h3>
         <ul>
-          <li>搭建多平台达人资源库，沉淀可复用库存</li>
-          <li>根据客户需求制定媒介方案与成本控制</li>
+          <li>独立开发并运营多平台达人与供应商资源网络，沉淀可复用资源库</li>
+          <li>根据客户需求制定媒介方案，并在预算内完成成本控制与谈判</li>
         </ul>
       </section>
 
       <!-- vibe coding -->
       <section class="section reveal">
         <h2>Experiments｜vibe coding</h2>
-        <p>通过 AI 工具做轻量的原型与功能，先跑起来再迭代，以最低成本验证方向、保持更新节奏。</p>
+        <p>我用 AI 工具快速搭建页面和小功能，先做出能用的版本，再通过数据和反馈进行迭代。重点不在证明我会写多少代码，而是在证明我能用工具把想法落地、维护并持续升级。</p>
       </section>
 
       <!-- 联系方式 -->
@@ -376,30 +443,43 @@
         </p>
       </section>
 
-      <footer>
+      <footer class="reveal">
         © 2026 Huang Wenyan
       </footer>
-
     </main>
   </div>
 
-  <!-- 滚动淡入逻辑 -->
+  <!-- 整体动效逻辑：滚动淡入 + 左图轻微视差 -->
   <script>
     (function(){
       const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const els = document.querySelectorAll('.reveal');
-      if(prefersReduced){
-        els.forEach(el=>el.classList.add('in'));
+      const sections = document.querySelectorAll('.reveal');
+      const leftImg = document.querySelector('.left img');
+
+      if (prefersReduced) {
+        sections.forEach(el => el.classList.add('in'));
         return;
       }
+
+      // 区块滚动淡入
       const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting){ e.target.classList.add('in'); }
+        entries.forEach((e)=>{
+          if(e.isIntersecting){
+            e.target.classList.add('in');
+          }
         });
-      },{threshold:0.12});
-      els.forEach(el=>io.observe(el));
+      },{threshold:0.16});
+
+      sections.forEach(el => io.observe(el));
+
+      // 左侧大图轻微视差
+      window.addEventListener('scroll', ()=>{
+        const y = window.scrollY || window.pageYOffset;
+        if(leftImg){
+          leftImg.style.transform = `scale(1.08) translateY(${y * -0.03}px)`;
+        }
+      }, {passive:true});
     })();
   </script>
-
 </body>
 </html>
