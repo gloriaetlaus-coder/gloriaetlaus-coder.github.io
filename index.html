@@ -7,16 +7,16 @@
 
   <style>
     :root{
-      --bg:#f6f7f9;
+      --bg:#f4f5f8;
       --text:#222;
       --muted:#555;
       --card:#ffffff;
-      --line:#e6e7ea;
-      --shadow: 0 10px 30px rgba(0,0,0,0.06);
-      --radius: 18px;
+      --line:#e4e5ea;
+      --shadow:0 10px 30px rgba(0,0,0,0.06);
+      --radius:18px;
     }
 
-    *{ box-sizing: border-box; }
+    *{ box-sizing:border-box; }
 
     body{
       margin:0;
@@ -26,178 +26,202 @@
       line-height:1.8;
     }
 
-    /* 整体两栏布局 */
+    /* 整体两栏布局，左右留白收窄 */
     .layout{
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 18px;
-      display: flex;
-      gap: 28px;
-      align-items: flex-start;
+      max-width:1400px;
+      margin:0 auto;
+      padding:28px 28px;
+      display:flex;
+      gap:28px;
+      align-items:flex-start;
     }
 
     /* 左侧生活照 */
     .left{
-      flex: 0 0 360px;
-      position: sticky;
-      top: 24px;
-      height: calc(100vh - 80px);
-      min-height: 560px;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      background: #ddd;
+      flex:0 0 430px;
+      position:sticky;
+      top:20px;
+      height:calc(100vh - 60px);
+      min-height:540px;
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      background:#ddd;
     }
     .left img{
       width:100%;
       height:100%;
-      object-fit: cover;
+      object-fit:cover;
       display:block;
     }
 
     /* 右侧内容卡片 */
     .right{
-      flex: 1 1 auto;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 34px 34px 44px;
-      min-width: 0;
+      flex:1 1 auto;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:30px 34px 40px;
+      min-width:0;
     }
 
-    /* 顶部信息区 */
+    /* 顶部信息区域：文字 + 大头像 */
     .hero{
+      padding-bottom:22px;
+      border-bottom:1px solid var(--line);
+      margin-bottom:28px;
+    }
+
+    .hero-main{
       display:flex;
-      flex-direction: column;
-      gap: 10px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 26px;
+      align-items:stretch;
+      gap:22px;
+      flex-wrap:wrap;
+    }
+
+    .hero-text{
+      flex:1 1 320px;
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
     }
 
     .nameRow{
       display:flex;
       align-items:flex-end;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
     }
 
     h1{
-      font-size: 36px;
-      margin: 0;
-      letter-spacing: 0.2px;
-    }
-
-    /* “做个人实验”行 + 头像在右侧 */
-    .taglineRow{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
+      font-size:36px;
+      margin:0;
+      letter-spacing:0.2px;
     }
 
     .tagline{
-      font-size: 16px;
-      color: var(--muted);
-      margin: 0;
+      font-size:16px;
+      color:var(--muted);
+      margin:0;
     }
 
-    .avatar{
-      width: 78px;
-      height: 92px;
-      border-radius: 14px;
-      object-fit: cover;
-      border: 1px solid var(--line);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-      flex: 0 0 auto;
-    }
-
-    /* 下载按钮 */
     .actions{
       display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 6px;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:4px;
     }
 
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--text);
-      text-decoration: none;
-      font-size: 14px;
-      gap: 8px;
-      cursor: pointer;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      text-decoration:none;
+      font-size:14px;
+      gap:8px;
+      cursor:pointer;
+      transition:transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
     }
     .btn.primary{
       background:#111;
       color:#fff;
       border-color:#111;
     }
-    .btn:hover{ transform: translateY(-1px); }
-    .btn:active{ transform: translateY(0px); }
-
-    /* 正文结构 */
-    .section{ margin-top: 34px; }
-    h2{
-      font-size: 22px;
-      margin: 0 0 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--line);
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.12);
     }
-    h3{
-      font-size: 16px;
-      margin: 18px 0 8px;
+    .btn:active{
+      transform:translateY(0);
+      box-shadow:none;
     }
-    p{ margin: 10px 0; color: #2a2a2a; }
-    ul{ margin: 10px 0 0; padding-left: 18px; color:#2a2a2a; }
-    li{ margin: 8px 0; }
 
     .meta{
       display:flex;
-      flex-wrap: wrap;
-      gap: 10px 16px;
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 6px;
+      flex-wrap:wrap;
+      gap:10px 16px;
+      color:var(--muted);
+      font-size:14px;
+      margin-top:4px;
     }
+
+    /* 右侧大头像：从标题到“关于我”区域高度 */
+    .avatar{
+      flex:0 0 150px;
+      width:150px;
+      max-width:180px;
+      border-radius:20px;
+      object-fit:cover;
+      border:1px solid var(--line);
+      box-shadow:0 8px 22px rgba(0,0,0,0.12);
+      align-self:stretch; /* 跟随文字区高度拉满 */
+    }
+
+    .section{ margin-top:34px; }
+
+    h2{
+      font-size:22px;
+      margin:0 0 14px;
+      padding-bottom:10px;
+      border-bottom:1px solid var(--line);
+    }
+    h3{
+      font-size:16px;
+      margin:18px 0 8px;
+    }
+    p{ margin:10px 0; color:#262626; }
+    ul{ margin:10px 0 0; padding-left:18px; color:#262626; }
+    li{ margin:8px 0; }
 
     footer{
-      margin-top: 50px;
+      margin-top:50px;
       color:#777;
-      font-size: 13px;
-      border-top: 1px solid var(--line);
-      padding-top: 18px;
+      font-size:13px;
+      border-top:1px solid var(--line);
+      padding-top:18px;
     }
 
-    /* 响应式：手机改为上下结构 */
-    @media (max-width: 980px){
-      .layout{ flex-direction: column; }
-      .left{
-        position: relative;
-        top: 0;
-        width: 100%;
-        flex: 0 0 auto;
-        height: 360px;
-        min-height: 360px;
+    /* 小屏：改为上下结构，头像缩小 */
+    @media(max-width:980px){
+      .layout{
+        flex-direction:column;
+        padding:18px 14px 26px;
       }
-      .right{ padding: 26px 18px 34px; }
-      .avatar{ width: 72px; height: 86px; }
+      .left{
+        position:relative;
+        top:0;
+        width:100%;
+        flex:0 0 auto;
+        height:360px;
+        min-height:360px;
+      }
+      .right{
+        padding:24px 18px 32px;
+      }
+      .hero-main{
+        flex-direction:row;
+      }
+      .avatar{
+        flex:0 0 120px;
+        width:120px;
+        align-self:flex-start;
+        height:150px;
+      }
     }
   </style>
 </head>
 
 <body>
   <div class="layout">
-    <!-- 左侧生活照：把你的照片命名为 life.jpg 上传 -->
+    <!-- 左侧生活照：文件名 life.jpg -->
     <aside class="left">
       <img src="life.jpg" alt="生活照" />
     </aside>
@@ -205,54 +229,78 @@
     <!-- 右侧内容 -->
     <main class="right">
       <header class="hero">
-        <div class="nameRow">
-          <h1>黄文艳</h1>
-        </div>
+        <div class="hero-main">
+          <div class="hero-text">
+            <div class="nameRow">
+              <h1>黄文艳</h1>
+            </div>
 
-        <div class="taglineRow">
-          <p class="tagline">市场与增长方向｜8年整合营销与媒介经验｜正在用 AI 与 vibe coding 做个人实验</p>
-          <!-- 头像：把头像命名为 avatar.jpg 上传 -->
+            <p class="tagline">
+              市场与增长方向｜8年整合营销与媒介经验｜正在用 AI 与 vibe coding 做个人实验
+            </p>
+
+            <div class="actions">
+              <!-- 简历 PDF：文件名 resume.pdf -->
+              <a class="btn primary" href="resume.pdf" download>下载简历 PDF</a>
+              <a class="btn" href="#contact">联系方式</a>
+            </div>
+
+            <div class="meta">
+              <div>城市：上海</div>
+              <div>方向：市场、增长、内容、媒介</div>
+            </div>
+          </div>
+
+          <!-- 大头像：文件名 avatar.jpg -->
           <img class="avatar" src="avatar.jpg" alt="头像" />
-        </div>
-
-        <div class="actions">
-          <!-- 简历 PDF：把文件命名为 resume.pdf 上传 -->
-          <a class="btn primary" href="resume.pdf" download>下载简历 PDF</a>
-          <a class="btn" href="#contact">联系方式</a>
-        </div>
-
-        <div class="meta">
-          <div>城市：上海</div>
-          <div>方向：市场、增长、内容、媒介</div>
         </div>
       </header>
 
+      <!-- 生活化自我介绍，单独一块 -->
       <section class="section">
-        <h2>关于我</h2>
+        <h2>关于我 · 生活</h2>
         <p>
-          我有8年整合营销与媒介管理经验，长期服务高端快消、酒店旅游、国际房地产等行业，
-          擅长从策略规划到全链路落地，把品牌目标拆成可执行路径，并用数据复盘推动持续优化。
+          我是一个对世界保持好奇、喜欢主动出发，也擅长在不确定中把事情推进到结果的人。
+          我通常愿意主动迈出第一步，我的亲和力很强、行动力也很足。
         </p>
-
         <p>
-          另外，我很重视真实的人际协作能力。过去我在寻找旅游搭子的过程中反复练习破冰、对齐预期与现场协调。
-          即使旅途中发现性格与节奏不完全匹配，我也会把沟通和执行做到位，让行程顺利收尾。
-          这类经验让我在陌生关系里建立信任、在不确定里推进项目更有把握。
+          我对很多事情都保持兴趣，从旅游、阅读、各类运动，到今年持续尝试的 Vibe Coding 和新工具学习。
+          对我来说，兴趣不是用来堆清单的，而是用来保持输入、训练高精力和判断力的方式。
+          我习惯在不同经历中快速理解人、识别场景，并找到更高效的协作方式。
         </p>
-
         <p>
-          我喜欢结识不同圈层的朋友，也保持多元兴趣输入。对我来说，重要的不是把兴趣清单写得很长，
-          而是把好奇心转化为内容洞察、用户理解与协作效率。
+          生活里我偏 ENFP，不怕陌生，和不同背景的伙伴相处起来都很自然；
+          但一旦进入工作状态，我会明显切换到冷静、理性和目标导向的模式，
+          习惯把事情列清楚，用自己的节奏循序完成。
+          很多和我共事过的人，对我的正面评价往往集中在两点：做事靠谱，合作舒服。
+        </p>
+        <p>
+          我的 APESK 大五人格特质属于：开放性和责任感较高，乐于接受新事物，
+          也能在复杂环境里保持秩序感和执行力；对人保持友善与同理心，在决策和推进上不犹豫。
+          这让我在团队中既能快速建立信任，也能在关键节点承担压力、推动结果。
+        </p>
+        <p>
+          我始终相信，真正有价值的能力，来自终身学习和更新。
+          所以无论在工作还是生活中，我都会设定目标，并不断通过实践和复盘，让自己走得更远。
         </p>
       </section>
 
+      <!-- 职业概况 + 核心能力，合成一块 -->
       <section class="section">
-        <h2>核心能力</h2>
+        <h2>关于我 · 职业</h2>
+        <p>
+          我有 8 年整合营销与媒介管理经验，长期服务高端快消、酒店旅游、国际房地产等行业，
+          从品牌策略到投放落地一路跟过，习惯把宏观目标拆成可以被验证的行动与指标。
+          在资源有限的情况下，找到优先级、做出取舍，是我日常工作的一部分。
+        </p>
+        <p>
+          这些年主要沉淀了几块能力：
+        </p>
         <ul>
           <li>品牌整合营销与媒介策略规划，覆盖社交、信息流、搜索、电商等渠道</li>
-          <li>KOL、KOC合作与内容投放，建立可复用的筛选、合作与复盘机制</li>
-          <li>数据监控、A/B测试与投放ROI管理，基于指标驱动策略迭代</li>
-          <li>跨部门项目管理与客户沟通，推动资源对齐与按期高质量交付</li>
+          <li>KOL、KOC 合作与内容投放，搭建可复用的筛选、合作和复盘机制</li>
+          <li>数据监控与 A/B 测试，基于指标管理成本、转化与长期 ROI</li>
+          <li>跨部门项目管理与客户沟通，在多方诉求中找到平衡解法并推进落地</li>
         </ul>
       </section>
 
@@ -261,20 +309,20 @@
 
         <h3>迪拜 DAMAC 房地产｜巨量引擎整合营销</h3>
         <p>
-          负责抖音生态增长策略，整合信息流与内容助推，构建从公域曝光到私域沉淀的转化链路；
-          通过人群画像、多维定向与A/B测试持续优化，降低线索成本并提升咨询转化率。
+          负责抖音生态增长策略，整合信息流与内容助推，构建从公域曝光到私域沉淀的转化路径；
+          通过人群画像、多维定向与 A/B 测试持续优化，降低线索成本并提升咨询转化率。
         </p>
 
         <h3>洲际酒店集团｜小红书内容营销与聚光投流</h3>
         <p>
           主导内容策略与达人生态建设，形成标准化合作流程；结合聚光投流进行内容加热与精准引流，
-          促进品牌声量与预订转化。
+          提升品牌在目标客群中的心智和预订转化。
         </p>
 
         <h3>法国依云矿泉水｜全渠道媒介与效果采购</h3>
         <p>
-          负责年度预算规划与执行，整合传统与数字媒体资源；结合行业竞品分析优化媒介组合与节奏，
-          推动触达效率与生意增长。
+          负责年度预算规划与执行，整合传统与数字媒体资源；结合行业与竞品分析优化媒介组合和节奏，
+          在保证声量的同时，为电商生意增长持续输血。
         </p>
       </section>
 
@@ -283,5 +331,45 @@
 
         <h3>恒沐（上海）广告有限公司｜媒介主管（2021.01–2025.12）</h3>
         <p>
-          制定并执行全渠道媒介策略，覆盖微信、微博、抖音、小红书、信息流、搜索与电商效果平台；
-          搭建周度复盘机制，持续优化成本与转化效率；拓展并维护达人合作生态，提升品牌心智与互动。
+          制定并执行全渠道媒介策略，覆盖微信、微博、抖音、小红书、信息流、搜索及电商效果平台。
+          负责投放节奏、预算分配与效果复盘，搭建周度复盘机制，持续优化成本和转化效率，
+          同时拓展并维护达人合作生态。
+        </p>
+
+        <h3>上海悦普网络科技有限公司｜媒介专员（2020.04–2020.12）</h3>
+        <p>
+          负责社媒达人资源开拓与项目执行，从排期、素材审核到效果确认全程跟进，
+          保障交付与效果达成，并提高媒体合作流程透明度和效率。
+        </p>
+
+        <h3>阳光恒美融信息技术服务（上海）股份有限公司｜媒介（2018.01–2020.01）</h3>
+        <p>
+          独立开发并运营多平台达人与供应商资源网络，为公司搭建可复用资源库；
+          根据客户需求制定媒介方案，并在预算内完成成本控制与谈判。
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Experiments｜vibe coding</h2>
+        <p>
+          我用 AI 工具快速搭建页面和小功能，先做出能用的版本，再通过数据和反馈进行迭代。
+          重点不在证明我会写多少代码，而是在证明我能用工具把想法落地、维护并持续升级。
+        </p>
+      </section>
+
+      <section class="section" id="contact">
+        <h2>联系方式</h2>
+        <p>
+          手机：176 2105 8773<br>
+          微信：17621058773<br>
+          邮箱：17621058773@163.com
+        </p>
+      </section>
+
+      <footer>
+        © 2026 Huang Wenyan
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
