@@ -34,7 +34,7 @@
       gap:0;
     }
 
-    /* 左侧大图：只显示右侧人物这边，黑框+花圈都藏掉 */
+    /* 左侧大图：只显示右侧人物区域，把左边花圈那块“吃掉” */
     .left{
       flex:0 0 34vw;
       max-width:520px;
@@ -50,8 +50,9 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      object-position:85% center; /* 向右取景 */
-      transform:scale(1.18);      /* 略微放大裁掉左边 */
+      /* 向右取景 + 放大裁掉左侧 */
+      object-position:80% center;
+      transform:scale(1.2);
       transform-origin:center;
       display:block;
       filter:saturate(1.02) contrast(1.02);
@@ -138,7 +139,7 @@
     }
 
     .meta{
-      margin-top:16px;
+      margin-top:20px; /* 整体往下挪一点 */
       display:flex;
       gap:16px;
       flex-wrap:wrap;
@@ -146,40 +147,21 @@
       font-size:15px;
     }
 
-    /* 头像：去掉白色大边框，改成紧贴头像的玻璃光晕 */
+    /* 头像：只保留圆角 + 阴影，不要任何“相框” */
     .avatarBox{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       justify-content:flex-end;
     }
 
-    .avatarWrap{
-      position:relative;
-      display:inline-block;
-      border-radius:26px;
-    }
-
-    .avatarWrap::before{
-      content:"";
-      position:absolute;
-      inset:-10px;
-      border-radius:30px;
-      background:rgba(255,255,255,0.18);
-      box-shadow:0 18px 40px rgba(0,0,0,0.25);
-      backdrop-filter:blur(22px);
-      -webkit-backdrop-filter:blur(22px);
-      z-index:0;
-    }
-
     .avatar{
-      position:relative;
-      z-index:1;
       width:210px;
       max-width:100%;
       height:auto;
-      border-radius:24px;
+      border-radius:26px;
       object-fit:cover;
       display:block;
+      box-shadow:0 18px 40px rgba(0,0,0,0.26);
       /* 一次性加载动画：模糊 → 清晰 */
       filter:blur(7px) brightness(0.96);
       opacity:0;
@@ -308,7 +290,7 @@
     /* “消息堆叠”式子元素动画：逐条上滑 */
     .stack-item{
       opacity:0;
-      transform:translateY(20px);
+      transform:translateY(22px);
       transition:opacity .45s ease-out, transform .45s ease-out;
       will-change:opacity,transform;
     }
@@ -348,36 +330,34 @@
 
 <body>
   <div class="layout">
-    <!-- 左侧生活照 -->
+    <!-- 左侧生活照：使用你新的 life.png，并强制刷新缓存 -->
     <aside class="left">
-      <img src="life.jpg" alt="生活照">
+      <img src="life.png?v=2" alt="生活照">
     </aside>
 
     <main class="right">
       <!-- 顶部 -->
       <header class="hero reveal">
         <div class="hero-grid">
-          <div class="hero-text">
+          <div class="hero-text stack">
             <h1>黄文艳</h1>
-            <p class="tagline">市场与增长方向｜8年整合营销与媒介经验</p>
-            <p class="tagline sub">正在用 AI 与 vibe coding 做个人实验</p>
+            <p class="tagline stack-child">市场与增长方向｜8年整合营销与媒介经验</p>
+            <p class="tagline sub stack-child">以0代码背景为起点，正在用 AI 与 Vibe Coding 主动探索新的创造方式</p>
 
-            <div class="actions">
+            <div class="actions stack-child">
               <a class="btn primary" href="resume.pdf" download>下载简历 PDF</a>
               <a class="btn" href="#contact">联系方式</a>
             </div>
 
-            <div class="meta">
+            <div class="meta stack-child">
               <span>城市：上海</span>
               <span>方向：市场、增长、内容、媒介</span>
             </div>
           </div>
 
-          <!-- 头像：无大边框，只保留紧贴头像的玻璃光晕 -->
+          <!-- 头像：只有圆角照片和阴影 -->
           <div class="avatarBox">
-            <div class="avatarWrap">
-              <img class="avatar" src="avatar.jpg" alt="头像">
-            </div>
+            <img class="avatar" src="avatar.jpg?v=2" alt="头像">
           </div>
         </div>
       </header>
@@ -478,7 +458,7 @@
     </main>
   </div>
 
-  <!-- 动效：区块淡入 + 子元素“消息堆叠式”上滑 -->
+  <!-- 动效：区块淡入 + 子元素“消息堆叠式”上滑，进入视野时循环触发 -->
   <script>
     (function(){
       const revealSections = document.querySelectorAll('.reveal');
@@ -486,27 +466,35 @@
 
       // 给 stack 区块里的元素打上 stack-item
       stackSections.forEach(sec => {
-        const items = sec.querySelectorAll('h2, .chips, p, h3, ul, li, .divider');
+        const items = sec.querySelectorAll('h2, .chips, p, h3, ul, li, .divider, .stack-child');
         items.forEach(el => el.classList.add('stack-item'));
       });
 
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-
           const target = entry.target;
-          target.classList.add('in');
 
-          if (target.classList.contains('stack')){
-            const items = target.querySelectorAll('.stack-item');
-            items.forEach((el, idx) => {
-              el.style.transitionDelay = (0.08 * idx) + 's';
-              requestAnimationFrame(()=> el.classList.add('in'));
-            });
+          if (entry.isIntersecting){
+            target.classList.add('in');
+
+            if (target.classList.contains('stack')){
+              const items = target.querySelectorAll('.stack-item');
+              items.forEach((el, idx) => {
+                el.style.transitionDelay = (0.08 * idx) + 's';
+                el.classList.add('in');
+              });
+            }
+          } else {
+            // 离开视口时把动画状态清掉，再次进入时重新堆叠
+            target.classList.remove('in');
+            if (target.classList.contains('stack')){
+              const items = target.querySelectorAll('.stack-item');
+              items.forEach(el => {
+                el.classList.remove('in');
+                el.style.transitionDelay = '0s';
+              });
+            }
           }
-
-          // 出现一次就不再反复触发
-          io.unobserve(target);
         });
       },{threshold:0.15});
 
