@@ -9,9 +9,8 @@
       --bg-dark: #050608;
       --text-main: #ffffff;
       --text-sub: rgba(255, 255, 255, 0.86);
-      --pill-bg: rgba(15, 17, 25, 0.9);
       --pill-radius: 999px;
-      --line-color: rgba(255, 255, 255, 0.14);
+      --line-color: rgba(255, 255, 255, 0.16);
       --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
     }
 
@@ -42,7 +41,7 @@
       text-decoration: none;
     }
 
-    /* ================= 背景轮播 ================= */
+    /* ============ 背景轮播：竖图、无黑屏 ============ */
 
     .bg-slideshow {
       position: fixed;
@@ -56,7 +55,7 @@
       inset: 0;
       background-size: cover;
       background-repeat: no-repeat;
-      background-position: center 30%;
+      background-position: center 28%;
       opacity: 0;
       transform: scale(1.03);
       animation: bgFade 30s infinite ease-in-out;
@@ -75,19 +74,25 @@
 
     .bg-slide.shop {
       background-image: url("life-shop.jpg");
-      background-position: center 28%;
+      background-position: center 30%;
       animation-delay: 20s;
+    }
+
+    /* 确保至少第一张永远可见，防止动画失效时整屏变黑 */
+    .bg-slide:first-child {
+      opacity: 1;
     }
 
     .bg-overlay {
       position: fixed;
       inset: 0;
-      background: linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0.28),
-          rgba(0, 0, 0, 0.7)
-        );
-      backdrop-filter: blur(6px);
+      background: radial-gradient(
+          circle at top,
+          rgba(0, 0, 0, 0.08),
+          rgba(0, 0, 0, 0.35)
+        ),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7));
+      backdrop-filter: blur(5px);
       z-index: -1;
     }
 
@@ -105,7 +110,82 @@
       }
     }
 
-    /* ================= 公共组件 ================= */
+    /* ============ 全局堆叠感动效 ============ */
+
+    @keyframes stackPulse {
+      0%,
+      100% {
+        transform: translateY(4px);
+        opacity: 0.86;
+      }
+      50% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* 正文类文案堆叠感 */
+    .stack-text {
+      color: var(--text-sub);
+      line-height: 1.8;
+      font-size: 15px;
+      animation: stackPulse 4s ease-in-out infinite;
+    }
+
+    .stack-text:nth-child(2) {
+      animation-delay: 0.35s;
+    }
+
+    .stack-text:nth-child(3) {
+      animation-delay: 0.7s;
+    }
+
+    .stack-text:nth-child(4) {
+      animation-delay: 1.05s;
+    }
+
+    .stack-text:nth-child(5) {
+      animation-delay: 1.4s;
+    }
+
+    /* 按钮中文字也做轻微上浮，模拟短信堆叠 */
+    .stack-label {
+      display: inline-block;
+      animation: stackPulse 4s ease-in-out infinite;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0 0 16px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+
+    h2 {
+      font-size: 22px;
+    }
+
+    h3 {
+      font-size: 18px;
+    }
+
+    .section-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 22px;
+      margin-bottom: 12px;
+      animation: stackPulse 4s ease-in-out infinite;
+    }
+
+    .section-title span {
+      font-size: 20px;
+    }
 
     .page {
       position: relative;
@@ -149,74 +229,7 @@
       }
     }
 
-    .stack-text {
-      color: var(--text-sub);
-      line-height: 1.8; /* 对应大概 0.6cm 的行高感受 */
-      font-size: 15px;
-      animation: stackPulse 4s ease-in-out infinite;
-    }
-
-    .stack-text:nth-child(2) {
-      animation-delay: 0.35s;
-    }
-
-    .stack-text:nth-child(3) {
-      animation-delay: 0.7s;
-    }
-
-    .stack-text:nth-child(4) {
-      animation-delay: 1.05s;
-    }
-
-    .stack-text:nth-child(5) {
-      animation-delay: 1.4s;
-    }
-
-    @keyframes stackPulse {
-      0%,
-      100% {
-        transform: translateY(4px);
-        opacity: 0.86;
-      }
-      50% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    h1,
-    h2,
-    h3 {
-      margin: 0 0 16px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-    }
-
-    h1 {
-      font-size: 32px;
-    }
-
-    h2 {
-      font-size: 22px;
-    }
-
-    h3 {
-      font-size: 18px;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 22px;
-      margin-bottom: 12px;
-    }
-
-    .section-title span {
-      font-size: 20px;
-    }
-
-    /* ================= 顶部 Hero ================= */
+    /* ============ 顶部 Hero ============ */
 
     .hero {
       padding-top: 40px;
@@ -230,17 +243,32 @@
       gap: 24px;
     }
 
-    .hero-topline {
-      font-size: 14px;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.68);
-      letter-spacing: 0.16em;
+    /* 标题行：名字 + 英文放右侧 */
+
+    .hero-title-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: stackPulse 4s ease-in-out infinite;
     }
 
     .hero-heading {
-      font-size: 34px;
+      font-size: 32px;
       font-weight: 800;
       text-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-topline-tag {
+      padding: 6px 14px 6px;
+      border-radius: var(--pill-radius);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(15, 23, 42, 0.85);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .hero-subgrid {
@@ -268,6 +296,8 @@
       color: #ffffff;
     }
 
+    /* 优势按钮行（第一行） */
+
     .hero-tags {
       display: flex;
       flex-wrap: wrap;
@@ -280,14 +310,11 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 10px 18px;
+      padding: 11px 20px;
       border-radius: var(--pill-radius);
-      background: rgba(10, 10, 10, 0.78);
-      color: #ffffff;
-      font-size: 14px;
       font-weight: 600;
       box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       cursor: default;
       transition: transform 0.22s ease, box-shadow 0.22s ease,
         background 0.22s ease, border-color 0.22s ease;
@@ -299,24 +326,31 @@
     }
 
     .hero-pill.trait {
+      font-size: 15px; /* 第一行略大 */
+      background: radial-gradient(
+          circle at top left,
+          rgba(255, 255, 255, 0.16),
+          transparent 52%
+        ),
+        rgba(10, 10, 10, 0.94);
       cursor: pointer;
     }
 
     .hero-pill.trait:hover {
-      transform: translateY(-2px) scale(1.04);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
     }
 
-    /* 不同性格按钮悬停色 */
+    /* 每个 trait 悬停不同颜色 */
 
     .hero-pill.trait.t1:hover {
       background: linear-gradient(135deg, #10b981, #059669);
-      border-color: rgba(16, 185, 129, 0.8);
+      border-color: rgba(16, 185, 129, 0.9);
     }
 
     .hero-pill.trait.t2:hover {
       background: linear-gradient(135deg, #f97316, #ea580c);
-      border-color: rgba(249, 115, 22, 0.9);
+      border-color: rgba(249, 115, 22, 0.95);
     }
 
     .hero-pill.trait.t3:hover {
@@ -326,56 +360,59 @@
 
     .hero-pill.trait.t4:hover {
       background: linear-gradient(135deg, #0ea5e9, #22c55e);
-      border-color: rgba(34, 197, 94, 0.9);
+      border-color: rgba(34, 197, 94, 0.95);
     }
 
     .hero-pill.trait.t5:hover {
       background: linear-gradient(135deg, #eab308, #f97316);
-      border-color: rgba(234, 179, 8, 0.9);
+      border-color: rgba(234, 179, 8, 0.95);
     }
 
     .hero-pill.trait.t6:hover {
       background: linear-gradient(135deg, #ef4444, #f97316);
-      border-color: rgba(239, 68, 68, 0.9);
+      border-color: rgba(239, 68, 68, 0.95);
     }
 
     .hero-pill.trait.t7:hover {
       background: linear-gradient(135deg, #22c55e, #14b8a6);
-      border-color: rgba(45, 212, 191, 0.9);
+      border-color: rgba(45, 212, 191, 0.95);
     }
 
     .hero-pill.trait.t8:hover {
       background: linear-gradient(135deg, #3b82f6, #6366f1);
-      border-color: rgba(59, 130, 246, 0.9);
+      border-color: rgba(59, 130, 246, 0.95);
     }
 
-    /* CTA 按钮 */
+    /* CTA 按钮行（第二行） */
 
     .cta-row {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     .hero-pill.cta {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 14px; /* 第二行略小 */
+      padding: 9px 18px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.7);
       cursor: pointer;
-      font-size: 14px;
     }
 
     .hero-pill.cta.primary:hover {
       background: linear-gradient(135deg, #f97316, #facc15);
       border-color: transparent;
+      transform: translateY(-2px) scale(1.04);
     }
 
     .hero-pill.cta.secondary:hover {
       background: linear-gradient(135deg, #22c55e, #0ea5e9);
       border-color: transparent;
+      transform: translateY(-2px) scale(1.04);
     }
 
-    /* ================= About 区块 ================= */
+    /* ============ About 区块 ============ */
 
     .section {
       margin-top: 40px;
@@ -397,7 +434,7 @@
       margin-right: 6px;
     }
 
-    /* ================= 经历与项目 ================= */
+    /* ============ 经历与项目 ============ */
 
     .pill-list {
       display: flex;
@@ -419,6 +456,7 @@
       width: auto;
       max-width: 100%;
       white-space: nowrap;
+      animation: stackPulse 4s ease-in-out infinite;
     }
 
     .exp-pill .dot {
@@ -433,7 +471,7 @@
       margin-top: 6px;
     }
 
-    /* ================= 联系方式 ================= */
+    /* ============ 联系方式 ============ */
 
     .contact-list {
       margin-top: 8px;
@@ -451,24 +489,21 @@
       margin-right: 6px;
     }
 
-    /* ================= 响应式 ================= */
+    /* ============ 响应式 ============ */
 
     @media (max-width: 900px) {
       .hero-main {
-        gap: 18px;
+        gap: 20px;
       }
       .hero-heading {
         font-size: 28px;
       }
+      .hero-topline-tag {
+        font-size: 15px;
+      }
       .hero-subgrid {
         flex-direction: column;
         gap: 18px;
-      }
-      .hero-tags {
-        justify-content: flex-start;
-      }
-      .section {
-        margin-top: 32px;
       }
     }
 
@@ -479,9 +514,10 @@
       .hero-heading {
         font-size: 26px;
       }
-      .hero-pill {
-        font-size: 13px;
-        padding-inline: 14px;
+      .hero-title-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
       }
     }
   </style>
@@ -499,9 +535,11 @@
     <!-- 顶部 Hero -->
     <section class="hero">
       <div class="hero-main">
-        <div>
-          <div class="hero-topline">MARKETING & GROWTH · RESUME SITE</div>
+        <div class="hero-title-row">
           <h1 class="hero-heading">黄文艳</h1>
+          <div class="hero-topline-tag">
+            <span class="stack-label">MARKETING &amp; GROWTH · RESUME SITE</span>
+          </div>
         </div>
 
         <div class="hero-subgrid">
@@ -523,41 +561,51 @@
           </div>
         </div>
 
-        <!-- 性格与优势标签 -->
+        <!-- 第一行优势按钮：略大 & 默认更亮 -->
         <div class="hero-tags">
           <div class="hero-pill trait t1">
-            <span class="emoji">🌍</span><span>好奇心强</span>
+            <span class="emoji">🌍</span>
+            <span class="stack-label">好奇心强</span>
           </div>
           <div class="hero-pill trait t2">
-            <span class="emoji">⚡</span><span>主动推进</span>
+            <span class="emoji">⚡</span>
+            <span class="stack-label">主动推进</span>
           </div>
           <div class="hero-pill trait t3">
-            <span class="emoji">🧠</span><span>快速理解</span>
+            <span class="emoji">🧠</span>
+            <span class="stack-label">快速理解</span>
           </div>
           <div class="hero-pill trait t4">
-            <span class="emoji">🤝</span><span>合作高效</span>
+            <span class="emoji">🤝</span>
+            <span class="stack-label">合作高效</span>
           </div>
           <div class="hero-pill trait t5">
-            <span class="emoji">💡</span><span>积极心态</span>
+            <span class="emoji">💡</span>
+            <span class="stack-label">积极心态</span>
           </div>
           <div class="hero-pill trait t6">
-            <span class="emoji">🎯</span><span>结果导向</span>
+            <span class="emoji">🎯</span>
+            <span class="stack-label">结果导向</span>
           </div>
           <div class="hero-pill trait t7">
-            <span class="emoji">🤗</span><span>友善沉稳</span>
+            <span class="emoji">🤗</span>
+            <span class="stack-label">友善沉稳</span>
           </div>
           <div class="hero-pill trait t8">
-            <span class="emoji">🌱</span><span>持续成长</span>
+            <span class="emoji">🌱</span>
+            <span class="stack-label">持续成长</span>
           </div>
         </div>
 
-        <!-- CTA 按钮 -->
+        <!-- 第二行 CTA 按钮：略小 & 默认更克制 -->
         <div class="cta-row">
           <a class="hero-pill cta primary" href="resume.pdf" target="_blank">
-            <span class="emoji">📄</span><span>下载简历 PDF</span>
+            <span class="emoji">📄</span>
+            <span class="stack-label">下载简历 PDF</span>
           </a>
           <a class="hero-pill cta secondary" href="#contact">
-            <span class="emoji">📧</span><span>获取联系方式</span>
+            <span class="emoji">📧</span>
+            <span class="stack-label">获取联系方式</span>
           </a>
         </div>
       </div>
@@ -579,7 +627,7 @@
           <span class="emoji">⚡</span>通常愿意先迈出第一步，亲和力强、行动力足，面对陌生关系和新场景，需要较少热身时间。
         </p>
         <p class="stack-text">
-          <span class="emoji">📚</span>业余爱好广泛，从旅行阅读、健身运动，到持续尝试 Vibe Coding 新工具学习，对我来说，兴趣是一种用来保持输入、训练高精力的方式。
+          <span class="emoji">📚</span>业余爱好广泛，从旅行阅读、健身运动，到持续尝试 Vibe Coding 新工具学习。对我来说，兴趣是一种用来保持输入、训练高精力的方式。
         </p>
         <p class="stack-text">
           <span class="emoji">🧭</span>习惯在不同经历中快速理解人和场景，并找到一种更省力但更有效的协作方式。
@@ -632,7 +680,6 @@
         <div>工作经历</div>
       </div>
       <div class="pill-list">
-        <!-- 恒沐 -->
         <div>
           <div class="exp-pill">
             <span class="dot"></span>
@@ -653,7 +700,6 @@
           </p>
         </div>
 
-        <!-- 悦普 -->
         <div>
           <div class="exp-pill">
             <span class="dot"></span>
@@ -668,7 +714,6 @@
           </p>
         </div>
 
-        <!-- 阳光恒美 -->
         <div>
           <div class="exp-pill">
             <span class="dot"></span>
@@ -694,7 +739,6 @@
         <div>项目经验</div>
       </div>
       <div class="pill-list">
-        <!-- DAMAC -->
         <div>
           <div class="exp-pill">
             <span class="dot"></span>
@@ -709,7 +753,6 @@
           </p>
         </div>
 
-        <!-- 洲际酒店集团 -->
         <div>
           <div class="exp-pill">
             <span class="dot"></span>
@@ -724,11 +767,10 @@
           </p>
         </div>
 
-        <!-- 依云 -->
         <div>
           <div class="exp-pill">
             <span class="dot"></span>
-            <span>法国依云矿泉水｜全渠道媒介 & 效果采购</span>
+            <span>法国依云矿泉水｜全渠道媒介 &amp; 效果采购</span>
             <span>2021.04 – 2025.11</span>
           </div>
           <p class="stack-text exp-desc">
@@ -739,7 +781,6 @@
           </p>
         </div>
 
-        <!-- 自然堂 -->
         <div>
           <div class="exp-pill">
             <span class="dot"></span>
