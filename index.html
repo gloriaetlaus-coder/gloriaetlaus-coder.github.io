@@ -9,7 +9,7 @@
       --text-main: #000000;
       --text-light: #ffffff;
       --pill-bg-strong: rgba(255, 255, 255, 0.95);
-      --pill-bg-soft: rgba(248, 249, 250, 0.95);
+      --pill-bg-soft: rgba(248, 249, 250, 0.96);
       --pill-radius: 999px;
       --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.35);
       --line-glow: rgba(255, 255, 255, 0.4);
@@ -25,14 +25,15 @@
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+        "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
       color: var(--text-light);
       background-color: #000000;
       text-align: center;
       overflow-x: hidden;
     }
 
-    /* ========= 三张竖图横向铺满 ========= */
+    /* ===== 三张竖图横向铺满 ===== */
     .bg-strip {
       position: fixed;
       inset: 0;
@@ -40,28 +41,24 @@
       z-index: 0;
       overflow: hidden;
     }
-
     .bg-panel {
       flex: 1;
       position: relative;
     }
-
     .bg-panel img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-
-    /* 左 shop，中 house，右 forest */
-    .bg-panel:nth-child(1) img { object-position: 50% 42%; }
-    .bg-panel:nth-child(2) img { object-position: 50% 45%; }
-    .bg-panel:nth-child(3) img { object-position: 50% 40%; }
+    .bg-panel:nth-child(1) img { object-position: 50% 42%; } /* shop 左 */
+    .bg-panel:nth-child(2) img { object-position: 50% 45%; } /* house 中 */
+    .bg-panel:nth-child(3) img { object-position: 50% 40%; } /* forest 右 */
 
     .bg-overlay {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.55)),
+        radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.55)),
         linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9));
       pointer-events: none;
     }
@@ -76,7 +73,7 @@
       color: var(--text-light);
     }
 
-    /* ========= 顶部区域 ========= */
+    /* ===== 顶部区域 ===== */
     .hero {
       width: 100%;
       padding: 40px 20px 32px;
@@ -93,13 +90,12 @@
 
     .hero-top-row {
       display: inline-flex;
-      align-items: center;
+      align-items: baseline;
       gap: 18px;
     }
 
-    /* 黄文艳：渐变文字 + 轮流呼吸，没有矩形光感 */
+    /* 名字：渐变大字 + 轮流呼吸 */
     .hero-name {
-      position: relative;
       font-size: 90px;
       font-weight: 800;
       letter-spacing: 0.12em;
@@ -108,22 +104,22 @@
       background-clip: text;
       color: transparent;
       text-shadow: 0 14px 45px rgba(0, 0, 0, 0.7);
+      white-space: nowrap;
     }
-
     .name-letter {
       display: inline-block;
       padding: 0 3px;
       transform-origin: 50% 60%;
       animation: nameBreathe 4.2s ease-in-out infinite;
     }
-    .name-letter:nth-child(2) { animation-delay: 0.5s; }
-    .name-letter:nth-child(3) { animation-delay: 1s; }
+    .name-letter:nth-child(2) { animation-delay: 0.6s; }
+    .name-letter:nth-child(3) { animation-delay: 1.2s; }
 
     @keyframes nameBreathe {
-      0%   { transform: scale(1); }
-      20%  { transform: scale(1.06); }
-      45%  { transform: scale(1); }
-      100% { transform: scale(1); }
+      0%   { transform: scale(1);   filter: brightness(1); }
+      20%  { transform: scale(1.08); filter: brightness(1.1); }
+      40%  { transform: scale(1);   filter: brightness(1); }
+      100% { transform: scale(1);   filter: brightness(1); }
     }
 
     .hero-subtitle-en {
@@ -154,7 +150,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* ========= 顶部按钮 ========= */
+    /* ===== 顶部按钮 ===== */
     .hero-pills {
       margin-top: 26px;
       display: flex;
@@ -180,7 +176,8 @@
       border: none;
       cursor: pointer;
       font-weight: 600;
-      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out, color 0.18s ease-out;
+      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out,
+        background 0.18s ease-out, color 0.18s ease-out;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       white-space: nowrap;
       letter-spacing: 0.02em;
@@ -202,7 +199,7 @@
     .pill-soft {
       background: var(--pill-bg-soft);
       font-size: 15px;
-      color: #000000 !important; /* 始终黑色 */
+      color: #000000;  /* 黑字 */
     }
 
     .pill:hover {
@@ -218,13 +215,13 @@
     .pill-strong:nth-child(5):hover { background: linear-gradient(135deg, #ffd8a8, #ffa94d); }
     .pill-strong:nth-child(6):hover { background: linear-gradient(135deg, #d0bfff, #845ef7); }
 
-    /* 第二排 hover 渐变 + 黑字 */
+    /* 第二排 hover：明显变色 */
     .pill-soft:hover {
-      background: linear-gradient(135deg, #e9ecef, #dee2e6);
-      color: #000000 !important;
+      background: linear-gradient(135deg, #e7f5ff, #d0ebff);
+      color: #000000;
     }
 
-    /* ========= 横线 + 流星 ========= */
+    /* ===== 横线 + 流星 ===== */
     .divider-wrap {
       width: 100%;
       margin: 1cm 0;
@@ -260,7 +257,7 @@
       100% { transform: translateX(1200px); opacity: 0; }
     }
 
-    /* ========= 内容区域 ========= */
+    /* ===== 内容区域 ===== */
     .content {
       width: 100%;
       padding: 0 16px 64px;
@@ -294,7 +291,7 @@
       margin-bottom: 6px;
     }
 
-    /* 高级重点：暖色文字 + 微光，不划线不铺底 */
+    /* 重点词：暖色高亮 */
     .key {
       font-weight: 600;
       color: #ffe8a3;
@@ -333,7 +330,8 @@
       box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55);
       margin-bottom: 10px;
       white-space: nowrap;
-      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out, color 0.18s ease-out;
+      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out,
+        background 0.18s ease-out, color 0.18s ease-out;
       letter-spacing: 0.02em;
     }
 
@@ -380,41 +378,49 @@
       background:
         radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.16), rgba(0, 0, 0, 0.55));
       backdrop-filter: blur(6px);
-      transition: box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease,
+        background 0.25s ease;
     }
 
     .contact-item:hover {
       box-shadow: 0 0 18px rgba(255, 255, 255, 0.7);
       border-color: rgba(255, 255, 255, 0.6);
       background:
-        radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.22), rgba(0, 0, 0, 0.6));
+        radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.22),
+        rgba(0, 0, 0, 0.6));
     }
 
-    /* ========= 短信堆叠感：轻微、慢速的上下浮动 ========= */
+    /* ===== 短信堆叠感：上滑出现 + 轻微浮动 ===== */
     .stack-reveal {
-      animation: stackFloat 9s ease-in-out infinite alternate;
+      opacity: 0;
+      transform: translateY(10px);
+      animation:
+        stackReveal 0.9s ease-out forwards,
+        stackFloat 9s ease-in-out 0.9s infinite alternate;
     }
 
-    .stack-reveal:nth-of-type(2) { animation-delay: 0.3s; }
-    .stack-reveal:nth-of-type(3) { animation-delay: 0.6s; }
-    .stack-reveal:nth-of-type(4) { animation-delay: 0.9s; }
+    @keyframes stackReveal {
+      0%   { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
 
     @keyframes stackFloat {
       0%   { transform: translateY(0); }
-      100% { transform: translateY(-3px); }
+      100% { transform: translateY(-4px); }
     }
 
     @media (max-width: 768px) {
       .hero-top-row {
         flex-direction: column;
-        gap: 10px;
+        align-items: center;
+        gap: 8px;
+      }
+      .hero-name {
+        font-size: 52px;
       }
       .hero-subtitle-en {
         letter-spacing: 0.14em;
         font-size: 14px;
-      }
-      .hero-name {
-        font-size: 50px;
       }
       .divider {
         width: 90%;
@@ -423,7 +429,7 @@
   </style>
 </head>
 <body>
-  <!-- 背景：shop / house / forest 三张竖图横向铺满 -->
+  <!-- 背景：shop / house / forest 三张竖图 -->
   <div class="bg-strip">
     <div class="bg-panel"><img src="life-shop.jpg" alt="shop" /></div>
     <div class="bg-panel"><img src="life-house.jpg" alt="house" /></div>
@@ -436,9 +442,13 @@
       <div class="hero-inner">
         <div class="hero-top-row stack-reveal">
           <div class="hero-name" aria-label="黄文艳">
-            <span class="name-letter">黄</span><span class="name-letter">文</span><span class="name-letter">艳</span>
+            <span class="name-letter">黄</span>
+            <span class="name-letter">文</span>
+            <span class="name-letter">艳</span>
           </div>
-          <div class="hero-subtitle-en">MARKETING &amp; GROWTH · RESUME SITE</div>
+          <div class="hero-subtitle-en">
+            MARKETING &amp; GROWTH · RESUME SITE
+          </div>
         </div>
 
         <p class="hero-line stack-reveal">
