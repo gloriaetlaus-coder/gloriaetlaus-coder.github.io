@@ -9,7 +9,7 @@
       --text-main: #000000;
       --text-light: #ffffff;
       --pill-bg-strong: rgba(255, 255, 255, 0.95);
-      --pill-bg-soft: rgba(255, 255, 255, 0.85);
+      --pill-bg-soft: rgba(248, 249, 250, 0.94);
       --pill-radius: 999px;
       --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.35);
       --line-glow: rgba(255, 255, 255, 0.5);
@@ -33,7 +33,7 @@
       overflow-x: hidden;
     }
 
-    /* 全屏背景轮播（竖图铺满，不留黑边） */
+    /* 全屏背景轮播（竖图铺满） */
     .bg-slideshow {
       position: fixed;
       inset: 0;
@@ -46,7 +46,7 @@
       inset: 0;
       background-size: cover;
       background-position: center top;
-      filter: blur(2px);       /* 更少模糊，画面更清楚 */
+      filter: blur(2px);
       transform: scale(1.04);
       opacity: 0;
       animation: slideShow 24s infinite;
@@ -55,7 +55,7 @@
     .bg-slide:nth-child(1) {
       background-image: url("life-forest.jpg");
       animation-delay: 0s;
-      opacity: 1;  /* 初始保证可见 */
+      opacity: 1;
     }
 
     .bg-slide:nth-child(2) {
@@ -76,7 +76,7 @@
     .bg-overlay {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+      background: radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.6));
       pointer-events: none;
     }
 
@@ -112,9 +112,9 @@
       gap: 18px;
     }
 
-    /* 黄文艳：水波 / 光带扫过动效 */
+    /* 黄文艳：高光扫过动效，字体放大 */
     .hero-name {
-      font-size: 30px;
+      font-size: 60px;
       font-weight: 800;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -201,6 +201,13 @@
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       white-space: nowrap;
       letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .pill:link,
+    .pill:visited {
+      text-decoration: none;
+      color: inherit;
     }
 
     .pill-strong {
@@ -228,8 +235,8 @@
     .pill-strong:nth-child(5):hover { background: linear-gradient(135deg, #ffd8a8, #ffa94d); }
     .pill-strong:nth-child(6):hover { background: linear-gradient(135deg, #d0bfff, #845ef7); }
 
-    .pill-soft:nth-child(1):hover { background: linear-gradient(135deg, #ffe8cc, #ffc078); }
-    .pill-soft:nth-child(2):hover { background: linear-gradient(135deg, #e7f5ff, #74c0fc); }
+    .pill-soft:nth-child(1):hover { background: linear-gradient(135deg, #e9ecef, #ced4da); }
+    .pill-soft:nth-child(2):hover { background: linear-gradient(135deg, #e9ecef, #dee2e6); }
 
     /* 分割横线 + 流星效果，上下间距 1cm */
     .divider-wrap {
@@ -267,10 +274,10 @@
       100% { transform: translateX(1200px); opacity: 0; }
     }
 
-    /* 中部：关于我（深色背景） */
+    /* 中部：关于我（半透明深背景，让底图贯穿全页） */
     .content {
       width: 100%;
-      background: radial-gradient(circle at 10% 0%, #111111, #000000);
+      background: rgba(0, 0, 0, 0.72);
       padding: 0 16px 64px;
       color: var(--text-light);
     }
@@ -299,10 +306,10 @@
       margin-bottom: 6px;
     }
 
-    /* 下部：工作经历、项目、联系方式 */
+    /* 下部：工作经历、项目、联系方式（同样半透明） */
     .lower {
       width: 100%;
-      background: #050505;
+      background: rgba(0, 0, 0, 0.78);
       padding: 0 16px 56px 16px;
       color: var(--text-light);
     }
@@ -337,12 +344,12 @@
       letter-spacing: 0.02em;
     }
 
-    /* 工作经历 / 项目按钮悬停动效 */
+    /* 工作经历 / 项目按钮悬停动效：放大 + 渐变变色 */
     .role-pill:hover,
     .project-pill:hover {
       transform: translateY(-2px) scale(1.03);
       box-shadow: 0 20px 55px rgba(0, 0, 0, 0.6);
-      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      background: linear-gradient(135deg, #f8f9fa, #dee2e6);
     }
 
     .timeline-item {
@@ -363,6 +370,42 @@
       line-height: 1.9;
       margin-top: 14px;
       letter-spacing: 0.02em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* 联系方式光感胶囊动效 */
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.4));
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.45);
+      animation: contactGlow 4s ease-in-out infinite;
+      backdrop-filter: blur(6px);
+    }
+
+    .contact-item:nth-child(2) { animation-delay: 0.5s; }
+    .contact-item:nth-child(3) { animation-delay: 1s; }
+
+    @keyframes contactGlow {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.45);
+        background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.16), rgba(0, 0, 0, 0.45));
+      }
+      50% {
+        box-shadow: 0 0 22px 0 rgba(255, 255, 255, 0.7);
+        background: radial-gradient(circle at 100% 50%, rgba(255, 255, 255, 0.24), rgba(0, 0, 0, 0.5));
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35);
+        background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.16), rgba(0, 0, 0, 0.45));
+      }
     }
 
     /* iPhone 短信式堆叠动效 */
@@ -399,7 +442,7 @@
         font-size: 14px;
       }
       .hero-name {
-        font-size: 24px;
+        font-size: 34px;
       }
       .divider {
         width: 90%;
@@ -558,9 +601,9 @@
       <div id="contact" class="timeline-section stack-group">
         <h2 class="timeline-title stack-reveal">联系方式</h2>
         <div class="contact-list">
-          <div class="stack-reveal">📱 电话：17621058773</div>
-          <div class="stack-reveal">💬 微信：17621058773</div>
-          <div class="stack-reveal">
+          <div class="contact-item stack-reveal">📱 电话：17621058773</div>
+          <div class="contact-item stack-reveal">💬 微信：17621058773</div>
+          <div class="contact-item stack-reveal">
             ✉️ 邮箱：
             <a href="mailto:17621058773@163.com" style="color:#ffffff;text-decoration:none;">
               17621058773@163.com
