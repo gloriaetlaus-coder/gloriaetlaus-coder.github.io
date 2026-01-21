@@ -30,7 +30,7 @@
       text-decoration: none;
     }
 
-    /* ===== 背景轮播：3 张生活照 ===== */
+    /* ===== 背景轮播：3 张竖图生活照 ===== */
     .bg-slideshow {
       position: fixed;
       inset: 0;
@@ -41,12 +41,11 @@
     .bg-slide {
       position: absolute;
       inset: 0;
-      background-size: cover;
-      background-position: center top;
+      background-size: cover;          /* 铺满屏幕，避免变形 */
+      background-position: center center;
       opacity: 0;
       animation: bgFade 30s infinite;
-      filter: blur(1px);
-      transform: scale(1.03); /* 轻微放大，避免边缘留白 */
+      transform: scale(1.03);          /* 轻微放大防止边缘留白 */
     }
 
     .bg-slide:nth-child(1) {
@@ -73,17 +72,20 @@
       }
     }
 
-    /* 暗色蒙版，保证文字可读 */
+    /* 暗色蒙版，整体调亮，让底图清楚可见 */
     .bg-overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at 20% 0%, rgba(0,0,0,0.15), transparent 40%),
-                  radial-gradient(circle at 80% 0%, rgba(0,0,0,0.15), transparent 40%),
-                  linear-gradient(to bottom, rgba(0,0,0,0.60), rgba(0,0,0,0.85));
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,0.35),
+          rgba(0,0,0,0.75)
+        );
       z-index: -1;
     }
 
-    /* ===== 页面布局 ===== */
+    /* ===== 页面布局：整体居中 ===== */
     .page {
       min-height: 100vh;
       width: 100%;
@@ -247,7 +249,7 @@
       margin: 0 auto;
     }
 
-    /* ===== 可重复触发的文字堆叠感（滑入 + 透明度） ===== */
+    /* ===== 文字堆叠感（滑入 + 透明度），可重复触发 ===== */
     .reveal-line {
       opacity: 0;
       transform: translateY(14px);
@@ -294,10 +296,10 @@
       opacity: 0.9;
     }
 
-    /* 工作经历 / 项目经验：每条记录一个块，块内有标题胶囊 + 一行说明 */
     .xp-block {
       max-width: 980px;
       margin: 0 auto 18px;
+      text-align: center;
     }
 
     .xp-block:last-of-type {
