@@ -10,50 +10,72 @@
 
     body{
       font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",sans-serif;
-      background:#ffffff;
+      background:#000;
       color:#000;
+      overflow-x:hidden;
     }
 
-    /* ======= 布局 ======= */
-    .page{
-      display:flex;
-      min-height:100vh;
+    /* ======= 背景：两张图做整页底图轮播，不变形 ======= */
+    .bg-wrapper{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      overflow:hidden;
     }
-    .side{
-      width:25%;
-      min-width:260px;
-      display:flex;
-      flex-direction:column;
-    }
-    .side img{
+    .bg-img{
+      position:absolute;
+      inset:0;
       width:100%;
-      height:50%;
-      object-fit:cover;
-      display:block;
+      height:100%;
+      object-fit:cover; /* 不变形，按比例裁剪 */
+      filter:brightness(0.55);
+      opacity:0;
+      transition:opacity 1.8s ease-in-out;
     }
-    .main{
-      flex:1;
-      padding:48px 72px 72px;
-      max-width:980px;
+    .bg-img.show{
+      opacity:1;
     }
 
-    /* ======= 全局文字堆叠感（不改颜色，仅用阴影） ======= */
-    h1,
-    .section-title,
-    .hero-line,
-    .hero-location,
-    .text p,
-    .list .item,
-    .tag,
-    button{
-      color:#000;
-      animation:textStack 4s ease-in-out infinite;
+    /* 简单轮播：两张图交替淡入淡出 */
+    @keyframes bgFade1{
+      0%{opacity:1}
+      45%{opacity:1}
+      55%{opacity:0}
+      100%{opacity:0}
     }
-    @keyframes textStack{
-      0%,40%{text-shadow:none;}
-      50%{text-shadow:-1px 1px 0 rgba(0,0,0,0.35);}
-      60%{text-shadow:-2px 2px 0 rgba(0,0,0,0.18);}
-      70%,100%{text-shadow:none;}
+    @keyframes bgFade2{
+      0%{opacity:0}
+      45%{opacity:0}
+      55%{opacity:1}
+      100%{opacity:1}
+    }
+    .bg1{animation:bgFade1 26s infinite alternate;}
+    .bg2{animation:bgFade2 26s infinite alternate;}
+
+    /* ======= 主容器 ======= */
+    .page{
+      position:relative;
+      min-height:100vh;
+      padding:40px 6vw 72px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .content{
+      width:100%;
+      max-width:960px;
+      /* 不再加白底卡片，让文字直接铺在背景上，只用轻微阴影保证可读性 */
+    }
+
+    /* ======= iPhone 短信式的“堆叠”文字动效 ======= */
+    .stack-line{
+      opacity:0;
+      transform:translateY(12px);
+      transition:opacity .45s ease,transform .45s ease;
+    }
+    .stack-line.show{
+      opacity:1;
+      transform:translateY(0);
     }
 
     /* ======= 顶部 ======= */
@@ -71,41 +93,48 @@
     h1{
       font-size:40px;
       font-weight:700;
-      margin-bottom:20px;
+      margin-bottom:16px;
+      color:#000;
+      text-shadow:0 0 6px rgba(255,255,255,0.9);
     }
-    .hero-line{
+    .hero-line,
+    .hero-location{
       font-size:16px;
-      margin-bottom:19px; /* 约 0.5cm */
+      margin-bottom:18px; /* 约 0.5cm */
+      color:#000;
+      text-shadow:0 0 6px rgba(255,255,255,0.9);
     }
     .hero-location{
       font-size:15px;
-      margin-bottom:19px;
     }
+
     .hero-actions{
-      margin-top:8px;
+      margin-top:4px;
       display:flex;
       gap:14px;
       flex-wrap:wrap;
     }
-
     button{
       border-radius:999px;
       padding:10px 22px;
       font-size:15px;
-      border:1px solid #ddd;
+      border:1px solid rgba(0,0,0,0.35);
       background:#fff;
       cursor:pointer;
       font-weight:700;
-      transition:transform .18s ease,box-shadow .18s ease;
+      transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+      color:#000;
+      text-shadow:0 0 4px rgba(255,255,255,0.9);
     }
     button.primary{
       background:#000;
       color:#fff;
-      border:none;
+      border-color:#000;
     }
     button:hover{
       transform:scale(1.06);
-      box-shadow:0 10px 26px rgba(0,0,0,.16);
+      box-shadow:0 10px 26px rgba(0,0,0,.35);
+      background:#fdfdfd;
     }
 
     .avatar{
@@ -115,9 +144,10 @@
       flex-shrink:0;
       margin-top:4px;
       border-radius:0; /* 四个直角 */
+      box-shadow:0 0 18px rgba(0,0,0,0.6);
     }
 
-    /* ======= 横线 + 流星动效 ======= */
+    /* ======= 横线 + 缓慢闪烁动效 ======= */
     .divider{
       position:relative;
       height:1px;
@@ -127,7 +157,7 @@
       animation:lineGlow 5s ease-in-out infinite;
     }
     @keyframes lineGlow{
-      0%,100%{opacity:0.7;}
+      0%,100%{opacity:0.6;}
       50%{opacity:1;}
     }
     .divider::after{
@@ -139,63 +169,87 @@
       height:8px;
       background:radial-gradient(circle at 20% 50%,rgba(255,255,255,0.95),rgba(255,255,255,0) 70%);
       filter:blur(1px);
-      animation:comet 8s linear infinite;
+      animation:comet 14s linear infinite;
       opacity:0.9;
     }
     @keyframes comet{
       0%{transform:translateX(0);}
       100%{transform:translateX(1200px);}
     }
-    .divider:nth-of-type(2)::after{animation-duration:9s;}
-    .divider:nth-of-type(3)::after{animation-duration:10s;}
-    .divider:nth-of-type(4)::after{animation-duration:11s;}
-    .divider:nth-of-type(5)::after{animation-duration:8.5s;}
+    .divider:nth-of-type(2)::after{animation-duration:16s;}
+    .divider:nth-of-type(3)::after{animation-duration:18s;}
+    .divider:nth-of-type(4)::after{animation-duration:15s;}
+    .divider:nth-of-type(5)::after{animation-duration:17s;}
 
-    /* ======= 标题 & 正文 ======= */
+    /* ======= section 标题和正文 ======= */
     .section-title{
       font-size:22px;
       font-weight:650;
       margin-bottom:18px;
+      color:#000;
+      text-shadow:0 0 6px rgba(255,255,255,0.9);
     }
     .text{
       font-size:15px;
+      color:#000;
     }
     .text p{
       margin-bottom:18px; /* 约 0.5cm */
+      text-shadow:0 0 6px rgba(255,255,255,0.9);
     }
 
-    /* ======= 生活标签 ======= */
+    /* ======= 生活标签 / 工作经历按钮 ======= */
     .tags{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       margin-bottom:18px;
     }
-    .tag{
-      border:1px solid #ccc;
+    .tag,
+    .pill{
+      border:1px solid rgba(0,0,0,0.4);
       border-radius:999px;
       padding:6px 14px;
       font-weight:700;
       cursor:pointer;
-      background:#fff;
-      transition:transform .18s ease,box-shadow .18s ease;
+      background:rgba(255,255,255,0.9);
+      transition:transform .18s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease;
+      color:#000;
+      text-shadow:0 0 4px rgba(255,255,255,0.9);
     }
-    .tag:hover{
+    .tag:hover,
+    .pill:hover{
       transform:scale(1.07);
-      box-shadow:0 8px 20px rgba(0,0,0,.12);
+      box-shadow:0 8px 20px rgba(0,0,0,.25);
+      background:#ffffff;
+      border-color:#000;
     }
 
-    /* ======= 列表：工作 / 项目 ======= */
+    /* 每个公司 / 项目标题 pill */
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:14px;
+    }
+    .pill-meta{
+      font-size:13px;
+      opacity:0.85;
+    }
+
+    /* 列表正文 */
     .list{
       display:flex;
       flex-direction:column;
       gap:0;
       font-size:15px;
+      color:#000;
     }
     .item{
       padding-left:14px;
       position:relative;
-      margin-bottom:18px; /* 小字统一 0.5cm 行距 */
+      margin-bottom:18px; /* 0.5cm 行距 */
+      text-shadow:0 0 6px rgba(255,255,255,0.9);
     }
     .item::before{
       content:"•";
@@ -205,42 +259,17 @@
       color:#000;
       font-weight:700;
     }
-    .item-title{
-      font-weight:700;
-    }
-    .meta{
-      font-size:14px;
-      margin-left:6px;
-    }
-    /* 公司/项目块之间 1cm 间距（约 38px） */
-    .block-start{
+
+    /* 公司/项目块之间 ~1cm 间距 */
+    .block{
       margin-top:38px;
     }
-    .list .block-start:first-of-type{
+    .block:first-of-type{
       margin-top:0;
     }
 
-    .exp-btn{
-      margin:6px 0 0 14px;
-      padding:8px 18px;
-      font-size:13px;
-      border-radius:999px;
-      border:1px solid #ddd;
-      background:#fff;
-      cursor:pointer;
-      font-weight:700;
-      transition:transform .18s ease,box-shadow .18s ease;
-    }
-    .exp-btn:hover{
-      transform:scale(1.06);
-      box-shadow:0 8px 20px rgba(0,0,0,.14);
-    }
-
     @media (max-width:900px){
-      .page{flex-direction:column;}
-      .side{width:100%;flex-direction:row;}
-      .side img{height:260px;}
-      .main{padding:32px 20px 48px;}
+      .page{padding:28px 16px 48px;}
       .hero{flex-direction:column;align-items:flex-start;}
       .avatar{margin-top:16px;}
     }
@@ -248,141 +277,174 @@
 </head>
 <body>
 
-<div class="page">
-  <!-- 左侧两张生活照：确认仓库里文件名为 life-forest.jpg / life-shop.jpg，后缀小写 .jpg -->
-  <div class="side">
-    <img src="life-forest.jpg" alt="生活照 1">
-    <img src="life-shop.jpg"   alt="生活照 2">
+  <!-- 背景两张图 -->
+  <div class="bg-wrapper">
+    <img src="life-forest.jpg" alt="背景1" class="bg-img bg1">
+    <img src="life-shop.jpg"   alt="背景2" class="bg-img bg2">
   </div>
 
-  <div class="main">
+  <div class="page">
+    <div class="content">
 
-    <!-- 顶部信息 -->
-    <div class="hero">
-      <div class="hero-left">
-        <h1>黄文艳</h1>
-        <div class="hero-line">市场与增长方向｜8年整合营销与媒介经验</div>
-        <div class="hero-line">以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式</div>
-        <div class="hero-location">
-          常驻城市：上海<br/>
-          职业方向：市场、增长、内容、媒介
+      <!-- 顶部 -->
+      <section class="hero">
+        <div class="hero-left">
+          <h1 class="stack-line">黄文艳</h1>
+          <div class="hero-line stack-line">市场与增长方向｜8年整合营销与媒介经验</div>
+          <div class="hero-line stack-line">以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式</div>
+          <div class="hero-location stack-line">
+            常驻城市：上海<br/>
+            职业方向：市场、增长、内容、媒介
+          </div>
+
+          <div class="hero-actions">
+            <button class="primary stack-line" onclick="window.open('resume.pdf')">下载简历 PDF💡</button>
+            <button class="stack-line" onclick="document.getElementById('contact').scrollIntoView()">获取联系方式📧</button>
+          </div>
         </div>
 
-        <div class="hero-actions">
-          <button class="primary" onclick="window.open('resume.pdf')">下载简历 PDF💡</button>
-          <button onclick="document.getElementById('contact').scrollIntoView()">获取联系方式📧</button>
-        </div>
-      </div>
+        <img src="avatar.jpg" alt="头像" class="avatar stack-line">
+      </section>
 
-      <!-- 头像：长方形直角、无边框 -->
-      <img src="avatar.jpg" alt="头像" class="avatar">
+      <div class="divider"></div>
+
+      <!-- 关于我 · 生活 -->
+      <section>
+        <div class="section-title stack-line">关于我 · 生活</div>
+
+        <div class="tags">
+          <div class="tag stack-line">🌍 好奇心强</div>
+          <div class="tag stack-line">⚡ 主动推进</div>
+          <div class="tag stack-line">🧠 快速理解</div>
+          <div class="tag stack-line">🤝 合作高效</div>
+        </div>
+
+        <div class="text">
+          <p class="stack-line">🌍 对世界保持好奇心，热衷于主动出发，擅长在不确定中把事情推进到结果。</p>
+          <p class="stack-line">⚡ 通常愿意先迈出第一步，亲和力强、行动力足，面对陌生关系和新场景，需要较少热身时间。</p>
+          <p class="stack-line">🌠 我的业余爱好广泛，从旅游阅读、健身运动、到今年持续尝试的 Vibe Coding 新工具学习。对我来说，兴趣是一种用来保持输入、训练高精力的方式。</p>
+          <p class="stack-line">👭 习惯在不同经历中快速理解人和场景，并找到一种更省力但更有效的协作方式。</p>
+          <p class="stack-line">🧩 生活里是 ENFP，和不同背景的人相处都很自然；一旦进入工作状态，会切换到冷静、理性和结果导向的模式，习惯把事情理清楚，用自己的节奏循序完成。</p>
+          <p class="stack-line">🤝 和我共事过的人，对我的正面评价往往集中在两点：做事靠谱，以及合作高效。</p>
+          <p class="stack-line">📖 我始终相信，真正有价值的能力，来自终身学习，这会让人在复杂环境里也能保持秩序感。</p>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 关于我 · 工作（长版，emoji 每行） -->
+      <section>
+        <div class="section-title stack-line">关于我 · 工作</div>
+        <div class="text">
+          <p class="stack-line">📈 8 年整合营销与媒介管理经验，长期服务高端快消、酒店旅游、国际房地产等行业，从策略规划到执行落地都有完整经验。</p>
+          <p class="stack-line">📊 擅长基于数据洞察制定与优化营销策略，整合多平台资源，通过精细化运营提升品牌曝光、用户互动与转化效率。</p>
+          <p class="stack-line">🧩 习惯先把目标和路径拆清楚，再以可执行的节奏推进，过程中持续调整优先级，确保团队与合作方保持同一节奏。</p>
+          <p class="stack-line">🤝 重视协作体验，也重视结果交付，希望项目既能稳步推进，也能在关键节点把事情顶住。</p>
+          <p class="stack-line">🚀 喜欢在变化中寻找突破点，让品牌增长和生意目标都能被看见、被量化。</p>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 工作经历：标题行做成 pill 按钮 -->
+      <section>
+        <div class="section-title stack-line">工作经历</div>
+        <div class="list">
+
+          <div class="block">
+            <div class="pill stack-line">
+              <span>媒介主管｜恒沐（上海）广告有限公司</span>
+              <span class="pill-meta">2021.01–2025.12</span>
+            </div>
+            <div class="item stack-line">负责全渠道媒介策略与年度预算管理，搭建本地化内容与投放矩阵。</div>
+            <div class="item stack-line">整合搜索、信息流、短视频等资源，实现品效协同与线索增长。</div>
+            <div class="item stack-line">通过数据监控与复盘，不断优化投放结构，降低 CPM/CPE 提升整体 ROI。</div>
+          </div>
+
+          <div class="block">
+            <div class="pill stack-line">
+              <span>媒介专员｜上海悦普网络科技有限公司</span>
+              <span class="pill-meta">2020.04–2020.12</span>
+            </div>
+            <div class="item stack-line">负责微博、微信、抖音、小红书等平台达人资源拓展与投放执行。</div>
+            <div class="item stack-line">累计处理超 800 项需求，覆盖合同谈判、排期管理与效果追踪。</div>
+          </div>
+
+          <div class="block">
+            <div class="pill stack-line">
+              <span>媒介｜阳光恒美融信息技术服务（上海）股份有限公司</span>
+              <span class="pill-meta">2018.01–2020.01</span>
+            </div>
+            <div class="item stack-line">独立开发并维护 KOL/KOC 与明星资源网络，累计优质资源 2000+。</div>
+            <div class="item stack-line">根据客户预算与目标，制定媒介方案并控制成本。</div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 项目经验：标题行也是 pill -->
+      <section>
+        <div class="section-title stack-line">项目经验</div>
+        <div class="list">
+
+          <div class="block">
+            <div class="pill stack-line">
+              <span>法国依云矿泉水｜全渠道媒介与效果采购</span>
+            </div>
+            <div class="item stack-line">负责千万级年度媒体预算规划与执行，构建多触点投放矩阵，电商 ROI 稳定在 3 左右。</div>
+          </div>
+
+          <div class="block">
+            <div class="pill stack-line">
+              <span>洲际酒店集团｜小红书内容营销与聚光投流</span>
+            </div>
+            <div class="item stack-line">搭建达人合作标准流程，联合品牌内容与短视频投放，爆文率超过 70%。</div>
+          </div>
+
+          <div class="block">
+            <div class="pill stack-line">
+              <span>DAMAC 迪拜地产｜巨量引擎整合营销</span>
+            </div>
+            <div class="item stack-line">结合 DMP 人群定向与 A/B 测试，线索成本下降约 25%，表单转化率提升约 15%。</div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 联系方式 -->
+      <section id="contact">
+        <div class="section-title stack-line">联系方式</div>
+        <div class="text">
+          <p class="stack-line">电话：17621058773</p>
+          <p class="stack-line">微信：17621058773</p>
+          <p class="stack-line">邮箱：17621058773@163.com</p>
+        </div>
+      </section>
+
     </div>
-
-    <div class="divider"></div>
-
-    <!-- 关于我 · 生活 -->
-    <section>
-      <div class="section-title">关于我 · 生活</div>
-      <div class="tags">
-        <div class="tag">🌍 好奇心强</div>
-        <div class="tag">⚡ 主动推进</div>
-        <div class="tag">🧠 快速理解</div>
-        <div class="tag">🤝 合作高效</div>
-      </div>
-      <div class="text">
-        <p>🌍 对世界保持好奇心，热衷于主动出发，擅长在不确定中把事情推进到结果。</p>
-        <p>⚡ 通常愿意先迈出第一步，亲和力强、行动力足，面对陌生关系和新场景，需要较少热身时间。</p>
-        <p>🌠 我的业余爱好广泛，从旅游阅读、健身运动、到今年持续尝试的 Vibe Coding 新工具学习。对我来说，兴趣是一种用来保持输入、训练高精力的方式。</p>
-        <p>👭 习惯在不同经历中快速理解人和场景，并找到一种更省力但更有效的协作方式。</p>
-        <p>🧩 生活里是 ENFP，和不同背景的人相处都很自然；一旦进入工作状态，会切换到冷静、理性和结果导向的模式，习惯把事情理清楚，用自己的节奏循序完成。</p>
-        <p>🤝 和我共事过的人，对我的正面评价往往集中在两点：做事靠谱，以及合作高效。</p>
-        <p>📖 我始终相信，真正有价值的能力，来自终身学习，这会让人在复杂环境里也能保持秩序感。</p>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- 关于我 · 工作 -->
-    <section>
-      <div class="section-title">关于我 · 工作</div>
-      <div class="text">
-        <p>长期负责品牌全渠道媒介与增长策略，覆盖策略制定、资源整合、执行落地与效果复盘。</p>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- 工作经历 -->
-    <section>
-      <div class="section-title">工作经历</div>
-      <div class="list">
-        <div class="item block-start">
-          <span class="item-title">媒介主管｜恒沐（上海）广告有限公司</span>
-          <span class="meta">2021.01–2025.12</span>
-        </div>
-        <div class="item">负责全渠道媒介策略与年度预算管理，搭建本地化内容与投放矩阵。</div>
-        <div class="item">整合搜索、信息流、短视频等资源，实现品效协同与线索增长。</div>
-        <div class="item">通过数据监控与复盘，不断优化投放结构，降低 CPM/CPE 提升整体 ROI。</div>
-        <button class="exp-btn">了解这一段经历</button>
-
-        <div class="item block-start">
-          <span class="item-title">媒介专员｜上海悦普网络科技有限公司</span>
-          <span class="meta">2020.04–2020.12</span>
-        </div>
-        <div class="item">负责微博、微信、抖音、小红书等平台达人资源拓展与投放执行。</div>
-        <div class="item">累计处理超 800 项需求，覆盖合同谈判、排期管理与效果追踪。</div>
-        <button class="exp-btn">了解这一段经历</button>
-
-        <div class="item block-start">
-          <span class="item-title">媒介｜阳光恒美融信息技术服务（上海）股份有限公司</span>
-          <span class="meta">2018.01–2020.01</span>
-        </div>
-        <div class="item">独立开发并维护 KOL/KOC 与明星资源网络，累计优质资源 2000+。</div>
-        <div class="item">根据客户预算与目标，制定媒介方案并控制成本。</div>
-        <button class="exp-btn">了解这一段经历</button>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- 项目经验 -->
-    <section>
-      <div class="section-title">项目经验</div>
-      <div class="list">
-        <div class="item block-start">
-          <span class="item-title">法国依云矿泉水｜全渠道媒介与效果采购</span>
-        </div>
-        <div class="item">负责千万级年度媒体预算规划与执行，构建多触点投放矩阵，电商 ROI 稳定在 3 左右。</div>
-        <button class="exp-btn">查看项目亮点</button>
-
-        <div class="item block-start">
-          <span class="item-title">洲际酒店集团｜小红书内容营销与聚光投流</span>
-        </div>
-        <div class="item">搭建达人合作标准流程，联合品牌内容与短视频投放，爆文率超过 70%。</div>
-        <button class="exp-btn">查看项目亮点</button>
-
-        <div class="item block-start">
-          <span class="item-title">DAMAC 迪拜地产｜巨量引擎整合营销</span>
-        </div>
-        <div class="item">结合 DMP 人群定向与 A/B 测试，线索成本下降约 25%，表单转化率提升约 15%。</div>
-        <button class="exp-btn">查看项目亮点</button>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- 联系方式 -->
-    <section id="contact">
-      <div class="section-title">联系方式</div>
-      <div class="text">
-        <p>电话：17621058773</p>
-        <p>微信：17621058773</p>
-        <p>邮箱：17621058773@163.com</p>
-      </div>
-    </section>
-
   </div>
-</div>
 
+  <script>
+    // 文字堆叠：按顺序一行一行浮现
+    const lines = Array.from(document.querySelectorAll('.stack-line'));
+    lines.forEach((el, index) => {
+      const delay = 0.05 * index;
+      el.style.transitionDelay = delay + 's';
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    }, {threshold:0.1});
+
+    lines.forEach(el => io.observe(el));
+  </script>
 </body>
 </html>
