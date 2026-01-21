@@ -25,10 +25,10 @@
       letter-spacing:.1px;
     }
 
-    /* 整体：左列 1/3 长图 + 右列内容 */
+    /* 整体：左列 1/5 长图 + 右列内容 */
     .layout{
       display:grid;
-      grid-template-columns: minmax(260px, 33%) 1fr;
+      grid-template-columns: minmax(200px, 20%) 1fr;
       min-height:100vh;
       width:100%;
     }
@@ -45,8 +45,8 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      /* 这里可以决定“裁掉”多少左侧的花圈 */
-      object-position:60% 50%;
+      /* 稍微偏右一点，把左边花圈多遮掉一些 */
+      object-position:62% 50%;
       transform:scale(1.02);
     }
 
@@ -58,7 +58,7 @@
     /* 顶部：文字 + 头像 */
     .top{
       display:grid;
-      grid-template-columns: 1fr 280px;
+      grid-template-columns: 1fr 260px;
       gap:36px;
       align-items:stretch;
     }
@@ -81,12 +81,13 @@
       font-size:18px;
       color:var(--muted);
       font-weight:560;
+      white-space:nowrap; /* 大屏不换行 */
     }
 
     .actions{
       margin-top:22px;
       display:flex;
-      gap:12px;
+      gap:14px;
       flex-wrap:wrap;
       align-items:center;
     }
@@ -94,10 +95,10 @@
       appearance:none;
       border:none;
       cursor:pointer;
-      padding:12px 18px;
+      padding:13px 20px;
       border-radius:14px;
       font-weight:750;
-      font-size:14px;
+      font-size:15px;
       letter-spacing:.2px;
       transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
       user-select:none;
@@ -121,9 +122,9 @@
     }
 
     .meta{
-      margin-top:18px;
+      margin-top:26px;       /* 往下挪一点，让行距更舒服 */
       color:#3c3c3c;
-      font-size:17px;         /* 放大这行字 */
+      font-size:17px;
       font-weight:680;
     }
 
@@ -132,16 +133,16 @@
       border-top:1px solid var(--line);
     }
 
-    /* 头像：缩小一点 + 没有白色边框 + 底边跟 divider 对齐 */
+    /* 头像：长方形，无白边，上边和名字顶对齐，底边对齐横线 */
     .avatar-area{
       display:flex;
       justify-content:flex-end;
-      align-items:flex-end;   /* 底边对齐左侧内容的底（也就是那条横线） */
+      align-items:flex-end;
     }
     .glass{
-      width:240px;
-      height:320px;
-      border-radius:26px;
+      width:230px;
+      height:360px; /* 拉高一点：底边不变，顶边抬上去靠近“黄文艳” */
+      border-radius:24px;
       background:rgba(255,255,255,.18);
       backdrop-filter:blur(18px);
       -webkit-backdrop-filter:blur(18px);
@@ -153,7 +154,7 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      border-radius:26px;     /* 只做图片自身的圆角，没有外边框 */
+      border-radius:24px;
       filter:blur(10px);
       opacity:0;
       transform:scale(1.01);
@@ -172,7 +173,7 @@
       padding:0;
     }
     .section h2{
-      margin:36px 0 12px 0;
+      margin:40px 0 12px 0;
       font-size:32px;
       font-weight:850;
       letter-spacing:.2px;
@@ -187,21 +188,21 @@
     .chips{
       display:flex;
       flex-wrap:wrap;
-      gap:12px;
+      gap:14px;
       margin:0 0 16px 0;
     }
     .chip{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:10px 14px;
+      padding:10px 16px;
       border-radius:999px;
       border:1px solid rgba(20,20,20,.18);
       background:rgba(255,255,255,.78);
       backdrop-filter:blur(10px);
       -webkit-backdrop-filter:blur(10px);
       font-weight:820;
-      font-size:14px;
+      font-size:15px;
       box-shadow:0 8px 18px rgba(0,0,0,.06);
     }
 
@@ -230,7 +231,7 @@
       font-weight:640;
     }
 
-    /* 简化后的“堆叠动效” */
+    /* 堆叠动效：可反复触发 */
     .stack-child{
       opacity:0;
       transform:translateY(16px);
@@ -244,21 +245,23 @@
 
     /* 响应式 */
     @media (max-width:1180px){
-      .layout{grid-template-columns:minmax(240px, 38%) 1fr;}
+      .layout{grid-template-columns:minmax(180px, 26%) 1fr;}
       .right{padding:44px 34px 80px 34px;}
       .top{grid-template-columns:1fr 240px;gap:26px;}
+      .tagline.sub{white-space:normal;}
     }
     @media (max-width:860px){
       .layout{grid-template-columns:1fr;}
       .left-rail{
         position:relative;
-        height:56vh;
+        height:52vh;
       }
       .right{padding:22px 18px 70px 18px;}
       .top{grid-template-columns:1fr;}
       .avatar-area{justify-content:flex-start;margin-top:14px;}
-      .glass{width:220px;height:300px;}
+      .glass{width:220px;height:320px;}
       .name{font-size:44px;}
+      .tagline.sub{white-space:normal;}
     }
   </style>
 </head>
@@ -277,11 +280,13 @@
       <div>
         <h1 class="name stack-child">黄文艳</h1>
         <p class="tagline stack-child">市场与增长方向｜8年整合营销与媒介经验</p>
-        <p class="tagline sub stack-child">以0代码背景为起点，正在用 AI 与 Vibe Coding 主动探索新的创造方式</p>
+        <p class="tagline sub stack-child">以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式</p>
 
         <div class="actions stack-child">
-          <a class="btn primary" href="resume.pdf" download>下载简历 PDF</a>
-          <button class="btn ghost" type="button" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">联系方式</button>
+          <a class="btn primary" href="resume.pdf" download>下载简历 PDF💡</a>
+          <button class="btn ghost" type="button" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+            获取联系方式📧
+          </button>
         </div>
 
         <div class="meta stack-child">
@@ -304,7 +309,7 @@
       <div class="rule"></div>
 
       <div class="chips">
-        <span class="chip stack-child">👀 好奇心强</span>
+        <span class="chip stack-child">🌍 好奇心强</span>
         <span class="chip stack-child">⚡ 主动推进</span>
         <span class="chip stack-child">🧠 快速理解</span>
         <span class="chip stack-child">🤝 合作高效</span>
@@ -321,7 +326,7 @@
       </div>
     </section>
 
-    <!-- 关于我 · 职业（只用你之前自己说过的那部分信息） -->
+    <!-- 关于我 · 职业（用概述，不虚构具体公司） -->
     <section class="section">
       <h2 class="stack-child">关于我 · 职业</h2>
       <div class="rule"></div>
@@ -351,7 +356,7 @@
       </ul>
     </section>
 
-    <!-- 工作经历：不写虚构公司名和年份，只给概括 -->
+    <!-- 工作经历：等你确认后再用 PDF 里的真实内容替换 -->
     <section class="section">
       <h2 class="stack-child">工作经历</h2>
       <div class="rule"></div>
@@ -366,7 +371,7 @@
           · 近年来逐步往 CRM、用户运营与增长方向延伸，希望在更贴近业务和用户的数据上做长期积累。
         </p>
         <p class="stack-child" style="margin-top:10px;font-size:15px;color:#777;">
-          （这里的具体公司名称、时间线、项目细节，可以从你的 PDF 简历里复制粘贴上来。）
+          （这里可以直接用你 PDF 简历里的真实公司、时间和项目，后面如果你说一声，我可以帮你从简历中自动提取并排版。）
         </p>
       </div>
     </section>
@@ -394,16 +399,16 @@ document.addEventListener('DOMContentLoaded', function () {
     else avatar.addEventListener('load', onReady, {once:true});
   }
 
-  // “堆叠感”：进入视口时淡入 + 上浮
+  // “堆叠感”：进入视口时淡入 + 上浮，离开视口后移除 class，下次滚动回来再次触发
   const items = Array.from(document.querySelectorAll('.stack-child'));
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
       const el = entry.target;
-      if (!el.classList.contains('show')) {
+      if (entry.isIntersecting){
         el.classList.add('show');
+      }else{
+        el.classList.remove('show');
       }
-      observer.unobserve(el);
     });
   }, {threshold:0.15});
 
