@@ -32,7 +32,7 @@
       overflow-x: hidden;
     }
 
-    /* 三张竖图横向铺满全屏 */
+    /* ========= 三张竖图横向铺满 ========= */
     .bg-strip {
       position: fixed;
       inset: 0;
@@ -52,17 +52,17 @@
       object-fit: cover;
     }
 
-    /* 左：房子，中：森林，右：店铺 */
-    .bg-panel:nth-child(1) img { object-position: 50% 45%; }
-    .bg-panel:nth-child(2) img { object-position: 50% 40%; }
-    .bg-panel:nth-child(3) img { object-position: 50% 42%; }
+    /* 左 shop，中 house，右 forest */
+    .bg-panel:nth-child(1) img { object-position: 50% 42%; }
+    .bg-panel:nth-child(2) img { object-position: 50% 45%; }
+    .bg-panel:nth-child(3) img { object-position: 50% 40%; }
 
     .bg-overlay {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6)),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.85));
+        radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.55)),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9));
       pointer-events: none;
     }
 
@@ -76,6 +76,7 @@
       color: var(--text-light);
     }
 
+    /* ========= 顶部区域 ========= */
     .hero {
       width: 100%;
       padding: 40px 20px 32px;
@@ -96,53 +97,32 @@
       gap: 18px;
     }
 
-    /* 黄文艳：无空格、柔光扫过、轻微呼吸 */
+    /* 黄文艳：渐变文字 + 轮流呼吸，没有矩形光感 */
     .hero-name {
       position: relative;
       font-size: 90px;
       font-weight: 800;
-      letter-spacing: 0.08em;
-      color: #ffffff;
-      text-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-      overflow: hidden;
-    }
-
-    .hero-name::before {
-      content: "";
-      position: absolute;
-      top: -40%;
-      left: -50%;
-      width: 120%;
-      height: 180%;
-      background:
-        radial-gradient(circle at 0% 50%, rgba(255, 255, 255, 0.0), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
-      opacity: 0;
-      animation: nameShine 7s ease-in-out infinite;
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-
-    @keyframes nameShine {
-      0%   { transform: translateX(-100%); opacity: 0; }
-      20%  { opacity: 0.4; }
-      40%  { transform: translateX(40%); opacity: 0.25; }
-      70%  { transform: translateX(130%); opacity: 0; }
-      100% { transform: translateX(180%); opacity: 0; }
+      letter-spacing: 0.12em;
+      background: linear-gradient(180deg, #ffffff, #ffe7bd);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 14px 45px rgba(0, 0, 0, 0.7);
     }
 
     .name-letter {
       display: inline-block;
-      padding: 0 2px;
-      animation: nameBreathe 3.8s ease-in-out infinite;
+      padding: 0 3px;
       transform-origin: 50% 60%;
+      animation: nameBreathe 4.2s ease-in-out infinite;
     }
-    .name-letter:nth-child(2) { animation-delay: 0.4s; }
-    .name-letter:nth-child(3) { animation-delay: 0.8s; }
+    .name-letter:nth-child(2) { animation-delay: 0.5s; }
+    .name-letter:nth-child(3) { animation-delay: 1s; }
 
     @keyframes nameBreathe {
       0%   { transform: scale(1); }
-      25%  { transform: scale(1.08); }
-      55%  { transform: scale(1); }
+      20%  { transform: scale(1.06); }
+      45%  { transform: scale(1); }
       100% { transform: scale(1); }
     }
 
@@ -174,7 +154,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* 顶部按钮区 */
+    /* ========= 顶部按钮 ========= */
     .hero-pills {
       margin-top: 26px;
       display: flex;
@@ -222,7 +202,7 @@
     .pill-soft {
       background: var(--pill-bg-soft);
       font-size: 15px;
-      color: #000000 !important; /* 强制黑色 */
+      color: #000000 !important; /* 始终黑色 */
     }
 
     .pill:hover {
@@ -230,6 +210,7 @@
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
     }
 
+    /* 第一排 hover 渐变色 */
     .pill-strong:nth-child(1):hover { background: linear-gradient(135deg, #ffe66d, #ffd43b); }
     .pill-strong:nth-child(2):hover { background: linear-gradient(135deg, #ff922b, #ff6b6b); }
     .pill-strong:nth-child(3):hover { background: linear-gradient(135deg, #66d9e8, #5c7cfa); }
@@ -237,12 +218,13 @@
     .pill-strong:nth-child(5):hover { background: linear-gradient(135deg, #ffd8a8, #ffa94d); }
     .pill-strong:nth-child(6):hover { background: linear-gradient(135deg, #d0bfff, #845ef7); }
 
-    .pill-soft:nth-child(1):hover,
-    .pill-soft:nth-child(2):hover {
+    /* 第二排 hover 渐变 + 黑字 */
+    .pill-soft:hover {
       background: linear-gradient(135deg, #e9ecef, #dee2e6);
       color: #000000 !important;
     }
 
+    /* ========= 横线 + 流星 ========= */
     .divider-wrap {
       width: 100%;
       margin: 1cm 0;
@@ -268,16 +250,17 @@
       height: 7px;
       background: radial-gradient(circle at 0% 50%, rgba(255, 255, 255, 0.8), transparent 70%);
       filter: blur(1px);
-      animation: shootingStar 10s linear infinite;
+      animation: shootingStar 11s linear infinite;
     }
 
     @keyframes shootingStar {
       0%   { transform: translateX(0); opacity: 0; }
-      10%  { opacity: 1; }
+      12%  { opacity: 1; }
       60%  { opacity: 1; }
       100% { transform: translateX(1200px); opacity: 0; }
     }
 
+    /* ========= 内容区域 ========= */
     .content {
       width: 100%;
       padding: 0 16px 64px;
@@ -290,7 +273,7 @@
     }
 
     .section-about-work {
-      margin-bottom: 24px; /* 下面到横线约 1cm（横线自身 margin 再加） */
+      margin-bottom: 24px;
     }
 
     .section-title {
@@ -311,13 +294,11 @@
       margin-bottom: 6px;
     }
 
-    /* 高级重点：柔和高光底色 */
+    /* 高级重点：暖色文字 + 微光，不划线不铺底 */
     .key {
-      font-weight: 700;
-      color: #fff7e0;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, rgba(255, 245, 204, 0.85) 100%);
-      padding: 0 2px;
-      border-radius: 4px;
+      font-weight: 600;
+      color: #ffe8a3;
+      text-shadow: 0 0 8px rgba(255, 232, 163, 0.35);
     }
 
     .lower {
@@ -377,6 +358,7 @@
       letter-spacing: 0.02em;
     }
 
+    /* 联系方式：柔和光感 */
     .contact-list {
       font-size: var(--body-size);
       line-height: 1.9;
@@ -395,21 +377,31 @@
       padding: 8px 22px;
       border-radius: 999px;
       border: 1px solid rgba(255, 255, 255, 0.25);
-      background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.18), rgba(0, 0, 0, 0.5));
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.16), rgba(0, 0, 0, 0.55));
       backdrop-filter: blur(6px);
-      transition: box-shadow 0.25s ease, border-color 0.25s ease;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
     }
 
     .contact-item:hover {
       box-shadow: 0 0 18px rgba(255, 255, 255, 0.7);
       border-color: rgba(255, 255, 255, 0.6);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.22), rgba(0, 0, 0, 0.6));
     }
 
-    /* stack-reveal：现在只作为占位，不再动画，避免晕车 */
+    /* ========= 短信堆叠感：轻微、慢速的上下浮动 ========= */
     .stack-reveal {
-      opacity: 1;
-      transform: none;
-      filter: none;
+      animation: stackFloat 9s ease-in-out infinite alternate;
+    }
+
+    .stack-reveal:nth-of-type(2) { animation-delay: 0.3s; }
+    .stack-reveal:nth-of-type(3) { animation-delay: 0.6s; }
+    .stack-reveal:nth-of-type(4) { animation-delay: 0.9s; }
+
+    @keyframes stackFloat {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-3px); }
     }
 
     @media (max-width: 768px) {
@@ -431,11 +423,11 @@
   </style>
 </head>
 <body>
-  <!-- 三张竖图横向底图：左房子，中森林，右店铺 -->
+  <!-- 背景：shop / house / forest 三张竖图横向铺满 -->
   <div class="bg-strip">
+    <div class="bg-panel"><img src="life-shop.jpg" alt="shop" /></div>
     <div class="bg-panel"><img src="life-house.jpg" alt="house" /></div>
     <div class="bg-panel"><img src="life-forest.jpg" alt="forest" /></div>
-    <div class="bg-panel"><img src="life-shop.jpg" alt="shop" /></div>
     <div class="bg-overlay"></div>
   </div>
 
