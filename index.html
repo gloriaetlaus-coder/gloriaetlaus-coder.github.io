@@ -33,7 +33,7 @@
       overflow-x: hidden;
     }
 
-    /* 全屏背景轮播（竖图铺满，从上到下覆盖整页） */
+    /* 全屏竖图背景：改用 <img>，不拉伸，避免断层 */
     .bg-slideshow {
       position: fixed;
       inset: 0;
@@ -44,27 +44,33 @@
     .bg-slide {
       position: absolute;
       inset: 0;
-      background-size: cover;
-      background-position: center top;
-      filter: blur(2px);
-      transform: scale(1.04);
       opacity: 0;
       animation: slideShow 24s infinite;
     }
 
+    .bg-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(2px);
+      transform: scale(1.04);
+    }
+
+    /* 尽量把人脸留在画面里：每张单独设位置 */
+    .bg-slide:nth-child(1) img { object-position: 50% 35%; } /* 森林：人略偏下 */
+    .bg-slide:nth-child(2) img { object-position: 50% 45%; } /* 柱子：人偏下 */
+    .bg-slide:nth-child(3) img { object-position: 50% 40%; } /* 店铺：人中偏下 */
+
     .bg-slide:nth-child(1) {
-      background-image: url("life-forest.jpg");
       animation-delay: 0s;
       opacity: 1;
     }
 
     .bg-slide:nth-child(2) {
-      background-image: url("life-house.jpg");
       animation-delay: 8s;
     }
 
     .bg-slide:nth-child(3) {
-      background-image: url("life-shop.jpg");
       animation-delay: 16s;
     }
 
@@ -76,11 +82,10 @@
     .bg-overlay {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.65));
+      background: radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.68));
       pointer-events: none;
     }
 
-    /* 页面主容器 */
     .page {
       position: relative;
       z-index: 1;
@@ -112,31 +117,64 @@
       gap: 18px;
     }
 
-    /* 黄文艳：字体再放大 + 高光扫过 */
+    /* 黄文艳：单字轮流呼吸 + 光带划过 */
     .hero-name {
+      position: relative;
       font-size: 90px;
       font-weight: 800;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      position: relative;
-      color: transparent;
-      background-image: linear-gradient(
+      color: #ffffff;
+      text-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+    }
+
+    .hero-name::before {
+      content: "";
+      position: absolute;
+      top: -20%;
+      left: -30%;
+      width: 60%;
+      height: 140%;
+      background: linear-gradient(
         120deg,
-        rgba(255, 255, 255, 0.1),
-        rgba(255, 255, 255, 1),
-        rgba(255, 255, 255, 0.1)
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.65),
+        rgba(255, 255, 255, 0)
       );
-      background-size: 200% 100%;
-      background-position: 0% 50%;
-      -webkit-background-clip: text;
-      background-clip: text;
+      transform: skewX(-20deg);
       animation: nameShine 4.5s ease-in-out infinite;
+      pointer-events: none;
+      mix-blend-mode: screen;
     }
 
     @keyframes nameShine {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 200% 50%; }
-      100% { background-position: 0% 50%; }
+      0%   { transform: translateX(-100%) skewX(-20deg); opacity: 0; }
+      25%  { opacity: 1; }
+      50%  { transform: translateX(120%) skewX(-20deg); opacity: 0.9; }
+      100% { transform: translateX(200%) skewX(-20deg); opacity: 0; }
+    }
+
+    .name-letter {
+      display: inline-block;
+      padding: 0 4px;
+      animation: nameBreathe 3.2s ease-in-out infinite;
+      transform-origin: 50% 60%;
+    }
+
+    .name-letter:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    .name-letter:nth-child(3) {
+      animation-delay: 0.8s;
+    }
+
+    @keyframes nameBreathe {
+      0%   { transform: scale(1);   filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); }
+      35%  { transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8)); }
+      70%  { transform: scale(1);   filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); }
+      100% { transform: scale(1); }
     }
 
     .hero-subtitle-en {
@@ -219,7 +257,7 @@
     .pill-soft {
       background: var(--pill-bg-soft);
       font-size: 15px;
-      color: var(--text-main); /* 改成黑字 */
+      color: #000000; /* 强制黑字 */
     }
 
     .pill:hover {
@@ -227,7 +265,7 @@
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
     }
 
-    /* 顶部 6 个优势 pill 悬停不同颜色 */
+    /* 顶部 6 个优势 pill 悬停不同颜色（无下划线） */
     .pill-strong:nth-child(1):hover { background: linear-gradient(135deg, #ffe66d, #ffd43b); }
     .pill-strong:nth-child(2):hover { background: linear-gradient(135deg, #ff922b, #ff6b6b); }
     .pill-strong:nth-child(3):hover { background: linear-gradient(135deg, #66d9e8, #5c7cfa); }
@@ -277,7 +315,6 @@
       100% { transform: translateX(1200px); opacity: 0; }
     }
 
-    /* 中部：关于我 —— 背景透明，让底图贯穿整页 */
     .content {
       width: 100%;
       padding: 0 16px 64px;
@@ -309,16 +346,16 @@
       margin-bottom: 6px;
     }
 
-    /* 关键短语高亮：稍大、加粗、下划线 */
+    /* 重点词：暖黄色 + 下划线 */
     .key {
       font-weight: 700;
       font-size: 1.05em;
+      color: #ffd666;
       text-decoration: underline;
       text-decoration-thickness: 0.08em;
       text-underline-offset: 0.16em;
     }
 
-    /* 下部：工作经历、项目、联系方式 —— 也透明 */
     .lower {
       width: 100%;
       padding: 0 16px 56px 16px;
@@ -347,7 +384,7 @@
       border-radius: var(--pill-radius);
       background: rgba(255, 255, 255, 0.97);
       color: var(--text-main);
-      font-size: 16px; /* 和优势按钮同级 */
+      font-size: 16px;
       font-weight: 600;
       box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55);
       margin-bottom: 10px;
@@ -421,7 +458,7 @@
       }
     }
 
-    /* iPhone 短信式堆叠动效（整站文字都用） */
+    /* iPhone 短信式堆叠动效 */
     .stack-reveal {
       opacity: 0;
       transform: translateY(10px) scale(0.98);
@@ -444,7 +481,6 @@
     .stack-group > .stack-reveal:nth-child(6) { transition-delay: 0.25s; }
     .stack-group > .stack-reveal:nth-child(7) { transition-delay: 0.30s; }
 
-    /* 响应式 */
     @media (max-width: 768px) {
       .hero-top-row {
         flex-direction: column;
@@ -464,36 +500,45 @@
   </style>
 </head>
 <body>
-  <!-- 背景轮播（竖图） -->
+  <!-- 背景轮播：竖图 -->
   <div class="bg-slideshow">
-    <div class="bg-slide"></div>
-    <div class="bg-slide"></div>
-    <div class="bg-slide"></div>
+    <div class="bg-slide">
+      <img src="life-forest.jpg" alt="forest life" />
+    </div>
+    <div class="bg-slide">
+      <img src="life-house.jpg" alt="house life" />
+    </div>
+    <div class="bg-slide">
+      <img src="life-shop.jpg" alt="shop life" />
+    </div>
     <div class="bg-overlay"></div>
   </div>
 
   <div class="page">
-    <!-- 顶部区 -->
+    <!-- 顶部 -->
     <header class="hero">
       <div class="hero-inner stack-group">
         <div class="hero-top-row stack-reveal">
-          <div class="hero-name">黄文艳</div>
+          <div class="hero-name" aria-label="黄文艳">
+            <span class="name-letter">黄</span>
+            <span class="name-letter">文</span>
+            <span class="name-letter">艳</span>
+          </div>
           <div class="hero-subtitle-en">MARKETING &amp; GROWTH · RESUME SITE</div>
         </div>
 
         <p class="hero-line stack-reveal">
-          市场与增长方向｜<span class="key">8年整合营销与媒介经验</span>
+          市场与增长方向｜8年整合营销与媒介经验
         </p>
         <p class="hero-line stack-reveal">
-          以<span class="key">0代码背景</span>为起点，用 AI 与 Vibe Coding 主动探索新的创造方式。
+          以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式。
         </p>
 
         <div class="hero-meta stack-reveal">
-          <span>常驻城市：<span class="key">上海</span></span>
-          <span>职业方向：<span class="key">市场、增长、内容、媒介</span></span>
+          <span>常驻城市：上海</span>
+          <span>职业方向：市场、增长、内容、媒介</span>
         </div>
 
-        <!-- 优势 & 行动按钮 -->
         <div class="hero-pills stack-group">
           <div class="pill-row stack-reveal">
             <button class="pill pill-strong">🌍 好奇心强</button>
@@ -510,13 +555,12 @@
         </div>
       </div>
 
-      <!-- 顶部分割线 -->
       <div class="divider-wrap stack-reveal">
         <div class="divider"></div>
       </div>
     </header>
 
-    <!-- 中部：关于我 -->
+    <!-- 关于我 -->
     <main class="content">
       <section class="section stack-group">
         <h2 class="section-title stack-reveal">关于我 · 生活</h2>
@@ -525,7 +569,7 @@
           <p class="stack-reveal">⚡ 通常愿意先迈出第一步，<span class="key">亲和力强、行动力足</span>，面对陌生关系和新场景，需要较少热身时间。</p>
           <p class="stack-reveal">📚 我的业余爱好广泛，从旅游阅读、健身运动，到今年持续尝试的 <span class="key">Vibe Coding 新工具学习</span>。对我来说，兴趣是一种用来保持输入、训练高精力的方式。</p>
           <p class="stack-reveal">🧭 习惯在不同经历中<span class="key">快速理解人和场景</span>，并找到一种更省力但更有效的协作方式。</p>
-          <p class="stack-reveal">🌈 生活里是 ENFP，和不同背景的人相处都很自然；一旦进入工作状态，会切换到冷静、理性和结果导向的模式，习惯把事情理清楚，用自己的节奏循序完成。</p>
+          <p class="stack-reveal">🌈 生活里是 ENFP，和不同背景的人相处都很自然；一旦进入工作状态，会切换到<span class="key">冷静理性、结果导向模式</span>，习惯把事情理清楚，用自己的节奏循序完成。</p>
           <p class="stack-reveal">🤗 和我共事过的人，对我的正面评价往往集中在两点：<span class="key">做事靠谱</span>，以及<span class="key">合作高效</span>。</p>
           <p class="stack-reveal">📖 我始终相信，真正有价值的能力，来自<span class="key">终身学习</span>，这会让人在复杂环境里也能保持秩序感。</p>
         </div>
@@ -549,12 +593,10 @@
 
     <!-- 下半部分 -->
     <section class="lower">
-      <!-- 工作经历上方的分割线 -->
       <div class="divider-wrap stack-reveal">
         <div class="divider"></div>
       </div>
 
-      <!-- 工作经历 -->
       <div class="timeline-section stack-group">
         <h2 class="timeline-title stack-reveal">工作经历</h2>
 
@@ -584,7 +626,6 @@
         <div class="divider"></div>
       </div>
 
-      <!-- 项目经验 -->
       <div class="timeline-section stack-group">
         <h2 class="timeline-title stack-reveal">项目经验</h2>
 
@@ -614,7 +655,6 @@
         <div class="divider"></div>
       </div>
 
-      <!-- 联系方式 -->
       <div id="contact" class="timeline-section stack-group">
         <h2 class="timeline-title stack-reveal">联系方式</h2>
         <div class="contact-list">
