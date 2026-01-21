@@ -11,7 +11,8 @@
       --text:#141414;
       --muted:#5a5a5a;
       --line:rgba(20,20,20,.12);
-      --shadow: 0 18px 50px rgba(0,0,0,.10);
+      --shadow:0 18px 50px rgba(0,0,0,.10);
+      --card:#ffffff;
     }
 
     *{box-sizing:border-box}
@@ -25,16 +26,15 @@
       letter-spacing:.1px;
     }
 
-    /* 整体：左侧整列长竖图 + 右侧内容 */
+    /* 整体：左列整张长图 + 右侧全部内容 */
     .layout{
       display:grid;
       grid-template-columns: 40vw 1fr;
-      gap:0;
-      width:100%;
       min-height:100vh;
+      width:100%;
     }
 
-    /* 左侧整列长竖图：固定在左边、随页面滚动也一直在 */
+    /* 左侧长竖图：始终铺满这一列 */
     .left-rail{
       position:sticky;
       top:0;
@@ -46,22 +46,22 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      /* 想把左侧花圈那部分藏掉：把 X 调大一点 */
-      object-position: 60% 50%;
-      transform: scale(1.02);
+      /* 调这个值可以多“裁掉”一点左侧花圈 */
+      object-position:60% 50%;
+      transform:scale(1.02);
     }
 
-    /* 右侧内容区域 */
+    /* 右侧整体内容 */
     .right{
-      padding: 56px 56px 90px 56px;
+      padding:56px 56px 90px 56px;
     }
 
-    /* 顶部区域：文字 + 头像 */
+    /* 顶部：文字 + 头像 */
     .top{
       display:grid;
       grid-template-columns: 1fr 340px;
       gap:40px;
-      align-items:start;
+      align-items:flex-start;
     }
 
     .name{
@@ -100,7 +100,7 @@
       font-weight:750;
       font-size:14px;
       letter-spacing:.2px;
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
       user-select:none;
       text-decoration:none;
       display:inline-flex;
@@ -111,14 +111,14 @@
     .btn.primary{
       background:#111;
       color:#fff;
-      box-shadow: 0 10px 22px rgba(0,0,0,.16);
+      box-shadow:0 10px 22px rgba(0,0,0,.16);
     }
     .btn.ghost{
-      background: rgba(255,255,255,.75);
+      background:rgba(255,255,255,.75);
       color:#111;
       border:1px solid rgba(17,17,17,.14);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
     }
 
     .meta{
@@ -129,75 +129,66 @@
     }
 
     .divider{
-      margin: 34px 0 0 0;
+      margin:34px 0 0 0;
       border-top:1px solid var(--line);
     }
 
-    /* 头像：长方形，不裁成方形，不要边框 */
+    /* 头像：长方形，无白边，只保留淡淡玻璃感背景 */
     .avatar-area{
       display:flex;
       justify-content:flex-end;
     }
-
-    /* 背后玻璃卡片：很淡，像 iOS 控制中心那种 */
     .glass{
-      width: 320px;
-      height: 420px;
-      border-radius: 26px;
-      background: rgba(255,255,255,.18);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow: var(--shadow);
-      position:relative;
+      width:320px;
+      height:420px;
+      border-radius:26px;
+      background:rgba(255,255,255,.18);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      box-shadow:var(--shadow);
       overflow:hidden;
-      padding: 0; /* 不要内边框 */
+      position:relative;
     }
-
     .avatar-img{
       width:100%;
       height:100%;
-      object-fit: cover;
-      /* 这里关键：不做圆角边框，只做图片本身圆角 */
-      border-radius: 26px;
-
-      /* 一次性：模糊->清晰 */
-      filter: blur(10px);
-      opacity: 0;
-      transform: scale(1.01);
-      transition: filter .85s cubic-bezier(.2,.9,.2,1),
-                  opacity .85s cubic-bezier(.2,.9,.2,1);
+      object-fit:cover;
+      border-radius:26px;
+      filter:blur(10px);
+      opacity:0;
+      transform:scale(1.01);
+      transition:filter .85s cubic-bezier(.2,.9,.2,1),
+                 opacity .85s cubic-bezier(.2,.9,.2,1);
     }
     .avatar-img.ready{
-      filter: blur(0px);
-      opacity: 1;
+      filter:blur(0);
+      opacity:1;
     }
 
-    /* 内容区 */
+    /* 各 section 通用样式 */
     .section{
-      max-width: 980px;
-      margin: 0;
-      padding: 0;
+      max-width:980px;
+      margin:0;
+      padding:0;
     }
-
     .section h2{
-      margin: 36px 0 12px 0;
+      margin:36px 0 12px 0;
       font-size:32px;
       font-weight:850;
       letter-spacing:.2px;
     }
-
     .rule{
       height:2px;
-      background: rgba(20,20,20,.55);
+      background:rgba(20,20,20,.55);
       width:100%;
-      margin: 10px 0 18px 0;
+      margin:10px 0 18px 0;
     }
 
     .chips{
       display:flex;
-      gap:12px;
       flex-wrap:wrap;
-      margin: 0 0 16px 0;
+      gap:12px;
+      margin:0 0 16px 0;
     }
     .chip{
       display:inline-flex;
@@ -206,155 +197,283 @@
       padding:10px 14px;
       border-radius:999px;
       border:1px solid rgba(20,20,20,.18);
-      background: rgba(255,255,255,.75);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background:rgba(255,255,255,.78);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
       font-weight:820;
       font-size:14px;
-      box-shadow: 0 8px 18px rgba(0,0,0,.06);
+      box-shadow:0 8px 18px rgba(0,0,0,.06);
     }
 
-    /* “消息堆叠感”：滚动进入视口时，每段文字做一次上滑堆叠 */
-    .stack-child{
-      opacity: 1;            /* 永远可见，避免再“整段消失” */
-      transform: translateY(14px);
-      transition: transform .55s cubic-bezier(.18,.9,.2,1);
-      will-change: transform;
-    }
-    .stack-child.show{
-      transform: translateY(0);
-    }
-
-    .life-text p{
-      margin: 0 0 12px 0;
+    .life-text p,
+    .job-text p{
+      margin:0 0 12px 0;
       font-size:18px;
       color:#1f1f1f;
       font-weight:650;
     }
 
-    /* 响应式 */
-    @media (max-width: 1180px){
-      .layout{ grid-template-columns: 44vw 1fr; }
-      .right{ padding: 44px 34px 80px 34px; }
-      .top{ grid-template-columns: 1fr 300px; gap:28px; }
-      .glass{ width: 290px; height: 380px; }
+    .stack-list{
+      list-style:none;
+      margin:0;
+      padding:0;
+    }
+    .stack-list li{
+      margin:0 0 8px 0;
+      font-size:17px;
+      font-weight:640;
     }
 
-    @media (max-width: 860px){
-      .layout{ grid-template-columns: 1fr; }
+    .timeline{
+      margin:0;
+      padding:0;
+      list-style:none;
+      border-left:2px solid rgba(20,20,20,.18);
+    }
+    .timeline-item{
+      padding:0 0 18px 18px;
+      position:relative;
+    }
+    .timeline-item::before{
+      content:"";
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:#111;
+      position:absolute;
+      left:-6px;
+      top:4px;
+    }
+    .timeline-title{
+      font-weight:730;
+      font-size:17px;
+    }
+    .timeline-meta{
+      font-size:14px;
+      color:#5a5a5a;
+      margin-top:2px;
+    }
+    .timeline-desc{
+      margin-top:6px;
+      font-size:16px;
+    }
+
+    .contact p{
+      margin:0 0 6px 0;
+      font-size:17px;
+      font-weight:640;
+    }
+
+    /* 堆叠动效：文字始终可见，只是轻微上浮一下 */
+    .stack-child{
+      opacity:1;
+      transform:translateY(14px);
+      transition:transform .55s cubic-bezier(.18,.9,.2,1);
+      will-change:transform;
+    }
+    .stack-child.show{
+      transform:translateY(0);
+    }
+
+    /* 响应式 */
+    @media (max-width:1180px){
+      .layout{grid-template-columns:44vw 1fr;}
+      .right{padding:44px 34px 80px 34px;}
+      .top{grid-template-columns:1fr 300px;gap:28px;}
+      .glass{width:290px;height:380px;}
+    }
+    @media (max-width:860px){
+      .layout{grid-template-columns:1fr;}
       .left-rail{
         position:relative;
-        height: 56vh;
+        height:56vh;
       }
-      .right{ padding: 22px 18px 70px 18px; }
-      .top{ grid-template-columns: 1fr; }
-      .avatar-area{ justify-content:flex-start; margin-top:14px; }
-      .glass{ width: 260px; height: 330px; }
-      .name{ font-size:44px; }
+      .right{padding:22px 18px 70px 18px;}
+      .top{grid-template-columns:1fr;}
+      .avatar-area{justify-content:flex-start;margin-top:14px;}
+      .glass{width:260px;height:330px;}
+      .name{font-size:44px;}
     }
   </style>
 </head>
 
 <body>
-  <div class="layout">
-    <!-- 左侧整列长竖图 -->
-    <aside class="left-rail" aria-label="生活照">
-      <img src="life.png" alt="生活照"/>
-    </aside>
+<div class="layout">
+  <!-- 左侧整张长竖图 -->
+  <aside class="left-rail" aria-label="生活照">
+    <img src="life.png" alt="生活照">
+  </aside>
 
-    <!-- 右侧内容 -->
-    <main class="right">
-      <section class="top">
-        <div>
-          <h1 class="name stack-child">黄文艳</h1>
-          <p class="tagline stack-child">市场与增长方向｜8年整合营销与媒介经验</p>
-          <p class="tagline sub stack-child">以0代码背景为起点，正在用 AI 与 Vibe Coding 主动探索新的创造方式</p>
+  <!-- 右侧所有内容 -->
+  <main class="right">
+    <!-- 顶部：名字 + 头像 -->
+    <section class="top">
+      <div>
+        <h1 class="name stack-child">黄文艳</h1>
+        <p class="tagline stack-child">市场与增长方向｜8年整合营销与媒介经验</p>
+        <p class="tagline sub stack-child">以0代码背景为起点，正在用 AI 与 Vibe Coding 主动探索新的创造方式</p>
 
-          <div class="actions stack-child">
-            <a class="btn primary" href="resume.pdf" download>下载简历 PDF</a>
-            <button class="btn ghost" type="button" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">联系方式</button>
+        <div class="actions stack-child">
+          <a class="btn primary" href="resume.pdf" download>下载简历 PDF</a>
+          <button class="btn ghost" type="button" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">联系方式</button>
+        </div>
+
+        <div class="meta stack-child">
+          城市：上海　方向：市场、增长、内容、媒介
+        </div>
+
+        <div class="divider"></div>
+      </div>
+
+      <div class="avatar-area">
+        <div class="glass" aria-label="头像">
+          <img id="avatarImg" class="avatar-img" src="avatar.jpg" alt="头像">
+        </div>
+      </div>
+    </section>
+
+    <!-- 关于我 · 生活 -->
+    <section class="section">
+      <h2 class="stack-child">关于我 · 生活</h2>
+      <div class="rule"></div>
+
+      <div class="chips">
+        <span class="chip stack-child">👀 好奇心强</span>
+        <span class="chip stack-child">⚡ 主动推进</span>
+        <span class="chip stack-child">🧠 快速理解</span>
+        <span class="chip stack-child">🤝 合作高效</span>
+      </div>
+
+      <div class="life-text" id="lifeText">
+        <p class="stack-child">🌍 对世界保持好奇心，热衷于主动出发，擅长在不确定中把事情推进到结果。</p>
+        <p class="stack-child">⚡ 通常愿意先迈出第一步，亲和力强、行动力足，面对陌生关系和新场景，需要较少热身时间。</p>
+        <p class="stack-child">🌠 我的业余爱好广泛，从旅游阅读、健身运动、到今年持续尝试的Vibe Coding新工具学习。对我来说，兴趣是一种用来保持输入、训练高精力的方式。</p>
+        <p class="stack-child">👭 习惯在不同经历中快速理解人和场景，并找到一种更省力但更有效的协作方式。</p>
+        <p class="stack-child">🧩 生活里是ENFP，和不同背景的人相处都很自然；一旦进入工作状态，会切换到冷静、理性和结果导向的模式，习惯把事情理清楚，用自己的节奏循序完成。</p>
+        <p class="stack-child">🤝 和我共事过的人，对我的正面评价往往集中在两点：做事靠谱，以及合作高效。</p>
+        <p class="stack-child">📖 我始终相信，真正有价值的能力，来自终身学习，这会让人在复杂环境里也能保持秩序感。</p>
+      </div>
+    </section>
+
+    <!-- 关于我 · 职业 -->
+    <section class="section">
+      <h2 class="stack-child">关于我 · 职业</h2>
+      <div class="rule"></div>
+      <div class="job-text" id="jobText">
+        <p class="stack-child">
+          我有 8 年整合营销与媒介管理经验，服务过高端快消、酒店旅游、国际房地产品牌等行业，
+          熟悉从策略到全链路落地的执行过程。
+        </p>
+        <p class="stack-child">
+          擅长基于数据洞察制定并优化营销策略，通过跨渠道资源整合与精细化运营，持续提升品牌曝光、
+          用户互动与转化。
+        </p>
+        <p class="stack-child">
+          目前希望在市场与增长方向，继续把品牌建设、用户运营与数据分析结合起来，把复杂问题拆解成
+          结构化方案，推动结果落地。
+        </p>
+      </div>
+    </section>
+
+    <!-- 核心能力 -->
+    <section class="section">
+      <h2 class="stack-child">核心能力</h2>
+      <div class="rule"></div>
+      <ul class="stack-list">
+        <li class="stack-child">品牌整合营销与媒介策略规划：覆盖社交媒体、信息流、搜索、电商等渠道。</li>
+        <li class="stack-child">KOL / KOC 生态搭建与内容营销：策划种草节奏，搭建长期合作机制。</li>
+        <li class="stack-child">数据盘点、A/B 测试与投放 ROI 管理：建立指标体系，持续优化投放效率。</li>
+        <li class="stack-child">跨部门项目管理与客户沟通：在多方角色之间对齐目标、拆解任务并推动进度。</li>
+        <li class="stack-child">善用 AI 工具与 Vibe Coding：把重复性工作交给工具，把精力留给策略与创造。</li>
+      </ul>
+    </section>
+
+    <!-- 代表项目（你之后可以换成具体项目） -->
+    <section class="section">
+      <h2 class="stack-child">代表项目（节选）</h2>
+      <div class="rule"></div>
+      <ul class="stack-list">
+        <li class="stack-child">
+          高端酒店集团整合营销项目：从年度传播策略、社交媒体内容到投放与线下活动联动，带来品牌声量与订房转化双提升。
+        </li>
+        <li class="stack-child">
+          国际房地产品牌内容与投放项目：搭建本地化内容矩阵，结合搜索与信息流投放，实现精准客群线索获取。
+        </li>
+        <li class="stack-child">
+          新品上市整合 campaign：负责策略、媒介排期与执行统筹，协同创意、内容、渠道伙伴，保障项目按期上线并复盘优化。
+        </li>
+      </ul>
+    </section>
+
+    <!-- 工作经历（时间线形式，你之后可以改成自己的公司名和时间） -->
+    <section class="section">
+      <h2 class="stack-child">工作经历</h2>
+      <div class="rule"></div>
+      <ul class="timeline">
+        <li class="timeline-item stack-child">
+          <div class="timeline-title">市场 / 媒介负责人</div>
+          <div class="timeline-meta">某高端酒店集团 · 20XX – 至今</div>
+          <div class="timeline-desc">
+            负责整合营销策略制定与媒介投放管理，统筹品牌项目落地，与销售团队协同保障业务指标。
           </div>
-
-          <div class="meta stack-child">
-            城市：上海　方向：市场、增长、内容、媒介
+        </li>
+        <li class="timeline-item stack-child">
+          <div class="timeline-title">媒介策划 & 整合营销</div>
+          <div class="timeline-meta">某 4A 广告公司 · 20XX – 20XX</div>
+          <div class="timeline-desc">
+            服务多行业客户，从策略提案、预算拆分到执行跟进，积累跨渠道整合经验。
           </div>
+        </li>
+      </ul>
+    </section>
 
-          <div class="divider"></div>
-        </div>
+    <!-- 联系方式 -->
+    <section class="section">
+      <h2 class="stack-child">联系方式</h2>
+      <div class="rule"></div>
+      <div class="contact" id="contact">
+        <p class="stack-child">Email：yourname@email.com</p>
+        <p class="stack-child">微信：your-wechat-id</p>
+      </div>
+    </section>
 
-        <!-- 右侧头像：长方形，无边框 -->
-        <div class="avatar-area">
-          <div class="glass" aria-label="头像玻璃卡片">
-            <img class="avatar-img" id="avatarImg" src="avatar.jpg" alt="头像"/>
-          </div>
-        </div>
-      </section>
+  </main>
+</div>
 
-      <section class="section">
-        <h2 class="stack-child">关于我 · 生活</h2>
-        <div class="rule"></div>
+<script>
+(function () {
+  // 头像：一次性模糊 -> 清晰
+  const avatar = document.getElementById('avatarImg');
+  if (avatar){
+    const onReady = () => requestAnimationFrame(() => avatar.classList.add('ready'));
+    if (avatar.complete) onReady();
+    else avatar.addEventListener('load', onReady, {once:true});
+  }
 
-        <div class="chips">
-          <span class="chip stack-child">👀 好奇心强</span>
-          <span class="chip stack-child">⚡ 主动推进</span>
-          <span class="chip stack-child">🧠 快速理解</span>
-          <span class="chip stack-child">🤝 合作高效</span>
-        </div>
+  // 轻量“堆叠感”：进入视口时轻微上浮
+  const items = Array.from(document.querySelectorAll('.stack-child'));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      if (el.dataset.shown === "1") return;
+      el.dataset.shown = "1";
 
-        <div class="life-text" id="lifeText">
-          <p class="stack-child">🌍 对世界保持好奇心，热衷于主动出发，擅长在不确定中把事情推进到结果。</p>
-          <p class="stack-child">⚡ 通常愿意先迈出第一步，亲和力强、行动力足，面对陌生关系和新场景，需要较少热身时间。</p>
-          <p class="stack-child">🌠 我的业余爱好广泛，从旅游阅读、健身运动、到今年持续尝试的Vibe Coding新工具学习。对我来说，兴趣是一种用来保持输入、训练高精力的方式。</p>
-          <p class="stack-child">👭 习惯在不同经历中快速理解人和场景，并找到一种更省力但更有效的协作方式。</p>
-          <p class="stack-child">🧩 生活里是ENFP，和不同背景的人相处都很自然；一旦进入工作状态，会切换到冷静、理性和结果导向的模式，习惯把事情理清楚，用自己的节奏循序完成。</p>
-          <p class="stack-child">🤝 和我共事过的人，对我的正面评价往往集中在两点：做事靠谱，以及合作高效。</p>
-          <p class="stack-child">📖 我始终相信，真正有价值的能力，来自终身学习，这会让人在复杂环境里也能保持秩序感。</p>
-        </div>
+      // 在同一块里的元素加一点延迟
+      const siblings = Array.from(el.parentElement.querySelectorAll('.stack-child'));
+      const index = siblings.indexOf(el);
+      setTimeout(() => el.classList.add('show'), Math.max(0,index) * 80);
+    });
+  }, {threshold:0.12});
 
-        <div id="contact" style="margin-top:30px;"></div>
-      </section>
-    </main>
-  </div>
+  items.forEach(el => io.observe(el));
 
-  <script>
-    (function () {
-      // 头像：一次性模糊 -> 清晰
-      const avatar = document.getElementById('avatarImg');
-      if (avatar) {
-        const onReady = () => requestAnimationFrame(() => avatar.classList.add('ready'));
-        if (avatar.complete) onReady();
-        else avatar.addEventListener('load', onReady, { once: true });
-      }
-
-      // “消息堆叠感”：进入视口时依次 show（永远不改 opacity，避免消失）
-      const items = Array.from(document.querySelectorAll('.stack-child'));
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          const el = e.target;
-
-          // 只触发一次
-          if (el.dataset.shown === "1") return;
-          el.dataset.shown = "1";
-
-          // 让同一块内容有点“堆叠节奏”
-          const group = el.closest('.chips') || el.closest('#lifeText') || el.closest('.top') || el.closest('.section') || document.body;
-          const groupItems = Array.from(group.querySelectorAll('.stack-child')).filter(x => x.dataset.shown !== "1" || x === el);
-
-          const baseIndex = Math.max(0, groupItems.indexOf(el));
-          setTimeout(() => el.classList.add('show'), baseIndex * 80);
-        });
-      }, { threshold: 0.12 });
-
-      items.forEach(el => io.observe(el));
-
-      // 首屏：立即触发一波，让顶部看起来就有堆叠感
-      const firstWave = items.slice(0, 8);
-      firstWave.forEach((el, i) => {
-        el.dataset.shown = "1";
-        setTimeout(() => el.classList.add('show'), i * 85);
-      });
-    })();
-  </script>
+  // 首屏内容直接触发一遍
+  items.slice(0,8).forEach((el,i)=>{
+    el.dataset.shown = "1";
+    setTimeout(()=>el.classList.add('show'), i*85);
+  });
+})();
+</script>
 </body>
 </html>
