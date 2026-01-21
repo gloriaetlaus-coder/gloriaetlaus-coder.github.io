@@ -2,368 +2,687 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>黄文艳 · 个人简历</title>
+  <title>黄文艳 · 个人简历网站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-main: #f5f5f7;
+      --bg-card: #ffffff;
+      --text-main: #111111;
+      --text-sub: #555555;
+      --accent: #111827;
+      --accent-soft: #e5e7eb;
+      --line-glow: rgba(255, 255, 255, 0.9);
+      --muted-border: rgba(15, 23, 42, 0.06);
+      --tag-bg: #ffffff;
+      --tag-border: rgba(148, 163, 184, 0.5);
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.16);
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.35s ease;
+    }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
-      background: #f5f5f7;
-      color: #222;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
     }
 
-    a { text-decoration: none; color: inherit; }
-
-    /* 布局：左 1/4 右 3/4 */
-    .layout {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
+    .page {
       min-height: 100vh;
+      display: flex;
+      background: radial-gradient(circle at top left, #e5f0ff 0, #f5f5f7 48%, #f5f5f7 100%);
     }
 
-    /* 左侧两张生活照 */
-    .life {
+    /* 左侧竖图列：占整页 1/4 */
+    .side-column {
+      width: 25vw;
+      min-width: 260px;
+      max-width: 360px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      box-shadow: 8px 0 30px rgba(15, 23, 42, 0.22);
+      z-index: 1;
     }
-    .life-block {
+
+    .side-photo {
       flex: 1;
-      overflow: hidden;
-      position: relative;
-    }
-    .life-block img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform-origin: center;
-      animation: kenburns 26s ease-in-out infinite alternate;
-      transition: transform .35s ease-out;
-    }
-    .life-block:nth-child(2) img {
-      animation-direction: alternate-reverse;
-    }
-    .life-block img:hover {
-      animation-play-state: paused;
-      transform: scale(1.06);
-    }
-    @keyframes kenburns {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.08); }
+      background-size: cover;
+      background-position: center;
+      transition: transform 3s ease-out, filter 3s ease-out;
+      filter: saturate(1.05) contrast(1.02);
     }
 
-    /* 右侧主内容 */
+    .side-photo.top {
+      background-image: url("life-forest.jpg");
+    }
+
+    .side-photo.bottom {
+      background-image: url("life-shop.jpg");
+    }
+
+    .side-photo:hover {
+      transform: scale(1.03);
+      filter: saturate(1.15) contrast(1.05);
+    }
+
+    /* 右侧主体区域 */
     .main {
-      padding: 48px 72px;
-      max-width: 1100px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 40px 6vw 72px;
+      max-width: 1040px;
+      margin: 0 auto;
     }
 
-    /* Hero */
+    /* 顶部 hero 区域 */
     .hero {
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 48px;
+      grid-template-columns: minmax(0, 2.2fr) 220px;
+      gap: 40px;
       align-items: flex-start;
+      margin-bottom: 40px;
     }
 
-    h1 {
+    .hero-text {
+      max-width: 640px;
+    }
+
+    .name {
       font-size: 40px;
-      letter-spacing: 0.12em;
+      font-weight: 750;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
     }
 
-    .subtitle {
-      margin-top: 8px;
-      font-size: 18px;
-      color: #444;
+    .hero-line {
+      font-size: 16px;
+      color: var(--text-sub);
+      margin-bottom: 4px;
     }
 
-    .tagline {
-      margin-top: 12px;
-      font-size: 18px;
+    /* 顶部三行的“循环堆叠感”高光动画 */
+    .hero-line.shimmer {
+      position: relative;
+      display: inline-block;
+      background-image: linear-gradient(120deg, #9ca3af 0%, #111827 15%, #9ca3af 30%, #6b7280 60%, #9ca3af 100%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: textShimmer 7s linear infinite;
+    }
+
+    .hero-line.shimmer:nth-of-type(2) {
+      animation-delay: 0.8s;
+    }
+
+    .hero-line.shimmer:nth-of-type(3) {
+      animation-delay: 1.6s;
+    }
+
+    @keyframes textShimmer {
+      0% { background-position: -40% 0; }
+      50% { background-position: 40% 0; }
+      100% { background-position: 120% 0; }
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin: 18px 0 14px;
+    }
+
+    /* 主按钮样式 */
+    .btn {
+      border-radius: 999px;
+      padding: 11px 22px;
+      font-size: 15px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       white-space: nowrap;
     }
 
-    /* 按钮 */
-    .actions {
-      margin-top: 20px;
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
+    .btn-primary {
+      background: #111827;
+      color: #f9fafb;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.35);
     }
 
-    .btn {
-      padding: 10px 26px;
-      border-radius: 999px;
-      font-size: 16px;
-      font-weight: 600;
-      background: #111;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      transition: transform .25s ease;
-    }
-
-    .btn.secondary {
-      background: #fff;
-      color: #111;
-      box-shadow: 0 10px 25px rgba(0,0,0,.08);
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.8);
+      color: #111827;
+      border-color: rgba(148, 163, 184, 0.6);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
     }
 
     .btn:hover {
-      transform: scale(1.06);
+      transform: translateY(-1px) scale(1.04);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.28);
     }
 
-    /* 城市行：字体大一点，下移一点 */
-    .meta {
-      margin-top: 26px;
-      font-size: 18px;
+    .btn:active {
+      transform: translateY(0) scale(0.98);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+    }
+
+    .hero-meta {
+      font-size: 15px;
+      color: var(--text-sub);
+      margin-top: 8px;
+    }
+
+    .hero-meta strong {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    /* 头像区域，无边框原图 + 玻璃拟物背景卡片 */
+    .avatar-wrap {
       position: relative;
-      top: 14px;
+      align-self: stretch;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
     }
 
-    /* 分隔线 + 光点呼吸动效，线的上下间距约 1.5 cm ≈ 56 px */
+    .avatar-card {
+      position: relative;
+      padding: 18px;
+      border-radius: 26px;
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.7));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow:
+        0 24px 60px rgba(15, 23, 42, 0.32),
+        0 0 0 1px rgba(148, 163, 184, 0.16);
+    }
+
+    .avatar-card::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      pointer-events: none;
+    }
+
+    .avatar {
+      display: block;
+      width: 180px;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 18px;
+      filter: saturate(1.05);
+      /* 初始轻微模糊 → 加载时清晰一次性动画 */
+      animation: avatarReveal 1.6s ease-out forwards;
+      transform-origin: center;
+    }
+
+    @keyframes avatarReveal {
+      0% {
+        filter: blur(12px) saturate(0.8);
+        transform: scale(0.96) translateY(4px);
+        opacity: 0;
+      }
+      60% {
+        filter: blur(2px) saturate(1.05);
+        transform: scale(1.02) translateY(0);
+        opacity: 1;
+      }
+      100% {
+        filter: blur(0) saturate(1.05);
+        transform: scale(1);
+      }
+    }
+
+    /* 分隔线：发光银线 + 小流星拖尾 */
     .divider {
       position: relative;
-      margin: 56px 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #111, transparent);
-      background-size: 200% 100%;
-      animation: lineGlow 2.6s ease-in-out infinite;
+      height: 2px;
+      margin: 32px 0 36px;
+      overflow: hidden;
     }
-    .divider .dot {
+
+    .divider::before {
+      content: "";
       position: absolute;
-      top: -4px;
-      left: -8px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 0 12px rgba(0,0,0,.45);
-      animation: dotRun 1.8s linear infinite;
-    }
-    @keyframes lineGlow {
-      0% { background-position: 0%;   opacity: .8; }
-      50%{ background-position: 100%; opacity: 1; }
-      100%{ background-position: 0%;  opacity: .8; }
-    }
-    @keyframes dotRun {
-      0%   { left: -8px; }
-      100% { left: calc(100% - 2px); }
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(156, 163, 175, 0.05),
+        rgba(229, 231, 235, 0.9),
+        rgba(156, 163, 175, 0.05)
+      );
+      box-shadow:
+        0 0 18px rgba(209, 213, 219, 0.9),
+        0 0 32px rgba(148, 163, 184, 0.85);
     }
 
-    /* 头像：长方形，没有任何白色边框 */
-    .avatar {
-      width: 180px;
-    }
-    .avatar img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      opacity: 0;
-      filter: blur(6px);
-      transform: translateY(8px);
-      transition: .8s ease;
-    }
-    .avatar img.show {
-      opacity: 1;
-      filter: blur(0);
-      transform: none;
-    }
-
-    /* 章节标题 */
-    .section h2 {
-      font-size: 26px;
-      letter-spacing: .08em;
-      margin-bottom: 20px;
+    .meteor {
+      position: absolute;
+      top: 50%;
+      left: -80px;
+      width: 72px;
+      height: 3px;
+      transform: translateY(-50%) rotate(1deg);
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        rgba(248, 250, 252, 0),
+        rgba(248, 250, 252, 0.3),
+        rgba(255, 255, 255, 0.95)
+      );
+      box-shadow:
+        0 0 10px rgba(255, 255, 255, 0.9),
+        0 0 20px rgba(226, 232, 240, 0.9),
+        0 0 40px rgba(191, 219, 254, 0.9);
+      animation: meteorMove 8s linear infinite;
     }
 
-    /* 标签：加粗 + 呼吸动效 */
-    .tags {
+    .meteor::after {
+      content: "";
+      position: absolute;
+      right: 36px;
+      top: 50%;
+      width: 40px;
+      height: 100%;
+      transform: translateY(-50%);
+      border-radius: 999px;
+      background: radial-gradient(circle at left, rgba(248, 250, 252, 0.7), rgba(248, 250, 252, 0));
+      opacity: 0.9;
+      filter: blur(3px);
+    }
+
+    /* 每根线的流星速度不同 */
+    .divider:nth-of-type(1) .meteor { animation-duration: 9s; }
+    .divider:nth-of-type(2) .meteor { animation-duration: 11s; }
+    .divider:nth-of-type(3) .meteor { animation-duration: 13s; }
+    .divider:nth-of-type(4) .meteor { animation-duration: 10s; }
+    .divider:nth-of-type(5) .meteor { animation-duration: 12s; }
+
+    @keyframes meteorMove {
+      0% {
+        transform: translate(-80px, -50%) rotate(1deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        transform: translate(calc(100vw - 220px), -50%) rotate(1deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(calc(100vw - 160px), -50%) rotate(1deg);
+        opacity: 0;
+      }
+    }
+
+    /* 通用 section 布局与标题 */
+    .section {
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 680;
+      margin-bottom: 18px;
+      letter-spacing: 0.02em;
+    }
+
+    .tags-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .tag {
-      padding: 6px 16px;
-      border-radius: 999px;
-      background: #fff;
-      box-shadow: 0 8px 18px rgba(0,0,0,.06);
-      font-weight: 600;
-      transition: transform .25s ease;
-      animation: tagPulse 2.4s ease-in-out infinite;
-    }
-    .tag:hover {
-      transform: scale(1.06);
-    }
-    @keyframes tagPulse {
-      0% { transform: scale(1); }
-      50%{ transform: scale(1.05); }
-      100%{ transform: scale(1); }
+      gap: 10px;
+      margin-bottom: 18px;
     }
 
-    /* 文本：行间距放宽到约 0.4cm（15px 左右） */
-    .stack-group, .list, .contact-list {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+    .tag {
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      font-size: 13px;
+      color: #111827;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-weight: 650;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
     }
-    .stack, .list-item {
-      font-size: 16px;
+
+    .tag:hover {
+      transform: translateY(-1px) scale(1.05);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.18);
+      border-color: rgba(55, 65, 81, 0.6);
+      background: #f9fafb;
+    }
+
+    .tag:active {
+      transform: scale(0.97);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.16);
+    }
+
+    .section p {
+      font-size: 15px;
+      color: var(--text-main);
+      margin-bottom: 10px;
       line-height: 1.9;
     }
 
-    /* 文字堆叠动效：进入视口出现，离开再隐藏，可重复 */
-    .stack, .list-item {
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity .45s ease, transform .45s ease;
-    }
-    .stack.show, .list-item.show {
-      opacity: 1;
-      transform: none;
+    .section p span.emoji {
+      margin-right: 6px;
     }
 
-    /* 响应式 */
+    /* 工作相关区块 */
+    .columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.4fr);
+      gap: 40px;
+    }
+
+    .subsection-title {
+      font-size: 17px;
+      font-weight: 650;
+      margin-bottom: 10px;
+    }
+
+    .experience-list,
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-size: 15px;
+      color: var(--text-main);
+    }
+
+    .experience-item,
+    .project-item {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .experience-item::before,
+    .project-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #111827;
+    }
+
+    .item-title {
+      font-weight: 640;
+      margin-bottom: 4px;
+    }
+
+    .item-meta {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-bottom: 2px;
+    }
+
+    .item-desc {
+      font-size: 15px;
+      color: var(--text-main);
+    }
+
+    /* 联系方式 */
+    .contact {
+      font-size: 15px;
+      color: var(--text-main);
+    }
+
+    .contact-row {
+      margin-bottom: 6px;
+    }
+
+    .contact-label {
+      font-weight: 600;
+      margin-right: 4px;
+    }
+
     @media (max-width: 1024px) {
-      .layout { grid-template-columns: 1fr; }
-      .life { display: none; }
-      .main { padding: 32px 20px; }
-      .hero { grid-template-columns: 1fr; }
+      .page {
+        flex-direction: column;
+      }
+      .side-column {
+        position: relative;
+        height: 360px;
+        width: 100%;
+        max-width: 100%;
+        flex-direction: row;
+      }
+      .side-photo {
+        width: 50%;
+        height: 100%;
+      }
+      .main {
+        padding: 32px 20px 56px;
+      }
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .avatar-wrap {
+        justify-content: flex-start;
+        margin-top: 16px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .name {
+        font-size: 30px;
+      }
+      .hero-line {
+        font-size: 14px;
+      }
+      .hero-actions {
+        gap: 10px;
+      }
+      .btn {
+        padding: 9px 18px;
+        font-size: 14px;
+      }
+      .section-title {
+        font-size: 20px;
+      }
+      .section p {
+        font-size: 14px;
+      }
+      .experience-list,
+      .project-list,
+      .contact {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
-
 <body>
-<div class="layout">
-
-  <!-- 左侧两张生活照：上面是丛林图，下面是原来的门口图 -->
-  <aside class="life">
-    <div class="life-block">
-      <img src="life-forest.jpg" alt="旅行照片">
+  <div class="page">
+    <!-- 左侧两张生活照 -->
+    <div class="side-column">
+      <div class="side-photo top"></div>
+      <div class="side-photo bottom"></div>
     </div>
-    <div class="life-block">
-      <img src="life-shop.jpg" alt="街景照片">
-    </div>
-  </aside>
 
-  <!-- 右侧主内容 -->
-  <main class="main">
+    <!-- 右侧主体 -->
+    <main class="main">
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-text">
+          <h1 class="name">黄文艳</h1>
+          <div class="hero-line shimmer">市场与增长方向｜8年整合营销与媒介经验</div>
+          <div class="hero-line shimmer">以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式</div>
 
-    <!-- 顶部 Hero -->
-    <section class="hero">
-      <div>
-        <h1>黄文艳</h1>
-        <div class="subtitle">市场与增长方向｜8年整合营销与媒介经验</div>
-        <div class="tagline">以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式</div>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="window.open('resume.pdf','_blank')">
+              下载简历 PDF💡
+            </button>
+            <button class="btn btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+              获取联系方式📧
+            </button>
+          </div>
 
-        <div class="actions">
-          <a class="btn" href="黄文艳-找CRM:市场岗-简历2026.pdf" target="_blank" rel="noopener noreferrer">下载简历 PDF💡</a>
-          <a class="btn secondary" href="#contact">获取联系方式📧</a>
+          <div class="hero-line shimmer" style="margin-top: 10px;">
+            城市：上海　方向：市场、增长、内容、媒介
+          </div>
         </div>
 
-        <div class="meta">城市：上海　方向：市场、增长、内容、媒介</div>
+        <div class="avatar-wrap">
+          <div class="avatar-card">
+            <img src="avatar.jpg" alt="黄文艳头像" class="avatar" />
+          </div>
+        </div>
+      </section>
 
-        <div class="divider"><span class="dot"></span></div>
-      </div>
+      <!-- 第一根分隔线 -->
+      <div class="divider"><div class="meteor"></div></div>
 
-      <div class="avatar">
-        <img id="avatar" src="avatar.jpg" alt="头像">
-      </div>
-    </section>
+      <!-- 关于我 · 生活 -->
+      <section class="section">
+        <h2 class="section-title">关于我 · 生活</h2>
 
-    <!-- 关于我 · 生活（恢复长版文本） -->
-    <section class="section">
-      <h2>关于我 · 生活</h2>
+        <div class="tags-row">
+          <button class="tag">🌍 好奇心强</button>
+          <button class="tag">⚡ 主动推进</button>
+          <button class="tag">🧠 快速理解</button>
+          <button class="tag">🤝 合作高效</button>
+        </div>
 
-      <div class="tags">
-        <div class="tag">🌍 好奇心强</div>
-        <div class="tag">⚡ 主动推进</div>
-        <div class="tag">🧠 快速理解</div>
-        <div class="tag">🤝 合作高效</div>
-      </div>
+        <p><span class="emoji">🌍</span>我是一个对世界保持好奇、喜欢主动出发，也擅长在不确定中把事情推进到结果的人。我通常愿意主动迈出第一步，亲和力很强、行动力也很足。</p>
+        <p><span class="emoji">📚</span>我对很多事情都保持兴趣，从旅游阅读、各类运动、到今年持续尝试的 Vibe Coding 和新工具学习。对我来说，兴趣不是用来堆清单的，而是用来保持输入、训练高精力的方式。</p>
+        <p><span class="emoji">👭</span>我习惯在不同经历中快速理解人和场景，并找到一种更省力但更有效的协作方式。</p>
+        <p><span class="emoji">🎭</span>生活里我偏 ENFP，不怕陌生，和不同背景的伙伴相处起来都很自然；但一旦进入工作状态，我会明显切换到冷静、理性和目标导向的模式，习惯把事情列清楚，用自己节奏去循序完成。</p>
+        <p><span class="emoji">🤝</span>很多和我共事过的人，对我的正面评价往往集中在两点：做事靠谱，以及合作高效。</p>
+        <p><span class="emoji">📖</span>我始终相信，真正有价值的能力，来自终身学习，这会让人在复杂环境里也能保持秩序感。</p>
+      </section>
 
-      <div class="stack-group">
-        <div class="stack">我是一个对世界保持好奇、喜欢主动出发，也擅长在不确定中把事情推进到结果的人。我通常愿意主动迈出第一步，我的亲和力很强、行动力也很足。</div>
-        <div class="stack">我对很多事情都保持兴趣，从旅游阅读、各类运动、到今年持续尝试的 Vibe Coding 和新工具学习。对我来说，兴趣不是用来堆清单的，而是用来保持输入、训练高精力、判断力的方式。我习惯在不同经历中快速理解人、识别场景，并找到更高效的协作方式。</div>
-        <div class="stack">生活里我偏 ENFP，不怕陌生，和不同背景的伙伴相处起来都很自然；但一旦进入工作状态，我会明显切换到冷静、理性和目标导向的模式，习惯把事情列清楚，用自己的节奏去循序完成。很多和我共事过的人，对我的正面评价往往集中在两点：做事靠谱，合作高效。</div>
-        <div class="stack">我的 APESK 大五人格特质属于：开放性和责任感较高，乐于接受新事物，也能在复杂环境里保持秩序感和执行力；对人保持友善与同理心，在决策和推进上不犹豫。这让我在团队中，既能快速建立信任，也能在关键节点承担压力、推动结果。</div>
-        <div class="stack">我始终相信，真正有价值的能力，来自终身学习和更新。所以无论在工作还是生活中，我都会设定目标，并不断通过实践和复盘，让自己走得更远。</div>
-      </div>
+      <!-- 第二根分隔线 -->
+      <div class="divider"><div class="meteor"></div></div>
 
-      <div class="divider"><span class="dot"></span></div>
-    </section>
+      <!-- 关于我 · 工作 -->
+      <section class="section">
+        <h2 class="section-title">关于我 · 工作</h2>
+        <p><span class="emoji">📈</span>8 年整合营销与媒介管理经验，长期深耕高端快消、酒店旅游、国际房地产等行业，从品牌策略规划到全链路执行落地都有完整经验。</p>
+        <p><span class="emoji">📊</span>擅长基于数据洞察制定并优化营销策略，能够整合多平台资源，通过精细化运营持续提升品牌曝光、用户互动与销售转化。</p>
+        <p><span class="emoji">🧩</span>具备出色的项目统筹和跨部门协作能力，能够在复杂环境中协调多方，确保关键项目按节奏推进并达成业务目标。</p>
+        <p><span class="emoji">🚀</span>结果导向、执行稳定，也善于在变化中寻找突破点，让品牌增长和生意目标都能被看见、被量化。</p>
+      </section>
 
-    <!-- 关于我 · 工作（详细版） -->
-    <section class="section">
-      <h2>关于我 · 工作</h2>
-      <div class="stack-group">
-        <div class="stack">我有 8 年整合营销与媒介管理经验，长期服务于高端快消、酒店旅游、国际房地产等行业，熟悉从策略制定到投放执行的完整链路。</div>
-        <div class="stack">擅长基于数据洞察来制定与优化营销策略，通过跨渠道资源整合与精细化运营，持续提升品牌曝光、用户互动与转化效率。</div>
-        <div class="stack">在项目推进中，我习惯先厘清目标与路径，把复杂事情拆成清晰的行动清单，并在过程中不断校准节奏与优先级，保证团队和合作方都在同一个节奏上。</div>
-        <div class="stack">我重视协作体验，也看重结果交付。对我来说，好的工作状态应该是：方向清晰、节奏稳定、信息透明、彼此信任，并且能在关键节点承担压力、推动结果落地。</div>
-      </div>
+      <!-- 第三根分隔线 -->
+      <div class="divider"><div class="meteor"></div></div>
 
-      <div class="divider"><span class="dot"></span></div>
-    </section>
+      <!-- 工作经历 + 项目经验 -->
+      <section class="section">
+        <h2 class="section-title">工作经历 & 项目经验</h2>
 
-    <!-- 工作经历：简化为单行描述 -->
-    <section class="section">
-      <h2>工作经历</h2>
-      <div class="list">
-        <div class="list-item">恒沐广告｜媒介主管：统筹多平台媒介策略与投放节奏，驱动品牌曝光与效果转化协同增长。</div>
-        <div class="list-item">悦普网络｜媒介专员：负责达人投放与执行，承接 800+ 项投放需求，保障项目顺利推进。</div>
-        <div class="list-item">阳光恒美融｜媒介：搭建 2000+ KOL/KOC 资源库，支持多行业客户的内容投放与整合营销。</div>
-      </div>
+        <div class="columns">
+          <!-- 左列：工作经历 -->
+          <div>
+            <div class="subsection-title">工作经历</div>
+            <div class="experience-list">
+              <div class="experience-item">
+                <div class="item-title">媒介主管 ｜ 恒沐（上海）广告有限公司</div>
+                <div class="item-meta">2021.01 – 2025.12 · 上海</div>
+                <div class="item-desc">
+                  负责品牌全渠道媒介策略，覆盖社交媒体、信息流、搜索及效果广告平台，搭建多元媒体矩阵，实现品效协同；通过持续数据监控与复盘机制优化投放策略，降低 CPM / CPE 并提升整体 ROI。
+                </div>
+              </div>
 
-      <div class="divider"><span class="dot"></span></div>
-    </section>
+              <div class="experience-item">
+                <div class="item-title">媒介专员 ｜ 上海悦普网络科技有限公司</div>
+                <div class="item-meta">2020.04 – 2020.12 · 上海</div>
+                <div class="item-desc">
+                  负责微博、微信、抖音、小红书等平台达人资源开拓与投放执行，累计处理超 800 项需求，覆盖合同谈判、付款跟进与关系维护，保障项目顺利推进与效果达成。
+                </div>
+              </div>
 
-    <!-- 项目经验：保留真实内容，压成单行 -->
-    <section class="section">
-      <h2>项目经验</h2>
-      <div class="list">
-        <div class="list-item">国际房地产品牌内容与投放项目：搭建本地化内容矩阵，结合搜索与信息流投放，实现精准客群线索获取。</div>
-        <div class="list-item">新品上市整合 campaign：负责策略制定、媒介排期与执行统筹，协调创意、内容与渠道伙伴，保障项目按期上线并复盘优化。</div>
-      </div>
+              <div class="experience-item">
+                <div class="item-title">媒介 ｜ 阳光恒美融信息技术服务（上海）股份有限公司</div>
+                <div class="item-meta">2018.01 – 2020.01 · 上海</div>
+                <div class="item-desc">
+                  独立开发并运营双微、小红书、抖音、B 站等平台的 KOL / KOC 及明星供应商资源网络，积累优质资源 2000+，擅长根据客户需求制定媒介方案并控制成本。
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <div class="divider"><span class="dot"></span></div>
-    </section>
+          <!-- 右列：项目经验 -->
+          <div>
+            <div class="subsection-title">代表项目</div>
+            <div class="project-list">
+              <div class="project-item">
+                <div class="item-title">法国依云矿泉水 ｜ 全渠道媒介 & 效果采购</div>
+                <div class="item-meta">2021.04 – 2025.11</div>
+                <div class="item-desc">
+                  负责年度千万级媒介预算规划与执行，整合户外、分众与数字媒体资源，通过竞品分析和节奏优化提升触达效率，在阿里 UD 与京东京准通上实现电商综合 ROI 稳定在 3 左右。
+                </div>
+              </div>
 
-    <!-- 联系方式 -->
-    <section class="section" id="contact">
-      <h2>联系方式</h2>
-      <div class="contact-list">
-        <div class="list-item">手机：17621058773</div>
-        <div class="list-item">微信：17621058773</div>
-        <div class="list-item">邮箱：17621058773@163.com</div>
-      </div>
-    </section>
+              <div class="project-item">
+                <div class="item-title">洲际酒店集团 ｜ 小红书内容营销与聚光投流</div>
+                <div class="item-meta">2023.06 – 2025.12</div>
+                <div class="item-desc">
+                  主导多酒店品牌在小红书的内容与达人合作策略，年度投放规划与标准化合作流程搭建；通过粉丝画像与内容偏好分析合作超千位 KOL / KOC，爆文率超 70%，显著提升社交声量与互动。
+                </div>
+              </div>
 
-  </main>
-</div>
+              <div class="project-item">
+                <div class="item-title">迪拜 DAMAC 房地产 ｜ 巨量引擎整合营销</div>
+                <div class="item-meta">2025.10 – 2025.12</div>
+                <div class="item-desc">
+                  负责抖音生态广告增长策略与素材优化，结合 DMP 高净值人群定向与 A/B 测试，搭建从曝光到线索转化的完整链路，线索成本下降约 25%，咨询转化率提升约 15%。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-<script>
-  // 头像一次性从模糊到清晰
-  window.addEventListener('load', function () {
-    var avatar = document.getElementById('avatar');
-    if (avatar) avatar.classList.add('show');
-  });
+      <!-- 第四根分隔线 -->
+      <div class="divider"><div class="meteor"></div></div>
 
-  // 文字堆叠：进入视口显示，离开再隐藏，可重复触发
-  var observers = document.querySelectorAll('.stack, .list-item');
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-      } else {
-        entry.target.classList.remove('show');
-      }
-    });
-  }, { threshold: 0.2 });
+      <!-- 联系方式 -->
+      <section class="section" id="contact">
+        <h2 class="section-title">联系方式</h2>
+        <div class="contact">
+          <div class="contact-row">
+            <span class="contact-label">电话：</span>17621058773
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">微信：</span>17621058773
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">邮箱：</span>17621058773@163.com
+          </div>
+        </div>
+      </section>
 
-  observers.forEach(function (el) { io.observe(el); });
-</script>
+      <!-- 第五根分隔线 -->
+      <div class="divider"><div class="meteor"></div></div>
+    </main>
+  </div>
 </body>
 </html>
