@@ -93,11 +93,11 @@
       gap: 18px;
     }
 
-    /* 名字：纯白 + 柔光 + 单字轮流放大 */
+    /* 名字：三个字连在一起 + 单字轮流呼吸 */
     .hero-name {
-      font-size: 96px;           /* 整体变大 */
+      font-size: 96px;
       font-weight: 800;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       color: #ffffff;
       text-shadow:
         0 0 20px rgba(0, 0, 0, 0.75),
@@ -107,9 +107,12 @@
 
     .name-letter {
       display: inline-block;
-      padding: 0 4px;
+      padding: 0 1px;
       transform-origin: 50% 60%;
       animation: nameBreathe 3.6s ease-in-out infinite;
+    }
+    .name-letter + .name-letter {
+      margin-left: -0.02em; /* 消掉视觉上的空隙，让“黄文艳”连起来 */
     }
     .name-letter:nth-child(2) { animation-delay: 0.5s; }
     .name-letter:nth-child(3) { animation-delay: 1.0s; }
@@ -197,7 +200,7 @@
     .pill-soft {
       background: var(--pill-bg-soft);
       font-size: 15px;
-      color: #000000;   /* 第二排按钮字体黑色 */
+      color: #333333;   /* 第二排按钮深灰 */
     }
 
     .pill:hover {
@@ -213,7 +216,7 @@
     .pill-strong:nth-child(5):hover { background: linear-gradient(135deg, #ffd8a8, #ffa94d); }
     .pill-strong:nth-child(6):hover { background: linear-gradient(135deg, #d0bfff, #845ef7); }
 
-    /* 第二排 hover：一致的浅蓝色 */
+    /* 第二排 hover：统一浅蓝色 */
     .pill-soft:hover {
       background: linear-gradient(135deg, #e7f5ff, #d0ebff);
       color: #000000;
@@ -268,7 +271,7 @@
     }
 
     .section-about-work {
-      margin-bottom: 0; /* 确保和下面横线距离是 1cm（只用横线的 margin） */
+      margin-bottom: 0;
     }
 
     .section-title {
@@ -289,7 +292,7 @@
       margin-bottom: 6px;
     }
 
-    /* 重点词：淡橙高亮，不再下划线 */
+    /* 重点词：淡橙高亮，不下划线 */
     .key {
       font-weight: 600;
       color: #ffe8a3;
@@ -354,7 +357,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* 联系方式：柔和光感 */
+    /* 联系方式：柔光效果 */
     .contact-list {
       font-size: var(--body-size);
       line-height: 1.9;
@@ -388,18 +391,18 @@
         rgba(0, 0, 0, 0.6));
     }
 
-    /* ===== “短信堆叠感”统一动画：持续循环 ===== */
+    /* ===== “短信堆叠感”统一动画：明显 + 循环 ===== */
     .stack-reveal {
       opacity: 0;
-      animation: stackCombo 7s ease-in-out infinite;
+      animation: stackCombo 4.5s ease-in-out infinite;
     }
 
     @keyframes stackCombo {
-      0%   { opacity: 0; transform: translateY(14px); }
+      0%   { opacity: 0; transform: translateY(24px); }
       12%  { opacity: 1; transform: translateY(0); }
-      45%  { opacity: 1; transform: translateY(-6px); }
-      75%  { opacity: 1; transform: translateY(0); }
-      100% { opacity: 1; transform: translateY(2px); }
+      40%  { opacity: 1; transform: translateY(-6px); }
+      70%  { opacity: 1; transform: translateY(3px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 768px) {
@@ -435,9 +438,7 @@
       <div class="hero-inner">
         <div class="hero-top-row">
           <div class="hero-name stack-reveal" aria-label="黄文艳">
-            <span class="name-letter">黄</span>
-            <span class="name-letter">文</span>
-            <span class="name-letter">艳</span>
+            <span class="name-letter">黄</span><span class="name-letter">文</span><span class="name-letter">艳</span>
           </div>
           <div class="hero-subtitle-en stack-reveal">
             MARKETING &amp; GROWTH · RESUME SITE
