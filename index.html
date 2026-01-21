@@ -12,9 +12,10 @@
       --pill-bg-soft: rgba(255, 255, 255, 0.85);
       --pill-radius: 999px;
       --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.35);
-      --line-glow: rgba(255, 255, 255, 0.42);
+      --line-glow: rgba(255, 255, 255, 0.5);
       --section-max-width: 1200px;
       --stack-duration: 0.7s;
+      --body-size: 17px;
     }
 
     * {
@@ -32,7 +33,7 @@
       overflow-x: hidden;
     }
 
-    /* 全屏背景轮播 */
+    /* 全屏背景轮播（竖图铺满，不留黑边） */
     .bg-slideshow {
       position: fixed;
       inset: 0;
@@ -45,8 +46,8 @@
       inset: 0;
       background-size: cover;
       background-position: center top;
-      filter: blur(6px);
-      transform: scale(1.05);
+      filter: blur(2px);       /* 更少模糊，画面更清楚 */
+      transform: scale(1.04);
       opacity: 0;
       animation: slideShow 24s infinite;
     }
@@ -54,7 +55,7 @@
     .bg-slide:nth-child(1) {
       background-image: url("life-forest.jpg");
       animation-delay: 0s;
-      opacity: 1; /* 初始至少一张可见，避免全黑 */
+      opacity: 1;  /* 初始保证可见 */
     }
 
     .bg-slide:nth-child(2) {
@@ -75,11 +76,11 @@
     .bg-overlay {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.88));
+      background: radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
       pointer-events: none;
     }
 
-    /* 主容器 */
+    /* 页面主容器 */
     .page {
       position: relative;
       z-index: 1;
@@ -104,38 +105,54 @@
       align-items: center;
     }
 
-    /* 顶部名字 + 英文标题 */
+    /* 顶部：名字 + 英文标题 */
     .hero-top-row {
       display: inline-flex;
       align-items: center;
       gap: 18px;
     }
 
-    .name-chip {
-      padding: 10px 24px;
-      border-radius: var(--pill-radius);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.88));
-      color: var(--text-main);
-      font-weight: 700;
-      font-size: 26px;
-      box-shadow: var(--shadow-soft);
-      letter-spacing: 0.1em;
-      white-space: nowrap;
+    /* 黄文艳：水波 / 光带扫过动效 */
+    .hero-name {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      position: relative;
+      color: transparent;
+      background-image: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0.1)
+      );
+      background-size: 200% 100%;
+      background-position: 0% 50%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: nameShine 4.5s ease-in-out infinite;
+    }
+
+    @keyframes nameShine {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 200% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .hero-subtitle-en {
       font-size: 16px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.92);
+      color: rgba(255, 255, 255, 0.9);
       white-space: nowrap;
     }
 
     .hero-line {
-      font-size: 17px;
+      font-size: var(--body-size);
       color: var(--text-light);
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
       line-height: 1.7;
+      letter-spacing: 0.02em;
     }
 
     .hero-meta {
@@ -144,9 +161,10 @@
       gap: 18px 40px;
       justify-content: center;
       margin-top: 4px;
-      font-size: 15px;
+      font-size: var(--body-size);
       color: var(--text-light);
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
+      letter-spacing: 0.02em;
     }
 
     .hero-meta span {
@@ -182,6 +200,7 @@
       transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out, color 0.18s ease-out;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       white-space: nowrap;
+      letter-spacing: 0.02em;
     }
 
     .pill-strong {
@@ -192,7 +211,7 @@
 
     .pill-soft {
       background: var(--pill-bg-soft);
-      font-size: 14px;
+      font-size: 15px;
       color: var(--text-main);
     }
 
@@ -201,7 +220,7 @@
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
     }
 
-    /* 每个 pill 悬停不同颜色 */
+    /* 顶部 6 个优势 pill 悬停不同颜色 */
     .pill-strong:nth-child(1):hover { background: linear-gradient(135deg, #ffe66d, #ffd43b); }
     .pill-strong:nth-child(2):hover { background: linear-gradient(135deg, #ff922b, #ff6b6b); }
     .pill-strong:nth-child(3):hover { background: linear-gradient(135deg, #66d9e8, #5c7cfa); }
@@ -212,10 +231,10 @@
     .pill-soft:nth-child(1):hover { background: linear-gradient(135deg, #ffe8cc, #ffc078); }
     .pill-soft:nth-child(2):hover { background: linear-gradient(135deg, #e7f5ff, #74c0fc); }
 
-    /* 分割横线 + 流星效果 */
+    /* 分割横线 + 流星效果，上下间距 1cm */
     .divider-wrap {
       width: 100%;
-      margin: 28px 0 8px;
+      margin: 1cm 0;
       display: flex;
       justify-content: center;
     }
@@ -248,12 +267,11 @@
       100% { transform: translateX(1200px); opacity: 0; }
     }
 
-    /* 主内容区（深色背景） */
+    /* 中部：关于我（深色背景） */
     .content {
       width: 100%;
-      margin-top: 8px;
       background: radial-gradient(circle at 10% 0%, #111111, #000000);
-      padding: 40px 16px 64px;
+      padding: 0 16px 64px;
       color: var(--text-light);
     }
 
@@ -268,23 +286,24 @@
       margin-bottom: 12px;
     }
 
-    /* 关于我 文本区：行间距 0.8cm */
     .about-text {
       margin-top: 16px;
-      font-size: 15px;
+      font-size: var(--body-size);
       color: rgba(255, 255, 255, 0.94);
+      letter-spacing: 0.02em;
     }
 
+    /* 行间距 0.8cm */
     .about-text p {
       line-height: 0.8cm;
       margin-bottom: 6px;
     }
 
-    /* 下部（工作经历、项目、联系方式） */
+    /* 下部：工作经历、项目、联系方式 */
     .lower {
       width: 100%;
       background: #050505;
-      padding: 32px 16px 56px;
+      padding: 0 16px 56px 16px;
       color: var(--text-light);
     }
 
@@ -312,8 +331,18 @@
       font-size: 14px;
       font-weight: 600;
       box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       white-space: nowrap;
+      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out, color 0.18s ease-out;
+      letter-spacing: 0.02em;
+    }
+
+    /* 工作经历 / 项目按钮悬停动效 */
+    .role-pill:hover,
+    .project-pill:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.6);
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
     }
 
     .timeline-item {
@@ -321,17 +350,19 @@
     }
 
     .timeline-desc {
-      font-size: 14px;
+      font-size: var(--body-size);
       color: rgba(255, 255, 255, 0.92);
       max-width: 900px;
       margin: 0 auto;
       line-height: 1.7;
+      letter-spacing: 0.02em;
     }
 
     .contact-list {
-      font-size: 15px;
+      font-size: var(--body-size);
       line-height: 1.9;
       margin-top: 14px;
+      letter-spacing: 0.02em;
     }
 
     /* iPhone 短信式堆叠动效 */
@@ -367,14 +398,11 @@
         letter-spacing: 0.14em;
         font-size: 14px;
       }
-      .name-chip {
-        font-size: 22px;
+      .hero-name {
+        font-size: 24px;
       }
       .divider {
         width: 90%;
-      }
-      .hero-line {
-        font-size: 15px;
       }
     }
   </style>
@@ -393,7 +421,7 @@
     <header class="hero">
       <div class="hero-inner stack-group">
         <div class="hero-top-row stack-reveal">
-          <div class="name-chip">黄文艳</div>
+          <div class="hero-name">黄文艳</div>
           <div class="hero-subtitle-en">MARKETING &amp; GROWTH · RESUME SITE</div>
         </div>
 
@@ -450,7 +478,7 @@
       <section class="section stack-group">
         <h2 class="section-title stack-reveal">关于我 · 工作</h2>
         <div class="about-text">
-          <p class="stack-reveal">📊 长期负责品牌全渠道媒介与增长策略，从预算规划到资源整合到落地复盘，习惯在复杂项目中保持清晰结构和可执行路线。</p>
+          <p class="stack-reveal">📊 长期负责品牌全渠道媒介与增长策略，从预算规划、资源整合到落地复盘，习惯在复杂项目中保持清晰结构和可执行路线。</p>
           <p class="stack-reveal">📌 擅长基于目标拆解链路，设计渠道组合、内容矩阵与投放节奏，建立从品牌曝光到效果转化的一体化闭环。</p>
           <p class="stack-reveal">📈 熟悉多种媒介 KPI 与数据指标，能够在预算有限的情况下，通过结构化优化与实验设计提升整体 ROI。</p>
           <p class="stack-reveal">🤝 工作中注重“协作体验”，习惯跨团队对齐信息、拆解责任边界，让合作伙伴在同一张“作战地图”上推进工作。</p>
@@ -461,6 +489,11 @@
 
     <!-- 下半部分 -->
     <section class="lower">
+      <!-- 工作经历上方的分割线 -->
+      <div class="divider-wrap stack-reveal">
+        <div class="divider"></div>
+      </div>
+
       <!-- 工作经历 -->
       <div class="timeline-section stack-group">
         <h2 class="timeline-title stack-reveal">工作经历</h2>
@@ -545,7 +578,6 @@
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
-            // 只触发一次即可
             observer.unobserve(entry.target);
           }
         });
