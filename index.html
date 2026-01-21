@@ -11,7 +11,6 @@
       --pill-bg-strong: rgba(255, 255, 255, 0.95);
       --pill-bg-soft: rgba(245, 246, 248, 0.98);
       --pill-radius: 999px;
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.35);
       --line-glow: rgba(255, 255, 255, 0.45);
       --section-max-width: 1200px;
       --body-size: 17px;
@@ -33,7 +32,7 @@
       overflow-x: hidden;
     }
 
-    /* ===== 三张竖图横向铺满，全页可见 ===== */
+    /* ==== 三张竖图横向铺满，全页可见 ==== */
     .bg-strip {
       position: fixed;
       inset: 0;
@@ -73,7 +72,7 @@
       color: var(--text-light);
     }
 
-    /* ===== 顶部 ===== */
+    /* ==== 顶部区域 ==== */
     .hero {
       width: 100%;
       padding: 40px 20px 32px;
@@ -94,7 +93,7 @@
       gap: 18px;
     }
 
-    /* 名字：渐变 + 字轮流呼吸 + 细水波光感 */
+    /* 名字：渐变 + 单字轮流呼吸 */
     .hero-name {
       position: relative;
       font-size: 90px;
@@ -159,7 +158,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* ===== 顶部按钮 ===== */
+    /* ==== 顶部按钮 ==== */
     .hero-pills {
       margin-top: 26px;
       display: flex;
@@ -207,7 +206,7 @@
     .pill-soft {
       background: var(--pill-bg-soft);
       font-size: 15px;
-      color: #000000;
+      color: #000000; /* 第二排按钮字体黑色 */
     }
 
     .pill:hover {
@@ -229,7 +228,7 @@
       color: #000000;
     }
 
-    /* ===== 横线 + 流星 ===== */
+    /* ==== 横线 + 流星 ==== */
     .divider-wrap {
       width: 100%;
       margin: 1cm 0;
@@ -265,7 +264,7 @@
       100% { transform: translateX(1200px); opacity: 0; }
     }
 
-    /* ===== 内容公共 ===== */
+    /* ==== 内容公共 ==== */
     .content {
       width: 100%;
       padding: 0 16px 64px;
@@ -278,7 +277,7 @@
     }
 
     .section-about-work {
-      margin-bottom: 24px;
+      margin-bottom: 0; /* 保证下面那根横线距离正文正好 1cm */
     }
 
     .section-title {
@@ -398,7 +397,7 @@
         rgba(0, 0, 0, 0.6));
     }
 
-    /* ===== 短信堆叠感：上滑出现 + 微小浮动，整站通用 ===== */
+    /* ==== 短信堆叠感：上滑出现 + 微小浮动 ==== */
     .stack-reveal {
       opacity: 0;
       transform: translateY(10px);
@@ -448,7 +447,7 @@
   <div class="page">
     <header class="hero">
       <div class="hero-inner">
-        <div class="hero-top-row stack-reveal">
+        <div class="hero-top-row">
           <div class="hero-name" aria-label="黄文艳">
             <span class="name-letter">黄</span>
             <span class="name-letter">文</span>
@@ -459,20 +458,20 @@
           </div>
         </div>
 
-        <p class="hero-line stack-reveal">
+        <p class="hero-line">
           市场与增长方向｜8年整合营销与媒介经验
         </p>
-        <p class="hero-line stack-reveal">
+        <p class="hero-line">
           以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式。
         </p>
 
-        <div class="hero-meta stack-reveal">
+        <div class="hero-meta">
           <span>常驻城市：上海</span>
           <span>职业方向：市场、增长、内容、媒介</span>
         </div>
 
         <div class="hero-pills">
-          <div class="pill-row stack-reveal">
+          <div class="pill-row">
             <button class="pill pill-strong">🌍 好奇心强</button>
             <button class="pill pill-strong">⚡ 主动推进</button>
             <button class="pill pill-strong">🧠 快速理解</button>
@@ -480,20 +479,20 @@
             <button class="pill pill-strong">💡 积极心态</button>
             <button class="pill pill-strong">🧩 友善沉稳</button>
           </div>
-          <div class="pill-row stack-reveal">
+          <div class="pill-row">
             <a href="resume.pdf" class="pill pill-soft" download>📄 下载简历 PDF</a>
             <a href="#contact" class="pill pill-soft">📧 获取联系方式</a>
           </div>
         </div>
       </div>
 
-      <div class="divider-wrap stack-reveal">
+      <div class="divider-wrap">
         <div class="divider"></div>
       </div>
     </header>
 
     <main class="content">
-      <section class="section stack-reveal">
+      <section class="section">
         <h2 class="section-title">关于我 · 生活</h2>
         <div class="about-text">
           <p>🌍 <span class="key">对世界保持好奇心</span>，热衷于主动出发，擅长在不确定中把事情推进到结果。</p>
@@ -506,11 +505,11 @@
         </div>
       </section>
 
-      <div class="divider-wrap stack-reveal">
+      <div class="divider-wrap">
         <div class="divider"></div>
       </div>
 
-      <section class="section section-about-work stack-reveal">
+      <section class="section section-about-work">
         <h2 class="section-title">关于我 · 工作</h2>
         <div class="about-text">
           <p>📊 长期负责品牌<span class="key">全渠道媒介与增长策略</span>，从预算规划、资源整合到落地复盘，习惯在复杂项目中保持清晰结构和可执行路线。</p>
@@ -523,11 +522,11 @@
     </main>
 
     <section class="lower">
-      <div class="divider-wrap stack-reveal">
+      <div class="divider-wrap">
         <div class="divider"></div>
       </div>
 
-      <div class="timeline-section stack-reveal">
+      <div class="timeline-section">
         <h2 class="timeline-title">工作经历</h2>
 
         <div class="timeline-item">
@@ -552,11 +551,11 @@
         </div>
       </div>
 
-      <div class="divider-wrap stack-reveal">
+      <div class="divider-wrap">
         <div class="divider"></div>
       </div>
 
-      <div class="timeline-section stack-reveal">
+      <div class="timeline-section">
         <h2 class="timeline-title">项目经验</h2>
 
         <div class="timeline-item">
@@ -581,11 +580,11 @@
         </div>
       </div>
 
-      <div class="divider-wrap stack-reveal">
+      <div class="divider-wrap">
         <div class="divider"></div>
       </div>
 
-      <div id="contact" class="timeline-section stack-reveal">
+      <div id="contact" class="timeline-section">
         <h2 class="timeline-title">联系方式</h2>
         <div class="contact-list">
           <div class="contact-item">📱 电话：17621058773</div>
@@ -600,5 +599,24 @@
       </div>
     </section>
   </div>
+
+  <!-- 这里用 JS 把“短信堆叠感”加到所有文字上，并做轻微错位延时 -->
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const selectors = [
+        "h1","h2","h3",
+        "p","span",
+        "button","a",
+        ".role-pill",".project-pill",
+        ".contact-item",
+        ".hero-subtitle-en",".hero-line",".hero-meta span"
+      ];
+      const nodes = document.querySelectorAll(selectors.join(","));
+      nodes.forEach((el, index) => {
+        el.classList.add("stack-reveal");
+        el.style.animationDelay = (0.05 * index) + "s";
+      });
+    });
+  </script>
 </body>
 </html>
