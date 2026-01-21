@@ -2,161 +2,167 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>黄文艳 · Marketing & Growth Resume</title>
+  <title>黄文艳 · Marketing & Growth Resume Site</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* 全局基础样式 */
+    :root {
+      --text-main: #000000;
+      --text-light: #ffffff;
+      --pill-bg-strong: rgba(255, 255, 255, 0.95);
+      --pill-bg-soft: rgba(255, 255, 255, 0.85);
+      --pill-radius: 999px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.35);
+      --line-glow: rgba(255, 255, 255, 0.42);
+      --section-max-width: 1200px;
+      --stack-duration: 0.7s;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    html, body {
-      height: 100%;
-      width: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
-      color: #ffffff;
-      overflow-x: hidden;
-      background-color: #000000;
-    }
 
     body {
-      position: relative;
-    }
-
-    /* 全屏背景轮播：三张竖图淡入淡出，不留黑边 */
-    .bg-layer {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      transition: opacity 1.8s ease-in-out;
-    }
-    .bg-layer.hidden {
-      opacity: 0;
-    }
-    .bg-layer.visible {
-      opacity: 1;
-    }
-
-    /* 最上层轻微遮罩，保证文字可读 */
-    .bg-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: radial-gradient(circle at top center,
-        rgba(0,0,0,0.15),
-        rgba(0,0,0,0.45));
-      backdrop-filter: blur(6px);
-    }
-
-    /* 内容容器 */
-    .page {
-      min-height: 100vh;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, -system-ui, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+      color: var(--text-main);
+      background-color: #000000;
       text-align: center;
-      padding: 36px 20px 80px;
+      overflow-x: hidden;
     }
 
-    .main-card {
-      width: 100%;
-      max-width: 1080px;
+    /* 全屏背景轮播 */
+    .bg-slideshow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
     }
 
-    /* 顶部区域：名字 + 英文行 + 标语 + 标签 + 按钮 */
-    .top-header {
+    .bg-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center top;
+      filter: blur(6px);
+      transform: scale(1.05);
+      opacity: 0;
+      animation: slideShow 24s infinite;
+    }
+
+    .bg-slide:nth-child(1) {
+      background-image: url("life-forest.jpg");
+      animation-delay: 0s;
+      opacity: 1; /* 初始至少一张可见，避免全黑 */
+    }
+
+    .bg-slide:nth-child(2) {
+      background-image: url("life-house.jpg");
+      animation-delay: 8s;
+    }
+
+    .bg-slide:nth-child(3) {
+      background-image: url("life-shop.jpg");
+      animation-delay: 16s;
+    }
+
+    @keyframes slideShow {
+      0%, 20%   { opacity: 1; }
+      30%, 100% { opacity: 0; }
+    }
+
+    .bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.88));
+      pointer-events: none;
+    }
+
+    /* 主容器 */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      color: var(--text-light);
       display: flex;
       flex-direction: column;
-      gap: 20px;
       align-items: center;
-      margin-bottom: 40px;
     }
 
-    .title-row {
+    .hero {
+      width: 100%;
+      padding: 40px 20px 32px;
+    }
+
+    .hero-inner {
+      max-width: var(--section-max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: center;
+    }
+
+    /* 顶部名字 + 英文标题 */
+    .hero-top-row {
       display: inline-flex;
       align-items: center;
       gap: 18px;
-      justify-content: center;
-      flex-wrap: wrap;
     }
 
-    .name-pill {
-      padding: 10px 28px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.18);
-      border: 1px solid rgba(255,255,255,0.5);
-      font-size: 26px;
+    .name-chip {
+      padding: 10px 24px;
+      border-radius: var(--pill-radius);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.88));
+      color: var(--text-main);
       font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-      backdrop-filter: blur(10px);
-      transition: transform 0.22s ease, box-shadow 0.22s ease,
-        background 0.22s ease, border-color 0.22s ease;
-      cursor: default;
-    }
-
-    .name-pill:hover {
-      transform: scale(1.05) translateY(-1px);
-      box-shadow: 0 14px 38px rgba(0,0,0,0.5);
-      background: rgba(255,255,255,0.26);
-      border-color: rgba(255,255,255,0.85);
-    }
-
-    .subtitle-en {
-      font-size: 16px;
-      font-weight: 500;
-      opacity: 0.95;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+      font-size: 26px;
+      box-shadow: var(--shadow-soft);
+      letter-spacing: 0.1em;
       white-space: nowrap;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.55);
     }
 
-    .headline-block {
-      margin-top: 12px;
+    .hero-subtitle-en {
+      font-size: 16px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.92);
+      white-space: nowrap;
+    }
+
+    .hero-line {
+      font-size: 17px;
+      color: var(--text-light);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
+      line-height: 1.7;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 40px;
+      justify-content: center;
+      margin-top: 4px;
+      font-size: 15px;
+      color: var(--text-light);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
+    }
+
+    .hero-meta span {
+      white-space: nowrap;
+    }
+
+    /* 顶部按钮区 */
+    .hero-pills {
+      margin-top: 26px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      font-size: 16px;
-      font-weight: 500;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      gap: 16px;
+      align-items: center;
     }
 
-    .headline-row {
-      display: flex;
-      gap: 32px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .headline-col {
-      min-width: 260px;
-    }
-
-    .headline-line {
-      margin-bottom: 4px;
-    }
-
-    /* 统一正文文字颜色 */
-    .headline-block,
-    .about-section p,
-    .about-section li,
-    .section-body p,
-    .section-body li,
-    .experience-list p {
-      color: #ffffff;
-    }
-
-    /* 顶部标签与按钮 */
-    .tag-row {
-      margin-top: 28px;
+    .pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
@@ -164,440 +170,390 @@
     }
 
     .pill {
-      border-radius: 999px;
-      padding: 10px 22px;
-      font-size: 15px;
-      font-weight: 600;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      border: 1px solid rgba(255,255,255,0.35);
-      background: rgba(0,0,0,0.34);
-      color: #ffffff;
-      box-shadow: 0 10px 26px rgba(0,0,0,0.45);
-      backdrop-filter: blur(10px);
-      cursor: default;
-      transition: transform 0.22s ease, box-shadow 0.22s ease,
-        background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
-    }
-
-    .pill:hover {
-      transform: scale(1.06) translateY(-1px);
-      box-shadow: 0 16px 42px rgba(0,0,0,0.65);
-      border-color: rgba(255,255,255,0.8);
-    }
-
-    .pill-primary {
-      font-size: 16px;
-      padding-inline: 24px;
-      background: linear-gradient(135deg,
-        rgba(255,255,255,0.32),
-        rgba(255,255,255,0.08));
-      border-color: rgba(255,255,255,0.85);
-    }
-
-    .pill-primary:hover {
-      background: linear-gradient(135deg,
-        rgba(255,255,255,0.9),
-        rgba(255,255,255,0.45));
-      color: #111111;
-    }
-
-    .pill-secondary {
-      background: rgba(0,0,0,0.5);
-    }
-    .pill-secondary:hover {
-      background: linear-gradient(135deg,
-        rgba(77,208,225,0.9),
-        rgba(255,171,145,0.9));
-      color: #111111;
-    }
-
-    .pill-download,
-    .pill-contact {
-      font-weight: 700;
-      padding-inline: 26px;
-    }
-    .pill-download:hover {
-      background: linear-gradient(135deg,
-        rgba(255,241,118,0.96),
-        rgba(255,183,77,0.96));
-      color: #111111;
-    }
-    .pill-contact:hover {
-      background: linear-gradient(135deg,
-        rgba(129,212,250,0.96),
-        rgba(81,45,168,0.96));
-      color: #ffffff;
-    }
-
-    /* 分割线：轻微光感闪烁 + 流动 */
-    .divider {
-      width: 100%;
-      max-width: 1000px;
-      height: 1px;
-      margin: 32px auto 26px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .divider-line {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to right,
-        rgba(255,255,255,0.05),
-        rgba(255,255,255,0.55),
-        rgba(255,255,255,0.05)
-      );
-      animation: dividerGlow 4.5s ease-in-out infinite;
-    }
-
-    .divider-meteor {
-      position: absolute;
-      top: -2px;
-      width: 120px;
-      height: 5px;
-      background: radial-gradient(circle at left,
-        rgba(255,255,255,0.85),
-        rgba(255,255,255,0.0));
-      filter: blur(2px);
-      animation: dividerMeteor 7s linear infinite;
-    }
-
-    @keyframes dividerGlow {
-      0%, 100% { opacity: 0.3; }
-      50%      { opacity: 0.85; }
-    }
-
-    @keyframes dividerMeteor {
-      0%   { transform: translateX(-140px); opacity: 0; }
-      10%  { opacity: 1; }
-      90%  { opacity: 1; }
-      100% { transform: translateX(1200px); opacity: 0; }
-    }
-
-    /* 文本“堆叠感”动画：非常轻微的上下浮动 + 透明度变化 */
-    .stack-text {
-      display: inline-block;
-      animation: stackPulse 6s ease-in-out infinite;
-    }
-
-    .stack-text:nth-child(2)  { animation-delay: 0.4s; }
-    .stack-text:nth-child(3)  { animation-delay: 0.8s; }
-    .stack-text:nth-child(4)  { animation-delay: 1.2s; }
-    .stack-text:nth-child(5)  { animation-delay: 1.6s; }
-    .stack-text:nth-child(6)  { animation-delay: 2.0s; }
-    .stack-text:nth-child(7)  { animation-delay: 2.4s; }
-    .stack-text:nth-child(8)  { animation-delay: 2.8s; }
-    .stack-text:nth-child(9)  { animation-delay: 3.2s; }
-    .stack-text:nth-child(10) { animation-delay: 3.6s; }
-
-    @keyframes stackPulse {
-      0%   { transform: translateY(6px); opacity: 0.86; }
-      30%  { transform: translateY(0);   opacity: 1; }
-      70%  { transform: translateY(-6px);opacity: 0.92; }
-      100% { transform: translateY(6px); opacity: 0.86; }
-    }
-
-    /* 区块标题 */
-    .section-title {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 18px;
-      text-shadow: 0 3px 8px rgba(0,0,0,0.7);
-    }
-
-    .about-section {
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto 40px;
-      text-align: left;
-    }
-
-    .about-section p {
-      font-size: 15px;
-      line-height: 0.8cm;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.7);
-    }
-
-    /* 为了应用 stack-text 动画，把段落里的内容包在 span 里 */
-    .about-section p span {
-      display: inline-block;
-    }
-
-    .tag-list-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      justify-content: center;
-      margin-bottom: 10px;
-    }
-
-    /* 工作经历 & 项目经验 */
-    .section-body {
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto 46px;
-      text-align: left;
-    }
-
-    .experience-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .experience-pill {
-      display: inline-flex;
-      flex-wrap: wrap;
-      gap: 6px 12px;
-      align-items: baseline;
-      padding: 12px 18px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.54);
-      border: 1px solid rgba(255,255,255,0.32);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.75);
-      backdrop-filter: blur(8px);
-      font-size: 14px;
-      line-height: 1.5;
-      max-width: 100%;
-      cursor: default;
-      transition: transform 0.2s ease, box-shadow 0.2s ease,
-        border-color 0.2s ease, background 0.2s ease;
-    }
-
-    .experience-pill:hover {
-      transform: translateY(-2px) scale(1.01);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.9);
-      border-color: rgba(255,255,255,0.7);
-      background: rgba(0,0,0,0.8);
-    }
-
-    .exp-title {
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: var(--pill-radius);
+      border: none;
+      cursor: pointer;
       font-weight: 600;
-      margin-right: 6px;
-    }
-
-    .exp-time {
-      opacity: 0.9;
+      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out, color 0.18s ease-out;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       white-space: nowrap;
     }
 
-    .exp-desc {
-      opacity: 0.96;
+    .pill-strong {
+      background: var(--pill-bg-strong);
+      font-size: 16px;
+      color: var(--text-main);
     }
 
-    /* 联系方式 */
-    .contact-row {
-      margin-top: 12px;
+    .pill-soft {
+      background: var(--pill-bg-soft);
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .pill:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    /* 每个 pill 悬停不同颜色 */
+    .pill-strong:nth-child(1):hover { background: linear-gradient(135deg, #ffe66d, #ffd43b); }
+    .pill-strong:nth-child(2):hover { background: linear-gradient(135deg, #ff922b, #ff6b6b); }
+    .pill-strong:nth-child(3):hover { background: linear-gradient(135deg, #66d9e8, #5c7cfa); }
+    .pill-strong:nth-child(4):hover { background: linear-gradient(135deg, #63e6be, #12b886); }
+    .pill-strong:nth-child(5):hover { background: linear-gradient(135deg, #ffd8a8, #ffa94d); }
+    .pill-strong:nth-child(6):hover { background: linear-gradient(135deg, #d0bfff, #845ef7); }
+
+    .pill-soft:nth-child(1):hover { background: linear-gradient(135deg, #ffe8cc, #ffc078); }
+    .pill-soft:nth-child(2):hover { background: linear-gradient(135deg, #e7f5ff, #74c0fc); }
+
+    /* 分割横线 + 流星效果 */
+    .divider-wrap {
+      width: 100%;
+      margin: 28px 0 8px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .divider {
+      position: relative;
+      width: 80%;
+      max-width: var(--section-max-width);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line-glow), transparent);
+      overflow: hidden;
+    }
+
+    .divider::before {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: -10%;
+      width: 90px;
+      height: 7px;
+      background: radial-gradient(circle at 0% 50%, rgba(255, 255, 255, 0.9), transparent 70%);
+      filter: blur(1px);
+      animation: shootingStar 5.5s linear infinite;
+    }
+
+    @keyframes shootingStar {
+      0%   { transform: translateX(0); opacity: 0; }
+      10%  { opacity: 1; }
+      60%  { opacity: 1; }
+      100% { transform: translateX(1200px); opacity: 0; }
+    }
+
+    /* 主内容区（深色背景） */
+    .content {
+      width: 100%;
+      margin-top: 8px;
+      background: radial-gradient(circle at 10% 0%, #111111, #000000);
+      padding: 40px 16px 64px;
+      color: var(--text-light);
+    }
+
+    .section {
+      max-width: var(--section-max-width);
+      margin: 0 auto 40px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    /* 关于我 文本区：行间距 0.8cm */
+    .about-text {
+      margin-top: 16px;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.94);
+    }
+
+    .about-text p {
+      line-height: 0.8cm;
+      margin-bottom: 6px;
+    }
+
+    /* 下部（工作经历、项目、联系方式） */
+    .lower {
+      width: 100%;
+      background: #050505;
+      padding: 32px 16px 56px;
+      color: var(--text-light);
+    }
+
+    .timeline-section {
+      max-width: var(--section-max-width);
+      margin: 0 auto 40px;
       text-align: center;
+    }
+
+    .timeline-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .role-pill,
+    .project-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 22px;
+      border-radius: var(--pill-radius);
+      background: rgba(255, 255, 255, 0.96);
+      color: var(--text-main);
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55);
+      margin-bottom: 8px;
+      white-space: nowrap;
+    }
+
+    .timeline-item {
+      margin-bottom: 26px;
+    }
+
+    .timeline-desc {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.92);
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .contact-list {
       font-size: 15px;
       line-height: 1.9;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+      margin-top: 14px;
     }
 
-    .contact-row span {
-      display: inline-block;
-      margin-bottom: 4px;
+    /* iPhone 短信式堆叠动效 */
+    .stack-reveal {
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+      filter: blur(2px);
+      transition: opacity var(--stack-duration) ease-out,
+                  transform var(--stack-duration) ease-out,
+                  filter var(--stack-duration) ease-out;
     }
+
+    .stack-reveal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    .stack-group > .stack-reveal:nth-child(2) { transition-delay: 0.05s; }
+    .stack-group > .stack-reveal:nth-child(3) { transition-delay: 0.10s; }
+    .stack-group > .stack-reveal:nth-child(4) { transition-delay: 0.15s; }
+    .stack-group > .stack-reveal:nth-child(5) { transition-delay: 0.20s; }
+    .stack-group > .stack-reveal:nth-child(6) { transition-delay: 0.25s; }
+    .stack-group > .stack-reveal:nth-child(7) { transition-delay: 0.30s; }
 
     /* 响应式 */
     @media (max-width: 768px) {
-      .name-pill {
+      .hero-top-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .hero-subtitle-en {
+        letter-spacing: 0.14em;
+        font-size: 14px;
+      }
+      .name-chip {
         font-size: 22px;
-        padding-inline: 22px;
       }
-      .subtitle-en {
-        font-size: 13px;
-        letter-spacing: 0.15em;
+      .divider {
+        width: 90%;
       }
-      .headline-block {
-        font-size: 14px;
-      }
-      .pill-primary {
+      .hero-line {
         font-size: 15px;
-      }
-      .pill {
-        font-size: 14px;
-        padding: 8px 18px;
-      }
-      .about-section {
-        text-align: left;
-      }
-      .about-section p {
-        font-size: 14px;
-      }
-      .section-body {
-        text-align: left;
       }
     }
   </style>
 </head>
 <body>
-  <!-- 背景层：两层交替淡入淡出 -->
-  <div id="bg1" class="bg-layer visible"></div>
-  <div id="bg2" class="bg-layer hidden"></div>
-  <div class="bg-overlay"></div>
+  <!-- 背景轮播 -->
+  <div class="bg-slideshow">
+    <div class="bg-slide"></div>
+    <div class="bg-slide"></div>
+    <div class="bg-slide"></div>
+    <div class="bg-overlay"></div>
+  </div>
 
   <div class="page">
-    <div class="main-card">
-
-      <!-- 顶部姓名 & 英文 & 标语 & 标签 -->
-      <header class="top-header">
-        <div class="title-row">
-          <div class="name-pill stack-text">黄文艳</div>
-          <div class="subtitle-en stack-text">
-            MARKETING &amp; GROWTH · RESUME SITE
-          </div>
+    <!-- 顶部区 -->
+    <header class="hero">
+      <div class="hero-inner stack-group">
+        <div class="hero-top-row stack-reveal">
+          <div class="name-chip">黄文艳</div>
+          <div class="hero-subtitle-en">MARKETING &amp; GROWTH · RESUME SITE</div>
         </div>
 
-        <div class="headline-block">
-          <div class="headline-line stack-text">
-            市场与增长方向｜8年整合营销与媒介经验
-          </div>
-          <div class="headline-line stack-text">
-            以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式。
-          </div>
-          <div class="headline-row">
-            <div class="headline-col">
-              <div class="headline-line stack-text">
-                常驻城市：上海
-              </div>
-            </div>
-            <div class="headline-col">
-              <div class="headline-line stack-text">
-                职业方向：市场、增长、内容、媒介
-              </div>
-            </div>
-          </div>
+        <p class="hero-line stack-reveal">市场与增长方向｜8年整合营销与媒介经验</p>
+        <p class="hero-line stack-reveal">以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式。</p>
+
+        <div class="hero-meta stack-reveal">
+          <span>常驻城市：上海</span>
+          <span>职业方向：市场、增长、内容、媒介</span>
         </div>
 
-        <!-- 第一行：主标签（字体更大，默认更亮） -->
-        <div class="tag-row">
-          <button class="pill pill-primary stack-text">🌍 好奇心强</button>
-          <button class="pill pill-primary stack-text">⚡ 主动推进</button>
-          <button class="pill pill-primary stack-text">🧠 快速理解</button>
-          <button class="pill pill-primary stack-text">🤝 合作高效</button>
+        <!-- 优势 & 行动按钮 -->
+        <div class="hero-pills stack-group">
+          <div class="pill-row stack-reveal">
+            <button class="pill pill-strong">🌍 好奇心强</button>
+            <button class="pill pill-strong">⚡ 主动推进</button>
+            <button class="pill pill-strong">🧠 快速理解</button>
+            <button class="pill pill-strong">🤝 合作高效</button>
+            <button class="pill pill-strong">💡 积极心态</button>
+            <button class="pill pill-strong">🧩 友善沉稳</button>
+          </div>
+          <div class="pill-row stack-reveal">
+            <a href="resume.pdf" class="pill pill-soft" download>📄 下载简历 PDF</a>
+            <a href="#contact" class="pill pill-soft">📧 获取联系方式</a>
+          </div>
         </div>
-
-        <!-- 第二行：优势 + 下载 / 联系按钮 -->
-        <div class="tag-row">
-          <button class="pill pill-secondary stack-text">💡 积极心态</button>
-          <button class="pill pill-secondary stack-text">🧩 友善沉稳</button>
-          <button class="pill pill-secondary stack-text">🎯 结果导向</button>
-          <button class="pill pill-secondary stack-text">📊 数据敏感</button>
-          <button class="pill pill-secondary pill-download stack-text"
-            onclick="window.open('resume.pdf','_blank')">
-            📄 下载简历 PDF
-          </button>
-          <button class="pill pill-secondary pill-contact stack-text"
-            onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});">
-            📧 获取联系方式
-          </button>
-        </div>
-      </header>
-
-      <!-- 分割线 -->
-      <div class="divider">
-        <div class="divider-line"></div>
-        <div class="divider-meteor"></div>
       </div>
 
-      <!-- 关于我 · 生活 -->
-      <section class="about-section" id="about-life">
-        <h2 class="section-title stack-text">关于我 · 生活</h2>
-        <div>
-          <p><span class="stack-text">🌍 对世界保持好奇心，热衷于主动出发，擅长在不确定中把事情推进到结果。</span></p>
-          <p><span class="stack-text">⚡ 通常愿意先迈出第一步，亲和力强、行动力足，面对陌生关系和新场景，需要较少热身时间。</span></p>
-          <p><span class="stack-text">📚 我的业余爱好广泛，从旅游阅读、健身运动，到今年持续尝试的 Vibe Coding 新工具学习。对我来说，兴趣是一种用来保持输入、训练高精力的方式。</span></p>
-          <p><span class="stack-text">🤝 习惯在不同经历中快速理解人和场景，并找到一种更省力但更有效的协作方式。</span></p>
-          <p><span class="stack-text">🌱 生活里是 ENFP，和不同背景的人相处都很自然；一旦进入工作状态，会切换到冷静、理性和结果导向的模式，习惯把事情理清楚，用自己的节奏循序完成。</span></p>
-          <p><span class="stack-text">🧡 和我共事过的人，对我的正面评价往往集中在两点：做事靠谱，以及合作高效。</span></p>
-          <p><span class="stack-text">📖 我始终相信，真正有价值的能力，来自终身学习，这会让人在复杂环境里也能保持秩序感。</span></p>
+      <!-- 顶部分割线 -->
+      <div class="divider-wrap stack-reveal">
+        <div class="divider"></div>
+      </div>
+    </header>
+
+    <!-- 中部：关于我 -->
+    <main class="content">
+      <section class="section stack-group">
+        <h2 class="section-title stack-reveal">关于我 · 生活</h2>
+        <div class="about-text">
+          <p class="stack-reveal">🌍 对世界保持好奇心，热衷于主动出发，擅长在不确定中把事情推进到结果。</p>
+          <p class="stack-reveal">⚡ 通常愿意先迈出第一步，亲和力强、行动力足，面对陌生关系和新场景，需要较少热身时间。</p>
+          <p class="stack-reveal">📚 我的业余爱好广泛，从旅游阅读、健身运动，到今年持续尝试的 Vibe Coding 新工具学习。对我来说，兴趣是一种用来保持输入、训练高精力的方式。</p>
+          <p class="stack-reveal">🧭 习惯在不同经历中快速理解人和场景，并找到一种更省力但更有效的协作方式。</p>
+          <p class="stack-reveal">🌈 生活里是 ENFP，和不同背景的人相处都很自然；一旦进入工作状态，会切换到冷静、理性和结果导向的模式，习惯把事情理清楚，用自己的节奏循序完成。</p>
+          <p class="stack-reveal">🤗 和我共事过的人，对我的正面评价往往集中在两点：做事靠谱，以及合作高效。</p>
+          <p class="stack-reveal">📖 我始终相信，真正有价值的能力，来自终身学习，这会让人在复杂环境里也能保持秩序感。</p>
         </div>
       </section>
 
-      <!-- 分割线 -->
-      <div class="divider">
-        <div class="divider-line"></div>
-        <div class="divider-meteor"></div>
+      <div class="divider-wrap stack-reveal">
+        <div class="divider"></div>
       </div>
 
-      <!-- 关于我 · 工作 -->
-      <section class="about-section" id="about-work">
-        <h2 class="section-title stack-text">关于我 · 工作</h2>
-        <div>
-          <p><span class="stack-text">📌 长期负责品牌全渠道媒介与增长策略，从预算规划、资源整合到落地复盘，习惯在复杂项目中保持清晰结构和可执行路线。</span></p>
-          <p><span class="stack-text">📊 擅长基于用户与渠道链路，设计渠道组合、内容矩阵与投放节奏，建立从品牌曝光到效果转化的一体化闭环。</span></p>
-          <p><span class="stack-text">📈 熟悉多种媒介 KPI 与数据指标，能够在预算有限的情况下，通过结构化优化与实验设计提升整体 ROI。</span></p>
-          <p><span class="stack-text">🧩 工作中注重“协作体验”，习惯跨团队对齐信息、拆解责任边界，让合作伙伴在一张“作战地图”上推进工作。</span></p>
-          <p><span class="stack-text">🤖 正在把 AI 与 Vibe Coding 融入日常工作流，用它们辅助方案撰写、素材生成与数据拆解，把更多精力留给判断和决策。</span></p>
+      <section class="section stack-group">
+        <h2 class="section-title stack-reveal">关于我 · 工作</h2>
+        <div class="about-text">
+          <p class="stack-reveal">📊 长期负责品牌全渠道媒介与增长策略，从预算规划到资源整合到落地复盘，习惯在复杂项目中保持清晰结构和可执行路线。</p>
+          <p class="stack-reveal">📌 擅长基于目标拆解链路，设计渠道组合、内容矩阵与投放节奏，建立从品牌曝光到效果转化的一体化闭环。</p>
+          <p class="stack-reveal">📈 熟悉多种媒介 KPI 与数据指标，能够在预算有限的情况下，通过结构化优化与实验设计提升整体 ROI。</p>
+          <p class="stack-reveal">🤝 工作中注重“协作体验”，习惯跨团队对齐信息、拆解责任边界，让合作伙伴在同一张“作战地图”上推进工作。</p>
+          <p class="stack-reveal">🧠 正在把 AI 与 Vibe Coding 融入日常工作流，用它们辅助方案撰写、素材生成与数据拆解，把更多精力留给判断和决策。</p>
         </div>
       </section>
+    </main>
 
-      <!-- 分割线 -->
-      <div class="divider">
-        <div class="divider-line"></div>
-        <div class="divider-meteor"></div>
-      </div>
-
+    <!-- 下半部分 -->
+    <section class="lower">
       <!-- 工作经历 -->
-      <section class="section-body" id="experience">
-        <h2 class="section-title stack-text">工作经历</h2>
-        <div class="experience-list">
-          <div class="experience-pill stack-text">
-            <span class="exp-title">恒沐（上海）广告有限公司｜媒介主管</span>
-            <span class="exp-time">2021.01 – 2025.12</span>
-            <span class="exp-desc">
-              制定并执行品牌全渠道媒介策略，覆盖社交媒体、搜索与效果广告平台，通过持续数据监控与复盘降低 CPM/CPE，提升整体投放 ROI。
-            </span>
-          </div>
-          <div class="experience-pill stack-text">
-            <span class="exp-title">上海悦普网络科技有限公司｜媒介专员</span>
-            <span class="exp-time">2020.04 – 2020.12</span>
-            <span class="exp-desc">
-              负责微博、微信、抖音、小红书等平台的达人资源开拓与投放执行，累计处理 800+ 项需求，搭建媒体合作流程并保障项目顺利落地。
-            </span>
-          </div>
-          <div class="experience-pill stack-text">
-            <span class="exp-title">阳光恒美融信息技术服务（上海）股份有限公司｜媒介</span>
-            <span class="exp-time">2018.01 – 2020.01</span>
-            <span class="exp-desc">
-              独立开发并运营双微、小红书、抖音、B 站等平台的 KOL/KOC 及明星资源网络，积累 2000+ 优质资源，结合成本控制与谈判能力确保项目在预算内完成。
-            </span>
-          </div>
-        </div>
-      </section>
+      <div class="timeline-section stack-group">
+        <h2 class="timeline-title stack-reveal">工作经历</h2>
 
-      <!-- 分割线 -->
-      <div class="divider">
-        <div class="divider-line"></div>
-        <div class="divider-meteor"></div>
+        <div class="timeline-item stack-reveal">
+          <div class="role-pill">媒介主管｜恒沐（上海）广告有限公司　2021.01 – 2025.12</div>
+          <p class="timeline-desc">
+            负责品牌全年媒介策略与预算管理，搭建本地化内容矩阵，整合搜索、信息流与社交媒体资源，实现品牌曝光与转化双目标，并通过持续数据复盘提升整体投放效率。
+          </p>
+        </div>
+
+        <div class="timeline-item stack-reveal">
+          <div class="role-pill">媒介专员｜上海悦普网络科技有限公司　2020.04 – 2020.12</div>
+          <p class="timeline-desc">
+            负责微信、微博、抖音、小红书等平台资源拓展与投放执行，累计处理超 800 项需求，覆盖合同谈判、排期管理与执行跟进，保障项目顺利推进与效果达成。
+          </p>
+        </div>
+
+        <div class="timeline-item stack-reveal">
+          <div class="role-pill">媒介｜阳光恒美融信息技术服务（上海）股份有限公司　2018.01 – 2020.01</div>
+          <p class="timeline-desc">
+            独立开发并运营 KOL/KOC 资源网络，负责跨行业客户的内容合作匹配与投放建议，在预算可控前提下提升整体投放效率，并为品牌沉淀长期合作资产。
+          </p>
+        </div>
+      </div>
+
+      <div class="divider-wrap stack-reveal">
+        <div class="divider"></div>
       </div>
 
       <!-- 项目经验 -->
-      <section class="section-body" id="projects">
-        <h2 class="section-title stack-text">项目经验</h2>
-        <div class="experience-list">
-          <div class="experience-pill stack-text">
-            <span class="exp-title">迪拜 DAMAC 房地产｜巨量引擎整合营销</span>
-            <span class="exp-time">2025.10 – 2025.12</span>
-            <span class="exp-desc">
-              负责抖音生态广告增长策略，整合信息流与 Dou+ 内容助推，基于 DMP 人群画像与 A/B 测试优化创意与出价，实线索成本下降约 25%，转化率提升约 15%。
-            </span>
+      <div class="timeline-section stack-group">
+        <h2 class="timeline-title stack-reveal">项目经验</h2>
+
+        <div class="timeline-item stack-reveal">
+          <div class="project-pill">巨量引擎整合营销 · 房地产品牌</div>
+          <p class="timeline-desc">
+            负责抖音生态整合营销项目，从预算规划、DMP 人群建模到 A/B 测试与投放节奏优化，搭建从公域曝光到线索转化的全链路模型，实现线索成本降低、转化率提升的双重效果。
+          </p>
+        </div>
+
+        <div class="timeline-item stack-reveal">
+          <div class="project-pill">洲际酒店集团 · 小红书内容营销与聚光投流</div>
+          <p class="timeline-desc">
+            主导多家酒店在小红书平台的内容策略与达人生态建设，搭建标准化合作流程，结合聚光投流工具做内容加热与精准引流，显著提升品牌社交声量与用户互动质量。
+          </p>
+        </div>
+
+        <div class="timeline-item stack-reveal">
+          <div class="project-pill">快消品牌新品上市 · 整合种草与投放项目</div>
+          <p class="timeline-desc">
+            从策略、排期到素材需求与效果复盘全流程跟进，结合人群洞察与渠道特性设计媒介组合，通过多轮创意与落地页优化，提升整体转化效率与品牌好感度。
+          </p>
+        </div>
+      </div>
+
+      <div class="divider-wrap stack-reveal">
+        <div class="divider"></div>
+      </div>
+
+      <!-- 联系方式 -->
+      <div id="contact" class="timeline-section stack-group">
+        <h2 class="timeline-title stack-reveal">联系方式</h2>
+        <div class="contact-list">
+          <div class="stack-reveal">📱 电话：17621058773</div>
+          <div class="stack-reveal">💬 微信：17621058773</div>
+          <div class="stack-reveal">
+            ✉️ 邮箱：
+            <a href="mailto:17621058773@163.com" style="color:#ffffff;text-decoration:none;">
+              17621058773@163.com
+            </a>
           </div>
-          <div class="experience-pill stack-text">
-            <span class="exp-title">洲际酒店集团｜小红书内容营销与聚光投流</span>
-            <span class="exp-time">2023.06 – 2025.12</span>
-            <span class="exp-desc">
-              主导多酒店品牌在小红书的内容策略与达人生态建设，搭建年度投放机制，合作千位以上 KOL/KOC，爆文率超 70%，结合聚光投流提升预订转化。
-            </span>
-          </div>
-          <div class="experience-pill stack-text">
-            <span class="exp-title">法国依云矿泉水｜全渠道媒介 &amp; 效果采购</span>
-            <span class="exp-time">2021.04 – 2025.11</span>
-            <span class="exp-desc">
-              负责年度千万级硬广预算规划与执行，整合户外、分众与社交、视频、电商等数字媒体，构
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // 进入视口时的“短信堆叠”动效
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            // 只触发一次即可
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    document.querySelectorAll(".stack-reveal").forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
