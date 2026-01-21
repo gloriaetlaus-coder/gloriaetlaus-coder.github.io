@@ -9,7 +9,7 @@
       --text-main: #000000;
       --text-light: #ffffff;
       --pill-bg-strong: rgba(255, 255, 255, 0.95);
-      --pill-bg-soft: rgba(245, 246, 248, 0.98);
+      --pill-bg-soft: rgba(238, 240, 244, 0.98);
       --pill-radius: 999px;
       --line-glow: rgba(255, 255, 255, 0.45);
       --section-max-width: 1200px;
@@ -93,9 +93,9 @@
       gap: 18px;
     }
 
-    /* 名字：三个字连在一起 + 单字轮流呼吸 */
+    /* 名字：三个字连在一起 + 单字轻微呼吸 */
     .hero-name {
-      font-size: 96px;
+      font-size: 72px;
       font-weight: 800;
       letter-spacing: 0.12em;
       color: #ffffff;
@@ -109,17 +109,17 @@
       display: inline-block;
       padding: 0 1px;
       transform-origin: 50% 60%;
-      animation: nameBreathe 3.6s ease-in-out infinite;
+      animation: nameBreathe 4.5s ease-in-out infinite;
     }
     .name-letter + .name-letter {
-      margin-left: -0.02em; /* 消掉视觉上的空隙，让“黄文艳”连起来 */
+      margin-left: -0.02em; /* 消掉视觉空隙，让“黄文艳”连起来 */
     }
-    .name-letter:nth-child(2) { animation-delay: 0.5s; }
-    .name-letter:nth-child(3) { animation-delay: 1.0s; }
+    .name-letter:nth-child(2) { animation-delay: 0.6s; }
+    .name-letter:nth-child(3) { animation-delay: 1.2s; }
 
     @keyframes nameBreathe {
       0%   { transform: scale(1);   filter: brightness(1); }
-      25%  { transform: scale(1.12); filter: brightness(1.08); }
+      25%  { transform: scale(1.04); filter: brightness(1.05); }
       50%  { transform: scale(1);   filter: brightness(1); }
       100% { transform: scale(1);   filter: brightness(1); }
     }
@@ -200,7 +200,8 @@
     .pill-soft {
       background: var(--pill-bg-soft);
       font-size: 15px;
-      color: #333333;   /* 第二排按钮深灰 */
+      color: #333333;   /* 第二排按钮深灰文字 */
+      border: 1px solid rgba(0,0,0,0.05);
     }
 
     .pill:hover {
@@ -391,19 +392,23 @@
         rgba(0, 0, 0, 0.6));
     }
 
-    /* ===== “短信堆叠感”统一动画：明显 + 循环 ===== */
+    /* ===== 堆叠感：只执行一次，不循环 ===== */
     .stack-reveal {
       opacity: 0;
-      animation: stackCombo 4.5s ease-in-out infinite;
+      transform: translateY(16px);
+      animation: stackOnce 0.55s ease-out forwards;
     }
-
-    @keyframes stackCombo {
-      0%   { opacity: 0; transform: translateY(24px); }
-      12%  { opacity: 1; transform: translateY(0); }
-      40%  { opacity: 1; transform: translateY(-6px); }
-      70%  { opacity: 1; transform: translateY(3px); }
+    @keyframes stackOnce {
+      0%   { opacity: 0; transform: translateY(16px); }
       100% { opacity: 1; transform: translateY(0); }
     }
+    .delay-1 { animation-delay: 0.10s; }
+    .delay-2 { animation-delay: 0.24s; }
+    .delay-3 { animation-delay: 0.38s; }
+    .delay-4 { animation-delay: 0.52s; }
+    .delay-5 { animation-delay: 0.66s; }
+    .delay-6 { animation-delay: 0.80s; }
+    .delay-7 { animation-delay: 0.94s; }
 
     @media (max-width: 768px) {
       .hero-top-row {
@@ -412,7 +417,7 @@
         gap: 8px;
       }
       .hero-name {
-        font-size: 60px;
+        font-size: 48px;
       }
       .hero-subtitle-en {
         letter-spacing: 0.14em;
@@ -437,38 +442,38 @@
     <header class="hero">
       <div class="hero-inner">
         <div class="hero-top-row">
-          <div class="hero-name stack-reveal" aria-label="黄文艳">
+          <div class="hero-name" aria-label="黄文艳">
             <span class="name-letter">黄</span><span class="name-letter">文</span><span class="name-letter">艳</span>
           </div>
-          <div class="hero-subtitle-en stack-reveal">
+          <div class="hero-subtitle-en stack-reveal delay-1">
             MARKETING &amp; GROWTH · RESUME SITE
           </div>
         </div>
 
-        <p class="hero-line stack-reveal">
+        <p class="hero-line stack-reveal delay-2">
           市场与增长方向｜8年整合营销与媒介经验
         </p>
-        <p class="hero-line stack-reveal">
+        <p class="hero-line stack-reveal delay-3">
           以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式。
         </p>
 
         <div class="hero-meta">
-          <span class="stack-reveal">常驻城市：上海</span>
-          <span class="stack-reveal">职业方向：市场、增长、内容、媒介</span>
+          <span class="stack-reveal delay-4">常驻城市：上海</span>
+          <span class="stack-reveal delay-5">职业方向：市场、增长、内容、媒介</span>
         </div>
 
         <div class="hero-pills">
-          <div class="pill-row">
-            <button class="pill pill-strong stack-reveal">🌍 好奇心强</button>
-            <button class="pill pill-strong stack-reveal">⚡ 主动推进</button>
-            <button class="pill pill-strong stack-reveal">🧠 快速理解</button>
-            <button class="pill pill-strong stack-reveal">🤝 合作高效</button>
-            <button class="pill pill-strong stack-reveal">💡 积极心态</button>
-            <button class="pill pill-strong stack-reveal">🧩 友善沉稳</button>
+          <div class="pill-row stack-reveal delay-6">
+            <button class="pill pill-strong">🌍 好奇心强</button>
+            <button class="pill pill-strong">⚡ 主动推进</button>
+            <button class="pill pill-strong">🧠 快速理解</button>
+            <button class="pill pill-strong">🤝 合作高效</button>
+            <button class="pill pill-strong">💡 积极心态</button>
+            <button class="pill pill-strong">🧩 友善沉稳</button>
           </div>
-          <div class="pill-row">
-            <a href="resume.pdf" class="pill pill-soft stack-reveal" download>📄 下载简历 PDF</a>
-            <a href="#contact" class="pill pill-soft stack-reveal">📧 获取联系方式</a>
+          <div class="pill-row stack-reveal delay-7">
+            <a href="resume.pdf" class="pill pill-soft" download>📄 下载简历 PDF</a>
+            <a href="#contact" class="pill pill-soft">📧 获取联系方式</a>
           </div>
         </div>
       </div>
@@ -480,15 +485,15 @@
 
     <main class="content">
       <section class="section">
-        <h2 class="section-title stack-reveal">关于我 · 生活</h2>
+        <h2 class="section-title stack-reveal delay-1">关于我 · 生活</h2>
         <div class="about-text">
-          <p class="stack-reveal">🌍 <span class="key">对世界保持好奇心</span>，热衷于主动出发，擅长在不确定中把事情推进到结果。</p>
-          <p class="stack-reveal">⚡ 通常愿意先迈出第一步，<span class="key">亲和力强、行动力足</span>，面对陌生关系和新场景，需要较少热身时间。</p>
-          <p class="stack-reveal">📚 我的业余爱好广泛，从旅游阅读、健身运动，到今年持续尝试的 <span class="key">Vibe Coding 新工具学习</span>。对我来说，兴趣是一种用来保持输入、训练高精力的方式。</p>
-          <p class="stack-reveal">🧭 习惯在不同经历中<span class="key">快速理解人和场景</span>，并找到一种更省力但更有效的协作方式。</p>
-          <p class="stack-reveal">🌈 生活里是 ENFP，和不同背景的人相处都很自然；一旦进入工作状态，会切换到<span class="key">冷静理性、结果导向模式</span>，习惯把事情理清楚，用自己的节奏循序完成。</p>
-          <p class="stack-reveal">🤗 和我共事过的人，对我的正面评价往往集中在两点：<span class="key">做事靠谱</span>，以及<span class="key">合作高效</span>。</p>
-          <p class="stack-reveal">📖 我始终相信，真正有价值的能力，来自<span class="key">终身学习</span>，这会让人在复杂环境里也能保持秩序感。</p>
+          <p class="stack-reveal delay-2">🌍 <span class="key">对世界保持好奇心</span>，热衷于主动出发，擅长在不确定中把事情推进到结果。</p>
+          <p class="stack-reveal delay-3">⚡ 通常愿意先迈出第一步，<span class="key">亲和力强、行动力足</span>，面对陌生关系和新场景，需要较少热身时间。</p>
+          <p class="stack-reveal delay-4">📚 我的业余爱好广泛，从旅游阅读、健身运动，到今年持续尝试的 <span class="key">Vibe Coding 新工具学习</span>。对我来说，兴趣是一种用来保持输入、训练高精力的方式。</p>
+          <p class="stack-reveal delay-5">🧭 习惯在不同经历中<span class="key">快速理解人和场景</span>，并找到一种更省力但更有效的协作方式。</p>
+          <p class="stack-reveal delay-6">🌈 生活里是 ENFP，和不同背景的人相处都很自然；一旦进入工作状态，会切换到<span class="key">冷静理性、结果导向模式</span>，习惯把事情理清楚，用自己的节奏循序完成。</p>
+          <p class="stack-reveal delay-7">🤗 和我共事过的人，对我的正面评价往往集中在两点：<span class="key">做事靠谱</span>，以及<span class="key">合作高效</span>。</p>
+          <p class="stack-reveal delay-7">📖 我始终相信，真正有价值的能力，来自<span class="key">终身学习</span>，这会让人在复杂环境里也能保持秩序感。</p>
         </div>
       </section>
 
@@ -497,13 +502,13 @@
       </div>
 
       <section class="section section-about-work">
-        <h2 class="section-title stack-reveal">关于我 · 工作</h2>
+        <h2 class="section-title stack-reveal delay-1">关于我 · 工作</h2>
         <div class="about-text">
-          <p class="stack-reveal">📊 长期负责品牌<span class="key">全渠道媒介与增长策略</span>，从预算规划、资源整合到落地复盘，习惯在复杂项目中保持清晰结构和可执行路线。</p>
-          <p class="stack-reveal">📌 擅长基于目标拆解链路，设计<span class="key">渠道组合、内容矩阵与投放节奏</span>，建立从品牌曝光到效果转化的一体化闭环。</p>
-          <p class="stack-reveal">📈 熟悉多种媒介 KPI 与数据指标，能够在预算有限的情况下，通过<span class="key">结构化优化与实验设计</span>提升整体 ROI。</p>
-          <p class="stack-reveal">🤝 工作中注重“<span class="key">协作体验</span>”，习惯跨团队对齐信息、拆解责任边界，让合作伙伴在同一张“作战地图”上推进工作。</p>
-          <p class="stack-reveal">🧠 正在把 <span class="key">AI 与 Vibe Coding</span> 融入日常工作流，用它们辅助方案撰写、素材生成与数据拆解，把更多精力留给判断和决策。</p>
+          <p class="stack-reveal delay-2">📊 长期负责品牌<span class="key">全渠道媒介与增长策略</span>，从预算规划、资源整合到落地复盘，习惯在复杂项目中保持清晰结构和可执行路线。</p>
+          <p class="stack-reveal delay-3">📌 擅长基于目标拆解链路，设计<span class="key">渠道组合、内容矩阵与投放节奏</span>，建立从品牌曝光到效果转化的一体化闭环。</p>
+          <p class="stack-reveal delay-4">📈 熟悉多种媒介 KPI 与数据指标，能够在预算有限的情况下，通过<span class="key">结构化优化与实验设计</span>提升整体 ROI。</p>
+          <p class="stack-reveal delay-5">🤝 工作中注重“<span class="key">协作体验</span>”，习惯跨团队对齐信息、拆解责任边界，让合作伙伴在同一张“作战地图”上推进工作。</p>
+          <p class="stack-reveal delay-6">🧠 正在把 <span class="key">AI 与 Vibe Coding</span> 融入日常工作流，用它们辅助方案撰写、素材生成与数据拆解，把更多精力留给判断和决策。</p>
         </div>
       </section>
     </main>
@@ -514,23 +519,23 @@
       </div>
 
       <div class="timeline-section">
-        <h2 class="timeline-title stack-reveal">工作经历</h2>
+        <h2 class="timeline-title stack-reveal delay-1">工作经历</h2>
 
-        <div class="timeline-item stack-reveal">
+        <div class="timeline-item stack-reveal delay-2">
           <div class="role-pill">媒介主管｜恒沐（上海）广告有限公司　2021.01 – 2025.12</div>
           <p class="timeline-desc">
             负责品牌全年媒介策略与预算管理，搭建本地化内容矩阵，整合搜索、信息流与社交媒体资源，实现品牌曝光与转化双目标，并通过持续数据复盘提升整体投放效率。
           </p>
         </div>
 
-        <div class="timeline-item stack-reveal">
+        <div class="timeline-item stack-reveal delay-3">
           <div class="role-pill">媒介专员｜上海悦普网络科技有限公司　2020.04 – 2020.12</div>
           <p class="timeline-desc">
             负责微信、微博、抖音、小红书等平台资源拓展与投放执行，累计处理超 800 项需求，覆盖合同谈判、排期管理与执行跟进，保障项目顺利推进与效果达成。
           </p>
         </div>
 
-        <div class="timeline-item stack-reveal">
+        <div class="timeline-item stack-reveal delay-4">
           <div class="role-pill">媒介｜阳光恒美融信息技术服务（上海）股份有限公司　2018.01 – 2020.01</div>
           <p class="timeline-desc">
             独立开发并运营 KOL/KOC 资源网络，负责跨行业客户的内容合作匹配与投放建议，在预算可控前提下提升整体投放效率，并为品牌沉淀长期合作资产。
@@ -543,23 +548,23 @@
       </div>
 
       <div class="timeline-section">
-        <h2 class="timeline-title stack-reveal">项目经验</h2>
+        <h2 class="timeline-title stack-reveal delay-1">项目经验</h2>
 
-        <div class="timeline-item stack-reveal">
+        <div class="timeline-item stack-reveal delay-2">
           <div class="project-pill">巨量引擎整合营销 · 房地产品牌</div>
           <p class="timeline-desc">
             负责抖音生态整合营销项目，从预算规划、DMP 人群建模到 A/B 测试与投放节奏优化，搭建从公域曝光到线索转化的全链路模型，实现线索成本降低、转化率提升的双重效果。
           </p>
         </div>
 
-        <div class="timeline-item stack-reveal">
+        <div class="timeline-item stack-reveal delay-3">
           <div class="project-pill">洲际酒店集团 · 小红书内容营销与聚光投流</div>
           <p class="timeline-desc">
             主导多家酒店在小红书平台的内容策略与达人生态建设，搭建标准化合作流程，结合聚光投流工具做内容加热与精准引流，显著提升品牌社交声量与用户互动质量。
           </p>
         </div>
 
-        <div class="timeline-item stack-reveal">
+        <div class="timeline-item stack-reveal delay-4">
           <div class="project-pill">快消品牌新品上市 · 整合种草与投放项目</div>
           <p class="timeline-desc">
             从策略、排期到素材需求与效果复盘全流程跟进，结合人群洞察与渠道特性设计媒介组合，通过多轮创意与落地页优化，提升整体转化效率与品牌好感度。
@@ -572,11 +577,11 @@
       </div>
 
       <div id="contact" class="timeline-section">
-        <h2 class="timeline-title stack-reveal">联系方式</h2>
+        <h2 class="timeline-title stack-reveal delay-1">联系方式</h2>
         <div class="contact-list">
-          <div class="contact-item stack-reveal">📱 电话：17621058773</div>
-          <div class="contact-item stack-reveal">💬 微信：17621058773</div>
-          <div class="contact-item stack-reveal">
+          <div class="contact-item stack-reveal delay-2">📱 电话：17621058773</div>
+          <div class="contact-item stack-reveal delay-3">💬 微信：17621058773</div>
+          <div class="contact-item stack-reveal delay-4">
             ✉️ 邮箱：
             <a href="mailto:17621058773@163.com" style="color:#ffffff;text-decoration:none;">
               17621058773@163.com
