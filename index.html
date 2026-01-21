@@ -11,10 +11,10 @@
     body{
       font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",sans-serif;
       background:#ffffff;
-      color:#111;
+      color:#000;
     }
 
-    /* ======= 整体布局 ======= */
+    /* ======= 布局 ======= */
     .page{
       display:flex;
       min-height:100vh;
@@ -37,20 +37,26 @@
       max-width:980px;
     }
 
-    /* ======= shimmer 字体堆叠感 ======= */
-    .shimmer{
-      background:linear-gradient(110deg,#999 0%,#111 18%,#999 36%,#777 60%,#999 100%);
-      background-size:220% 100%;
-      -webkit-background-clip:text;
-      color:transparent;
-      animation:shimmerMove 8s linear infinite;
+    /* ======= 全局文字堆叠感（不改颜色，仅用阴影） ======= */
+    h1,
+    .section-title,
+    .hero-line,
+    .hero-location,
+    .text p,
+    .list .item,
+    .tag,
+    button{
+      color:#000;
+      animation:textStack 4s ease-in-out infinite;
     }
-    @keyframes shimmerMove{
-      0%{background-position:-40%}
-      100%{background-position:140%}
+    @keyframes textStack{
+      0%,40%{text-shadow:none;}
+      50%{text-shadow:-1px 1px 0 rgba(0,0,0,0.35);}
+      60%{text-shadow:-2px 2px 0 rgba(0,0,0,0.18);}
+      70%,100%{text-shadow:none;}
     }
 
-    /* ======= 顶部 hero ======= */
+    /* ======= 顶部 ======= */
     .hero{
       display:flex;
       justify-content:space-between;
@@ -65,25 +71,23 @@
     h1{
       font-size:40px;
       font-weight:700;
-      margin-bottom:8px;
+      margin-bottom:20px;
     }
     .hero-line{
       font-size:16px;
-      margin-bottom:6px;
-      color:#333;
+      margin-bottom:19px; /* 约 0.5cm */
     }
     .hero-location{
       font-size:15px;
-      color:#333;
-      margin-top:6px;
+      margin-bottom:19px;
     }
-
     .hero-actions{
-      margin-top:18px;
+      margin-top:8px;
       display:flex;
       gap:14px;
       flex-wrap:wrap;
     }
+
     button{
       border-radius:999px;
       padding:10px 22px;
@@ -91,10 +95,11 @@
       border:1px solid #ddd;
       background:#fff;
       cursor:pointer;
+      font-weight:700;
       transition:transform .18s ease,box-shadow .18s ease;
     }
     button.primary{
-      background:#111;
+      background:#000;
       color:#fff;
       border:none;
     }
@@ -108,16 +113,22 @@
       height:210px;
       object-fit:cover;
       flex-shrink:0;
-      margin-top:4px; /* 顶部和“黄文艳”对齐区域 */
+      margin-top:4px;
+      border-radius:0; /* 四个直角 */
     }
 
-    /* ======= 分隔线 + 流星动效 ======= */
+    /* ======= 横线 + 流星动效 ======= */
     .divider{
       position:relative;
       height:1px;
-      background:linear-gradient(90deg,#e0e0e0,#cfcfcf,#e0e0e0);
+      background:linear-gradient(90deg,#f5f5f5,#cccccc,#f5f5f5);
       margin:40px 0;
       overflow:hidden;
+      animation:lineGlow 5s ease-in-out infinite;
+    }
+    @keyframes lineGlow{
+      0%,100%{opacity:0.7;}
+      50%{opacity:1;}
     }
     .divider::after{
       content:"";
@@ -128,37 +139,32 @@
       height:8px;
       background:radial-gradient(circle at 20% 50%,rgba(255,255,255,0.95),rgba(255,255,255,0) 70%);
       filter:blur(1px);
-      animation:comet 7s linear infinite;
+      animation:comet 8s linear infinite;
       opacity:0.9;
     }
     @keyframes comet{
       0%{transform:translateX(0);}
       100%{transform:translateX(1200px);}
     }
-    /* 每根线速度略微差一点点 */
-    .divider:nth-of-type(1)::after{animation-duration:8s;}
-    .divider:nth-of-type(2)::after{animation-duration:10s;}
-    .divider:nth-of-type(3)::after{animation-duration:9s;}
+    .divider:nth-of-type(2)::after{animation-duration:9s;}
+    .divider:nth-of-type(3)::after{animation-duration:10s;}
     .divider:nth-of-type(4)::after{animation-duration:11s;}
     .divider:nth-of-type(5)::after{animation-duration:8.5s;}
 
-    /* ======= section 标题和正文 ======= */
+    /* ======= 标题 & 正文 ======= */
     .section-title{
       font-size:22px;
       font-weight:650;
       margin-bottom:18px;
     }
-
     .text{
       font-size:15px;
-      color:#333;
     }
-    /* 小字之间统一 0.5cm 左右行距（约 18px） */
     .text p{
-      margin-bottom:18px;
+      margin-bottom:18px; /* 约 0.5cm */
     }
 
-    /* ======= 标签（生活四个标签） ======= */
+    /* ======= 生活标签 ======= */
     .tags{
       display:flex;
       gap:10px;
@@ -169,10 +175,10 @@
       border:1px solid #ccc;
       border-radius:999px;
       padding:6px 14px;
-      font-weight:600;
+      font-weight:700;
       cursor:pointer;
-      transition:transform .18s ease,box-shadow .18s ease;
       background:#fff;
+      transition:transform .18s ease,box-shadow .18s ease;
     }
     .tag:hover{
       transform:scale(1.07);
@@ -185,36 +191,49 @@
       flex-direction:column;
       gap:0;
       font-size:15px;
-      color:#333;
     }
     .item{
       padding-left:14px;
       position:relative;
-      margin-bottom:18px; /* 小字统一行距 */
+      margin-bottom:18px; /* 小字统一 0.5cm 行距 */
     }
     .item::before{
       content:"•";
       position:absolute;
       left:0;
       top:0;
-      color:#111;
+      color:#000;
       font-weight:700;
     }
     .item-title{
-      font-weight:600;
+      font-weight:700;
     }
     .meta{
-      color:#333;
       font-size:14px;
       margin-left:6px;
     }
-
-    /* 公司/项目区块之间的 1cm 间距（约 38px） */
+    /* 公司/项目块之间 1cm 间距（约 38px） */
     .block-start{
       margin-top:38px;
     }
     .list .block-start:first-of-type{
       margin-top:0;
+    }
+
+    .exp-btn{
+      margin:6px 0 0 14px;
+      padding:8px 18px;
+      font-size:13px;
+      border-radius:999px;
+      border:1px solid #ddd;
+      background:#fff;
+      cursor:pointer;
+      font-weight:700;
+      transition:transform .18s ease,box-shadow .18s ease;
+    }
+    .exp-btn:hover{
+      transform:scale(1.06);
+      box-shadow:0 8px 20px rgba(0,0,0,.14);
     }
 
     @media (max-width:900px){
@@ -230,22 +249,21 @@
 <body>
 
 <div class="page">
-  <!-- 左侧两张生活照（确认仓库文件名为 life-forest.jpg / life-shop.jpg） -->
+  <!-- 左侧两张生活照：确认仓库里文件名为 life-forest.jpg / life-shop.jpg，后缀小写 .jpg -->
   <div class="side">
     <img src="life-forest.jpg" alt="生活照 1">
     <img src="life-shop.jpg"   alt="生活照 2">
   </div>
 
-  <!-- 右侧主体 -->
   <div class="main">
 
-    <!-- Hero 顶部 -->
+    <!-- 顶部信息 -->
     <div class="hero">
       <div class="hero-left">
         <h1>黄文艳</h1>
-        <div class="hero-line shimmer">市场与增长方向｜8年整合营销与媒介经验</div>
-        <div class="hero-line shimmer">以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式</div>
-        <div class="hero-location shimmer">
+        <div class="hero-line">市场与增长方向｜8年整合营销与媒介经验</div>
+        <div class="hero-line">以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式</div>
+        <div class="hero-location">
           常驻城市：上海<br/>
           职业方向：市场、增长、内容、媒介
         </div>
@@ -256,7 +274,7 @@
         </div>
       </div>
 
-      <!-- 头像：无边框，保持长方形 -->
+      <!-- 头像：长方形直角、无边框 -->
       <img src="avatar.jpg" alt="头像" class="avatar">
     </div>
 
@@ -288,7 +306,7 @@
     <section>
       <div class="section-title">关于我 · 工作</div>
       <div class="text">
-        <p class="shimmer">长期负责品牌全渠道媒介与增长策略，覆盖策略制定、资源整合、执行落地与效果复盘。</p>
+        <p>长期负责品牌全渠道媒介与增长策略，覆盖策略制定、资源整合、执行落地与效果复盘。</p>
       </div>
     </section>
 
@@ -299,26 +317,29 @@
       <div class="section-title">工作经历</div>
       <div class="list">
         <div class="item block-start">
-          <span class="item-title shimmer">媒介主管｜恒沐（上海）广告有限公司</span>
+          <span class="item-title">媒介主管｜恒沐（上海）广告有限公司</span>
           <span class="meta">2021.01–2025.12</span>
         </div>
         <div class="item">负责全渠道媒介策略与年度预算管理，搭建本地化内容与投放矩阵。</div>
         <div class="item">整合搜索、信息流、短视频等资源，实现品效协同与线索增长。</div>
         <div class="item">通过数据监控与复盘，不断优化投放结构，降低 CPM/CPE 提升整体 ROI。</div>
+        <button class="exp-btn">了解这一段经历</button>
 
         <div class="item block-start">
-          <span class="item-title shimmer">媒介专员｜上海悦普网络科技有限公司</span>
+          <span class="item-title">媒介专员｜上海悦普网络科技有限公司</span>
           <span class="meta">2020.04–2020.12</span>
         </div>
         <div class="item">负责微博、微信、抖音、小红书等平台达人资源拓展与投放执行。</div>
         <div class="item">累计处理超 800 项需求，覆盖合同谈判、排期管理与效果追踪。</div>
+        <button class="exp-btn">了解这一段经历</button>
 
         <div class="item block-start">
-          <span class="item-title shimmer">媒介｜阳光恒美融信息技术服务（上海）股份有限公司</span>
+          <span class="item-title">媒介｜阳光恒美融信息技术服务（上海）股份有限公司</span>
           <span class="meta">2018.01–2020.01</span>
         </div>
         <div class="item">独立开发并维护 KOL/KOC 与明星资源网络，累计优质资源 2000+。</div>
         <div class="item">根据客户预算与目标，制定媒介方案并控制成本。</div>
+        <button class="exp-btn">了解这一段经历</button>
       </div>
     </section>
 
@@ -329,19 +350,22 @@
       <div class="section-title">项目经验</div>
       <div class="list">
         <div class="item block-start">
-          <span class="item-title shimmer">法国依云矿泉水｜全渠道媒介与效果采购</span>
+          <span class="item-title">法国依云矿泉水｜全渠道媒介与效果采购</span>
         </div>
         <div class="item">负责千万级年度媒体预算规划与执行，构建多触点投放矩阵，电商 ROI 稳定在 3 左右。</div>
+        <button class="exp-btn">查看项目亮点</button>
 
         <div class="item block-start">
-          <span class="item-title shimmer">洲际酒店集团｜小红书内容营销与聚光投流</span>
+          <span class="item-title">洲际酒店集团｜小红书内容营销与聚光投流</span>
         </div>
         <div class="item">搭建达人合作标准流程，联合品牌内容与短视频投放，爆文率超过 70%。</div>
+        <button class="exp-btn">查看项目亮点</button>
 
         <div class="item block-start">
-          <span class="item-title shimmer">DAMAC 迪拜地产｜巨量引擎整合营销</span>
+          <span class="item-title">DAMAC 迪拜地产｜巨量引擎整合营销</span>
         </div>
         <div class="item">结合 DMP 人群定向与 A/B 测试，线索成本下降约 25%，表单转化率提升约 15%。</div>
+        <button class="exp-btn">查看项目亮点</button>
       </div>
     </section>
 
