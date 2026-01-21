@@ -93,7 +93,7 @@
       gap: 18px;
     }
 
-    /* 名字：三个字连在一起 + 单字轻微呼吸 */
+    /* 名字：三个字连在一起，纯白大标题，不做闪动动画 */
     .hero-name {
       font-size: 72px;
       font-weight: 800;
@@ -105,23 +105,12 @@
       white-space: nowrap;
     }
 
-    .name-letter {
+    .hero-name span {
       display: inline-block;
       padding: 0 1px;
-      transform-origin: 50% 60%;
-      animation: nameBreathe 4.5s ease-in-out infinite;
     }
-    .name-letter + .name-letter {
-      margin-left: -0.02em; /* 消掉视觉空隙，让“黄文艳”连起来 */
-    }
-    .name-letter:nth-child(2) { animation-delay: 0.6s; }
-    .name-letter:nth-child(3) { animation-delay: 1.2s; }
-
-    @keyframes nameBreathe {
-      0%   { transform: scale(1);   filter: brightness(1); }
-      25%  { transform: scale(1.04); filter: brightness(1.05); }
-      50%  { transform: scale(1);   filter: brightness(1); }
-      100% { transform: scale(1);   filter: brightness(1); }
+    .hero-name span + span {
+      margin-left: -0.02em;
     }
 
     .hero-subtitle-en {
@@ -293,7 +282,7 @@
       margin-bottom: 6px;
     }
 
-    /* 重点词：淡橙高亮，不下划线 */
+    /* 重点词：淡橙高亮 */
     .key {
       font-weight: 600;
       color: #ffe8a3;
@@ -392,23 +381,35 @@
         rgba(0, 0, 0, 0.6));
     }
 
-    /* ===== 堆叠感：只执行一次，不循环 ===== */
+    /* ===== 堆叠感：一行行往上“顶上来”，只执行一次 ===== */
     .stack-reveal {
       opacity: 0;
-      transform: translateY(16px);
-      animation: stackOnce 0.55s ease-out forwards;
+      transform: translateY(40px);
+      animation: stackUpOnce 0.75s cubic-bezier(0.18, 0.9, 0.25, 1) forwards;
     }
-    @keyframes stackOnce {
-      0%   { opacity: 0; transform: translateY(16px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .delay-1 { animation-delay: 0.10s; }
-    .delay-2 { animation-delay: 0.24s; }
-    .delay-3 { animation-delay: 0.38s; }
-    .delay-4 { animation-delay: 0.52s; }
-    .delay-5 { animation-delay: 0.66s; }
+
+    .delay-1 { animation-delay: 0.05s; }
+    .delay-2 { animation-delay: 0.20s; }
+    .delay-3 { animation-delay: 0.35s; }
+    .delay-4 { animation-delay: 0.50s; }
+    .delay-5 { animation-delay: 0.65s; }
     .delay-6 { animation-delay: 0.80s; }
-    .delay-7 { animation-delay: 0.94s; }
+    .delay-7 { animation-delay: 0.95s; }
+
+    @keyframes stackUpOnce {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      55% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(-6px); /* 像被后面的内容顶了一下 */
+      }
+    }
 
     @media (max-width: 768px) {
       .hero-top-row {
@@ -442,8 +443,8 @@
     <header class="hero">
       <div class="hero-inner">
         <div class="hero-top-row">
-          <div class="hero-name" aria-label="黄文艳">
-            <span class="name-letter">黄</span><span class="name-letter">文</span><span class="name-letter">艳</span>
+          <div class="hero-name">
+            <span>黄</span><span>文</span><span>艳</span>
           </div>
           <div class="hero-subtitle-en stack-reveal delay-1">
             MARKETING &amp; GROWTH · RESUME SITE
