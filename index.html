@@ -9,10 +9,10 @@
       --text-main: #000000;
       --text-light: #ffffff;
       --pill-bg-strong: rgba(255, 255, 255, 0.95);
-      --pill-bg-soft: rgba(248, 249, 250, 0.96);
+      --pill-bg-soft: rgba(245, 246, 248, 0.98);
       --pill-radius: 999px;
       --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.35);
-      --line-glow: rgba(255, 255, 255, 0.4);
+      --line-glow: rgba(255, 255, 255, 0.45);
       --section-max-width: 1200px;
       --body-size: 17px;
     }
@@ -33,7 +33,7 @@
       overflow-x: hidden;
     }
 
-    /* ===== 三张竖图横向铺满 ===== */
+    /* ===== 三张竖图横向铺满，全页可见 ===== */
     .bg-strip {
       position: fixed;
       inset: 0;
@@ -50,16 +50,16 @@
       height: 100%;
       object-fit: cover;
     }
-    .bg-panel:nth-child(1) img { object-position: 50% 42%; } /* shop 左 */
-    .bg-panel:nth-child(2) img { object-position: 50% 45%; } /* house 中 */
-    .bg-panel:nth-child(3) img { object-position: 50% 40%; } /* forest 右 */
+    .bg-panel:nth-child(1) img { object-position: 50% 42%; } /* shop */
+    .bg-panel:nth-child(2) img { object-position: 50% 45%; } /* house */
+    .bg-panel:nth-child(3) img { object-position: 50% 40%; } /* forest */
 
     .bg-overlay {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.55)),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9));
+        radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.55)),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.9));
       pointer-events: none;
     }
 
@@ -73,7 +73,7 @@
       color: var(--text-light);
     }
 
-    /* ===== 顶部区域 ===== */
+    /* ===== 顶部 ===== */
     .hero {
       width: 100%;
       padding: 40px 20px 32px;
@@ -94,18 +94,22 @@
       gap: 18px;
     }
 
-    /* 名字：渐变大字 + 轮流呼吸 */
+    /* 名字：渐变 + 字轮流呼吸 + 细水波光感 */
     .hero-name {
+      position: relative;
       font-size: 90px;
       font-weight: 800;
       letter-spacing: 0.12em;
-      background: linear-gradient(180deg, #ffffff, #ffe7bd);
+      background: linear-gradient(120deg, #ffffff, #ffe7bd, #ffffff);
+      background-size: 200% 100%;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       text-shadow: 0 14px 45px rgba(0, 0, 0, 0.7);
       white-space: nowrap;
+      animation: nameShimmer 14s linear infinite;
     }
+
     .name-letter {
       display: inline-block;
       padding: 0 3px;
@@ -120,6 +124,11 @@
       20%  { transform: scale(1.08); filter: brightness(1.1); }
       40%  { transform: scale(1);   filter: brightness(1); }
       100% { transform: scale(1);   filter: brightness(1); }
+    }
+
+    @keyframes nameShimmer {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
     }
 
     .hero-subtitle-en {
@@ -183,7 +192,6 @@
       letter-spacing: 0.02em;
       text-decoration: none;
     }
-
     .pill:link,
     .pill:visited {
       text-decoration: none;
@@ -199,7 +207,7 @@
     .pill-soft {
       background: var(--pill-bg-soft);
       font-size: 15px;
-      color: #000000;  /* 黑字 */
+      color: #000000;
     }
 
     .pill:hover {
@@ -215,7 +223,7 @@
     .pill-strong:nth-child(5):hover { background: linear-gradient(135deg, #ffd8a8, #ffa94d); }
     .pill-strong:nth-child(6):hover { background: linear-gradient(135deg, #d0bfff, #845ef7); }
 
-    /* 第二排 hover：明显变色 */
+    /* 第二排 hover：明显变浅蓝色 */
     .pill-soft:hover {
       background: linear-gradient(135deg, #e7f5ff, #d0ebff);
       color: #000000;
@@ -257,7 +265,7 @@
       100% { transform: translateX(1200px); opacity: 0; }
     }
 
-    /* ===== 内容区域 ===== */
+    /* ===== 内容公共 ===== */
     .content {
       width: 100%;
       padding: 0 16px 64px;
@@ -390,7 +398,7 @@
         rgba(0, 0, 0, 0.6));
     }
 
-    /* ===== 短信堆叠感：上滑出现 + 轻微浮动 ===== */
+    /* ===== 短信堆叠感：上滑出现 + 微小浮动，整站通用 ===== */
     .stack-reveal {
       opacity: 0;
       transform: translateY(10px);
