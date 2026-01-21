@@ -14,7 +14,7 @@
       --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.35);
       --line-glow: rgba(255, 255, 255, 0.55);
       --section-max-width: 1200px;
-      --stack-duration: 0.7s;
+      --stack-duration: 4.5s;
       --body-size: 17px;
     }
 
@@ -26,63 +26,44 @@
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, -system-ui, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
       color: var(--text-light);
       background-color: #000000;
       text-align: center;
       overflow-x: hidden;
     }
 
-    /* 全屏竖图背景：改用 <img>，不拉伸，避免断层 */
-    .bg-slideshow {
+    /* 三张竖图横向铺满全屏 */
+    .bg-strip {
       position: fixed;
       inset: 0;
+      display: flex;
       z-index: 0;
       overflow: hidden;
     }
 
-    .bg-slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      animation: slideShow 24s infinite;
+    .bg-panel {
+      flex: 1;
+      position: relative;
     }
 
-    .bg-slide img {
+    .bg-panel img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: blur(2px);
-      transform: scale(1.04);
+      /* 竖图完整 + 尽量把人放中间偏下 */
     }
 
-    /* 尽量把人脸留在画面里：每张单独设位置 */
-    .bg-slide:nth-child(1) img { object-position: 50% 35%; } /* 森林：人略偏下 */
-    .bg-slide:nth-child(2) img { object-position: 50% 45%; } /* 柱子：人偏下 */
-    .bg-slide:nth-child(3) img { object-position: 50% 40%; } /* 店铺：人中偏下 */
-
-    .bg-slide:nth-child(1) {
-      animation-delay: 0s;
-      opacity: 1;
-    }
-
-    .bg-slide:nth-child(2) {
-      animation-delay: 8s;
-    }
-
-    .bg-slide:nth-child(3) {
-      animation-delay: 16s;
-    }
-
-    @keyframes slideShow {
-      0%, 20%   { opacity: 1; }
-      30%, 100% { opacity: 0; }
-    }
+    .bg-panel:nth-child(1) img { object-position: 50% 38%; }
+    .bg-panel:nth-child(2) img { object-position: 50% 45%; }
+    .bg-panel:nth-child(3) img { object-position: 50% 42%; }
 
     .bg-overlay {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.68));
+      background:
+        radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.65)),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
       pointer-events: none;
     }
 
@@ -110,20 +91,18 @@
       align-items: center;
     }
 
-    /* 顶部：名字 + 英文标题 */
     .hero-top-row {
       display: inline-flex;
       align-items: center;
       gap: 18px;
     }
 
-    /* 黄文艳：单字轮流呼吸 + 光带划过 */
+    /* 黄文艳：无空格、柔光扫过、轮流呼吸 */
     .hero-name {
       position: relative;
       font-size: 90px;
       font-weight: 800;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: #ffffff;
       text-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
       overflow: hidden;
@@ -132,48 +111,39 @@
     .hero-name::before {
       content: "";
       position: absolute;
-      top: -20%;
-      left: -30%;
-      width: 60%;
-      height: 140%;
-      background: linear-gradient(
-        120deg,
-        rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 0.65),
-        rgba(255, 255, 255, 0)
-      );
-      transform: skewX(-20deg);
-      animation: nameShine 4.5s ease-in-out infinite;
-      pointer-events: none;
+      top: -40%;
+      left: -50%;
+      width: 120%;
+      height: 180%;
+      background:
+        radial-gradient(circle at 0% 50%, rgba(255, 255, 255, 0.0), rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+      opacity: 0;
+      animation: nameShine 5.2s ease-in-out infinite;
       mix-blend-mode: screen;
+      pointer-events: none;
     }
 
     @keyframes nameShine {
-      0%   { transform: translateX(-100%) skewX(-20deg); opacity: 0; }
-      25%  { opacity: 1; }
-      50%  { transform: translateX(120%) skewX(-20deg); opacity: 0.9; }
-      100% { transform: translateX(200%) skewX(-20deg); opacity: 0; }
+      0%   { transform: translateX(-100%); opacity: 0; }
+      20%  { opacity: 0.7; }
+      40%  { transform: translateX(40%); opacity: 0.5; }
+      70%  { transform: translateX(130%); opacity: 0; }
+      100% { transform: translateX(180%); opacity: 0; }
     }
 
     .name-letter {
       display: inline-block;
-      padding: 0 4px;
-      animation: nameBreathe 3.2s ease-in-out infinite;
+      padding: 0 2px;
+      animation: nameBreathe 3.4s ease-in-out infinite;
       transform-origin: 50% 60%;
     }
-
-    .name-letter:nth-child(2) {
-      animation-delay: 0.4s;
-    }
-
-    .name-letter:nth-child(3) {
-      animation-delay: 0.8s;
-    }
+    .name-letter:nth-child(2) { animation-delay: 0.4s; }
+    .name-letter:nth-child(3) { animation-delay: 0.8s; }
 
     @keyframes nameBreathe {
-      0%   { transform: scale(1);   filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); }
-      35%  { transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8)); }
-      70%  { transform: scale(1);   filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); }
+      0%   { transform: scale(1); }
+      25%  { transform: scale(1.08); }
+      55%  { transform: scale(1); }
       100% { transform: scale(1); }
     }
 
@@ -203,10 +173,6 @@
       color: var(--text-light);
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
       letter-spacing: 0.02em;
-    }
-
-    .hero-meta span {
-      white-space: nowrap;
     }
 
     /* 顶部按钮区 */
@@ -257,7 +223,7 @@
     .pill-soft {
       background: var(--pill-bg-soft);
       font-size: 15px;
-      color: #000000; /* 强制黑字 */
+      color: #000000;
     }
 
     .pill:hover {
@@ -265,7 +231,6 @@
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
     }
 
-    /* 顶部 6 个优势 pill 悬停不同颜色（无下划线） */
     .pill-strong:nth-child(1):hover { background: linear-gradient(135deg, #ffe66d, #ffd43b); }
     .pill-strong:nth-child(2):hover { background: linear-gradient(135deg, #ff922b, #ff6b6b); }
     .pill-strong:nth-child(3):hover { background: linear-gradient(135deg, #66d9e8, #5c7cfa); }
@@ -279,7 +244,6 @@
       color: #000000;
     }
 
-    /* 分割横线 + 流星效果，上下间距 1cm */
     .divider-wrap {
       width: 100%;
       margin: 1cm 0;
@@ -319,7 +283,6 @@
       width: 100%;
       padding: 0 16px 64px;
       color: var(--text-light);
-      background: transparent;
     }
 
     .section {
@@ -340,27 +303,24 @@
       letter-spacing: 0.02em;
     }
 
-    /* 行间距 0.8cm */
     .about-text p {
       line-height: 0.8cm;
       margin-bottom: 6px;
     }
 
-    /* 重点词：暖黄色 + 下划线 */
+    /* 高级重点：柔和高光底色 */
     .key {
       font-weight: 700;
-      font-size: 1.05em;
-      color: #ffd666;
-      text-decoration: underline;
-      text-decoration-thickness: 0.08em;
-      text-underline-offset: 0.16em;
+      color: #fff7e0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, rgba(255, 245, 204, 0.85) 100%);
+      padding: 0 2px;
+      border-radius: 4px;
     }
 
     .lower {
       width: 100%;
       padding: 0 16px 56px 16px;
       color: var(--text-light);
-      background: transparent;
     }
 
     .timeline-section {
@@ -393,7 +353,6 @@
       letter-spacing: 0.02em;
     }
 
-    /* 悬停：统一橙色渐变 + 放大 */
     .role-pill:hover,
     .project-pill:hover {
       transform: translateY(-2px) scale(1.03);
@@ -426,7 +385,6 @@
       gap: 10px;
     }
 
-    /* 联系方式光感胶囊 */
     .contact-item {
       display: inline-flex;
       align-items: center;
@@ -458,28 +416,28 @@
       }
     }
 
-    /* iPhone 短信式堆叠动效 */
+    /* 循环的“短信堆叠感” */
     .stack-reveal {
-      opacity: 0;
-      transform: translateY(10px) scale(0.98);
-      filter: blur(2px);
-      transition: opacity var(--stack-duration) ease-out,
-                  transform var(--stack-duration) ease-out,
-                  filter var(--stack-duration) ease-out;
+      opacity: 0.85;
+      transform: translateY(6px);
+      filter: blur(1px);
+      animation: stackLoop var(--stack-duration) ease-in-out infinite;
     }
 
-    .stack-reveal.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0);
+    @keyframes stackLoop {
+      0%   { opacity: 0.4; transform: translateY(10px) scale(0.98); filter: blur(2px); }
+      20%  { opacity: 1;   transform: translateY(0)    scale(1);    filter: blur(0); }
+      70%  { opacity: 1;   transform: translateY(-1px) scale(1);    filter: blur(0); }
+      100% { opacity: 0.7; transform: translateY(6px)  scale(0.99); filter: blur(1px); }
     }
 
-    .stack-group > .stack-reveal:nth-child(2) { transition-delay: 0.05s; }
-    .stack-group > .stack-reveal:nth-child(3) { transition-delay: 0.10s; }
-    .stack-group > .stack-reveal:nth-child(4) { transition-delay: 0.15s; }
-    .stack-group > .stack-reveal:nth-child(5) { transition-delay: 0.20s; }
-    .stack-group > .stack-reveal:nth-child(6) { transition-delay: 0.25s; }
-    .stack-group > .stack-reveal:nth-child(7) { transition-delay: 0.30s; }
+    .stack-group > .stack-reveal:nth-child(1) { animation-delay: 0s; }
+    .stack-group > .stack-reveal:nth-child(2) { animation-delay: 0.15s; }
+    .stack-group > .stack-reveal:nth-child(3) { animation-delay: 0.3s; }
+    .stack-group > .stack-reveal:nth-child(4) { animation-delay: 0.45s; }
+    .stack-group > .stack-reveal:nth-child(5) { animation-delay: 0.6s; }
+    .stack-group > .stack-reveal:nth-child(6) { animation-delay: 0.75s; }
+    .stack-group > .stack-reveal:nth-child(7) { animation-delay: 0.9s; }
 
     @media (max-width: 768px) {
       .hero-top-row {
@@ -500,29 +458,20 @@
   </style>
 </head>
 <body>
-  <!-- 背景轮播：竖图 -->
-  <div class="bg-slideshow">
-    <div class="bg-slide">
-      <img src="life-forest.jpg" alt="forest life" />
-    </div>
-    <div class="bg-slide">
-      <img src="life-house.jpg" alt="house life" />
-    </div>
-    <div class="bg-slide">
-      <img src="life-shop.jpg" alt="shop life" />
-    </div>
+  <!-- 三张竖图横向底图 -->
+  <div class="bg-strip">
+    <div class="bg-panel"><img src="life-forest.jpg" alt="forest" /></div>
+    <div class="bg-panel"><img src="life-house.jpg" alt="house" /></div>
+    <div class="bg-panel"><img src="life-shop.jpg" alt="shop" /></div>
     <div class="bg-overlay"></div>
   </div>
 
   <div class="page">
-    <!-- 顶部 -->
     <header class="hero">
       <div class="hero-inner stack-group">
         <div class="hero-top-row stack-reveal">
           <div class="hero-name" aria-label="黄文艳">
-            <span class="name-letter">黄</span>
-            <span class="name-letter">文</span>
-            <span class="name-letter">艳</span>
+            <span class="name-letter">黄</span><span class="name-letter">文</span><span class="name-letter">艳</span>
           </div>
           <div class="hero-subtitle-en">MARKETING &amp; GROWTH · RESUME SITE</div>
         </div>
@@ -560,7 +509,6 @@
       </div>
     </header>
 
-    <!-- 关于我 -->
     <main class="content">
       <section class="section stack-group">
         <h2 class="section-title stack-reveal">关于我 · 生活</h2>
@@ -591,7 +539,6 @@
       </section>
     </main>
 
-    <!-- 下半部分 -->
     <section class="lower">
       <div class="divider-wrap stack-reveal">
         <div class="divider"></div>
@@ -670,22 +617,5 @@
       </div>
     </section>
   </div>
-
-  <script>
-    // 进入视口时的“短信堆叠”动效
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-
-    document.querySelectorAll(".stack-reveal").forEach((el) => observer.observe(el));
-  </script>
 </body>
 </html>
