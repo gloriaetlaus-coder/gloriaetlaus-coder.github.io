@@ -175,7 +175,7 @@ body::after {
   text-align: center;
   margin: 0 0 10px;
   padding: 14px 0 4px;
-  min-height: 168px;   /* 容纳放大后的标题 + 副标题 */
+  min-height: 196px;   /* 容纳放大后的标题 + 副标题 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -249,10 +249,10 @@ body::after {
   z-index: 2;
   margin: 14px 0 0;
   font-family: var(--font-cn);
-  font-size: 16px;
-  font-weight: 700;   /* 中文加粗 */
+  font-size: 30px;
+  font-weight: 800;   /* 中文加粗 */
   color: var(--primary-light);
-  letter-spacing: 5px;
+  letter-spacing: 4px;
   text-shadow: 0 0 14px rgba(184, 164, 220, 0.55);
   animation: sub-fade 4.5s ease-in-out infinite;
 }
@@ -608,7 +608,7 @@ body::after {
   white-space: nowrap;
 }
 
-/* 签诗 — 银色发光 + shimmer + 漂浮 */
+/* 签诗 — 非中文（英/日/德等）默认银白光泽 + shimmer + 漂浮 */
 .sign-poem {
   margin: 0;
   font-size: 34px;
@@ -620,21 +620,39 @@ body::after {
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
-  /* 银色发光 — 加深暗部 */
+  text-align: center;
+  /* 银白光泽 — 亮银渐变（比旧版更亮，接近截图银白） */
   background: linear-gradient(180deg,
-    #B8B0D0 0%,
-    #9A90B8 25%,
-    #847AA4 50%,
-    #6B6090 75%,
-    #B8B0D0 100%);
+    #EFEAF8 0%,
+    #D9D2EA 25%,
+    #C4BCD8 50%,
+    #B3AACA 75%,
+    #EFEAF8 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   filter:
-    drop-shadow(0 0 6px rgba(160, 150, 200, 0.6))
-    drop-shadow(0 0 14px rgba(140, 130, 185, 0.35));
+    drop-shadow(0 0 6px rgba(200, 190, 230, 0.65))
+    drop-shadow(0 0 16px rgba(180, 168, 220, 0.35));
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
+}
+
+/* 中文签诗 — 始终偏深紫色 */
+.sign-poem.sign-poem-cn {
+  font-family: var(--font-cn);
+  font-size: 34px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-style: italic;
+  color: #6C52A8;
+  background: none;
+  -webkit-text-fill-color: initial;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  filter:
+    drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
+    drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
 }
 
 .sign-poem.english {
@@ -646,14 +664,7 @@ body::after {
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
-}
-
-.sign-poem.sign-poem-cn {
-  font-family: var(--font-cn);
-  font-size: 34px;
-  letter-spacing: 2px;
-  font-weight: 700;
-  font-style: italic;
+  text-align: center;
 }
 
 @keyframes poem-silver-shimmer {
@@ -690,6 +701,8 @@ body::after {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;   /* 确保 block 级子元素内容居中 */
+  width: 100%;
 }
 
 .sign-mid {
@@ -703,6 +716,8 @@ body::after {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  width: 100%;
 }
 
 .sign-meaning {
@@ -730,19 +745,15 @@ body::after {
   animation: fadeUp 0.5s 0.55s forwards;
   overflow-wrap: break-word;
   word-break: keep-all;
-  background: linear-gradient(180deg,
-    #B8B0D0 0%,
-    #9A90B8 25%,
-    #847AA4 50%,
-    #6B6090 75%,
-    #B8B0D0 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  /* 中文主题词 — 始终偏深紫色 */
+  color: #6C52A8;
+  background: none;
+  -webkit-text-fill-color: initial;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
   filter:
-    drop-shadow(0 0 6px rgba(160, 150, 200, 0.6))
-    drop-shadow(0 0 14px rgba(140, 130, 185, 0.35));
+    drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
+    drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
 }
 
 .skew-wrap {
@@ -763,19 +774,15 @@ body::after {
   animation: fadeUp 0.5s 0.58s forwards;
   overflow-wrap: break-word;
   word-break: keep-all;
-  background: linear-gradient(180deg,
-    #B8B0D0 0%,
-    #9A90B8 25%,
-    #847AA4 50%,
-    #6B6090 75%,
-    #B8B0D0 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  /* 中文直译 — 偏深紫色 */
+  color: #6C52A8;
+  background: none;
+  -webkit-text-fill-color: initial;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
   filter:
-    drop-shadow(0 0 6px rgba(160, 150, 200, 0.6))
-    drop-shadow(0 0 14px rgba(140, 130, 185, 0.35));
+    drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
+    drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
 }
 
 .sign-cn-en {
@@ -792,19 +799,20 @@ body::after {
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
+  /* 英文翻译 — 银白光泽 */
   background: linear-gradient(180deg,
-    #B8B0D0 0%,
-    #9A90B8 25%,
-    #847AA4 50%,
-    #6B6090 75%,
-    #B8B0D0 100%);
+    #EFEAF8 0%,
+    #D9D2EA 25%,
+    #C4BCD8 50%,
+    #B3AACA 75%,
+    #EFEAF8 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   filter:
-    drop-shadow(0 0 6px rgba(160, 150, 200, 0.6))
-    drop-shadow(0 0 14px rgba(140, 130, 185, 0.35));
+    drop-shadow(0 0 6px rgba(200, 190, 230, 0.65))
+    drop-shadow(0 0 16px rgba(180, 168, 220, 0.35));
 }
 
 .sign-tip {
@@ -847,16 +855,16 @@ body::after {
 }
 
 .btn-ghost {
-  padding: 10px 6px;
+  padding: 11px 6px;
   background: var(--primary-pale);
   color: var(--primary);
   border: none;
   border-radius: 100px;
-  font-size: 12px;
-  font-family: inherit;
+  font-size: 14px;
+  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   cursor: pointer;
   transition: all 0.2s;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 1px;
 }
 .btn-ghost:active { transform: scale(0.96); }
@@ -993,7 +1001,7 @@ body::after {
   .app { padding: 14px 16px 30px; }
   .header { min-height: 150px; padding: 10px 0 0; margin-bottom: 10px; }
   .title { font-size: 38px; }
-  .title-sub { font-size: 13px; margin-top: 12px; letter-spacing: 3px; }
+  .title-sub { font-size: 24px; margin-top: 12px; letter-spacing: 3px; }
   .title-halo { width: 300px; height: 150px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
   .sign-card-outer { max-width: 250px; height: 480px; }
@@ -1036,7 +1044,7 @@ body::after {
     <span class="sparkle s3">✦</span>
     <span class="sparkle s4">✦</span>
       <h1 class="title">How's your day?</h1>
-      <p class="title-sub">今朝 · My Day</p>
+      <p class="title-sub">今天过的怎么样？</p>
   </header>
 
   <div class="category-list" id="categories"></div>
@@ -1466,22 +1474,22 @@ function renderSign(sign) {
     .join(segs.some(sg => /[\x00-\x7F]/.test(sg)) ? ' ' : '');
   // 英文签诗按子句断段（keepSpace），避免逐词竖排；中文按语义断句
   const poemHtml = poemIsCn
-    ? `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.poem)))}</span>`
+    ? `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.poem), 7))}</span>`
     : joinSegs(smartSegments(escapeHtml(sign.poem), 9, !poemIsCn));
   // cn：若 poem 是中文，cn 是英文翻译 → 英文小号样式；若 poem 是英文，cn 是中文主题 → 银色大样式
   const cnIsAscii = sign.cn && /[\x00-\x7F]/.test(sign.cn);
   const cnLine = sign.cn
-    ? `<p class="${cnIsAscii ? 'sign-cn-en' : 'sign-cn'}">${cnIsAscii ? escapeHtml(sign.cn) : `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.cn)))}</span>`}</p>`
+    ? `<p class="${cnIsAscii ? 'sign-cn-en' : 'sign-cn'}">${cnIsAscii ? escapeHtml(sign.cn) : `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.cn), 7))}</span>`}</p>`
     : '';
   const literalLine = sign.literal
-    ? `<p class="sign-literal"><span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.literal)))}</span></p>`
+    ? `<p class="sign-literal"><span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.literal), 7))}</span></p>`
     : '';
   const tipLine = sign.tip
-    ? `<p class="sign-tip">${joinSegs(smartSegments(escapeHtml(sign.tip)))}</p>`
+    ? `<p class="sign-tip">${joinSegs(smartSegments(escapeHtml(sign.tip), 18))}</p>`
     : '';
-  const meaningHtml = joinSegs(smartSegments(escapeHtml(sign.meaning)));
+  const meaningHtml = joinSegs(smartSegments(escapeHtml(sign.meaning), 16));
   const sourceHtml = sign.source
-    ? joinSegs(smartSegments(escapeHtml('— ' + sign.source)))
+    ? joinSegs(smartSegments(escapeHtml('— ' + sign.source), 18))
     : '';
   return `
     <div class="sign-meta">
@@ -1574,15 +1582,22 @@ function smartSegments(text, maxCn = 9, keepSpace = false) {
       }
     }
     cur += ch;
-    if (ch === ' ') {
+if (ch === ' ') {
       // 纯标点累积（如「—」开头）不因空格打断，继续与后文合并
       const curTrim = cur.trim();
       if (curTrim && !/[a-zA-Z0-9\u4e00-\u9fff]/.test(curTrim)) continue;
-      // keepSpace（英文签诗）：空格并入子句，仅按标点断句，避免逐词竖排
-      if (keepSpace) { cur += ch; continue; }
+      // keepSpace（英文签诗）：空格已由 cur += ch 累积，仅按标点断句，避免逐词竖排
+      if (keepSpace) { continue; }
       flush(); continue;
     }
-    if (/[，。！？、；：,!?;:]/.test(ch)) { flush(); continue; }  // 标点后断段（含冒号）
+    // 硬断点：句末标点（。！？；）→ 保证句子完整换行
+    if (/[。！？；!?;]/.test(ch)) { flush(); continue; }
+    // 软断点：逗号/顿号/冒号 → 只有当前段已接近行宽上限才断开，
+    // 否则保留在段内，避免「停一停，」「路反而顺。」被拆成孤立段
+    if (/[，、：,]/.test(ch)) {
+      if (cur.length >= Math.max(4, maxCn * 0.8)) { flush(); }
+      continue;
+    }
     if (ch === '.') {
       const next = text[i + 1];
       if (next === undefined || next === ' ') { flush(); continue; }
@@ -1780,13 +1795,13 @@ async function downloadSign() {
               n.style.opacity = '1';
             });
             // html2canvas 不支持 background-clip:text / -webkit-text-fill-color:transparent，
-            // 签诗改为银色发光文字，截图时换实色银色 + glow 保持视觉接近
+            // 银白渐变签诗 → 截图时换实色银白 + glow 保持视觉接近
             el.querySelectorAll('.sign-poem').forEach(n => {
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#C0B8DC';
-              n.style.color = '#C0B8DC';
+              n.style.webkitTextFillColor = '#D8D2E8';
+              n.style.color = '#D8D2E8';
               n.style.filter = 'drop-shadow(0 0 5px rgba(215, 208, 238, 0.8)) drop-shadow(0 0 12px rgba(200, 190, 235, 0.5))';
               n.style.textShadow = '0 0 12px rgba(210, 202, 235, 0.6)';
             });
@@ -1795,33 +1810,34 @@ async function downloadSign() {
               n.style.color = '#A892CE';
             });
             el.querySelectorAll('.sign-cn').forEach(n => {
-              // 银色发光文字 → html2canvas 不支持 background-clip:text，需换实色 + 银色 glow
+              // 中文主题词（偏深紫）→ 截图实色深紫
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#C0B8DC';
-              n.style.color = '#C0B8DC';
-              n.style.filter = 'drop-shadow(0 0 4px rgba(215, 208, 238, 0.8)) drop-shadow(0 0 10px rgba(200, 190, 235, 0.5))';
-              n.style.textShadow = '0 0 10px rgba(210, 202, 235, 0.6)';
+              n.style.webkitTextFillColor = '#6C52A8';
+              n.style.color = '#6C52A8';
+              n.style.filter = 'drop-shadow(0 0 4px rgba(155, 130, 222, 0.55))';
+              n.style.textShadow = 'none';
             });
             el.querySelectorAll('.sign-cn-en').forEach(n => {
-              // 英文翻译也改为银色发光
+              // 英文翻译 → 实色银白
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#C0B8DC';
-              n.style.color = '#C0B8DC';
+              n.style.webkitTextFillColor = '#D8D2E8';
+              n.style.color = '#D8D2E8';
               n.style.filter = 'drop-shadow(0 0 4px rgba(215, 208, 238, 0.8)) drop-shadow(0 0 10px rgba(200, 190, 235, 0.5))';
               n.style.textShadow = '0 0 10px rgba(210, 202, 235, 0.6)';
             });
             el.querySelectorAll('.sign-literal').forEach(n => {
+              // 中文直译 → 实色深紫
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#C0B8DC';
-              n.style.color = '#C0B8DC';
-              n.style.filter = 'drop-shadow(0 0 4px rgba(215, 208, 238, 0.8)) drop-shadow(0 0 10px rgba(200, 190, 235, 0.5))';
-              n.style.textShadow = '0 0 10px rgba(210, 202, 235, 0.6)';
+              n.style.webkitTextFillColor = '#6C52A8';
+              n.style.color = '#6C52A8';
+              n.style.filter = 'drop-shadow(0 0 5px rgba(155, 130, 222, 0.55))';
+              n.style.textShadow = 'none';
             });
             el.querySelectorAll('.sign-tip').forEach(n => {
               n.style.color = '#B8A6DA';
@@ -1857,7 +1873,7 @@ async function downloadSign() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    showToast('签文图片已开始下载 · 去发小红书');
+    showToast('卡片图片已开始下载 · 去发小红书');
   } catch (err) {
     console.error(err);
     showToast('下载失败，请截图保存');
