@@ -165,7 +165,7 @@ body::after {
   position: relative;
   max-width: 480px;
   margin: 0 auto;
-  padding: 12px 22px 20px;
+  padding: 8px 22px 16px;
   z-index: 1;
 }
 
@@ -175,9 +175,9 @@ body::after {
 .header {
   position: relative;
   text-align: center;
-  margin: 0 0 10px;
-  padding: 14px 0 4px;
-  min-height: 196px;   /* 容纳放大后的标题 + 副标题 */
+  margin: 0 0 4px;
+  padding: 8px 0 2px;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -210,26 +210,20 @@ body::after {
   position: relative;
   z-index: 2;
   font-family: 'Great Vibes', 'Allura', 'Pacifico', cursive;
-  font-size: 64px;
+  font-size: 52px;
   font-weight: 700;
   line-height: 1.05;
   margin: 0;
   padding: 0 20px 0 12px;  /* 右侧留白，避免问号被遮挡 */
   letter-spacing: 0;
-  background: linear-gradient(135deg,
-    #FFFFFF 0%,
-    #D4C5E8 22%,
-    #B8A4DC 48%,
-    #9B7EDE 78%,
-    #FFFFFF 100%);
-  background-size: 250% 250%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter:
-    drop-shadow(0 0 10px rgba(155, 126, 222, 0.50))
-    drop-shadow(0 0 22px rgba(184, 164, 220, 0.40))
-    drop-shadow(0 0 40px rgba(212, 197, 232, 0.25));
+  white-space: nowrap;
+  color: #F0F0F5;
+  text-shadow:
+    0 0 1px rgba(120, 100, 160, 0.8),
+    0 0 3px rgba(100, 80, 140, 0.6),
+    0 1px 0 rgba(80, 60, 120, 0.5),
+    0 2px 6px rgba(80, 60, 120, 0.35),
+    0 0 18px rgba(180, 170, 220, 0.45);
   animation:
     title-float 4.5s ease-in-out infinite,
     title-shimmer 6s linear infinite,
@@ -240,14 +234,23 @@ body::after {
 .title-sub {
   position: relative;
   z-index: 2;
-  margin: 22px 0 0;
+  margin: 14px 0 0;
   font-family: var(--font-cn);
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 800;   /* 中文加粗 */
-  color: var(--primary-light);
+  color: #FFFFFF;
   letter-spacing: 4px;
-  text-shadow: 0 0 14px rgba(184, 164, 220, 0.55);
+  text-shadow:
+    0 0 1px rgba(120, 100, 160, 0.8),
+    0 0 3px rgba(100, 80, 140, 0.6),
+    0 1px 0 rgba(80, 60, 120, 0.5),
+    0 2px 6px rgba(80, 60, 120, 0.35),
+    0 0 16px rgba(180, 170, 220, 0.40);
+  white-space: nowrap;
   font-style: italic;
+  /* 手机端中文字体无斜体字形，用 skew 模拟 */
+  display: inline-block;
+  transform: skewX(-8deg);
   animation: sub-fade 4.5s ease-in-out infinite;
   overflow: hidden;
 }
@@ -277,8 +280,8 @@ body::after {
 }
 
 @keyframes title-shimmer {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 250% 50%; }
+  0%, 100% { opacity: 0.88; }
+  50%      { opacity: 1; }
 }
 @keyframes sub-fade {
   0%, 100% { opacity: 0.82; transform: translateY(0); }
@@ -287,16 +290,20 @@ body::after {
 
 @keyframes title-breathe {
   0%, 100% {
-    filter:
-      drop-shadow(0 0 10px rgba(155, 126, 222, 0.40))
-      drop-shadow(0 0 22px rgba(184, 164, 220, 0.30))
-      drop-shadow(0 0 40px rgba(212, 197, 232, 0.20));
+    text-shadow:
+      0 0 1px rgba(120, 100, 160, 0.8),
+      0 0 3px rgba(100, 80, 140, 0.6),
+      0 1px 0 rgba(80, 60, 120, 0.5),
+      0 2px 6px rgba(80, 60, 120, 0.30),
+      0 0 14px rgba(180, 170, 220, 0.30);
   }
   50% {
-    filter:
-      drop-shadow(0 0 18px rgba(155, 126, 222, 0.75))
-      drop-shadow(0 0 36px rgba(184, 164, 220, 0.55))
-      drop-shadow(0 0 60px rgba(212, 197, 232, 0.40));
+    text-shadow:
+      0 0 1px rgba(120, 100, 160, 0.9),
+      0 0 4px rgba(100, 80, 140, 0.7),
+      0 1px 0 rgba(80, 60, 120, 0.6),
+      0 2px 8px rgba(80, 60, 120, 0.40),
+      0 0 24px rgba(180, 170, 220, 0.55);
   }
 }
 
@@ -653,22 +660,25 @@ body::after {
   overflow-wrap: break-word;
   word-break: normal;
   text-align: center;
-  /* 银白光泽 — 确保在白卡上肉眼清晰可见 */
+  /* 银白光泽 — 纯白灰系，不带紫色相 */
   background: linear-gradient(180deg,
-    #E8E0F5 0%,
-    #D4C5E8 22%,
-    #B8A4DC 48%,
-    #A088CC 72%,
-    #E8E0F5 100%);
+    #FFFFFF 0%,
+    #ECECEF 20%,
+    #D8D8DE 40%,
+    #C8C8D0 55%,
+    #D8D8DE 70%,
+    #ECECEF 85%,
+    #FFFFFF 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 4.5s linear 0.55s infinite;
   filter:
-    drop-shadow(0 0 5px rgba(200, 185, 235, 0.9))
-    drop-shadow(0 0 14px rgba(180, 165, 220, 0.5))
-    drop-shadow(0 0 24px rgba(255, 255, 255, 0.3));
+    drop-shadow(0 0 1px rgba(100, 80, 140, 0.9))
+    drop-shadow(0 0 3px rgba(80, 60, 120, 0.7))
+    drop-shadow(0 1px 2px rgba(50, 30, 100, 0.5))
+    drop-shadow(0 0 12px rgba(180, 170, 220, 0.35));
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
 }
 
@@ -874,22 +884,25 @@ body::after {
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
-  /* 英文翻译 — 银白光泽 + shimmer（比签诗深一档，确保在白卡上可读） */
+  /* 英文翻译 — 银白光泽 + shimmer */
   background: linear-gradient(180deg,
-    #E8E0F5 0%,
-    #D4C5E8 22%,
-    #B8A4DC 48%,
-    #A088CC 72%,
-    #E8E0F5 100%);
+    #FFFFFF 0%,
+    #ECECEF 20%,
+    #D8D8DE 40%,
+    #C8C8D0 55%,
+    #D8D8DE 70%,
+    #ECECEF 85%,
+    #FFFFFF 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 4.5s linear 0.55s infinite;
   filter:
-    drop-shadow(0 0 5px rgba(200, 185, 235, 0.9))
-    drop-shadow(0 0 14px rgba(180, 165, 220, 0.5))
-    drop-shadow(0 0 24px rgba(255, 255, 255, 0.3));
+    drop-shadow(0 0 1px rgba(100, 80, 140, 0.9))
+    drop-shadow(0 0 3px rgba(80, 60, 120, 0.7))
+    drop-shadow(0 1px 2px rgba(50, 30, 100, 0.5))
+    drop-shadow(0 0 12px rgba(180, 170, 220, 0.35));
 }
 
 .sign-tip {
@@ -1109,17 +1122,22 @@ body::after {
    ==================================================== */
 @media (max-width: 600px) {
   :root { --font-cn: var(--font-cn-mobile); }
-  .sign-card-outer { max-width: min(92vw, 320px); height: min(78vh, 560px); }
+  .title { font-size: 42px; }
+  .title-sub { font-size: 22px; margin-top: 10px; }
+  .header { min-height: 100px; padding: 6px 0 2px; margin-bottom: 2px; }
+  .app { padding: 6px 16px 12px; }
+  .sign-card-outer { max-width: min(92vw, 320px); height: min(72vh, 520px); }
+  .stage { margin-top: -4px; }
 }
 
 @media (max-width: 360px) {
-  .app { padding: 14px 16px 30px; }
-  .header { min-height: 150px; padding: 10px 0 0; margin-bottom: 10px; }
-  .title { font-size: 42px; }
-  .title-sub { font-size: 24px; margin-top: 12px; letter-spacing: 3px; }
-  .title-halo { width: 300px; height: 150px; }
+  .app { padding: 6px 14px 10px; }
+  .header { min-height: 88px; padding: 4px 0 0; margin-bottom: 2px; }
+  .title { font-size: 36px; }
+  .title-sub { font-size: 20px; margin-top: 8px; letter-spacing: 3px; }
+  .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
-  .sign-card-outer { max-width: min(90vw, 300px); height: min(80vh, 540px); }
+  .sign-card-outer { max-width: min(90vw, 300px); height: min(74vh, 500px); }
   .sign-poem { font-size: 26px; }
   .sign-poem.english { font-size: 26px; }
   .sign-poem.sign-poem-cn { font-size: 26px; }
@@ -1134,7 +1152,7 @@ body::after {
 
 @media (min-width: 600px) {
   .title { font-size: 46px; }
-  .sign-card-outer { max-width: 320px; height: 580px; }
+  .sign-card-outer { max-width: 320px; height: 540px; }
 }
 </style>
 </head>
@@ -1161,7 +1179,7 @@ body::after {
     <span class="sparkle s3">✦</span>
     <span class="sparkle s4">✦</span>
       <h1 class="title">How's your day?</h1>
-      <p class="title-sub">今天过的怎么样？</p>
+      <p class="title-sub">今天过得怎么样？</p>
   </header>
 
   <div class="category-list" id="categories"></div>
@@ -1199,313 +1217,313 @@ const FORTUNES = [
   { cat: 'study', grade: '上上签', num: 18,
     poem: '温故知新',
     cn: 'Review the old, know the new',
-    meaning: '翻一翻旧笔记，比追鲜的还赚。旧识里，常藏着好线索。',
-    source: '中国 · 孔子（春秋）《论语·为政》' },
+    meaning: '翻一翻旧笔记，比追鲜的还赚。旧识里，常藏着好线索。遗忘曲线说：重复一次，记忆就多扎根一层。',
+    source: '中国 孔子（春秋）《论语·为政》' },
   { cat: 'study', grade: '上签', num: 56,
     poem: 'Practice makes perfect.',
     literal: '练习成就完美',
-    meaning: '做多了，自然就好。',
+    meaning: '做多了，自然就好。肌肉记忆不是玄学，是神经通路反复激活后越走越宽。',
     source: '英国谚语' },
   { cat: 'study', grade: '上签', num: 92,
     poem: '継続は力なり',
     literal: '坚持就是力量',
-    meaning: '每天推进一点，日积月累就有劲。',
+    meaning: '每天推进一点，日积月累就有劲。复利效应：每天多百分之一，一年后差距是三十七倍。',
     source: '日本谚语' },
   { cat: 'study', grade: '中上签', num: 93,
     poem: 'Übung macht den Meister.',
     literal: '练习造就大师',
-    meaning: '多练几遍，慢慢就熟成了行家。',
+    meaning: '多练几遍，慢慢就熟成了行家。刻意练习不是简单重复，是每次都瞄着短板练。',
     source: '德国谚语' },
   { cat: 'study', grade: '上上签', num: 105,
     poem: 'Growth Mindset', cn: '成长型思维',
-    meaning: '能力像肌肉，越练越强。今天的笨拙，是明天的熟练。动一次手，大脑就长一条新连接。',
-    source: '美国 · 卡罗尔·德韦克（Carol Dweck）· 发展心理学' },
+    meaning: '能力像肌肉，越练越强。今天的笨拙，是明天的熟练。大脑会因新挑战长出新连接，越用越灵。',
+    source: '美国 卡罗尔·德韦克（Carol Dweck） 发展心理学' },
   { cat: 'study', grade: '上签', num: 106,
     poem: 'Flow', cn: '心流',
-    meaning: '全身心投入一件事，做到忘了时间。那种专注，本身就是一种享受。',
-    source: '美国 · 米哈里·契克森米哈赖（Mihaly Csikszentmihalyi）· 积极心理学' },
+    meaning: '全身心投入一件事，做到忘了时间。那种专注，本身就是一种享受。注意力全开时，焦虑自然消失。',
+    source: '美国 米哈里·契克森米哈赖（Mihaly Csikszentmihalyi） 积极心理学' },
 
   // ── 工作/专注 ──
   { cat: 'work', grade: '大吉签', num: 9,
     poem: '事必躬亲',
     cn: 'Handle it yourself',
-    meaning: '重要的事，自己上手。亲手做过，心里最踏实。',
-    source: '中国 · 《诗经·小雅·节南山》（西周）' },
+    meaning: '重要的事，自己上手。亲手做过，心里最踏实。控制感越强，焦虑越低，这是心理安全感的来源。',
+    source: '中国 《诗经·小雅·节南山》（西周）' },
   { cat: 'work', grade: '上签', num: 27,
     poem: '功不唐捐',
     cn: 'No effort is ever wasted',
-    meaning: '下的功夫，不会白费。每一步都算数，早晚见分晓。',
-    source: '中国 · 《法华经》（东晋）' },
+    meaning: '下的功夫，不会白费。每一步都算数，早晚见分晓。延迟满足的人，回报往往比急功近利者更厚。',
+    source: '中国 《法华经》（东晋）' },
   { cat: 'work', grade: '上上签', num: 14,
     poem: 'Do it now.',
     literal: '现在就做',
-    meaning: '想做的事，别等明天再说。',
+    meaning: '想做的事，别等明天再说。蔡格尼克效应：未完成的事会一直占着脑容量，做了就释放了。',
     source: '英国谚语' },
   { cat: 'work', grade: '上签', num: 94,
     poem: 'Chi va piano, va sano e va lontano.',
     literal: '走得稳当的人，走得远',
-    meaning: '不急不躁，反而能到更远处。',
+    meaning: '不急不躁，反而能到更远处。匀速比冲刺更省力，因为意志力是有限资源，省着用才走得远。',
     source: '意大利谚语' },
   { cat: 'work', grade: '中上签', num: 95,
     poem: 'No hay atajo sin trabajo.',
     literal: '没有不劳而获的捷径',
-    meaning: '想省力，也得先把功夫下足。',
+    meaning: '想省力，也得先把功夫下足。走捷径省掉的，往往是扎基本功的时间，到了关键时刻就露馅。',
     source: '西班牙谚语' },
   { cat: 'work', grade: '上上签', num: 107,
     poem: 'Peak-End Rule', cn: '峰终定律',
-    meaning: '印象分看「高峰时刻」和「结尾」。认真收束，好感自然加分。',
-    source: '美国 · 丹尼尔·卡尼曼（Daniel Kahneman）· 行为经济学' },
+    meaning: '印象分看「高峰时刻」和「结尾」。认真收束，好感自然加分。记忆不是录像机，只截高潮和结尾两帧。',
+    source: '美国 丹尼尔·卡尼曼（Daniel Kahneman） 行为经济学' },
   { cat: 'work', grade: '上签', num: 108,
     poem: 'Dopamine Reward', cn: '多巴胺奖励',
-    meaning: '大脑偏爱「完成感」。把庞杂任务拆成小步，每做完一步，奖励自动到账。',
-    source: '美国 · 神经科学' },
+    meaning: '大脑偏爱「完成感」。把庞杂任务拆成小步，每做完一步，奖励自动到账。多巴胺不等奖励本身，等奖励的预期。',
+    source: '美国 神经科学' },
 
 
   // ── 自信/自我 ──
   { cat: 'confidence', grade: '上签', num: 33,
     poem: '我行我素',
     cn: 'Go my own way',
-    meaning: '你走的路，不必第二个人懂。心安理得，就是最好的节奏。',
-    source: '中国 · 《礼记·中庸》（战国）' },
+    meaning: '你走的路，不必第二个人懂。心安理得，就是最好的节奏。内控点的人，幸福感比随大流的高一截。',
+    source: '中国 《礼记·中庸》（战国）' },
   { cat: 'confidence', grade: '大吉签', num: 71,
     poem: '天生我材必有用',
     cn: 'My talent is meant to shine',
-    meaning: '老天给的本事，早晚能派上用场。别急着否定自己，你的光还没到时候亮。',
-    source: '中国 · 李白（盛唐）《将进酒》' },
+    meaning: '老天给的本事，早晚能派上用场。别急着否定自己，你的光还没到时候亮。多元智能说：每个人擅长的频道不同，找到你的就行。',
+    source: '中国 李白（盛唐）《将进酒》' },
   { cat: 'confidence', grade: '上上签', num: 3,
     poem: 'Fortune favors the bold.',
     literal: '命运偏爱勇敢者',
-    meaning: '勇气，总站在敢动的人那边。',
-    source: '古罗马 · 维吉尔（Virgil）《埃涅阿斯纪》' },
+    meaning: '勇气，总站在敢动的人那边。恐惧会放大风险，行动会缩小它，这是大脑的生存本能。',
+    source: '古罗马 维吉尔（Virgil）《埃涅阿斯纪》' },
   { cat: 'confidence', grade: '大吉签', num: 96,
     poem: 'Γνώθι σεαυτόν',
     literal: '认识你自己',
-    meaning: '看清自己的长处，才不会跟着别人的节奏乱。',
-    source: '古希腊 · 德尔斐箴言' },
+    meaning: '看清自己的长处，才不会跟着别人的节奏乱。元认知：知道自己知道什么、不知道什么，比知识本身更要紧。',
+    source: '古希腊 德尔斐箴言' },
   { cat: 'confidence', grade: '上上签', num: 109,
     poem: 'Self-Efficacy', cn: '自我效能感',
-    meaning: '你越笃信能办到，就越容易实现。今天就先夸自己一句。',
-    source: '美国 · 阿尔伯特·班杜拉（Albert Bandura）· 社会认知理论' },
+    meaning: '你越笃信能办到，就越容易实现。今天就先夸自己一句。自我效能感高的人，遇困难想的是「怎么解」，不是「完蛋了」。',
+    source: '美国 阿尔伯特·班杜拉（Albert Bandura） 社会认知理论' },
   { cat: 'confidence', grade: '大吉签', num: 110,
     poem: 'Pygmalion Effect', cn: '皮格马利翁效应',
-    meaning: '被寄望的人会变好。你笃信自己，你就是那个被寄望的人。',
-    source: '美国 · 罗伯特·罗森塔尔（Robert Rosenthal）· 教育心理学' },
+    meaning: '别人信你能行，你真的会更行。你笃信自己，你就在给自己这份期待。心理学叫期待效应：被看好的人，会不自觉地活成被期待的样子。',
+    source: '美国 罗伯特·罗森塔尔（Robert Rosenthal） 教育心理学' },
 
 
   // ── 行动 ──
   { cat: 'action', grade: '中上签', num: 47,
     poem: '日拱一卒',
     cn: 'One pawn, one step a day',
-    meaning: '慢，反而不慌。小卒每次只走一步，过河之后却有大用。',
-    source: '中国 · 象棋棋谚' },
+    meaning: '慢，反而不慌。小卒每次只走一步，过河之后却有大用。微习惯：每天一小步，大脑不抵抗，习惯悄悄长出来。',
+    source: '中国 象棋棋谚' },
   { cat: 'action', grade: '上签', num: 22,
     poem: '千里之行，始于足下',
     cn: 'A thousand miles begins with a single step',
-    meaning: '再远的路，也是从脚下第一步开始。动起来，就不远了。',
-    source: '中国 · 老子（春秋）《道德经》' },
+    meaning: '再远的路，也是从脚下第一步开始。动起来，就不远了。启动摩擦力最大，迈出第一步后，惯性会推着你走。',
+    source: '中国 老子（春秋）《道德经》' },
   { cat: 'action', grade: '转运签', num: 86,
     poem: 'Strike while the iron is hot.',
     literal: '趁热打铁',
-    meaning: '想做就做，热度别等凉。',
+    meaning: '想做就做，热度别等凉。动机有衰减期，热情和时机都有保质期，等久了冲动就退潮了。',
     source: '英国谚语' },
   { cat: 'action', grade: '上上签', num: 97,
     poem: "Qui ne tente rien, n'a rien.",
     literal: '不试的人什么也得不到',
-    meaning: '动手去试才有机会，空想一定没有。',
+    meaning: '动手去试才有机会，空想一定没有。损失厌恶让人不敢试，但试的代价通常比想象的小得多。',
     source: '法国谚语' },
   { cat: 'action', grade: '上签', num: 98,
     poem: 'Actions speak louder than words.',
     literal: '行动比言语更响亮',
-    meaning: '说一车，不如做一步。',
+    meaning: '说一车，不如做一步。行为承诺：一旦行动了，大脑会自动调整态度来匹配你的行为。',
     source: '英国谚语' },
   { cat: 'action', grade: '上上签', num: 111,
     poem: '5-Minute Rule', cn: '五分钟法则',
-    meaning: '大脑畏难，行动不怕。先做五分钟，就赢过了拖延。迈出第一步，就打破了拖延。',
-    source: '美国 · 行为心理学' },
+    meaning: '大脑畏难，行动不怕。先做五分钟，就赢过了拖延。启动门槛一旦跨过，大脑会自动切换到执行模式。',
+    source: '美国 行为心理学' },
   { cat: 'action', grade: '上签', num: 112,
     poem: 'Anchoring Effect', cn: '锚定效应',
-    meaning: '起点决定走向。把目标设高一点，你会走出更远的路。起点一高，每一步都算数。',
-    source: '美国 · 阿莫斯·特沃斯基（Amos Tversky）· 行为经济学' },
+    meaning: '起点决定走向。把目标设高一点，你会走出更远的路。锚定效应：最初的数字会变成参照系，锚得高，基线就高。',
+    source: '美国 阿莫斯·特沃斯基（Amos Tversky） 行为经济学' },
 
   // ── 关系 ──
   { cat: 'relationship', grade: '上签', num: 39,
     poem: '君子之交',
     cn: 'A friendship of gentlemen',
-    meaning: '淡如水，也是真。不黏不腻，却最长久。',
-    source: '中国 · 《庄子·山木》（战国）' },
+    meaning: '淡如水，也是真。不黏不腻，却最长久。弱关系理论：最有用的信息往往来自不亲密的人，因为圈子不重叠。',
+    source: '中国 《庄子·山木》（战国）' },
   { cat: 'relationship', grade: '解忧签', num: 12,
     poem: '己所不欲，勿施于人',
     cn: 'Do not impose on others what you dislike',
-    meaning: '自己不愿的，别压到别人身上。换位想一想，关系自然好。',
-    source: '中国 · 《论语·卫灵公》（春秋）' },
+    meaning: '自己不愿的，别压到别人身上。换位想一想，关系自然好。共情能力是关系的底层基础设施。',
+    source: '中国 《论语·卫灵公》（春秋）' },
   { cat: 'relationship', grade: '中上签', num: 58,
     poem: 'Live and let live.',
     literal: '各活各的，互不干涉',
-    meaning: '彼此都有位置。',
+    meaning: '彼此都有位置。尊重边界，是关系的防腐剂。每个人都有自主需求，被控制感一上来，关系就变味。',
     source: '荷兰谚语' },
   { cat: 'relationship', grade: '上签', num: 99,
     poem: 'It takes a village to raise a child.',
     literal: '养育一个孩子，得全村之力帮忙',
-    meaning: '难事别一个人硬扛，找人搭把手。',
+    meaning: '社会支持网络越密，心理承受力越强。找人分担不是软弱，是人类进化出的生存策略。',
     source: '非洲谚语' },
   { cat: 'relationship', grade: '上上签', num: 113,
     poem: 'Active Listening', cn: '积极倾听',
-    meaning: '好好聆听，是最高级的温柔。耐心听完，关系自动升温。',
-    source: '美国 · 卡尔·罗杰斯（Carl Rogers）· 人本主义心理学' },
+    meaning: '好好聆听，是最高级的温柔。耐心听完，关系自动升温。被倾听的人压力激素会明显下降，这是心理治疗的基本功。',
+    source: '美国 卡尔·罗杰斯（Carl Rogers） 人本主义心理学' },
   { cat: 'relationship', grade: '上签', num: 114,
     poem: 'Mirroring', cn: '镜像效应',
-    meaning: '你怎样待人，对方就怎样回应你。先露出笑容，世界会还你阳光。',
-    source: '美国 · 社会心理学' },
+    meaning: '你怎样待人，对方就怎样回应你。先露出笑容，世界会还你阳光。镜像神经元让人天然模仿对方，你先笑，对方也会不自觉地笑回来。',
+    source: '美国 社会心理学' },
 
 
   // ── 财富/心态 ──（移除金钱直接相关签文，保留心态类）
   { cat: 'selfcare', grade: '上上签', num: 115,
     poem: 'Abundance Mindset', cn: '丰盛心态',
-    meaning: '觉得「足够」的人，往往越来越丰足。感恩已有，新机会就来敲门。',
-    source: '美国 · 积极心理学' },
+    meaning: '觉得「足够」的人，往往越来越丰足。感恩已有，新机会就来敲门。稀缺心态会窄化视野，丰盛心态让人看到更多可能。',
+    source: '美国 积极心理学' },
 
 
   // ── 自己/自洽 ──
   { cat: 'selfcare', grade: '大吉签', num: 2,
     poem: '顺其自然',
     cn: 'Go with the flow',
-    meaning: '不拧巴的时候，最顺。随缘而行，日子反而走得快。',
-    source: '中国 · 五代《灵城精义》' },
+    meaning: '不拧巴的时候，最顺。随缘而行，日子反而走得快。越想控制不可控的事，焦虑越重，放手反而松快。',
+    source: '中国 五代《灵城精义》' },
   { cat: 'selfcare', grade: '解忧签', num: 77,
     poem: '往者不可谏，来者犹可追',
     cn: 'The past is past, the future awaits',
-    meaning: '过去的过去了，往前看才有新路。别回头，未来还在等你。',
-    source: '中国 · 《论语·微子》（春秋）' },
+    meaning: '过去的过去了，往前看才有新路。别回头，未来还在等你。反事实思维让人反复假设「如果当初」，但它消耗精力，不改变结果。',
+    source: '中国 《论语·微子》（春秋）' },
   { cat: 'selfcare', grade: '上上签', num: 91,
     poem: 'This too shall pass.',
     literal: '这一切也会过去',
-    meaning: '再难的日子，也有翻篇的那天。',
+    meaning: '再难的日子，也有翻篇的那天。情绪有半衰期，低谷不会永远停在同一深度。',
     source: '波斯谚语' },
   { cat: 'selfcare', grade: '解忧签', num: 101,
     poem: 'Det er ingen skam å snu.',
     literal: '回头不丢人',
-    meaning: '发现走错了，转身就是进步。',
+    meaning: '发现走错了，转身就是进步。沉没成本已经收不回来了，继续走只会赔更多，及时止损才是理性。',
     source: '挪威谚语' },
   { cat: 'selfcare', grade: '上上签', num: 116,
     poem: 'Self-Compassion', cn: '自我关怀',
-    meaning: '对自己温柔，是最好的充电。今天允许你慢下来。',
-    source: '美国 · 克里斯汀·内夫（Kristin Neff）· 临床心理学' },
+    meaning: '对自己温柔，是最好的充电。今天允许你慢下来。自我关怀不是放纵，是给心理电池充电，亏电硬撑反而烧得快。',
+    source: '美国 克里斯汀·内夫（Kristin Neff） 临床心理学' },
   { cat: 'selfcare', grade: '大吉签', num: 117,
     poem: 'Mindfulness', cn: '正念',
-    meaning: '烦恼多在过去和未来，平静只在「现在」。深呼吸，就是一次治愈。',
-    source: '美国 · 乔·卡巴金（Jon Kabat-Zinn）· 认知神经科学' },
+    meaning: '烦恼多在过去和未来，平静只在「现在」。深呼吸，就是一次治愈。正念把注意力拉回当下，焦虑没有此刻的土壤就长不出来。',
+    source: '美国 乔·卡巴金（Jon Kabat-Zinn） 认知神经科学' },
 
 
   // ── 趣味小故事签（大器晚成主题） ──
   { cat: 'selfcare', grade: '上上签', num: 201,
     poem: '大器晚成',
     cn: 'Great things ripen late',
-    meaning: '姜子牙72岁才在渭水边遇到周文王，此后辅佐周朝一统天下。起点晚一点，不影响走很远。',
-    source: '中国 · 姜子牙（商周）' },
+    meaning: '姜子牙72岁才在渭水边遇到周文王，此后辅佐周朝一统天下。起点晚一点，不影响走很远。很多能力的成熟本就需要更长的时间窗。',
+    source: '中国 姜子牙（商周）' },
   { cat: 'selfcare', grade: '大吉签', num: 202,
     poem: 'Never Too Late', cn: '永远不晚',
-    meaning: '元代画家黄公望，50岁才开始正经学艺，70岁完成《富春山居图》。最好的作品，常常写在人生后半场。',
-    source: '中国 · 黄公望（元）' },
+    meaning: '元代画家黄公望，50岁才开始正经学艺，70岁完成《富春山居图》。最好的作品，常常写在人生后半场。晶体智力随年龄增长，越老越深厚。',
+    source: '中国 黄公望（元）' },
   { cat: 'selfcare', grade: '上上签', num: 203,
     poem: 'Grandma Moses', cn: '摩西奶奶',
-    meaning: '她76岁才拿起画笔，80岁开画展，90岁依然在创作。年龄只是数字，热爱才是方向。',
-    source: '美国 · 安娜·摩西（Anna Moses）' },
+    meaning: '她76岁才拿起画笔，80岁开画展，90岁依然在创作。年龄只是数字，热爱才是方向。神经可塑性终身存在，大脑不论多大年纪都能长出新连接。',
+    source: '美国 安娜·摩西（Anna Moses）' },
   { cat: 'selfcare', grade: '上签', num: 204,
     poem: 'Colonel Sanders', cn: '肯德基上校',
-    meaning: '他65岁那年用退休金创业做炸鸡，72岁分店开遍全球。晚来的成功，反而更扎稳。',
-    source: '美国 · 哈兰德·山德士（Harland Sanders）' },
+    meaning: '他65岁那年用退休金创业做炸鸡，72岁分店开遍全球。晚来的成功，反而更扎稳。尽责性随年龄增长，越老越靠谱。',
+    source: '美国 哈兰德·山德士（Harland Sanders）' },
   { cat: 'selfcare', grade: '上上签', num: 205,
     poem: 'Harry Potter', cn: 'J.K.罗琳',
-    meaning: '她32岁出版《哈利·波特》，此前被十二家出版社拒稿。低谷不是终点，是转角。',
-    source: '英国 · J.K.罗琳（J.K. Rowling）' },
+    meaning: '她32岁出版《哈利·波特》，此前被十二家出版社拒稿。低谷不是终点，是转角。复原力不是天赋，是每次跌倒后爬起来的次数堆出来的。',
+    source: '英国 J.K.罗琳（J.K. Rowling）' },
   { cat: 'selfcare', grade: '中上签', num: 206,
     poem: '晋文公重耳',
-    meaning: '重耳流亡19年，60多岁才回国即位，成为春秋霸主。晚到的季候，一样繁花盛开。',
-    source: '中国 · 晋文公（春秋）' },
+    meaning: '重耳流亡19年，60多岁才回国即位，成为春秋霸主。晚到的季候，一样繁花盛开。逆境商高的人，把苦难当训练场，不是刑场。',
+    source: '中国 晋文公（春秋）' },
 
   // ── 行业心语 · 360行 ──
   { cat: 'career', grade: '上上签', num: 301,
     poem: '节气不等人', cn: 'The season waits for no one',
-    meaning: '庄稼人信节气：该下种就下种，错过一季要再等一年。人生也一样，时机到了就出手，别再犹豫。',
-    source: '中国 · 农谚' },
+    meaning: '庄稼人信节气：该下种就下种，错过一季要再等一年。人生也一样，时机到了就出手。机会成本：犹豫期间，你损失的是这段时间的潜在收益。',
+    source: '中国 农谚' },
   { cat: 'career', grade: '上签', num: 302,
     poem: 'Hello, World!', cn: '你好，世界',
-    meaning: '每个程序员写的第一行程序。再庞大的系统，也从一句「你好，世界」起步。',
-    source: '编程 · 程序员' },
+    meaning: '每个程序员写的第一行程序。再庞大的系统，也从一句「你好，世界」起步。先跑起来再说，别等完美才出手。',
+    source: '编程 程序员' },
   { cat: 'career', grade: '上上签', num: 303,
     poem: '复式记账', cn: 'Double-entry bookkeeping',
-    meaning: '会计的规矩：有借必有贷，借贷必相等。人生也讲平衡，先付出，才会有进账。',
-    source: '会计 · 行话' },
+    meaning: '会计的规矩：有借必有贷，借贷必相等。人生也讲平衡，先付出，才会有进账。互惠原则：先给予的人，别人回报的冲动越强。',
+    source: '会计 行话' },
   { cat: 'career', grade: '大吉签', num: 304,
     poem: '量体裁衣', cn: 'Cut to fit',
-    meaning: '好裁缝不照抄尺寸，先看清身材再下剪。任何选择，先看清自己，合适的比时髦的更耐穿。',
-    source: '裁缝 · 行话' },
+    meaning: '好裁缝不照抄尺寸，先看清身材再下剪。任何选择，先看清自己，合适的比时髦的更耐穿。自我认知是决策的地基，穿别人的尺码，怎么都不合身。',
+    source: '裁缝 行话' },
   { cat: 'career', grade: '上签', num: 305,
     poem: '不拔苗', cn: 'Let it grow',
-    meaning: '苗有苗的节奏，根扎深了，长高是迟早的事。扎根，比出头更要紧。',
-    source: '园艺 · 行话' },
+    meaning: '苗有苗的节奏，根扎深了，长高是迟早的事。扎根，比出头更要紧。延迟满足能力越强，长期成就越高，急不得的事急了反而坏。',
+    source: '园艺 行话' },
   { cat: 'career', grade: '上上签', num: 306,
     poem: '决定性瞬间', cn: 'The decisive moment',
-    meaning: '摄影里有些画面一生只出现一次。机会也一样，准备好了，手才稳。心定，手才不抖。',
-    source: '摄影 · 布列松' },
+    meaning: '摄影里有些画面一生只出现一次。机会也一样，准备好了，手才稳。心定，手才不抖。压力下的表现取决于准备度，练够了紧张就不至于失控。',
+    source: '摄影 布列松' },
   { cat: 'career', grade: '上签', num: 307,
     poem: '台上一分钟', cn: 'One minute on stage',
-    meaning: '老戏班子里说：台上一个身段，台下千遍功夫。每一份本事，都有台下垫底。',
-    source: '戏曲 · 行话' },
+    meaning: '老戏班子里说：台上一个身段，台下千遍功夫。每一份本事，都有台下垫底。肌肉记忆需要大量重复，身体记住了，脑子就不慌了。',
+    source: '戏曲 行话' },
   { cat: 'career', grade: '中上签', num: 308,
     poem: '红灯即绿灯', cn: 'Red light, green light',
-    meaning: '开车遇到红灯，是换挡前的缓冲。停一停，路反而顺。停，是为了更好地走。',
-    source: '驾驶 · 日常' },
+    meaning: '开车遇到红灯，是换挡前的缓冲。停一停，路反而顺。停，是为了更好地走。认知休息让大脑整理信息，不停运转反而效率递减。',
+    source: '驾驶 日常' },
   { cat: 'career', grade: '上签', num: 309,
     poem: '火候刚好', cn: 'The heat is right',
-    meaning: '厨师讲究火候：多一分嫌老，少一分夹生。做事也急不得，烫不得。时机到了，火候自然对。',
-    source: '厨师 · 行话' },
+    meaning: '厨师讲究火候：多一分嫌老，少一分夹生。做事也急不得，烫不得。时机到了，火候自然对。最优决策有窗口期，太早太晚都不对，耐心等信号。',
+    source: '厨师 行话' },
   { cat: 'career', grade: '大吉签', num: 310,
     poem: '地基决定高度', cn: 'The foundation sets the height',
-    meaning: '看不见的地基，扛起整座楼。默默下的功夫，都在托着你往上走。藏得越深的，越扛事。',
-    source: '建筑 · 行话' },
+    meaning: '看不见的地基，扛起整座楼。默默下的功夫，都在托着你往上走。藏得越深的，越扛事。隐性知识像地基，看不见但决定上限，基本功越扎实天花板越高。',
+    source: '建筑 行话' },
   { cat: 'career', grade: '上上签', num: 311,
     poem: '咬合', cn: 'The gears mesh',
-    meaning: '修表匠看齿轮：每个齿都咬得准，钟才走得稳。把每一扣咬对，自然走得稳。',
-    source: '钟表 · 行话' },
+    meaning: '修表匠看齿轮：每个齿都咬得准，钟才走得稳。把每一扣咬对，自然走得稳。系统工程：每个环节都到位整体才不出错，差一扣整钟就停。',
+    source: '钟表 行话' },
   { cat: 'career', grade: '上签', num: 312,
     poem: '水温刚好', cn: 'The water temperature is just right',
-    meaning: '茶人讲究水温：低一分不出香，高一分发苦。对人对事，温度对了，一切都对了。',
-    source: '茶艺 · 行话' },
+    meaning: '茶人讲究水温：低一分不出香，高一分发苦。对人对事，温度对了，一切都对了。人际温度也是这样：太冷生分，太热灼人，恰到好处最持久。',
+    source: '茶艺 行话' },
 
   // ── 情绪疗愈 · 伤心也可以 ──
   { cat: 'selfcare', grade: '解忧签', num: 401,
     poem: 'Crying is Healing', cn: '哭一场，也是在疗愈',
-    meaning: '眼泪会带走压力激素，哭泣不是软弱，是身体在帮你排毒。哭完了，人就轻了。',
-    source: '美国 · 威廉·弗雷（William Frey）· 进化心理学' },
+    meaning: '眼泪会带走压力激素，哭泣不是软弱，是身体在帮你排毒。哭完了，人就轻了。情绪性泪水的压力激素浓度比反射性泪水高得多。',
+    source: '美国 威廉·弗雷（William Frey） 进化心理学' },
   { cat: 'selfcare', grade: '解忧签', num: 402,
     poem: 'Vulnerability is Strength', cn: '脆弱，也是一种力量',
-    meaning: '研究里那些愿意承认难过的人，反而恢复更快。允许自己伤心，比假装坚强更勇敢。',
-    source: '美国 · 布琳·布朗（Brené Brown）' },
+    meaning: '研究里那些愿意承认难过的人，反而恢复更快。允许自己伤心，比假装坚强更勇敢。心理弹性像弹簧，先允许变形才能弹回来，硬扛反而脆。',
+    source: '美国 布琳·布朗（Brené Brown）' },
   { cat: 'selfcare', grade: '解忧签', num: 403,
     poem: 'Grief is Love', cn: '悲伤，是爱过的痕迹',
-    meaning: '悲伤不是病，是你曾经认真爱过的证据。别急着赶它走，它在提醒你珍惜什么。',
-    source: '美国 · 大卫·凯斯勒（David Kessler）· 悲痛研究' },
+    meaning: '悲伤不是病，是你曾经认真爱过的证据。别急着赶它走，它在提醒你珍惜什么。哀悼是大脑处理失去的方式，跳过它伤口会留更久。',
+    source: '美国 大卫·凯斯勒（David Kessler） 悲痛研究' },
   { cat: 'selfcare', grade: '解忧签', num: 404,
     poem: 'Storm Before Calm', cn: '风暴之后是平静',
-    meaning: '难过到极点之后，情绪会自动触底反弹。再撑一会儿，天就亮了。',
-    source: '美国 · 积极心理学 · 情绪周期理论' },
+    meaning: '难过到极点之后，情绪会自动触底反弹。再撑一会儿，天就亮了。情绪周期有波谷也有波峰，低谷不会永远停在同一深度。',
+    source: '美国 积极心理学 情绪周期理论' },
   { cat: 'selfcare', grade: '解忧签', num: 405,
     poem: 'Rumination Stop', cn: '停止反刍',
-    meaning: '反复回想痛苦，不等于在解决问题。给自己设个「难过上限」，到点就起身走走，换个场景。',
-    source: '美国 · 苏珊·诺伦-霍克赛玛（Susan Nolen-Hoeksema）' },
+    meaning: '反复回想痛苦，不等于在解决问题。给自己设个「难过上限」，到点就起身走走，换个场景。反刍思维会强化神经通路，越想越深，打断它就是最好的解药。',
+    source: '美国 苏珊·诺伦-霍克赛玛（Susan Nolen-Hoeksema）' },
   { cat: 'selfcare', grade: '解忧签', num: 406,
     poem: 'Post-Traumatic Growth', cn: '伤后成长',
-    meaning: '研究发现大多数经历低谷的人，反而会变得更有韧性。你现在的痛，日后会变成力量。',
-    source: '美国 · 理查德·泰德斯基（Richard Tedeschi）' },
+    meaning: '研究发现大多数经历低谷的人，反而会变得更有韧性。你现在的痛，日后会变成力量。创伤后成长不是例外，是大脑重建认知的自然修复机制。',
+    source: '美国 理查德·泰德斯基（Richard Tedeschi）' },
   { cat: 'selfcare', grade: '解忧签', num: 407,
     poem: 'You Are Not Alone', cn: '你不是一个人',
-    meaning: '难过时主动找一个人说说话，比独自硬扛恢复快得多。别把脆弱藏起来。',
-    source: '美国 · 谢尔登·科恩（Sheldon Cohen）· 社交支持理论' },
+    meaning: '难过时主动找一个人说说话，比独自硬扛恢复快得多。别把脆弱藏起来。社交支持能降低皮质醇水平，有人听你说，身体就在减负。',
+    source: '美国 谢尔登·科恩（Sheldon Cohen） 社交支持理论' },
   { cat: 'selfcare', grade: '解忧签', num: 408,
     poem: 'Permission to Feel', cn: '允许难过',
-    meaning: '没有坏情绪，只有被压抑的情绪。伤心就来，走的时候，它会带走你不想要的东西。',
-    source: '美国 · 情绪学者马克·布拉克特（Marc Brackett）' },
+    meaning: '没有坏情绪，只有被压抑的情绪。伤心就来，走的时候，它会带走你不想要的东西。情绪不是敌人，是信号，压制它身体替你记着账。',
+    source: '美国 情绪学者马克·布拉克特（Marc Brackett）' },
 
 ];
 
@@ -1820,7 +1838,11 @@ function bindResultEvents() {
   if (saveBtn) saveBtn.onclick = downloadSign;
   if (againBtn) againBtn.onclick = (e) => {
     e.stopPropagation();
-    drawSign();   // 直接再抽，不经过 resetCard（避免闪回首页）
+    // 先翻回正面（触发翻面动画），再在翻回途中重新抽签翻面
+    const card = document.getElementById('card');
+    card.classList.remove('flipped');
+    // 短暂延迟后重新翻面，确保有翻转动画效果
+    setTimeout(() => drawSign(), 350);
   };
   // 点击签文空白处 → 返回首页（绑在 back 面上，事件更可靠）
   const back = document.getElementById('face-back');
@@ -1939,10 +1961,10 @@ async function downloadSign() {
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#A088CC';
-              n.style.color = '#A088CC';
-              n.style.filter = 'drop-shadow(0 0 5px rgba(200, 185, 235, 0.8)) drop-shadow(0 0 12px rgba(180, 165, 220, 0.5))';
-              n.style.textShadow = '0 0 12px rgba(180, 165, 220, 0.6)';
+              n.style.webkitTextFillColor = '#D0CCE0';
+              n.style.color = '#D0CCE0';
+              n.style.filter = 'drop-shadow(0 0 4px rgba(140, 120, 190, 0.85)) drop-shadow(0 0 10px rgba(120, 100, 180, 0.5))';
+              n.style.textShadow = '0 0 10px rgba(140, 120, 190, 0.8), 0 1px 2px rgba(60, 40, 120, 0.35)';
             });
             // 释义、出处也改为浅色，与签诗协调
             el.querySelectorAll('.sign-meaning').forEach(n => {
@@ -1963,10 +1985,10 @@ async function downloadSign() {
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#A088CC';
-              n.style.color = '#A088CC';
-              n.style.filter = 'drop-shadow(0 0 4px rgba(200, 185, 235, 0.8)) drop-shadow(0 0 10px rgba(180, 165, 220, 0.5))';
-              n.style.textShadow = '0 0 10px rgba(180, 165, 220, 0.6)';
+              n.style.webkitTextFillColor = '#C8C8D0';
+              n.style.color = '#C8C8D0';
+              n.style.filter = 'drop-shadow(0 0 4px rgba(180, 180, 200, 0.65)) drop-shadow(0 0 10px rgba(160, 160, 180, 0.4))';
+              n.style.textShadow = '0 0 10px rgba(180, 180, 200, 0.6), 0 1px 2px rgba(100, 100, 130, 0.3)';
             });
             el.querySelectorAll('.sign-literal').forEach(n => {
               // 中文直译 → 实色深紫
