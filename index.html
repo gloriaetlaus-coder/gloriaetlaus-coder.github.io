@@ -34,6 +34,8 @@
   --radius-md: 18px;
   --radius-sm: 12px;
   --font-cn: "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Songti SC", "STSong", "SimSun", "宋体", serif;
+  /* 手机端中文回退：宋体在手机上偏细，加入楷体/黑体作为中间回退 */
+  --font-cn-mobile: "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Songti SC", "STKaiti", "KaiTi", "STSong", "SimSun", "宋体", serif;
 }
 
 * {
@@ -208,8 +210,8 @@ body::after {
   position: relative;
   z-index: 2;
   font-family: 'Great Vibes', 'Allura', 'Pacifico', cursive;
-  font-size: 58px;
-  font-weight: 400;
+  font-size: 64px;
+  font-weight: 700;
   line-height: 1.05;
   margin: 0;
   padding: 0 20px 0 12px;  /* 右侧留白，避免问号被遮挡 */
@@ -234,6 +236,41 @@ body::after {
     title-breathe 4.5s ease-in-out infinite;
 }
 
+/* 中文副标题 — 发光斜体 + 闪光扫过动效（与卡片主题词一致） */
+.title-sub {
+  position: relative;
+  z-index: 2;
+  margin: 22px 0 0;
+  font-family: var(--font-cn);
+  font-size: 30px;
+  font-weight: 800;   /* 中文加粗 */
+  color: var(--primary-light);
+  letter-spacing: 4px;
+  text-shadow: 0 0 14px rgba(184, 164, 220, 0.55);
+  font-style: italic;
+  animation: sub-fade 4.5s ease-in-out infinite;
+  overflow: hidden;
+}
+.title-sub::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 45%;
+  background: linear-gradient(105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.55) 45%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0.55) 55%,
+    transparent 100%);
+  transform: skewX(-18deg);
+  animation: cn-shine-sweep 3.8s ease-in-out infinite;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  border-radius: 4px;
+}
+
 @keyframes title-float {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-9px); }
@@ -242,19 +279,6 @@ body::after {
 @keyframes title-shimmer {
   0%   { background-position: 0% 50%; }
   100% { background-position: 250% 50%; }
-}
-
-.title-sub {
-  position: relative;
-  z-index: 2;
-  margin: 14px 0 0;
-  font-family: var(--font-cn);
-  font-size: 30px;
-  font-weight: 800;   /* 中文加粗 */
-  color: var(--primary-light);
-  letter-spacing: 4px;
-  text-shadow: 0 0 14px rgba(184, 164, 220, 0.55);
-  animation: sub-fade 4.5s ease-in-out infinite;
 }
 @keyframes sub-fade {
   0%, 100% { opacity: 0.82; transform: translateY(0); }
@@ -299,20 +323,28 @@ body::after {
    MOOD BUBBLES — 首页情绪泡泡（漂浮在卡面上）
    ==================================================== */
 .mood-bubbles {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  max-width: 260px;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(3, auto);
+  justify-content: center;
+  align-content: space-between;
+  justify-items: center;
+  align-items: center;
+  gap: 8px 8px;
+  padding: 16px 0;
   z-index: 5;
   pointer-events: auto;
 }
+/* 上排（开心/沮丧/伤心）& 下排（平静/随机/赞美）：两行之间留出空隙，
+   魔法棒（卡片中心 110px）正好从中露出，不被遮挡 */
+.mood-chip:nth-child(1) { grid-row: 1; grid-column: 1; }
+.mood-chip:nth-child(2) { grid-row: 1; grid-column: 2; }
+.mood-chip:nth-child(3) { grid-row: 1; grid-column: 3; }
+.mood-chip:nth-child(4) { grid-row: 2; grid-column: 1; }
+.mood-chip:nth-child(5) { grid-row: 2; grid-column: 2; }
+.mood-chip:nth-child(6) { grid-row: 2; grid-column: 3; }
 .mood-bubbles.hidden { display: none; }
 
 .mood-bubble {
@@ -443,8 +475,8 @@ body::after {
 .sign-card-outer {
   position: relative;
   width: 100%;
-  max-width: 280px;   /* 窄长比例 ~1:1.8，接近红框所示 */
-  height: 520px;
+  max-width: min(92vw, 320px);   /* 手机占屏更大，PC不超过320 */
+  height: 540px;
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
 }
@@ -621,24 +653,26 @@ body::after {
   overflow-wrap: break-word;
   word-break: normal;
   text-align: center;
-  /* 银白光泽 — 亮银渐变（比旧版更亮，接近截图银白） */
+  /* 银白光泽 — 更亮更银白（比旧版更接近纯银，肉眼清晰可见） */
   background: linear-gradient(180deg,
-    #EFEAF8 0%,
-    #D9D2EA 25%,
-    #C4BCD8 50%,
-    #B3AACA 75%,
-    #EFEAF8 100%);
+    #FFFFFF 0%,
+    #EFEAFA 22%,
+    #D9D2F2 48%,
+    #C4BCE0 72%,
+    #FFFFFF 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: poem-silver-shimmer 4.5s linear infinite;
   filter:
-    drop-shadow(0 0 6px rgba(200, 190, 230, 0.65))
-    drop-shadow(0 0 16px rgba(180, 168, 220, 0.35));
+    drop-shadow(0 0 5px rgba(220, 210, 245, 0.9))
+    drop-shadow(0 0 14px rgba(200, 190, 235, 0.5))
+    drop-shadow(0 0 24px rgba(255, 255, 255, 0.3));
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
 }
 
-/* 中文签诗 — 始终偏深紫色 */
+/* 中文签诗 — 深紫 + 发光斜体 + 闪光划过动效 */
 .sign-poem.sign-poem-cn {
   font-family: var(--font-cn);
   font-size: 34px;
@@ -650,9 +684,43 @@ body::after {
   -webkit-text-fill-color: initial;
   background-clip: border-box;
   -webkit-background-clip: border-box;
+  padding: 0 12px;
   filter:
     drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
     drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
+  position: relative;
+  overflow: hidden;
+}
+/* 中文主题词 — 闪光扫过效果 */
+.sign-poem.sign-poem-cn::after,
+.sign-cn::after,
+.sign-literal::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.55) 45%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0.55) 55%,
+    transparent 100%);
+  transform: skewX(-18deg);
+  animation: cn-shine-sweep 3.8s ease-in-out infinite;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.sign-cn::after { animation-delay: 0.6s; }
+.sign-literal::after { animation-delay: 1.2s; }
+
+@keyframes cn-shine-sweep {
+  0%   { left: -60%; opacity: 0; }
+  12%  { opacity: 0.9; }
+  55%  { left: 130%; opacity: 0.9; }
+  70%  { left: 130%; opacity: 0; }
+  100% { left: 130%; opacity: 0; }
 }
 
 .sign-poem.english {
@@ -731,6 +799,7 @@ body::after {
   animation: fadeUp 0.5s 0.5s forwards;
   font-family: var(--font-cn);
   font-weight: 700;
+  padding: 0 6px;  /* 两侧留白防止截断 */
 }
 
 .sign-cn {
@@ -745,6 +814,9 @@ body::after {
   animation: fadeUp 0.5s 0.55s forwards;
   overflow-wrap: break-word;
   word-break: keep-all;
+  position: relative;
+  overflow: hidden;
+  padding: 0 12px;  /* 两侧留白防止字溢出卡片 */
   /* 中文主题词 — 始终偏深紫色 */
   color: #6C52A8;
   background: none;
@@ -774,6 +846,9 @@ body::after {
   animation: fadeUp 0.5s 0.58s forwards;
   overflow-wrap: break-word;
   word-break: keep-all;
+  position: relative;
+  overflow: hidden;
+  padding: 0 12px;  /* 两侧留白 */
   /* 中文直译 — 偏深紫色 */
   color: #6C52A8;
   background: none;
@@ -799,20 +874,22 @@ body::after {
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
-  /* 英文翻译 — 银白光泽 */
+  /* 英文翻译 — 银白光泽 + shimmer */
   background: linear-gradient(180deg,
-    #EFEAF8 0%,
-    #D9D2EA 25%,
-    #C4BCD8 50%,
-    #B3AACA 75%,
-    #EFEAF8 100%);
+    #FFFFFF 0%,
+    #EFEAFA 22%,
+    #D9D2F2 48%,
+    #C4BCE0 72%,
+    #FFFFFF 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: poem-silver-shimmer 4.5s linear infinite;
   filter:
-    drop-shadow(0 0 6px rgba(200, 190, 230, 0.65))
-    drop-shadow(0 0 16px rgba(180, 168, 220, 0.35));
+    drop-shadow(0 0 5px rgba(220, 210, 245, 0.9))
+    drop-shadow(0 0 14px rgba(200, 190, 235, 0.5))
+    drop-shadow(0 0 24px rgba(255, 255, 255, 0.3));
 }
 
 .sign-tip {
@@ -839,6 +916,27 @@ body::after {
   animation: fadeUp 0.5s 0.65s forwards;
   font-family: var(--font-cn);
   font-weight: 700;  /* 中文加粗 */
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  padding: 0 8px;  /* 两侧留白防止截断 */
+}
+
+/* 卡片底部提示：轻点卡面返回情绪选项首页（下划线 + 星号） */
+.sign-back-hint {
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  letter-spacing: 1px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(122, 95, 192, 0.35);
+  opacity: 0;
+  animation: fadeUp 0.5s 0.7s forwards;
+  font-family: var(--font-cn);
+  font-weight: 700;
+  padding-top: 10px;
 }
 
 @keyframes fadeUp {
@@ -856,8 +954,8 @@ body::after {
 
 .btn-ghost {
   padding: 11px 6px;
-  background: var(--primary-pale);
-  color: var(--primary);
+  background: linear-gradient(135deg, #F5EEFC 0%, #EDE1F9 100%);   /* 浅紫 — 复制 */
+  color: #6C52A8;
   border: none;
   border-radius: 100px;
   font-size: 14px;
@@ -866,11 +964,20 @@ body::after {
   transition: all 0.2s;
   font-weight: 800;
   letter-spacing: 1px;
+  box-shadow: 0 2px 8px rgba(122, 95, 192, 0.10);
 }
 .btn-ghost:active { transform: scale(0.96); }
+/* 中紫 — 保存 */
+.btn-ghost.mid {
+  background: linear-gradient(135deg, #DCCDF3 0%, #C9B4EC 100%);
+  color: #4C3A92;
+  box-shadow: 0 3px 10px rgba(122, 95, 192, 0.18);
+}
+/* 深紫 — 再次 */
 .btn-ghost.solid {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
   color: var(--white);
+  box-shadow: 0 4px 14px rgba(92, 66, 166, 0.40);
 }
 
 /* ====================================================
@@ -997,27 +1104,34 @@ body::after {
 /* ====================================================
    RESPONSIVE
    ==================================================== */
+@media (max-width: 600px) {
+  :root { --font-cn: var(--font-cn-mobile); }
+  .sign-card-outer { max-width: min(92vw, 320px); height: min(78vh, 560px); }
+}
+
 @media (max-width: 360px) {
   .app { padding: 14px 16px 30px; }
   .header { min-height: 150px; padding: 10px 0 0; margin-bottom: 10px; }
-  .title { font-size: 38px; }
+  .title { font-size: 42px; }
   .title-sub { font-size: 24px; margin-top: 12px; letter-spacing: 3px; }
   .title-halo { width: 300px; height: 150px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
-  .sign-card-outer { max-width: 250px; height: 480px; }
+  .sign-card-outer { max-width: min(90vw, 300px); height: min(80vh, 540px); }
   .sign-poem { font-size: 26px; }
   .sign-poem.english { font-size: 26px; }
   .sign-poem.sign-poem-cn { font-size: 26px; }
   .sign-cn { font-size: 26px; margin-top: 12px; }
   .sign-cn-en { font-size: 26px; }
   .sign-literal { font-size: 22px; }
+  .sign-source { font-size: 10px; padding: 0 6px; }
+  .sign-meaning { font-size: 12px; padding: 0 6px; }
   .category-list { grid-template-columns: repeat(4, 1fr); font-size: 11px; }
   .chip { font-size: 11px; padding: 10px 2px; }
 }
 
 @media (min-width: 600px) {
-  .title { font-size: 42px; }
-  .sign-card-outer { max-width: 300px; height: 560px; }
+  .title { font-size: 46px; }
+  .sign-card-outer { max-width: 320px; height: 580px; }
 }
 </style>
 </head>
@@ -1100,13 +1214,11 @@ const FORTUNES = [
     source: '德国谚语' },
   { cat: 'study', grade: '上上签', num: 105,
     poem: 'Growth Mindset', cn: '成长型思维',
-    meaning: '发展心理学：能力像肌肉，越练越强。今天的笨拙，是明天的熟练。',
-    tip: '动一次手，大脑就长一条新连接。',
+    meaning: '发展心理学：能力像肌肉，越练越强。今天的笨拙，是明天的熟练。动一次手，大脑就长一条新连接。',
     source: '美国 · 卡罗尔·德韦克（Carol Dweck）' },
   { cat: 'study', grade: '上签', num: 106,
     poem: 'Flow', cn: '心流',
     meaning: '积极心理学：全身心投入一件事，做到忘了时间。那种专注，本身就是一种享受。',
-    tip: '一次专注，就是给自己充电。',
     source: '美国 · 米哈里·契克森米哈赖（Mihaly Csikszentmihalyi）' },
 
   // ── 工作/专注 ──
@@ -1138,13 +1250,12 @@ const FORTUNES = [
   { cat: 'work', grade: '上上签', num: 107,
     poem: 'Peak-End Rule', cn: '峰终定律',
     meaning: '行为经济学：印象分看「高峰时刻」和「结尾」。认真收束，好感自然加分。',
-    tip: '收尾干净利落，记忆里就留一份美好。',
     source: '美国 · 丹尼尔·卡尼曼（Daniel Kahneman）' },
   { cat: 'work', grade: '上签', num: 108,
     poem: 'Dopamine Reward', cn: '多巴胺奖励',
     meaning: '神经科学：大脑偏爱「完成感」。把庞杂任务拆成小步，每做完一步，奖励自动到账。',
-    tip: '每前进一步，就有一次多巴胺。',
     source: '美国 · 神经科学' },
+
 
   // ── 自信/自我 ──
   { cat: 'confidence', grade: '上签', num: 33,
@@ -1170,13 +1281,12 @@ const FORTUNES = [
   { cat: 'confidence', grade: '上上签', num: 109,
     poem: 'Self-Efficacy', cn: '自我效能感',
     meaning: '社会认知理论：你越笃信能办到，就越容易实现。今天就先夸自己一句。',
-    tip: '办妥一件小事，效能感就强一分。',
     source: '美国 · 阿尔伯特·班杜拉（Albert Bandura）' },
   { cat: 'confidence', grade: '大吉签', num: 110,
     poem: 'Pygmalion Effect', cn: '皮格马利翁效应',
     meaning: '教育心理学：被寄望的人会变好。你笃信自己，你就是那个被寄望的人。',
-    tip: '一次自我期许，就是好消息。',
     source: '美国 · 罗伯特·罗森塔尔（Robert Rosenthal）' },
+
 
   // ── 行动 ──
   { cat: 'action', grade: '中上签', num: 47,
@@ -1206,13 +1316,11 @@ const FORTUNES = [
     source: '英国谚语' },
   { cat: 'action', grade: '上上签', num: 111,
     poem: '5-Minute Rule', cn: '五分钟法则',
-    meaning: '行为心理学：大脑畏难，行动不怕。先做五分钟，就赢过了拖延。',
-    tip: '迈出第一步，就打破了拖延。',
+    meaning: '行为心理学：大脑畏难，行动不怕。先做五分钟，就赢过了拖延。迈出第一步，就打破了拖延。',
     source: '美国 · 行为心理学' },
   { cat: 'action', grade: '上签', num: 112,
     poem: 'Anchoring Effect', cn: '锚定效应',
-    meaning: '行为经济学：起点决定走向。把目标设高一点，你会走出更远的路。',
-    tip: '设高目标，就已经开始靠近。',
+    meaning: '行为经济学：起点决定走向。把目标设高一点，你会走出更远的路。起点一高，每一步都算数。',
     source: '美国 · 阿莫斯·特沃斯基（Amos Tversky）' },
 
   // ── 关系 ──
@@ -1239,20 +1347,19 @@ const FORTUNES = [
   { cat: 'relationship', grade: '上上签', num: 113,
     poem: 'Active Listening', cn: '积极倾听',
     meaning: '人本主义心理学：好好聆听，是最高级的温柔。耐心听完，关系自动升温。',
-    tip: '一次完整聆听，就是把对方放在心上。',
     source: '美国 · 卡尔·罗杰斯（Carl Rogers）' },
   { cat: 'relationship', grade: '上签', num: 114,
     poem: 'Mirroring', cn: '镜像效应',
     meaning: '社会心理学：你怎样待人，对方就怎样回应你。先露出笑容，世界会还你阳光。',
-    tip: '先展露笑意，就点亮了这段关系。',
     source: '美国 · 社会心理学' },
+
 
   // ── 财富/心态 ──（移除金钱直接相关签文，保留心态类）
   { cat: 'selfcare', grade: '上上签', num: 115,
     poem: 'Abundance Mindset', cn: '丰盛心态',
     meaning: '积极心理学：觉得「够用」的人，往往越来越够用。感恩已有，新机会就来敲门。',
-    tip: '数一次已有，就吸引更多。',
     source: '美国 · 积极心理学' },
+
 
   // ── 自己/自洽 ──
   { cat: 'selfcare', grade: '大吉签', num: 2,
@@ -1278,13 +1385,12 @@ const FORTUNES = [
   { cat: 'selfcare', grade: '上上签', num: 116,
     poem: 'Self-Compassion', cn: '自我关怀',
     meaning: '临床心理学：对自己温柔，是最好的充电。今天允许你慢下来。',
-    tip: '说句软话，也是照顾自己。',
     source: '美国 · 克里斯汀·内夫（Kristin Neff）' },
   { cat: 'selfcare', grade: '大吉签', num: 117,
     poem: 'Mindfulness', cn: '正念',
     meaning: '认知神经科学：烦恼多在过去和未来，平静只在「现在」。深呼吸，就是一次治愈。',
-    tip: '放下杂念，就回到了当下。',
     source: '美国 · 乔·卡巴金（Jon Kabat-Zinn）' },
+
 
   // ── 趣味小故事签（大器晚成主题） ──
   { cat: 'selfcare', grade: '上上签', num: 201,
@@ -1313,67 +1419,90 @@ const FORTUNES = [
     meaning: '重耳流亡19年，60多岁才回国即位，成为春秋霸主。晚到的季候，一样繁花盛开。',
     source: '中国 · 晋文公（春秋）' },
 
-  // ── 行业心语 · 360行（先加一批看效果） ──
+  // ── 行业心语 · 360行 ──
   { cat: 'career', grade: '上上签', num: 301,
     poem: '节气不等人', cn: 'The season waits for no one',
-    meaning: '庄稼人信节气：该下种就下种，错过一季要再等一年。人生也一样，时机到了就出手。',
-    tip: '时机一到，就别再犹豫。',
+    meaning: '庄稼人信节气：该下种就下种，错过一季要再等一年。人生也一样，时机到了就出手，别再犹豫。',
     source: '中国 · 农谚' },
   { cat: 'career', grade: '上签', num: 302,
     poem: 'Hello, World!', cn: '你好，世界',
     meaning: '每个程序员写的第一行程序。再庞大的系统，也从一句「你好，世界」起步。',
-    tip: '从第一句开始，你已经在路上了。',
     source: '编程 · 程序员' },
   { cat: 'career', grade: '上上签', num: 303,
     poem: '复式记账', cn: 'Double-entry bookkeeping',
     meaning: '会计的规矩：有借必有贷，借贷必相等。人生也讲平衡，先付出，才会有进账。',
-    tip: '今天的耕耘，记入明天的贷方。',
     source: '会计 · 行话' },
   { cat: 'career', grade: '大吉签', num: 304,
     poem: '量体裁衣', cn: 'Cut to fit',
-    meaning: '好裁缝不照抄尺寸，先看清身材再下剪。做任何事，先了解自己，才剪得出合身。',
-    tip: '合身，比硬撑耐穿。',
+    meaning: '好裁缝不照抄尺寸，先看清身材再下剪。任何选择，先看清自己，合适的比时髦的更耐穿。',
     source: '裁缝 · 行话' },
   { cat: 'career', grade: '上签', num: 305,
     poem: '不拔苗', cn: 'Let it grow',
-    meaning: '苗有苗的节奏，根扎深了，长高是迟早的事。',
-    tip: '扎根，比出头更要紧。',
+    meaning: '苗有苗的节奏，根扎深了，长高是迟早的事。扎根，比出头更要紧。',
     source: '园艺 · 行话' },
   { cat: 'career', grade: '上上签', num: 306,
     poem: '决定性瞬间', cn: 'The decisive moment',
-    meaning: '摄影里有些画面一生只出现一次。机会也一样，准备好了，手才稳。',
-    tip: '心定，手才不抖。',
+    meaning: '摄影里有些画面一生只出现一次。机会也一样，准备好了，手才稳。心定，手才不抖。',
     source: '摄影 · 布列松' },
   { cat: 'career', grade: '上签', num: 307,
     poem: '台上一分钟', cn: 'One minute on stage',
-    meaning: '老戏班子里说：台上一个身段，台下千遍功夫。掌声从来不是白来的。',
-    tip: '每一份本事，都有台下垫底。',
+    meaning: '老戏班子里说：台上一个身段，台下千遍功夫。每一份本事，都有台下垫底。',
     source: '戏曲 · 行话' },
   { cat: 'career', grade: '中上签', num: 308,
     poem: '红灯即绿灯', cn: 'Red light, green light',
-    meaning: '开车遇到红灯，是换挡前的缓冲。停一停，路反而顺。',
-    tip: '停，是为了更好地走。',
+    meaning: '开车遇到红灯，是换挡前的缓冲。停一停，路反而顺。停，是为了更好地走。',
     source: '驾驶 · 日常' },
   { cat: 'career', grade: '上签', num: 309,
     poem: '火候刚好', cn: 'The heat is right',
-    meaning: '厨师讲究火候：多一分嫌老，少一分夹生。做事也急不得，烫不得。',
-    tip: '时机到了，火候自然对。',
+    meaning: '厨师讲究火候：多一分嫌老，少一分夹生。做事也急不得，烫不得。时机到了，火候自然对。',
     source: '厨师 · 行话' },
   { cat: 'career', grade: '大吉签', num: 310,
     poem: '地基决定高度', cn: 'The foundation sets the height',
-    meaning: '看不见的地基，扛起整座楼。默默下的功夫，都在托着你往上走。',
-    tip: '藏得越深的，越扛事。',
+    meaning: '看不见的地基，扛起整座楼。默默下的功夫，都在托着你往上走。藏得越深的，越扛事。',
     source: '建筑 · 行话' },
   { cat: 'career', grade: '上上签', num: 311,
     poem: '咬合', cn: 'The gears mesh',
-    meaning: '修表匠看齿轮：每个齿都咬得准，钟才走得稳。小事对上了，大事自然顺。',
-    tip: '把每一扣咬对，自然走得稳。',
+    meaning: '修表匠看齿轮：每个齿都咬得准，钟才走得稳。把每一扣咬对，自然走得稳。',
     source: '钟表 · 行话' },
   { cat: 'career', grade: '上签', num: 312,
     poem: '水温刚好', cn: 'The water temperature is just right',
     meaning: '茶人讲究水温：低一分不出香，高一分发苦。对人对事，温度对了，一切都对了。',
-    tip: '不过热不过凉，刚刚好。',
     source: '茶艺 · 行话' },
+
+  // ── 情绪疗愈 · 伤心也可以 ──
+  { cat: 'selfcare', grade: '解忧签', num: 401,
+    poem: 'Crying is Healing', cn: '哭一场，也是在疗愈',
+    meaning: '进化心理学：眼泪会带走压力激素，哭泣不是软弱，是身体在帮你排毒。哭完了，人就轻了。',
+    source: '美国 · 威廉·弗雷（William Frey）' },
+  { cat: 'selfcare', grade: '解忧签', num: 402,
+    poem: 'Vulnerability is Strength', cn: '脆弱，也是一种力量',
+    meaning: '研究里那些愿意承认难过的人，反而恢复更快。允许自己伤心，比假装坚强更勇敢。',
+    source: '美国 · 布琳·布朗（Brené Brown）' },
+  { cat: 'selfcare', grade: '解忧签', num: 403,
+    poem: 'Grief is Love', cn: '悲伤，是爱过的痕迹',
+    meaning: '悲痛专家说：悲伤不是病，是你曾经认真爱过的证据。别急着赶它走，它在提醒你珍惜什么。',
+    source: '美国 · 大卫·凯斯勒（David Kessler）' },
+  { cat: 'selfcare', grade: '解忧签', num: 404,
+    poem: 'Storm Before Calm', cn: '风暴之后是平静',
+    meaning: '心理学里有个「暗夜效应」：难过到极点之后，情绪会自动触底反弹。再撑一会儿，天就亮了。',
+    source: '积极心理学 · 情绪周期理论' },
+  { cat: 'selfcare', grade: '解忧签', num: 405,
+    poem: 'Rumination Stop', cn: '别再反复想',
+    meaning: '反复回想痛苦，不等于在解决问题。给自己设个「难过上限」，到点就起身走走，换个场景。',
+    source: '美国 · 苏珊·诺伦-霍克赛玛（Susan Nolen-Hoeksema）' },
+  { cat: 'selfcare', grade: '解忧签', num: 406,
+    poem: 'Post-Traumatic Growth', cn: '伤后成长',
+    meaning: '研究发现大多数经历低谷的人，反而会变得更有韧性。你现在的痛，日后会变成力量。',
+    source: '美国 · 理查德·泰德斯基（Richard Tedeschi）' },
+  { cat: 'selfcare', grade: '解忧签', num: 407,
+    poem: 'You Are Not Alone', cn: '你不是一个人',
+    meaning: '社交支持理论：难过时主动找一个人说说话，比独自硬扛恢复快得多。别把脆弱藏起来。',
+    source: '美国 · 谢尔登·科恩（Sheldon Cohen）' },
+  { cat: 'selfcare', grade: '解忧签', num: 408,
+    poem: 'Permission to Feel', cn: '允许难过',
+    meaning: '情绪研究者说：没有坏情绪，只有被压抑的情绪。伤心就来，走的时候，它会带走你不想要的东西。',
+    source: '美国 · 马克·布拉克特（Marc Brackett）' },
+
 ];
 
 const CAT_LABEL = {
@@ -1484,9 +1613,6 @@ function renderSign(sign) {
   const literalLine = sign.literal
     ? `<p class="sign-literal"><span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.literal), 7))}</span></p>`
     : '';
-  const tipLine = sign.tip
-    ? `<p class="sign-tip">${joinSegs(smartSegments(escapeHtml(sign.tip), 18))}</p>`
-    : '';
   const meaningHtml = joinSegs(smartSegments(escapeHtml(sign.meaning), 16));
   const sourceHtml = sign.source
     ? joinSegs(smartSegments(escapeHtml('— ' + sign.source), 18))
@@ -1507,13 +1633,13 @@ function renderSign(sign) {
         <p class="sign-meaning">${meaningHtml}</p>
       </div>
       <div class="sign-bottom">
-        ${tipLine}
         ${sign.source ? `<p class="sign-source">${sourceHtml}</p>` : ''}
       </div>
+      <p class="sign-back-hint">*轻点卡面返回情绪选项首页</p>
     </div>
     <div class="actions">
       <button class="btn-ghost" id="copy-btn">📋 复制</button>
-      <button class="btn-ghost" id="save-btn">🖼️ 保存</button>
+      <button class="btn-ghost mid" id="save-btn">🖼️ 保存</button>
       <button class="btn-ghost solid" id="again-btn">🔁 再次</button>
     </div>
   `;
@@ -1790,6 +1916,9 @@ async function downloadSign() {
             const brand = el.querySelector('.sign-brand');
             if (brand) brand.style.color = '#B8A6DA';
             if (actions) actions.style.display = 'none';
+            // 隐藏底部「轻点卡面返回」提示，不出现在保存图片中
+            const hint = el.querySelector('.sign-back-hint');
+            if (hint) hint.style.display = 'none';
             // 强制显示原本依赖 fade-in 动画才能显示的元素（关掉动画后 opacity 会卡在 0）
             el.querySelectorAll('.sign-poem, .sign-cn, .sign-cn-en, .sign-literal, .sign-meaning, .sign-tip, .sign-source').forEach(n => {
               n.style.opacity = '1';
