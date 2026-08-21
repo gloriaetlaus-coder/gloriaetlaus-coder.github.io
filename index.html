@@ -233,7 +233,7 @@ body::after {
     title-breathe 4.5s ease-in-out infinite;
 }
 
-/* 中文副标题 — 发光斜体 + 闪光扫过动效（与卡片主题词一致） */
+/* 中文副标题 — 发光斜体 + shimmer 扫光（与英文统一）*/
 .title-sub {
   position: relative;
   z-index: 2;
@@ -254,24 +254,9 @@ body::after {
   animation: sub-fade 4.5s ease-in-out infinite;
   overflow: hidden;
 }
+/* 移除旧伪元素扫光 — 已统一为 shimmer 渐变动画 */
 .title-sub::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -60%;
-  width: 45%;
-  background: linear-gradient(105deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.55) 45%,
-    rgba(255, 255, 255, 0.85) 50%,
-    rgba(255, 255, 255, 0.55) 55%,
-    transparent 100%);
-  transform: skewX(-18deg);
-  animation: cn-shine-sweep 3.8s ease-in-out infinite;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  border-radius: 4px;
+  content: none;
 }
 
 @keyframes title-float {
@@ -480,7 +465,7 @@ body::after {
   position: relative;
   width: 100%;
   max-width: min(92vw, 320px);   /* 手机占屏更大，PC不超过320 */
-  height: 540px;
+  height: 580px;  /* 加高卡片 */
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
 }
@@ -644,7 +629,7 @@ body::after {
   white-space: nowrap;
 }
 
-/* 签诗 — 非中文（英/日/德等）默认银白光泽 + shimmer + 漂浮 */
+/* 签诗 — 非中文（英/日/德等）银白光泽 + shimmer + 漂浮 */
 .sign-poem {
   margin: 0;
   font-size: 34px;
@@ -656,20 +641,18 @@ body::after {
   overflow-wrap: break-word;
   word-break: normal;
   text-align: center;
-  /* 柔和淡紫色发光效果 */
-  background: linear-gradient(180deg,
+  /* 银白渐变 + shimmer 扫光（与英文 slogan 一致）*/
+  background: linear-gradient(135deg,
     #FFFFFF 0%,
-    #E8DEF5 20%,
-    #D4C5ED 40%,
-    #C8B8E0 55%,
-    #D4C5ED 70%,
-    #E8DEF5 85%,
+    #E8DEF5 25%,
+    #D4C5ED 50%,
+    #E8DEF5 75%,
     #FFFFFF 100%);
-  background-size: 200% 200%;
+  background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 4.5s linear 0.55s infinite;
+  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
   filter:
     drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
     drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
@@ -677,55 +660,42 @@ body::after {
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
 }
 
-/* 中文签诗 — 深紫 + 发光斜体 + 闪光划过动效 */
+/* 中文签诗 — 深紫色 + 发光斜体 + shimmer 扫光（与英文统一）*/
 .sign-poem.sign-poem-cn {
   font-family: var(--font-cn);
   font-size: 34px;
   letter-spacing: 2px;
   font-weight: 700;
   font-style: italic;
-  color: #6C52A8;
-  background: none;
-  -webkit-text-fill-color: initial;
-  background-clip: border-box;
-  -webkit-background-clip: border-box;
-  padding: 0 16px;
+  /* 中文主题词：深紫渐变 + shimmer 扫光（与英文 slogan 一致的 background-position 动画）*/
+  background: linear-gradient(135deg,
+    #6C52A8 0%,
+    #5C42A6 30%,
+    #7A5FC0 50%,
+    #5C42A6 70%,
+    #6C52A8 100%);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding: 4px 16px 8px;  /* 底部多留白防截断 */
   filter:
     drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
     drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
   position: relative;
   overflow: visible;
+  animation: fadeUp 0.5s 0.55s forwards, cn-shimmer 6s linear 0.55s infinite;
 }
-/* 中文主题词 — 闪光扫过效果 */
+/* 移除旧的伪元素扫光效果 — 已改用 background-position shimmer 统一 */
 .sign-poem.sign-poem-cn::after,
 .sign-cn::after,
 .sign-literal::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -60%;
-  width: 45%;
-  height: 100%;
-  background: linear-gradient(105deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.55) 45%,
-    rgba(255, 255, 255, 0.85) 50%,
-    rgba(255, 255, 255, 0.55) 55%,
-    transparent 100%);
-  transform: skewX(-18deg);
-  animation: cn-shine-sweep 3.8s ease-in-out infinite;
-  pointer-events: none;
-  mix-blend-mode: screen;
+  content: none;
 }
-.sign-cn::after { animation-delay: 0.6s; }
-.sign-literal::after { animation-delay: 1.2s; }
 
-@keyframes cn-shine-sweep {
-  0%   { left: -60%; opacity: 0; }
-  12%  { opacity: 0.9; }
-  55%  { left: 130%; opacity: 0.9; }
-  70%  { left: 130%; opacity: 0; }
-  100% { left: 130%; opacity: 0; }
+@keyframes cn-shimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 250% 50%; }
 }
 
 .sign-poem.english {
@@ -742,7 +712,7 @@ body::after {
 
 @keyframes poem-silver-shimmer {
   0%   { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
+  100% { background-position: 250% 50%; }
 }
 
 .seg {
@@ -807,6 +777,7 @@ body::after {
   padding: 0 6px;  /* 两侧留白防止截断 */
 }
 
+/* 中文主题词 — 深紫渐变 + shimmer 扫光（与签诗统一）*/
 .sign-cn {
   margin: 14px 0 0;
   font-size: 34px;
@@ -816,18 +787,22 @@ body::after {
   font-family: var(--font-cn);
   font-style: italic;
   opacity: 0;
-  animation: fadeUp 0.5s 0.55s forwards;
   overflow-wrap: break-word;
   word-break: keep-all;
   position: relative;
   overflow: visible;
-  padding: 0 16px;
-  /* 中文主题词 — 始终偏深紫色 */
-  color: #6C52A8;
-  background: none;
-  -webkit-text-fill-color: initial;
-  background-clip: border-box;
-  -webkit-background-clip: border-box;
+  padding: 4px 16px 8px;  /* 底部多留白防截断 */
+  background: linear-gradient(135deg,
+    #6C52A8 0%,
+    #5C42A6 30%,
+    #7A5FC0 50%,
+    #5C42A6 70%,
+    #6C52A8 100%);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeUp 0.5s 0.55s forwards, cn-shimmer 6s linear 0.55s infinite;
   filter:
     drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
     drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
@@ -838,6 +813,7 @@ body::after {
   transform: skewX(-8deg);
 }
 
+/* 中文直译 — 深紫渐变 + shimmer 扫光 */
 .sign-literal {
   margin: 10px 0 0;
   font-size: 34px;
@@ -853,13 +829,18 @@ body::after {
   word-break: keep-all;
   position: relative;
   overflow: visible;
-  padding: 0 16px;  /* 两侧留白 */
-  /* 中文直译 — 偏深紫色 */
-  color: #6C52A8;
-  background: none;
-  -webkit-text-fill-color: initial;
-  background-clip: border-box;
-  -webkit-background-clip: border-box;
+  padding: 4px 16px 8px;  /* 底部留白防截断 */
+  background: linear-gradient(135deg,
+    #6C52A8 0%,
+    #5C42A6 30%,
+    #7A5FC0 50%,
+    #5C42A6 70%,
+    #6C52A8 100%);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeUp 0.5s 0.58s forwards, cn-shimmer 6s linear 0.58s infinite;
   filter:
     drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
     drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
@@ -875,28 +856,26 @@ body::after {
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
   font-style: italic;
   opacity: 0;
-  animation: fadeUp 0.5s 0.55s forwards;
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
-  /* 英文翻译 — 柔和淡紫色 + shimmer */
-  background: linear-gradient(180deg,
+  /* 非中文主题词 — 银白渐变 + shimmer（与签诗一致）*/
+  background: linear-gradient(135deg,
     #FFFFFF 0%,
-    #E8DEF5 20%,
-    #D4C5ED 40%,
-    #C8B8E0 55%,
-    #D4C5ED 70%,
-    #E8DEF5 85%,
+    #E8DEF5 25%,
+    #D4C5ED 50%,
+    #E8DEF5 75%,
     #FFFFFF 100%);
-  background-size: 200% 200%;
+  background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 4.5s linear 0.55s infinite;
+  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
   filter:
     drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
     drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
     drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
+  padding: 4px 8px 6px;
 }
 
 .sign-tip {
@@ -912,6 +891,7 @@ body::after {
   animation: fadeUp 0.5s 0.6s forwards;
 }
 
+/* 出处 — 紧凑两行，无额外空行 */
 .sign-source {
   margin: 8px 0 0;
   font-size: 11px;
@@ -927,10 +907,11 @@ body::after {
   overflow-wrap: break-word;
   word-break: keep-all;
   padding: 0 8px;
-  line-height: 1.7;
+  line-height: 1.35;  /* 压紧行高，消除两行间空行 */
 }
 .sign-source .source-line {
   display: block;
+  line-height: 1.35;  /* 与父级一致 */
 }
 
 /* 卡片外部提示：轻点卡片返回首页（在卡片下方，不在卡片内） */
@@ -1124,7 +1105,7 @@ body::after {
   .title-sub { font-size: 22px; margin-top: 10px; }
   .header { min-height: 100px; padding: 6px 0 2px; margin-bottom: 2px; }
   .app { padding: 6px 16px 12px; }
-  .sign-card-outer { max-width: min(92vw, 320px); height: min(72vh, 520px); }
+  .sign-card-outer { max-width: min(92vw, 320px); height: min(76vh, 560px); }  /* 加高 */
   .sign-face.back { padding: 20px 16px 18px; }
   .stage { margin-top: -4px; }
 }
@@ -1136,7 +1117,7 @@ body::after {
   .title-sub { font-size: 20px; margin-top: 8px; letter-spacing: 3px; }
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
-  .sign-card-outer { max-width: min(94vw, 310px); height: min(76vh, 510px); }
+  .sign-card-outer { max-width: min(94vw, 310px); height: min(80vh, 550px); }  /* 加高 */
   .sign-face.back { padding: 18px 14px 16px; }
   .sign-poem { font-size: 24px; }
   .sign-poem.english { font-size: 24px; }
@@ -1152,7 +1133,7 @@ body::after {
 
 @media (min-width: 600px) {
   .title { font-size: 46px; }
-  .sign-card-outer { max-width: 320px; height: 540px; }
+  .sign-card-outer { max-width: 320px; height: 580px; }  /* 加高 */
 }
 </style>
 </head>
@@ -1232,7 +1213,7 @@ const FORTUNES = [
   { cat: 'study', grade: '中上签', num: 93,
     poem: 'Übung macht den Meister.',
     literal: '练习造就大师',
-    meaning: '多练几遍，慢慢就熟成了行家。每次都瞄着短板练，不是简单重复。',
+    meaning: '多练几遍，慢慢就熟成了行家。每次都瞄着短板练，练在痛处才长进。',
     source: '德国·谚语||' },
   { cat: 'study', grade: '上上签', num: 105,
     poem: 'Growth Mindset', cn: '成长型思维',
@@ -1302,7 +1283,7 @@ const FORTUNES = [
     source: '古希腊·哲学||德尔斐箴言' },
   { cat: 'confidence', grade: '上上签', num: 109,
     poem: 'Self-Efficacy', cn: '自我效能感',
-    meaning: '你越笃信能办到，就越容易实现。今天就先夸自己一句。遇困难想的是「怎么解」，不是「完蛋了」。',
+    meaning: '你越笃信能办到，就越容易实现。今天就先夸自己一句。遇困难先想「怎么解」，路就宽了。',
     source: '美国·社会认知理论||阿尔伯特·班杜拉（Albert Bandura）' },
   { cat: 'confidence', grade: '大吉签', num: 110,
     poem: 'Pygmalion Effect', cn: '皮格马利翁效应',
@@ -1364,7 +1345,7 @@ const FORTUNES = [
   { cat: 'relationship', grade: '上签', num: 99,
     poem: 'It takes a village to raise a child.',
     literal: '养育一个孩子，得全村之力帮忙',
-    meaning: '社会支持网络越密，心理承受力越强。找人分担不是软弱，是人类进化出的生存策略。',
+    meaning: '社会支持网络越密，心理承受力越强。找人分担是人类的生存策略，互相帮衬活得久。',
     source: '非洲·谚语||' },
   { cat: 'relationship', grade: '上上签', num: 113,
     poem: 'Active Listening', cn: '积极倾听',
@@ -1418,11 +1399,11 @@ const FORTUNES = [
   { cat: 'selfcare', grade: '上上签', num: 201,
     poem: '大器晚成',
     cn: 'Great things ripen late',
-    meaning: '姜子牙72岁才在渭水边遇到周文王，此后辅佐周朝一统天下。起点晚一点，不影响走很远。很多能力的成熟本就需要更长的时间窗。',
+    meaning: '姜子牙72岁渭水边遇周文王，此后辅佐周朝一统天下。起点晚一点，不影响走很远。能力成熟需要更长时间窗。',
     source: '中国·历史||姜子牙（商周）' },
   { cat: 'selfcare', grade: '大吉签', num: 202,
     poem: 'Never Too Late', cn: '永远不晚',
-    meaning: '黄公望50岁才开始正经学艺，70岁完成《富春山居图》。最好的作品，常常写在人生后半场。越老越深厚。',
+    meaning: '黄公望50岁才开始正经学艺，70岁完成《富春山居图》。最好的作品，常写在人生后半场。积淀越久，笔墨越沉。',
     source: '中国·艺术||黄公望（元）' },
   { cat: 'selfcare', grade: '上上签', num: 203,
     poem: 'Grandma Moses', cn: '摩西奶奶',
@@ -1430,15 +1411,15 @@ const FORTUNES = [
     source: '美国·艺术||安娜·摩西（Anna Moses）' },
   { cat: 'selfcare', grade: '上签', num: 204,
     poem: 'Colonel Sanders', cn: '肯德基上校',
-    meaning: '他65岁那年用退休金创业做炸鸡，72岁分店开遍全球。晚来的成功，反而更扎稳。越老越靠谱。',
+    meaning: '他65岁那年用退休金创业做炸鸡，72岁分店开遍全球。晚来的成功，反而更扎稳。经验熬到火候，一出手就稳。',
     source: '美国·商业||哈兰德·山德士（Harland Sanders）' },
   { cat: 'selfcare', grade: '上上签', num: 205,
     poem: 'Harry Potter', cn: 'J.K.罗琳',
-    meaning: '她32岁出版《哈利·波特》，此前被十二家出版社拒稿。低谷不是终点，是转角。复原力是每次跌倒后爬起来的次数堆出来的。',
+    meaning: '她32岁出版《哈利·波特》，此前被十二家出版社拒稿。低谷也可以是转角。复原力是每次跌倒后爬起来的次数堆出来的。',
     source: '英国·文学||J.K.罗琳（J.K. Rowling）' },
   { cat: 'selfcare', grade: '中上签', num: 206,
     poem: '晋文公重耳',
-    meaning: '重耳流亡19年，60多岁才回国即位，成为春秋霸主。晚到的季候，一样繁花盛开。把苦难当训练场，不是刑场。',
+    meaning: '重耳流亡19年，60多岁回国即位，终成春秋霸主。晚到的季候，一样繁花盛开。苦难当训练场，扛过去就更强。',
     source: '中国·历史||晋文公（春秋）' },
 
   // ── 行业心语 · 360行 ──
@@ -1488,13 +1469,13 @@ const FORTUNES = [
     source: '钟表·行业||行话' },
   { cat: 'career', grade: '上签', num: 312,
     poem: '水温刚好', cn: 'The water temperature is just right',
-    meaning: '茶人讲究水温：低一分不出香，高一分发苦。对人对事，温度对了，一切都对了。太冷生分，太热灼人，恰到好处最持久。',
+    meaning: '茶人讲究水温：低一分不出香，高一分发苦。对人对事，温度对了，一切都对了。恰到好处最持久。',
     source: '茶艺·行业||行话' },
 
   // ── 情绪疗愈 · 伤心也可以 ──
   { cat: 'selfcare', grade: '解忧签', num: 401,
     poem: 'Crying is Healing', cn: '哭一场，也是在疗愈',
-    meaning: '眼泪会带走压力激素，哭泣不是软弱，是身体在帮你排毒。哭完了，人就轻了。',
+    meaning: '眼泪会带走压力激素，哭泣是身体在帮你排毒。哭完了，人就轻了。',
     source: '美国·进化心理学||威廉·弗雷（William Frey）' },
   { cat: 'selfcare', grade: '解忧签', num: 402,
     poem: 'Vulnerability is Strength', cn: '脆弱，也是一种力量',
@@ -1502,7 +1483,7 @@ const FORTUNES = [
     source: '美国·社会心理学||布琳·布朗（Brené Brown）' },
   { cat: 'selfcare', grade: '解忧签', num: 403,
     poem: 'Grief is Love', cn: '悲伤，是爱过的痕迹',
-    meaning: '悲伤不是病，是你曾经认真爱过的证据。别急着赶它走，它在提醒你珍惜什么。跳过它，伤口会留更久。',
+    meaning: '悲伤是你曾经认真爱过的证据。别急着赶它走，它在提醒你珍惜什么。跳过它，伤口会留更久。',
     source: '美国·悲痛研究||大卫·凯斯勒（David Kessler）' },
   { cat: 'selfcare', grade: '解忧签', num: 404,
     poem: 'Storm Before Calm', cn: '风暴之后是平静',
@@ -1522,7 +1503,7 @@ const FORTUNES = [
     source: '美国·社交支持理论||谢尔登·科恩（Sheldon Cohen）' },
   { cat: 'selfcare', grade: '解忧签', num: 408,
     poem: 'Permission to Feel', cn: '允许难过',
-    meaning: '没有坏情绪，只有被压抑的情绪。伤心就来，走的时候，它会带走你不想要的东西。压制它身体替你记着账。',
+    meaning: '情绪没有好坏，被压抑的才会伤人。伤心就来，走的时候，它会带走你不想要的东西。压制它身体替你记着账。',
     source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
 
 ];
@@ -1970,6 +1951,13 @@ async function downloadSign() {
               n.style.color = '#D0CCE0';
               n.style.filter = 'drop-shadow(0 0 4px rgba(140, 120, 190, 0.85)) drop-shadow(0 0 10px rgba(120, 100, 180, 0.5))';
               n.style.textShadow = '0 0 10px rgba(140, 120, 190, 0.8), 0 1px 2px rgba(60, 40, 120, 0.35)';
+            });
+            // 中文签诗 .sign-poem-cn → 覆盖为深紫实色（颜色分级）
+            el.querySelectorAll('.sign-poem.sign-poem-cn').forEach(n => {
+              n.style.webkitTextFillColor = '#6C52A8';
+              n.style.color = '#6C52A8';
+              n.style.filter = 'drop-shadow(0 0 5px rgba(155, 130, 222, 0.55))';
+              n.style.textShadow = 'none';
             });
             // 释义、出处也改为浅色，与签诗协调
             el.querySelectorAll('.sign-meaning').forEach(n => {
