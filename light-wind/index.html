@@ -196,12 +196,13 @@ body::after {
   position: relative;
   text-align: center;
   margin: 0 0 4px;
-  padding: 20px 0 6px;
-  min-height: 120px;
+  padding: 4px 0 6px;
+  min-height: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
 .title-halo {
@@ -232,11 +233,12 @@ body::after {
   font-family: 'Great Vibes', 'Allura', 'Pacifico', cursive;
   font-size: 52px;
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1.5;
   margin: 0;
-  padding: 0 20px 0 12px;
+  padding: 22px 20px 22px 12px;
   letter-spacing: 0;
   white-space: nowrap;
+  overflow: visible;
   background: linear-gradient(135deg,
     #FFFFFF 0%,
     #E8DEF5 25%,
@@ -448,8 +450,21 @@ body::after {
 .mood-chip:nth-child(4) { animation-delay: .2s; }
 .mood-chip:nth-child(5) { animation-delay: .8s; }
 .mood-chip:nth-child(6) { animation-delay: .35s; }
-.mood-chip:hover { transform: translateY(-3px) scale(1.06); }
-.mood-chip:active { transform: scale(.94); }
+.mood-chip:hover {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow:
+    0 6px 20px rgba(122, 95, 192, 0.25),
+    0 0 20px rgba(255, 255, 255, 0.5) inset,
+    0 0 16px rgba(184, 164, 220, 0.45),
+    0 0 30px rgba(155, 126, 222, 0.3);
+}
+.mood-chip:active {
+  transform: scale(.94);
+  box-shadow:
+    0 4px 12px rgba(122, 95, 192, 0.2),
+    0 0 10px rgba(255, 255, 255, 0.5) inset,
+    0 0 8px rgba(184, 164, 220, 0.3);
+}
 
 /* ====================================================
    CATEGORY CHIPS — 已移除（用户要求去掉分类按钮，卡片上移）
@@ -562,17 +577,18 @@ body::after {
   margin: 24px 0 0;
   font-size: 16px;
   font-weight: 800;
+  font-style: italic;
   letter-spacing: 2px;
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
   white-space: nowrap;
   background: linear-gradient(135deg,
-    #FFFFFF 0%,
-    #E8DEF5 25%,
-    #D4C5ED 50%,
-    #E8DEF5 75%,
-    #FFFFFF 100%);
+    #B8A4DC 0%,
+    #9B82D4 25%,
+    #7A5FC0 50%,
+    #9B82D4 75%,
+    #B8A4DC 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -844,7 +860,7 @@ body::after {
 
 /* 中文主题词 — 深紫渐变 + shimmer 扫光（与签诗统一）*/
 .sign-cn {
-  margin: 14px 0 0;
+  margin: 14px auto 0;
   font-size: clamp(18px, 6vw, 24px);
   text-align: center;
   letter-spacing: 0.5px;
@@ -859,6 +875,8 @@ body::after {
   padding: 4px 20px 8px;
   max-width: 100%;
   box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
   background: linear-gradient(135deg,
     #6C52A8 0%,
     #5C42A6 30%,
@@ -930,13 +948,13 @@ body::after {
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
-  /* 非中文主题词 — 银白渐变 + shimmer（与签诗一致）*/
+  /* 非中文主题词 — 淡紫渐变 + shimmer */
   background: linear-gradient(135deg,
-    #FFFFFF 0%,
-    #E8DEF5 25%,
-    #D4C5ED 50%,
-    #E8DEF5 75%,
-    #FFFFFF 100%);
+    #D4C5ED 0%,
+    #C4B0E8 25%,
+    #B8A4DC 50%,
+    #C4B0E8 75%,
+    #D4C5ED 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -990,7 +1008,7 @@ body::after {
 /* 卡片外部提示：轻点卡片返回首页（在卡片下方，不在卡片内）
    放大字号 + 与 slogan 相同的三重动效（float + shimmer + breathe） */
 .sign-back-hint {
-  margin: 18px 0 0;
+  margin: 32px 0 0;
   font-size: 17px;
   color: var(--text-soft);
   text-align: center;
@@ -998,18 +1016,21 @@ body::after {
   opacity: 0;
   font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   font-weight: 700;
+  font-style: italic;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(155, 126, 222, 0.5);
   transition: opacity 0.5s;
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
   white-space: nowrap;
-  /* 与 slogan 一致的银白渐变 + shimmer + breathe 动效 */
   background: linear-gradient(135deg,
-    #FFFFFF 0%,
-    #E8DEF5 25%,
-    #D4C5ED 50%,
-    #E8DEF5 75%,
-    #FFFFFF 100%);
+    #B8A4DC 0%,
+    #9B82D4 25%,
+    #7A5FC0 50%,
+    #9B82D4 75%,
+    #B8A4DC 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1024,6 +1045,9 @@ body::after {
              hint-float 4.5s ease-in-out infinite,
              hint-shimmer 6s linear infinite,
              hint-breathe 4.5s ease-in-out infinite;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(155, 126, 222, 0.5);
 }
 
 @keyframes hint-float {
@@ -1674,7 +1698,7 @@ if (ch === ' ') {
     // 软断点：逗号/顿号/冒号 → 只有当前段已接近行宽上限才断开，
     // 否则保留在段内，避免「停一停，」「路反而顺。」被拆成孤立段
     if (/[，、：,]/.test(ch)) {
-      if (cur.length >= Math.max(4, maxCn * 0.8)) { flush(); }
+      flush();
       continue;
     }
     if (ch === '.') {
@@ -1770,11 +1794,7 @@ function bindResultEvents() {
   if (saveBtn) saveBtn.onclick = downloadSign;
   if (againBtn) againBtn.onclick = (e) => {
     e.stopPropagation();
-    // 先翻回正面（触发翻面动画），再在翻回途中重新抽签翻面
-    const card = document.getElementById('card');
-    card.classList.remove('flipped');
-    // 短暂延迟后重新翻面，确保有翻转动画效果
-    setTimeout(() => drawSign(), 350);
+    resetCard();
   };
   // 点击签文空白处 → 返回首页（绑在 back 面上，事件更可靠）
   const back = document.getElementById('face-back');
@@ -1873,6 +1893,7 @@ async function downloadSign() {
             el.style.transform = 'none';
             el.style.transformStyle = 'flat';
             el.style.backfaceVisibility = 'visible';
+            el.style.borderRadius = '0';
             el.style.boxShadow = '0 8px 32px rgba(122, 95, 192, 0.18), 0 0 60px rgba(155, 126, 222, 0.25)';
             // 隐藏交互按钮：截图保存的图片只展示签条内容，不包含 UI 控制
             const actions = el.querySelector('.actions');
@@ -1923,10 +1944,10 @@ async function downloadSign() {
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#D0CCE0';
-              n.style.color = '#D0CCE0';
-              n.style.filter = 'drop-shadow(0 0 4px rgba(140, 120, 190, 0.85)) drop-shadow(0 0 10px rgba(120, 100, 180, 0.5))';
-              n.style.textShadow = '0 0 10px rgba(140, 120, 190, 0.8), 0 1px 2px rgba(60, 40, 120, 0.35)';
+              n.style.webkitTextFillColor = '#B8A4DC';
+              n.style.color = '#B8A4DC';
+              n.style.filter = 'drop-shadow(0 0 4px rgba(155, 126, 222, 0.65)) drop-shadow(0 0 10px rgba(140, 110, 200, 0.4))';
+              n.style.textShadow = '0 0 10px rgba(155, 126, 222, 0.6), 0 1px 2px rgba(60, 40, 120, 0.25)';
             });
             el.querySelectorAll('.sign-literal').forEach(n => {
               // 中文直译 → 实色深紫
