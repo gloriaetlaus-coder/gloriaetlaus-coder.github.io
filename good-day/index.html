@@ -27,7 +27,7 @@
 <title>今朝·Good day</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&family=Playfair+Display:ital@1&family=Noto+Serif+SC:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 :root {
   --primary: #7A5FC0;
@@ -50,9 +50,9 @@
   --radius-lg: 28px;
   --radius-md: 18px;
   --radius-sm: 12px;
-  --font-cn: "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Songti SC", "STSong", "SimSun", "宋体", serif;
-  /* 手机端中文回退：iOS/Android 优先宋体（与电脑一致），避免楷体发虚 */
-  --font-cn-mobile: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", "宋体", serif;
+  --font-cn: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Songti SC", "STSong", "SimSun", "宋体", serif;
+  /* 手机端中文：Google Fonts Noto Serif SC 优先（与PC端一致），系统宋体回退 */
+  --font-cn-mobile: "Noto Serif SC", "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", "宋体", serif;
 }
 
 * {
@@ -197,7 +197,7 @@ body::after {
 .header {
   position: relative;
   text-align: center;
-  margin: 0 0 4px;
+  margin: 0 0 0;  /* header底部不留白，由stage margin-top控制slogan到卡片间距 */
   padding: 14px 0 4px;
   min-height: 82px;
   display: flex;
@@ -261,9 +261,9 @@ body::after {
 .title-sub {
   position: relative;
   z-index: 2;
-  margin: 9px 0 0;   /* 中文slogan下移0.5cm（约19px） */
+  margin: 30px 0 0;   /* 中文slogan下移：与英文间距≈0.8cm(30px)，与卡片间距≈0.8cm(header margin-bottom=30px) */
   font-family: var(--font-cn);
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 800;
   letter-spacing: 4px;
   white-space: nowrap;
@@ -504,7 +504,7 @@ body::after {
    SIGN STAGE — 竖着的长方形签条
    ==================================================== */
 .stage {
-  margin-top: 32px;  /* 卡片整体下移 1cm（原 -6px + 38px） */
+  margin-top: 25px;  /* 卡片整体下移，与slogan间距保持平衡（slogan到卡片≈30px） */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -879,11 +879,10 @@ body::after {
   word-break: keep-all;
   position: relative;
   overflow: visible;
-  padding: 4px 20px 8px;
+  padding: 4px 6px 8px;
   max-width: 100%;
   box-sizing: border-box;
   width: fit-content;
-  max-width: 100%;
   background: linear-gradient(135deg,
     #6C52A8 0%,
     #5C42A6 30%,
@@ -1094,12 +1093,16 @@ body::after {
 }
 
 .btn-ghost {
-  padding: 11px 6px;
+  padding: 7px 24px;
   background: linear-gradient(135deg, #F5EEFC 0%, #EDE1F9 100%);   /* 浅紫 — 复制 */
   color: #6C52A8;
   border: none;
   border-radius: 100px;
   font-size: 13px;
+  min-width: 120px;
+  flex: 1;
+  max-width: 140px;
+  text-align: center;
   font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   cursor: pointer;
   transition: all 0.2s;
@@ -1248,12 +1251,12 @@ body::after {
 @media (max-width: 600px) {
   :root { --font-cn: var(--font-cn-mobile); }
   .title { font-size: 42px; }
-  .title-sub { font-size: 28px; margin-top: 85px; }  /* 手机端：字号放大 + 下移到红线位置 */
+  .title-sub { font-size: 28px; margin-top: 30px; }  /* 手机端：slogan间距改为0.8cm(30px) */
   .header { min-height: 58px; padding: 12px 0 2px; margin-bottom: 2px; }
   .app { padding: 10px 16px 10px; }
   .sign-card-outer { max-width: min(92vw, 340px); height: min(78vh, 640px); }
   .sign-cn { font-size: clamp(22px, 7vw, 28px); }  /* 手机端中文主题词放大 */
-  .stage { margin-top: 32px; }  /* 手机断点：同样下移 1cm */
+  .stage { margin-top: 25px; }  /* 手机断点：与slogan间距保持平衡 */
 }
 
 @media (max-width: 360px) {
@@ -1261,11 +1264,11 @@ body::after {
   .app { padding: 10px 14px 8px; }
   .header { min-height: 46px; padding: 10px 0 0; margin-bottom: 2px; }
   .title { font-size: 36px; }
-  .title-sub { font-size: 26px; margin-top: 85px; letter-spacing: 3px; }  /* 360px 断点：放大+下移到红线 */
+  .title-sub { font-size: 26px; margin-top: 30px; letter-spacing: 3px; }  /* 360px 断点：slogan间距0.8cm */
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
   .sign-card-outer { max-width: min(94vw, 320px); height: min(80vh, 620px); }
-  .stage { margin-top: 32px; }  /* 360px 断点：卡片下移 1cm */
+  .stage { margin-top: 25px; }  /* 360px 断点：与slogan间距保持平衡 */
   .sign-face.back { padding: 18px 14px 16px; }
   .sign-poem.english { font-size: 24px; }
   .sign-source { font-size: 10px; padding: 0 6px; }
