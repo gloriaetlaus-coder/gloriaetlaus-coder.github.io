@@ -180,7 +180,7 @@ body::after {
   position: relative;
   max-width: 480px;
   margin: 0 auto;
-  padding: 18px 22px 8px;
+  padding: 8px 22px 8px;
   z-index: 1;
   /* 垂直铺满视口：内容整体垂直居中，消除底部悬空 */
   min-height: 100dvh;
@@ -196,7 +196,7 @@ body::after {
   position: relative;
   text-align: center;
   margin: 0 0 4px;
-  padding: 10px 0 6px;
+  padding: 4px 0 6px;
   min-height: 120px;
   display: flex;
   flex-direction: column;
@@ -235,16 +235,16 @@ body::after {
   font-weight: 700;
   line-height: 1.5;
   margin: 0;
-  padding: 28px 20px 22px 12px;
+  padding: 22px 20px 22px 12px;
   letter-spacing: 0;
   white-space: nowrap;
   overflow: visible;
   background: linear-gradient(135deg,
-    #D4C5ED 0%,
-    #B8A4DC 25%,
-    #9B82D4 50%,
-    #B8A4DC 75%,
-    #D4C5ED 100%);
+    #FFFFFF 0%,
+    #E8DEF5 25%,
+    #D4C5ED 50%,
+    #E8DEF5 75%,
+    #FFFFFF 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -268,11 +268,11 @@ body::after {
   font-style: italic;
   display: inline-block;
   background: linear-gradient(135deg,
-    #D4C5ED 0%,
-    #B8A4DC 25%,
-    #9B82D4 50%,
-    #B8A4DC 75%,
-    #D4C5ED 100%);
+    #FFFFFF 0%,
+    #F4EEFC 25%,
+    #E4DAF2 50%,
+    #F4EEFC 75%,
+    #FFFFFF 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -289,13 +289,13 @@ body::after {
 
 @keyframes title-float {
   0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-4px); }
+  50%      { transform: translateY(-9px); }
 }
 
 /* 中文专用浮动：保留 skewX 斜体 + translateY 漂浮（合并到一个 transform 中避免覆盖） */
 @keyframes title-sub-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-4px); }
+  0%, 100% { transform: skewX(-8deg) translateY(0); }
+  50%      { transform: skewX(-8deg) translateY(-7px); }
 }
 
 @keyframes title-shimmer {
@@ -1246,16 +1246,16 @@ body::after {
   :root { --font-cn: var(--font-cn-mobile); }
   .title { font-size: 42px; }
   .title-sub { font-size: 22px; margin-top: 10px; }
-  .header { min-height: 96px; padding: 8px 0 2px; margin-bottom: 2px; }
-  .app { padding: 14px 16px 10px; }
+  .header { min-height: 96px; padding: 4px 0 2px; margin-bottom: 2px; }
+  .app { padding: 6px 16px 10px; }
   .sign-card-outer { max-width: min(92vw, 340px); height: min(78vh, 640px); }
   .sign-face.back { padding: 20px 18px 18px; }
   .stage { margin-top: -4px; }
 }
 
 @media (max-width: 360px) {
-  .app { padding: 14px 14px 8px; }
-  .header { min-height: 84px; padding: 6px 0 0; margin-bottom: 2px; }
+  .app { padding: 6px 14px 8px; }
+  .header { min-height: 84px; padding: 2px 0 0; margin-bottom: 2px; }
   .title { font-size: 36px; }
   .title-sub { font-size: 20px; margin-top: 8px; letter-spacing: 3px; }
   .title-halo { width: 260px; height: 120px; }
@@ -1923,6 +1923,15 @@ async function downloadSign() {
               n.style.filter = 'drop-shadow(0 0 4px rgba(140, 120, 190, 0.85)) drop-shadow(0 0 10px rgba(120, 100, 180, 0.5))';
               n.style.textShadow = '0 0 10px rgba(140, 120, 190, 0.8), 0 1px 2px rgba(60, 40, 120, 0.35)';
             });
+            el.querySelectorAll('.sign-poem.english').forEach(n => {
+              n.style.backgroundImage = 'none';
+              n.style.backgroundClip = 'border-box';
+              n.style.webkitBackgroundClip = 'border-box';
+              n.style.webkitTextFillColor = '#9B82D4';
+              n.style.color = '#9B82D4';
+              n.style.filter = 'drop-shadow(0 0 4px rgba(140, 120, 190, 0.85)) drop-shadow(0 0 10px rgba(120, 100, 180, 0.5))';
+              n.style.textShadow = '0 0 10px rgba(140, 120, 190, 0.8), 0 1px 2px rgba(60, 40, 120, 0.35)';
+            });
             // 中文签诗 .sign-poem-cn → 覆盖为深紫实色（颜色分级）
             el.querySelectorAll('.sign-poem.sign-poem-cn').forEach(n => {
               n.style.webkitTextFillColor = '#6C52A8';
@@ -1938,8 +1947,8 @@ async function downloadSign() {
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#C4A8E0';
-              n.style.color = '#C4A8E0';
+              n.style.webkitTextFillColor = '#9B82D4';
+              n.style.color = '#9B82D4';
               n.style.filter = 'drop-shadow(0 0 6px rgba(180, 150, 230, 0.7))';
               n.style.textShadow = '0 0 8px rgba(180, 150, 230, 0.5)';
             });
@@ -1947,8 +1956,8 @@ async function downloadSign() {
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#C4A8E0';
-              n.style.color = '#C4A8E0';
+              n.style.webkitTextFillColor = '#9B82D4';
+              n.style.color = '#9B82D4';
               n.style.filter = 'drop-shadow(0 0 6px rgba(180, 150, 230, 0.7))';
               n.style.textShadow = '0 0 8px rgba(180, 150, 230, 0.5)';
             });
@@ -1988,46 +1997,62 @@ async function downloadSign() {
       node.style.backfaceVisibility = prevBackface;
     }
 
-    // 真实下载路径：优先用 toBlob（更兼容），失败再用 toDataURL
-    const link = document.createElement('a');
-    link.download = `JinZhao-MyDay-${new Date().toISOString().slice(0, 10)}.png`;
-    document.body.appendChild(link);
+    // 跨平台下载：iOS Safari 不支持 <a download=download>，
+    // 用 data URL 直接打开新页面展示图片让用户长按保存
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     let downloadOK = false;
-    try {
-      const blob = await new Promise((resolve, reject) => {
-        canvas.toBlob(resolve, 'image/png', 0.95);
-      });
-      if (blob) {
-        link.href = URL.createObjectURL(blob);
-        link.click();
-        downloadOK = true;
-        setTimeout(() => URL.revokeObjectURL(link.href), 5000);
-      }
-    } catch (e) {
-      console.warn('toBlob failed, trying toDataURL', e);
-    }
-    if (!downloadOK) {
+
+    if (!isIOS) {
+      // 桌面端：用 toBlob + a.download
+      const link = document.createElement('a');
+      link.download = `JinZhao-MyDay-${new Date().toISOString().slice(0, 10)}.png`;
+      document.body.appendChild(link);
       try {
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-        downloadOK = true;
-      } catch (e2) {
-        console.error('toDataURL also failed', e2);
+        const blob = await new Promise((resolve, reject) => {
+          canvas.toBlob(resolve, 'image/png', 0.95);
+        });
+        if (blob) {
+          link.href = URL.createObjectURL(blob);
+          link.click();
+          downloadOK = true;
+          setTimeout(() => URL.revokeObjectURL(link.href), 5000);
+        }
+      } catch (e) {
+        console.warn('toBlob failed', e);
       }
+      if (!downloadOK) {
+        try {
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          downloadOK = true;
+        } catch (e2) {
+          console.error('toDataURL also failed', e2);
+        }
+      }
+      document.body.removeChild(link);
     }
-    document.body.removeChild(link);
+
     if (!downloadOK) {
-      // 最后兜底：在新窗口打开图片，用户可长按保存
+      // iOS 或桌面端 fallback：在新页面中显示图片，用户长按保存
       try {
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
         const w = window.open('', '_blank');
         if (w) {
-          w.document.write(`<img src="${dataUrl}" style="width:100%;max-width:400px;display:block;margin:0 auto;">`);
-          w.document.title = '长按图片保存到相册';
-          showToast('长按新打开的图片保存到相册');
+          w.document.write(
+            '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+            '<title>长按图片保存到相册</title>' +
+            '<body style="margin:0;padding:0;background:#FAF7FF;display:flex;align-items:center;justify-content:center;min-height:100vh;">' +
+            '<img src="' + dataUrl + '" style="width:100%;max-width:420px;display:block;" alt="长按保存">' +
+            '</body>'
+          );
+          w.document.close();
+          showToast('长按图片保存到相册');
           return;
         }
-      } catch (e3) {}
+      } catch (e3) {
+        console.error('new window fallback failed', e3);
+      }
       showToast('保存失败，请截屏保存');
     } else {
       showToast('图片已保存，去发小红书');
