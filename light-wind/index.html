@@ -259,7 +259,7 @@ body::after {
 .title-sub {
   position: relative;
   z-index: 2;
-  margin: 14px 0 0;
+  margin: 7px 0 0;
   font-family: var(--font-cn);
   font-size: 26px;
   font-weight: 800;
@@ -802,6 +802,10 @@ body::after {
   vertical-align: top;
 }
 
+.sign-meaning .seg {
+  display: block;
+}
+
 .sign-poem.english .seg {
   white-space: normal;
   overflow-wrap: break-word;
@@ -895,9 +899,9 @@ body::after {
 
 .skew-wrap {
   display: inline-block;
-  transform: skewX(-8deg);
-  max-width: 100%;  /* 防止撑爆父容器 */
-  margin: 0 12px;   /* 补偿斜体溢出，防止被 overflow:hidden 裁切 */
+  transform: skewX(-8deg) translateX(2px);
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 /* 中文直译 — 深紫渐变 + shimmer 扫光 */
@@ -1318,7 +1322,7 @@ body::after {
       </div>
       <div class="sign-face back" id="face-back"></div>
     </div>
-    <p class="sign-back-hint" id="back-hint">轻点卡片返回首页</p>
+     <p class="sign-back-hint" id="back-hint" style="display:none;">轻点卡片返回首页</p>
   </div>
 </div>
 
@@ -1581,7 +1585,7 @@ function renderSign(sign) {
   // cn：若 poem 是中文，cn 是英文翻译 → 英文小号样式；若 poem 是英文，cn 是中文主题 → 银色大样式
   const cnIsAscii = sign.cn && /[\x00-\x7F]/.test(sign.cn);
   const cnLine = sign.cn
-    ? `<p class="${cnIsAscii ? 'sign-cn-en' : 'sign-cn'}">${cnIsAscii ? escapeHtml(sign.cn) : `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.cn), 5))}</span>`}</p>`
+    ? `<p class="${cnIsAscii ? 'sign-cn-en' : 'sign-cn'}">${cnIsAscii ? escapeHtml(sign.cn) : `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.cn), 20))}</span>`}</p>`
     : '';
   const literalLine = sign.literal
     ? `<p class="sign-literal"><span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.literal), 5))}</span></p>`
@@ -1617,7 +1621,7 @@ function renderSign(sign) {
     <div class="actions">
       <button class="btn-ghost" id="copy-btn">📋 复制</button>
       <button class="btn-ghost mid" id="save-btn">🖼️ 保存</button>
-      <button class="btn-ghost solid" id="again-btn">🔁 重选</button>
+      <button class="btn-ghost solid" id="again-btn">🏠 首页</button>
     </div>
   `;
 }
@@ -1931,12 +1935,12 @@ async function downloadSign() {
               n.style.color = '#A892CE';
             });
             el.querySelectorAll('.sign-cn').forEach(n => {
-              // 中文主题词（偏深紫）→ 截图实色深紫
+              // 中文主题词 → 截图实色明亮淡紫（与释义协调）
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#6C52A8';
-              n.style.color = '#6C52A8';
+              n.style.webkitTextFillColor = '#B8A4DC';
+              n.style.color = '#B8A4DC';
               n.style.filter = 'drop-shadow(0 0 4px rgba(155, 130, 222, 0.55))';
               n.style.textShadow = 'none';
             });
@@ -1985,15 +1989,35 @@ async function downloadSign() {
       node.style.backfaceVisibility = prevBackface;
     }
 
-    // 真实下载路径：先把图片转成 data URL，再创建 <a> 标签触发下载
-    const dataUrl = canvas.toDataURL('image/png');
+    // 真实下载路径：优先用 toBlob（更兼容），失败再用 toDataURL
     const link = document.createElement('a');
-    link.download = `LightWind-${new Date().toISOString().slice(0, 10)}.png`;
-    link.href = dataUrl;
+    link.download = `JinZhao-MyDay-${new Date().toISOString().slice(0, 10)}.png`;
     document.body.appendChild(link);
-    link.click();
+    let downloadOK = false;
+    try {
+      const blob = await new Promise((resolve, reject) => {
+        canvas.toBlob(resolve, 'image/png', 0.95);
+      });
+      if (blob) {
+        link.href = URL.createObjectURL(blob);
+        link.click();
+        downloadOK = true;
+        setTimeout(() => URL.revokeObjectURL(link.href), 3000);
+      }
+    } catch (e) {
+      console.warn('toBlob failed, trying toDataURL', e);
+    }
+    if (!downloadOK) {
+      try {
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        downloadOK = true;
+      } catch (e2) {
+        console.error('All download methods failed', e2);
+      }
+    }
     document.body.removeChild(link);
-    showToast('卡片图片已开始下载 · 去发小红书');
+    showToast(downloadOK ? '图片已保存到下载文件夹' : '下载失败，请长按截图保存');
   } catch (err) {
     console.error(err);
     showToast('下载失败，请截图保存');
