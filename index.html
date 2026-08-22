@@ -1,2087 +1,600 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#7A5FC0">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Light Wind 风起</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
-<script src="html2canvas.min.js"></script>
-<style>
-:root {
-  --primary: #7A5FC0;
-  --primary-deep: #5C42A6;
-  --primary-light: #B8A4DC;
-  --primary-soft: #D4C5E8;
-  --primary-pale: #F2EBFA;
-  --primary-mist: #FAF6FF;
-  --bg-1: #FAF7FF;
-  --bg-2: #EFE6F8;
-  --bg-3: #E5D9F2;
-  --text: #2A1F3D;
-  --text-soft: #5A4A75;
-  --text-muted: #8B7AA6;
-  --line: rgba(122, 95, 192, 0.14);
-  --white: #ffffff;
-  --shadow-lg: 0 18px 48px rgba(122, 95, 192, 0.16);
-  --shadow-md: 0 8px 24px rgba(122, 95, 192, 0.12);
-  --shadow-sm: 0 4px 12px rgba(122, 95, 192, 0.08);
-  --radius-lg: 28px;
-  --radius-md: 18px;
-  --radius-sm: 12px;
-  --font-cn: "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Songti SC", "STSong", "SimSun", "宋体", serif;
-  /* 手机端中文回退：宋体在手机上偏细，加入楷体/黑体作为中间回退 */
-  --font-cn-mobile: "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Songti SC", "STKaiti", "KaiTi", "STSong", "SimSun", "宋体", serif;
-}
-
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: var(--font-cn);
-  color: var(--text);
-  background:
-    radial-gradient(circle at 50% 0%, rgba(184, 164, 220, 0.18) 0%, transparent 50%),
-    linear-gradient(165deg, var(--bg-1) 0%, var(--bg-2) 55%, var(--bg-3) 100%);
-  min-height: 100vh;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* ====================================================
-   银光呼吸发光背景 — 底图之下的银色光芒
-   ==================================================== */
-.bg-glow {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-.bg-glow .glow-orb {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle,
-    rgba(255, 255, 255, 0.55) 0%,
-    rgba(220, 210, 245, 0.30) 40%,
-    rgba(200, 190, 235, 0.12) 65%,
-    transparent 75%);
-  filter: blur(36px);
-  opacity: 0.35;
-  animation: orb-breathe 6s ease-in-out infinite;
-}
-.bg-glow .glow-orb.orb1 {
-  width: 420px; height: 420px;
-  top: -120px; left: -80px;
-}
-.bg-glow .glow-orb.orb2 {
-  width: 480px; height: 480px;
-  bottom: -160px; right: -120px;
-  animation-delay: 2s;
-}
-.bg-glow .glow-orb.orb3 {
-  width: 340px; height: 340px;
-  top: 42%; left: 55%;
-  animation-delay: 3.2s;
-}
-.bg-glow .glow-line {
-  position: absolute;
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.75) 30%,
-    rgba(215, 215, 235, 0.5) 50%,
-    rgba(255, 255, 255, 0.75) 70%,
-    transparent 100%);
-  filter: blur(0.4px);
-  opacity: 0.28;
-  animation: line-shimmer 7s ease-in-out infinite;
-}
-.bg-glow .glow-line.ln1 { top: 22%; left: -5%; width: 110%; }
-.bg-glow .glow-line.ln2 { top: 58%; left: -5%; width: 110%; animation-delay: 3.5s; }
-.bg-glow .glow-line.ln3 { top: 80%; left: -5%; width: 110%; animation-delay: 1.2s; }
-.bg-glow .glow-star {
-  position: absolute;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 9px;
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.9));
-  animation: star-twinkle 3.2s ease-in-out infinite;
-  opacity: 0;
-}
-.bg-glow .glow-star.gs1 { top: 14%; left: 18%; animation-delay: 0s; }
-.bg-glow .glow-star.gs2 { top: 34%; right: 12%; animation-delay: 1.1s; }
-.bg-glow .glow-star.gs3 { bottom: 30%; left: 22%; animation-delay: 0.6s; }
-.bg-glow .glow-star.gs4 { bottom: 14%; right: 20%; animation-delay: 1.7s; }
-.bg-glow .glow-star.gs5 { top: 60%; left: 10%; animation-delay: 2.2s; }
-.bg-glow .glow-star.gs6 { bottom: 44%; right: 8%; animation-delay: 0.9s; }
-
-@keyframes orb-breathe {
-  0%, 100% { opacity: 0.25; transform: scale(0.9); }
-  50%      { opacity: 0.55; transform: scale(1.12); }
-}
-@keyframes line-shimmer {
-  0%, 100% { opacity: 0.12; transform: translateX(-18px); }
-  50%      { opacity: 0.5;  transform: translateX(18px); }
-}
-@keyframes star-twinkle {
-  0%, 100% { opacity: 0; transform: scale(0.5); }
-  50%      { opacity: 1; transform: scale(1.25); }
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  top: -160px;
-  right: -120px;
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(circle, rgba(184, 164, 220, 0.32) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-body::after {
-  content: '';
-  position: fixed;
-  bottom: -200px;
-  left: -120px;
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(circle, rgba(155, 126, 222, 0.22) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.app {
-  position: relative;
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 8px 22px 16px;
-  z-index: 1;
-}
-
-/* ====================================================
-   HEADER — 浅紫色 + 发光 + 呼吸 + 漂浮
-   ==================================================== */
-.header {
-  position: relative;
-  text-align: center;
-  margin: 0 0 4px;
-  padding: 8px 0 2px;
-  min-height: 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.title-halo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 420px;
-  height: 210px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(ellipse at center,
-    rgba(184, 164, 220, 0.32) 0%,
-    rgba(155, 126, 222, 0.12) 35%,
-    transparent 70%);
-  filter: blur(28px);
-  pointer-events: none;
-  z-index: 0;
-  animation: halo-breathe 5s ease-in-out infinite;
-}
-
-@keyframes halo-breathe {
-  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.95); }
-  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.08); }
-}
-
-.title {
-  position: relative;
-  z-index: 2;
-  font-family: 'Great Vibes', 'Allura', 'Pacifico', cursive;
-  font-size: 52px;
-  font-weight: 700;
-  line-height: 1.05;
-  margin: 0;
-  padding: 0 20px 0 12px;
-  letter-spacing: 0;
-  white-space: nowrap;
-  background: linear-gradient(135deg,
-    #FFFFFF 0%,
-    #E8DEF5 25%,
-    #D4C5ED 50%,
-    #E8DEF5 75%,
-    #FFFFFF 100%);
-  background-size: 250% 250%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation:
-    title-float 4.5s ease-in-out infinite,
-    title-shimmer 6s linear infinite,
-    title-breathe 4.5s ease-in-out infinite;
-}
-
-/* 中文副标题 — 发光斜体 + shimmer 扫光（与英文统一）*/
-.title-sub {
-  position: relative;
-  z-index: 2;
-  margin: 14px 0 0;
-  font-family: var(--font-cn);
-  font-size: 26px;
-  font-weight: 800;
-  color: #FFFFFF;
-  letter-spacing: 4px;
-  text-shadow:
-    0 0 14px rgba(160, 140, 210, 0.70),
-    0 0 28px rgba(180, 165, 220, 0.45),
-    0 1px 3px rgba(100, 80, 160, 0.25);
-  white-space: nowrap;
-  font-style: italic;
-  display: inline-block;
-  transform: skewX(-8deg);
-  animation: sub-fade 4.5s ease-in-out infinite;
-  overflow: hidden;
-}
-/* 移除旧伪元素扫光 — 已统一为 shimmer 渐变动画 */
-.title-sub::after {
-  content: none;
-}
-
-@keyframes title-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-9px); }
-}
-
-@keyframes title-shimmer {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 250% 50%; }
-}
-@keyframes sub-fade {
-  0%, 100% { opacity: 0.82; transform: translateY(0); }
-  50%      { opacity: 1;    transform: translateY(-3px); }
-}
-
-@keyframes title-breathe {
-  0%, 100% {
-    filter:
-      drop-shadow(0 0 10px rgba(160, 140, 210, 0.50))
-      drop-shadow(0 0 22px rgba(180, 165, 220, 0.35))
-      drop-shadow(0 0 40px rgba(212, 197, 232, 0.20));
-  }
-  50% {
-    filter:
-      drop-shadow(0 0 18px rgba(160, 140, 210, 0.75))
-      drop-shadow(0 0 36px rgba(180, 165, 220, 0.55))
-      drop-shadow(0 0 60px rgba(212, 197, 232, 0.35));
-  }
-}
-
-.sparkle {
-  position: absolute;
-  font-size: 12px;
-  color: var(--primary-light);
-  filter: drop-shadow(0 0 4px rgba(155, 126, 222, 0.8));
-  animation: sparkle 3s ease-in-out infinite;
-  z-index: 1;
-  opacity: 0;
-}
-.sparkle.s1 { top: 25%; left: 18%;  animation-delay: 0s;   }
-.sparkle.s2 { top: 18%; right: 16%; animation-delay: 1.2s; }
-.sparkle.s3 { bottom: 22%; left: 14%; animation-delay: 0.6s; }
-.sparkle.s4 { bottom: 18%; right: 18%; animation-delay: 1.8s; }
-
-@keyframes sparkle {
-  0%, 100% { opacity: 0; transform: scale(0.6); }
-  50%      { opacity: 1; transform: scale(1.2); }
-}
-
-/* ====================================================
-   MOOD BUBBLES — 首页情绪泡泡（漂浮在卡面上）
-   ==================================================== */
-.mood-bubbles {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: repeat(3, auto);
-  justify-content: center;
-  align-content: space-between;
-  justify-items: center;
-  align-items: center;
-  gap: 8px 8px;
-  padding: 16px 0;
-  z-index: 5;
-  pointer-events: auto;
-}
-/* 上排（开心/沮丧/伤心）& 下排（平静/随机/赞美）：两行之间留出空隙，
-   魔法棒（卡片中心 110px）正好从中露出，不被遮挡 */
-.mood-chip:nth-child(1) { grid-row: 1; grid-column: 1; }
-.mood-chip:nth-child(2) { grid-row: 1; grid-column: 2; }
-.mood-chip:nth-child(3) { grid-row: 1; grid-column: 3; }
-.mood-chip:nth-child(4) { grid-row: 2; grid-column: 1; }
-.mood-chip:nth-child(5) { grid-row: 2; grid-column: 2; }
-.mood-chip:nth-child(6) { grid-row: 2; grid-column: 3; }
-.mood-bubbles.hidden { display: none; }
-
-.mood-bubble {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 8px 14px;
-  border-radius: 100px;
-  background: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.85) 0%,
-    rgba(232, 224, 248, 0.75) 100%);
-  border: 1px solid rgba(184, 164, 220, 0.3);
-  color: var(--primary);
-  font-size: 12px;
-  font-weight: 700;
-  font-family: inherit;
-  letter-spacing: 1px;
-  cursor: pointer;
-  box-shadow:
-    0 4px 12px rgba(122, 95, 192, 0.12),
-    0 0 20px rgba(255, 255, 255, 0.5) inset,
-    0 0 8px rgba(184, 164, 220, 0.25);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  animation: bubble-float 4s ease-in-out infinite;
-  transition: transform .18s ease, box-shadow .18s ease;
-  white-space: nowrap;
-}
-.mood-bubble:nth-child(1) { animation-delay: 0s; }
-.mood-bubble:nth-child(2) { animation-delay: .5s; }
-.mood-bubble:nth-child(3) { animation-delay: 1s; }
-.mood-bubble:nth-child(4) { animation-delay: .2s; }
-.mood-bubble:nth-child(5) { animation-delay: .8s; }
-.mood-bubble:nth-child(6) { animation-delay: .35s; }
-.mood-bubble:hover {
-  transform: translateY(-3px) scale(1.06);
-  box-shadow:
-    0 8px 24px rgba(122, 95, 192, 0.2),
-    0 0 24px rgba(255, 255, 255, 0.7) inset,
-    0 0 16px rgba(184, 164, 220, 0.4);
-}
-.mood-bubble:active { transform: scale(.94); }
-
-@keyframes bubble-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-6px); }
-}
-
-/* 兼容旧样式名 */
-.mood-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 8px 14px;
-  border-radius: 100px;
-  background: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.85) 0%,
-    rgba(232, 224, 248, 0.75) 100%);
-  border: 1px solid rgba(184, 164, 220, 0.3);
-  color: var(--primary);
-  font-size: 12px;
-  font-weight: 700;
-  font-family: inherit;
-  letter-spacing: 1px;
-  cursor: pointer;
-  box-shadow:
-    0 4px 12px rgba(122, 95, 192, 0.12),
-    0 0 20px rgba(255, 255, 255, 0.5) inset,
-    0 0 8px rgba(184, 164, 220, 0.25);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  animation: bubble-float 4s ease-in-out infinite;
-  transition: transform .18s ease, box-shadow .18s ease;
-  white-space: nowrap;
-}
-.mood-chip:nth-child(2) { animation-delay: .5s; }
-.mood-chip:nth-child(3) { animation-delay: 1s; }
-.mood-chip:nth-child(4) { animation-delay: .2s; }
-.mood-chip:nth-child(5) { animation-delay: .8s; }
-.mood-chip:nth-child(6) { animation-delay: .35s; }
-.mood-chip:hover { transform: translateY(-3px) scale(1.06); }
-.mood-chip:active { transform: scale(.94); }
-
-/* ====================================================
-   CATEGORY CHIPS — 已移除（用户要求去掉分类按钮，卡片上移）
-   保留样式定义以便兼容，但容器不再渲染
-   ==================================================== */
-.category-list {
-  display: none;
-}
-
-.chip {
-  padding: 11px 4px;
-  text-align: center;
-  font-size: 12px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.65);
-  color: var(--text-soft);
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.22s ease;
-  font-family: inherit;
-  font-weight: 700;   /* 中文加粗 */
-  letter-spacing: 0.5px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  white-space: nowrap;
-}
-
-.chip:active { transform: scale(0.94); }
-.chip.active {
-  background: var(--primary);
-  color: var(--white);
-  box-shadow: 0 6px 16px rgba(122, 95, 192, 0.32);
-}
-
-/* ====================================================
-   SIGN STAGE — 竖着的长方形签条
-   ==================================================== */
-.stage {
-  margin-top: -6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  perspective: 1200px;
-  position: relative;  /* 让情绪泡泡 absolute 定位到卡面上 */
-}
-
-.sign-card-outer {
-  position: relative;
-  width: 100%;
-  max-width: min(92vw, 320px);   /* 手机占屏更大，PC不超过320 */
-  height: 580px;  /* 加高卡片 */
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-}
-
-.sign-card-outer.flipped { transform: rotateY(180deg); }
-
-.sign-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  overflow: hidden;
-}
-
-/* ---------- FRONT ---------- */
-.sign-face.front {
-  background:
-    radial-gradient(circle at 80% 10%, rgba(212, 197, 232, 0.5) 0%, transparent 50%),
-    radial-gradient(circle at 10% 90%, rgba(184, 164, 220, 0.3) 0%, transparent 50%),
-    linear-gradient(145deg, #fff 0%, var(--primary-mist) 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border-radius: 18px;
-  box-shadow: var(--shadow-lg);
-  overflow: visible;  /* 让魔法棒光晕、水面涟漪可以扩散出卡片，营造叩击水面的扩散感 */
-}
-
-.sign-illustration {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-sm);
-  position: relative;
-}
-
-.sign-illustration::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 1px dashed rgba(122, 95, 192, 0.3);
-  animation: rotate 14s linear infinite;
-}
-
-.sign-illustration .icon {
-  font-size: 52px;
-  animation: gentleFloat 3.2s ease-in-out infinite;
-  filter: drop-shadow(0 4px 12px rgba(122, 95, 192, 0.3));
-}
-
-@keyframes gentleFloat {
-  0%, 100% { transform: translateY(0) rotate(0); }
-  50%      { transform: translateY(-8px) rotate(2deg); }
-}
-@keyframes rotate { to { transform: rotate(360deg); } }
-
-.tap-hint {
-  font-size: 12px;
-  color: var(--text-muted);
-  letter-spacing: 6px;
-  margin-bottom: 24px;
-  font-weight: 700;   /* 中文加粗 */
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
-  color: white;
-  border: none;
-  padding: 14px 36px;
-  border-radius: 100px;
-  font-size: 14px;
-  letter-spacing: 6px;
-  cursor: pointer;
-  font-weight: 700;   /* 中文加粗 */
-  font-family: inherit;
-  box-shadow: 0 10px 26px rgba(122, 95, 192, 0.4);
-  transition: all 0.2s;
-}
-.btn-primary:active {
-  transform: translateY(2px);
-  box-shadow: 0 4px 14px rgba(122, 95, 192, 0.36);
-}
-.btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
-
-/* ---------- BACK — 竖签条 + 半透发光呼吸 ---------- */
-.sign-face.back {
-  transform: rotateY(180deg);
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(24px) saturate(125%);
-  -webkit-backdrop-filter: blur(24px) saturate(125%);
-  border: 1px solid rgba(184, 164, 220, 0.35);
-  border-radius: 18px;
-  padding: 22px 22px 20px;   /* 增加左右内边距防止斜体截断 */
-  display: flex;
-  flex-direction: column;
-  animation: card-breathe 5s ease-in-out infinite;
-}
-
-@keyframes card-breathe {
-  0%, 100% {
-    background: rgba(255, 255, 255, 0.55);
-    border-color: rgba(184, 164, 220, 0.32);
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.6) inset,
-      0 8px 32px rgba(122, 95, 192, 0.10),
-      0 0 40px rgba(155, 126, 222, 0.12);
-  }
-  50% {
-    background: rgba(255, 255, 255, 0.72);
-    border-color: rgba(155, 126, 222, 0.45);
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.8) inset,
-      0 8px 32px rgba(122, 95, 192, 0.18),
-      0 0 70px rgba(155, 126, 222, 0.28);
-  }
-}
-
-.sign-meta {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  color: var(--text-muted);
-  letter-spacing: 2px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--line);
-  white-space: nowrap;
-}
-
-.sign-date {
-  justify-self: start;
-  color: var(--text-muted);
-  font-size: 11px;
-  letter-spacing: 1px;
-  white-space: nowrap;
-}
-
-.sign-weather {
-  justify-self: center;
-  color: var(--text-muted);
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  white-space: nowrap;
-}
-
-.sign-brand {
-  justify-self: end;
-  color: #B8A6DA;
-  font-size: 10px;
-  letter-spacing: 2px;
-  font-weight: 600;
-  font-style: italic;
-  white-space: nowrap;
-}
-
-/* 签诗 — 非中文（英/日/德等）银白光泽 + shimmer + 漂浮 */
-.sign-poem {
-  margin: 0;
-  font-size: 34px;
-  line-height: 1.4;
-  font-weight: 700;
-  font-style: italic;
-  opacity: 0;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: normal;
-  text-align: center;
-  /* 银白渐变 + shimmer 扫光（与英文 slogan 一致）*/
-  background: linear-gradient(135deg,
-    #FFFFFF 0%,
-    #E8DEF5 25%,
-    #D4C5ED 50%,
-    #E8DEF5 75%,
-    #FFFFFF 100%);
-  background-size: 250% 250%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
-  filter:
-    drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
-    drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
-    drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
-  font-family: Georgia, "Times New Roman", "Playfair Display", serif;
-}
-
-/* 中文签诗 — 深紫色 + 发光斜体 + shimmer 扫光（与英文统一）*/
-.sign-poem.sign-poem-cn {
-  font-family: var(--font-cn);
-  font-size: 34px;
-  letter-spacing: 2px;
-  font-weight: 700;
-  font-style: italic;
-  /* 中文主题词：深紫渐变 + shimmer 扫光（与英文 slogan 一致的 background-position 动画）*/
-  background: linear-gradient(135deg,
-    #6C52A8 0%,
-    #5C42A6 30%,
-    #7A5FC0 50%,
-    #5C42A6 70%,
-    #6C52A8 100%);
-  background-size: 250% 250%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  padding: 4px 16px 8px;  /* 底部多留白防截断 */
-  filter:
-    drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
-    drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
-  position: relative;
-  overflow: visible;
-  animation: fadeUp 0.5s 0.55s forwards, cn-shimmer 6s linear 0.55s infinite;
-}
-/* 移除旧的伪元素扫光效果 — 已改用 background-position shimmer 统一 */
-.sign-poem.sign-poem-cn::after,
-.sign-cn::after,
-.sign-literal::after {
-  content: none;
-}
-
-@keyframes cn-shimmer {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 250% 50%; }
-}
-
-.sign-poem.english {
-  font-family: Georgia, "Times New Roman", "Playfair Display", serif;
-  font-size: 34px;
-  letter-spacing: 0;
-  font-style: italic;
-  line-height: 1.35;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: normal;
-  text-align: center;
-}
-
-@keyframes poem-silver-shimmer {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 250% 50%; }
-}
-
-.seg {
-  display: inline-block;
-  white-space: nowrap;
-  vertical-align: top;
-}
-
-.sign-poem.english .seg {
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: normal;
-}
-
-@keyframes poem-fade-in {
-  to { opacity: 1; }
-}
-
-.sign-content {
-  flex: 1;
-  min-height: 260px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px 0 6px;
-}
-
-.sign-top {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;   /* 确保 block 级子元素内容居中 */
-  width: 100%;
-}
-
-.sign-mid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-}
-
-.sign-bottom {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-}
-
-.sign-meaning {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.75;
-  color: var(--text-soft);
-  text-align: center;
-  letter-spacing: 0.5px;
-  opacity: 0;
-  animation: fadeUp 0.5s 0.5s forwards;
-  font-family: var(--font-cn);
-  font-weight: 700;
-  padding: 0 6px;  /* 两侧留白防止截断 */
-}
-
-/* 中文主题词 — 深紫渐变 + shimmer 扫光（与签诗统一）*/
-.sign-cn {
-  margin: 14px 0 0;
-  font-size: 34px;
-  text-align: center;
-  letter-spacing: 2px;
-  font-weight: 700;
-  font-family: var(--font-cn);
-  font-style: italic;
-  opacity: 0;
-  overflow-wrap: break-word;
-  word-break: keep-all;
-  position: relative;
-  overflow: visible;
-  padding: 4px 16px 8px;  /* 底部多留白防截断 */
-  background: linear-gradient(135deg,
-    #6C52A8 0%,
-    #5C42A6 30%,
-    #7A5FC0 50%,
-    #5C42A6 70%,
-    #6C52A8 100%);
-  background-size: 250% 250%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: fadeUp 0.5s 0.55s forwards, cn-shimmer 6s linear 0.55s infinite;
-  filter:
-    drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
-    drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
-}
-
-.skew-wrap {
-  display: inline-block;
-  transform: skewX(-8deg);
-}
-
-/* 中文直译 — 深紫渐变 + shimmer 扫光 */
-.sign-literal {
-  margin: 10px 0 0;
-  font-size: 34px;
-  line-height: 1.35;
-  text-align: center;
-  letter-spacing: 2px;
-  font-weight: 700;
-  font-family: var(--font-cn);
-  font-style: italic;
-  opacity: 0;
-  animation: fadeUp 0.5s 0.58s forwards;
-  overflow-wrap: break-word;
-  word-break: keep-all;
-  position: relative;
-  overflow: visible;
-  padding: 4px 16px 8px;  /* 底部留白防截断 */
-  background: linear-gradient(135deg,
-    #6C52A8 0%,
-    #5C42A6 30%,
-    #7A5FC0 50%,
-    #5C42A6 70%,
-    #6C52A8 100%);
-  background-size: 250% 250%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: fadeUp 0.5s 0.58s forwards, cn-shimmer 6s linear 0.58s infinite;
-  filter:
-    drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
-    drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
-}
-
-.sign-cn-en {
-  margin: 10px 0 0;
-  font-size: 34px;
-  line-height: 1.35;
-  text-align: center;
-  letter-spacing: 0;
-  font-weight: 700;
-  font-family: Georgia, "Times New Roman", "Playfair Display", serif;
-  font-style: italic;
-  opacity: 0;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: normal;
-  /* 非中文主题词 — 银白渐变 + shimmer（与签诗一致）*/
-  background: linear-gradient(135deg,
-    #FFFFFF 0%,
-    #E8DEF5 25%,
-    #D4C5ED 50%,
-    #E8DEF5 75%,
-    #FFFFFF 100%);
-  background-size: 250% 250%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
-  filter:
-    drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
-    drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
-    drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
-  padding: 4px 8px 6px;
-}
-
-.sign-tip {
-  margin: 0;
-  font-size: 12px;
-  line-height: 1.7;
-  color: var(--primary-light);
-  text-align: center;
-  letter-spacing: 1px;
-  font-weight: 700;  /* 中文加粗 */
-  font-family: var(--font-cn);
-  opacity: 0;
-  animation: fadeUp 0.5s 0.6s forwards;
-}
-
-/* 出处 — 紧凑两行，无额外空行 */
-.sign-source {
-  margin: 8px 0 0;
-  font-size: 11px;
-  color: var(--text-muted);
-  text-align: center;
-  letter-spacing: 1.5px;
-  font-style: italic;
-  opacity: 0;
-  animation: fadeUp 0.5s 0.65s forwards;
-  font-family: var(--font-cn);
-  font-weight: 700;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: keep-all;
-  padding: 0 8px;
-  line-height: 1.35;  /* 压紧行高，消除两行间空行 */
-}
-.sign-source .source-line {
-  display: block;
-  line-height: 1.35;  /* 与父级一致 */
-}
-
-/* 卡片外部提示：轻点卡片返回首页（在卡片下方，不在卡片内） */
-.sign-back-hint {
-  margin: 14px 0 0;
-  font-size: 11px;
-  color: var(--text-muted);
-  text-align: center;
-  letter-spacing: 1px;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-color: rgba(122, 95, 192, 0.35);
-  opacity: 0;
-  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-  font-weight: 600;
-  transition: opacity 0.5s;
-}
-.sign-back-hint.visible {
-  opacity: 1;
-  animation: fadeUp 0.5s 0.7s forwards;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
-  margin-top: auto;
-  padding-top: 18px;
-}
-
-.btn-ghost {
-  padding: 11px 6px;
-  background: linear-gradient(135deg, #F5EEFC 0%, #EDE1F9 100%);   /* 浅紫 — 复制 */
-  color: #6C52A8;
-  border: none;
-  border-radius: 100px;
-  font-size: 13px;
-  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-weight: 700;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 8px rgba(122, 95, 192, 0.10);
-}
-.btn-ghost:active { transform: scale(0.96); }
-/* 中紫 — 保存 */
-.btn-ghost.mid {
-  background: linear-gradient(135deg, #DCCDF3 0%, #C9B4EC 100%);
-  color: #4C3A92;
-  box-shadow: 0 3px 10px rgba(122, 95, 192, 0.18);
-}
-/* 深紫 — 再次 */
-.btn-ghost.solid {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
-  color: var(--white);
-  box-shadow: 0 4px 14px rgba(92, 66, 166, 0.40);
-}
-
-/* ====================================================
-   TOAST
-   ==================================================== */
-.toast {
-  position: fixed;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: rgba(42, 31, 61, 0.94);
-  color: white;
-  padding: 12px 22px;
-  border-radius: 100px;
-  font-size: 13px;
-  opacity: 0;
-  transition: all 0.3s;
-  pointer-events: none;
-  z-index: 100;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  letter-spacing: 1px;
-}
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* ====================================================
-   WATER RIPPLE — 魔法棒叩击水面后的涟漪波纹
-   ==================================================== */
-.water-ripple {
-  position: absolute;
-  left: 50%;
-  top: 54%;
-  width: 30px;
-  height: 30px;
-  border: 2px solid rgba(140, 165, 230, 0.55);
-  border-radius: 50%;
-  transform: translate(-50%, -50%) scale(0.3);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 3;
-}
-.water-ripple::before,
-.water-ripple::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 2px solid rgba(140, 165, 230, 0.4);
-  border-radius: 50%;
-  opacity: 0;
-}
-.water-ripple.active {
-  animation: ripple-main 1s ease-out both;
-}
-.water-ripple.active::before {
-  animation: ripple-echo 1s 0.12s ease-out both;
-}
-.water-ripple.active::after {
-  animation: ripple-echo 1s 0.28s ease-out both;
-}
-
-@keyframes ripple-main {
-  0%   { transform: translate(-50%, -50%) scale(0.3); opacity: 0.9; }
-  100% { transform: translate(-50%, -50%) scale(7);   opacity: 0; }
-}
-@keyframes ripple-echo {
-  0%   { transform: scale(0.5); opacity: 0.8; }
-  100% { transform: scale(3.2); opacity: 0; }
-}
-
-/* 点击魔法棒：叩击水面 —— 涟漪扩散 + 轻微下沉再弹起 */
-.sign-illustration.tap-wave {
-  animation: wand-tap 0.85s cubic-bezier(0.22, 0.68, 0.35, 1) both;
-}
-.sign-illustration.tap-wave .icon {
-  animation: wand-strike 0.85s cubic-bezier(0.22, 0.68, 0.35, 1) both;
-}
-.sign-illustration.tap-wave::after {
-  animation: tap-ripple 0.9s ease-out both;
-}
-
-@keyframes wand-tap {
-  0%   { transform: translateY(0) scale(1); }
-  18%  { transform: translateY(8px) scale(0.96); }
-  32%  { transform: translateY(6px) scale(0.97); }
-  55%  { transform: translateY(-14px) scale(1.08); }
-  75%  { transform: translateY(-6px) scale(1.04); }
-  100% { transform: translateY(0) scale(1); }
-}
-
-@keyframes wand-strike {
-  0%   { transform: translateY(0) rotate(0deg); }
-  18%  { transform: translateY(10px) rotate(-14deg) scale(0.9); }
-  32%  { transform: translateY(8px) rotate(-10deg) scale(0.92); }
-  55%  { transform: translateY(-18px) rotate(10deg) scale(1.12); }
-  75%  { transform: translateY(-8px) rotate(4deg) scale(1.05); }
-  100% { transform: translateY(0) rotate(0deg) scale(1); }
-}
-
-@keyframes tap-ripple {
-  0%   { transform: scale(0.8); opacity: 0.9; }
-  100% { transform: scale(2.4); opacity: 0; }
-}
-
-/* ====================================================
-   SHAKE ANIMATION（已由水面波纹替代，保留定义不生效）
-   ==================================================== */
-.sign-card-outer.shaking {
-  animation: shake 0.55s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0) rotate(0); }
-  15%  { transform: translateX(-8px) rotate(-1.5deg); }
-  30%  { transform: translateX(8px)  rotate(1.5deg); }
-  45%  { transform: translateX(-6px) rotate(-1deg); }
-  60%  { transform: translateX(6px)  rotate(1deg); }
-  75%  { transform: translateX(-4px) rotate(-0.6deg); }
-  90%  { transform: translateX(4px)  rotate(0.6deg); }
-}
-
-/* ====================================================
-   RESPONSIVE
-   ==================================================== */
-@media (max-width: 600px) {
-  :root { --font-cn: var(--font-cn-mobile); }
-  .title { font-size: 42px; }
-  .title-sub { font-size: 22px; margin-top: 10px; }
-  .header { min-height: 100px; padding: 6px 0 2px; margin-bottom: 2px; }
-  .app { padding: 6px 16px 12px; }
-  .sign-card-outer { max-width: min(92vw, 320px); height: min(76vh, 560px); }  /* 加高 */
-  .sign-face.back { padding: 20px 16px 18px; }
-  .stage { margin-top: -4px; }
-}
-
-@media (max-width: 360px) {
-  .app { padding: 6px 14px 10px; }
-  .header { min-height: 88px; padding: 4px 0 0; margin-bottom: 2px; }
-  .title { font-size: 36px; }
-  .title-sub { font-size: 20px; margin-top: 8px; letter-spacing: 3px; }
-  .title-halo { width: 260px; height: 120px; }
-  .mood-chip { font-size: 12px; padding: 8px 13px; }
-  .sign-card-outer { max-width: min(94vw, 310px); height: min(80vh, 550px); }  /* 加高 */
-  .sign-face.back { padding: 18px 14px 16px; }
-  .sign-poem { font-size: 24px; }
-  .sign-poem.english { font-size: 24px; }
-  .sign-poem.sign-poem-cn { font-size: 24px; letter-spacing: 1px; }
-  .sign-cn { font-size: 24px; margin-top: 10px; letter-spacing: 1px; padding: 0 8px; }
-  .sign-cn-en { font-size: 24px; padding: 0 8px; }
-  .sign-literal { font-size: 20px; letter-spacing: 1px; padding: 0 8px; }
-  .sign-source { font-size: 10px; padding: 0 6px; }
-  .sign-meaning { font-size: 11px; padding: 0 8px; line-height: 1.7; }
-  .category-list { grid-template-columns: repeat(4, 1fr); font-size: 11px; }
-  .chip { font-size: 11px; padding: 10px 2px; }
-}
-
-@media (min-width: 600px) {
-  .title { font-size: 46px; }
-  .sign-card-outer { max-width: 320px; height: 580px; }  /* 加高 */
-}
-</style>
+  <meta charset="UTF-8" />
+  <title>黄文艳 · Marketing & Growth Resume Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --text-main:#000000;
+      --text-light:#ffffff;
+
+      --pill-bg-strong: rgba(255,255,255,0.95);
+      --pill-bg-soft: rgba(238,240,244,0.98);
+      --pill-radius: 999px;
+
+      --line-glow: rgba(255,255,255,0.45);
+      --section-max-width: 1200px;
+
+      --body-size: 17px;
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+
+    body{
+      margin:0;
+      font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+        "PingFang SC","Hiragino Sans GB","Microsoft Yahei",sans-serif;
+      color:var(--text-light);
+      background:#000000;
+      text-align:center;
+      overflow-x:hidden;
+    }
+
+    /* ===== 三张竖图横向铺底 ===== */
+    .bg-strip{
+      position:fixed;
+      inset:0;
+      display:flex;
+      z-index:0;
+      overflow:hidden;
+    }
+    .bg-panel{ flex:1; position:relative; }
+    .bg-panel img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    /* 顺序：shop, house, forest */
+    .bg-panel:nth-child(1) img{ object-position:50% 42%; }
+    .bg-panel:nth-child(2) img{ object-position:50% 45%; }
+    .bg-panel:nth-child(3) img{ object-position:50% 40%; }
+
+    .bg-overlay{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(0,0,0,0.05), rgba(0,0,0,0.55)),
+        linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.9));
+      pointer-events:none;
+    }
+
+    .page{
+      position:relative;
+      z-index:1;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      color:var(--text-light);
+    }
+
+    /* ===== 顶部 ===== */
+    .hero{
+      width:100%;
+      padding:40px 20px 32px;
+    }
+    .hero-inner{
+      max-width:var(--section-max-width);
+      margin:0 auto;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      align-items:center;
+    }
+
+    .hero-top-row{
+      display:inline-flex;
+      align-items:baseline;
+      gap:18px;
+    }
+
+    /* ===== 名字：漂浮 + 柔光滑过 ===== */
+    .hero-name{
+      position:relative;
+      font-size:60px;
+      font-weight:800;
+      letter-spacing:0.12em;
+      color:#ffffff;
+      white-space:nowrap;
+      text-shadow:
+        0 0 18px rgba(255,255,255,0.20),
+        0 14px 44px rgba(0,0,0,0.9);
+      animation:
+        nameFloat 7s ease-in-out infinite;
+    }
+    .hero-name span{ display:inline-block; padding:0 1px; }
+    .hero-name span + span{ margin-left:-0.02em; }
+
+    /* 在文字上方叠一层柔和光带，滑过去 */
+    .hero-name::after{
+      content:"";
+      position:absolute;
+      inset:-10px -40px;
+      background:
+        linear-gradient(120deg,
+          transparent 0%,
+          rgba(255,255,255,0.30) 35%,
+          rgba(255,255,255,0.85) 50%,
+          rgba(255,255,255,0.30) 65%,
+          transparent 100%);
+      mix-blend-mode:screen;
+      opacity:0;
+      pointer-events:none;
+      transform:translateX(-40%);
+      animation:nameShine 6.5s ease-in-out infinite;
+    }
+
+    @keyframes nameFloat{
+      0%{
+        transform:translateY(0);
+        text-shadow:
+          0 0 18px rgba(255,255,255,0.18),
+          0 14px 44px rgba(0,0,0,0.9);
+      }
+      50%{
+        transform:translateY(-6px);
+        text-shadow:
+          0 0 28px rgba(255,255,255,0.28),
+          0 18px 54px rgba(0,0,0,0.92);
+      }
+      100%{
+        transform:translateY(0);
+        text-shadow:
+          0 0 18px rgba(255,255,255,0.18),
+          0 14px 44px rgba(0,0,0,0.9);
+      }
+    }
+
+    @keyframes nameShine{
+      0%{
+        opacity:0;
+        transform:translateX(-40%);
+      }
+      10%{
+        opacity:0.0;
+      }
+      30%{
+        opacity:0.9;
+      }
+      60%{
+        opacity:0.0;
+        transform:translateX(40%);
+      }
+      100%{
+        opacity:0;
+        transform:translateX(40%);
+      }
+    }
+
+    .hero-subtitle-en{
+      font-size:16px;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,0.9);
+      white-space:nowrap;
+    }
+
+    .hero-line{
+      font-size:var(--body-size);
+      color:var(--text-light);
+      text-shadow:0 2px 6px rgba(0,0,0,0.55);
+      line-height:1.7;
+      letter-spacing:0.02em;
+    }
+
+    .hero-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px 40px;
+      justify-content:center;
+      margin-top:4px;
+      font-size:var(--body-size);
+      color:var(--text-light);
+      text-shadow:0 2px 6px rgba(0,0,0,0.55);
+      letter-spacing:0.02em;
+    }
+
+    /* ===== iPhone 短信“堆叠感” 循环加强版 ===== */
+    .sms-stack{
+      animation:smsStack 6s ease-in-out infinite;
+      will-change:text-shadow, transform;
+    }
+    .d1{ animation-delay:0.00s; }
+    .d2{ animation-delay:0.15s; }
+    .d3{ animation-delay:0.30s; }
+    .d4{ animation-delay:0.45s; }
+    .d5{ animation-delay:0.60s; }
+    .d6{ animation-delay:0.75s; }
+    .d7{ animation-delay:0.90s; }
+    .d8{ animation-delay:1.05s; }
+    .d9{ animation-delay:1.20s; }
+    .d10{ animation-delay:1.35s; }
+
+    @keyframes smsStack{
+      0%{
+        transform:translateY(0);
+        text-shadow:none;
+      }
+      30%{
+        transform:translateY(-1px);
+        text-shadow:
+          0 -1px 0 rgba(255,255,255,0.25),
+          0 -3px 0 rgba(255,255,255,0.18);
+      }
+      60%{
+        transform:translateY(-2px);
+        text-shadow:
+          0 -1px 0 rgba(255,255,255,0.45),
+          0 -3px 0 rgba(255,255,255,0.28),
+          0 -5px 0 rgba(255,255,255,0.16),
+          0 -7px 0 rgba(255,255,255,0.08);
+      }
+      100%{
+        transform:translateY(0);
+        text-shadow:none;
+      }
+    }
+
+    /* ===== 顶部按钮 ===== */
+    .hero-pills{
+      margin-top:26px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      align-items:center;
+    }
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      justify-content:center;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 24px;
+      border-radius:var(--pill-radius);
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out,
+        background 0.18s ease-out, color 0.18s ease-out;
+      box-shadow:0 10px 25px rgba(0,0,0,0.30);
+      white-space:nowrap;
+      letter-spacing:0.02em;
+      text-decoration:none;
+    }
+
+    /* 第一排 */
+    .pill-strong{
+      background:var(--pill-bg-strong);
+      font-size:16px;
+      color:var(--text-main);
+    }
+
+    /* 第二排：默认深色文字 + 统一浅灰底 */
+    .pill-soft{
+      background:var(--pill-bg-soft);
+      font-size:15px;
+      color:#111111;
+      border:1px solid rgba(0,0,0,0.08);
+    }
+    a.pill-soft:link,
+    a.pill-soft:visited{
+      color:#111111;
+      text-decoration:none;
+    }
+    a.pill-strong:link,
+    a.pill-strong:visited{
+      color:var(--text-main);
+      text-decoration:none;
+    }
+
+    .pill:hover{
+      transform:translateY(-2px) scale(1.03);
+      box-shadow:0 16px 40px rgba(0,0,0,0.45);
+    }
+
+    .pill-strong:nth-child(1):hover{ background:linear-gradient(135deg,#ffe66d,#ffd43b); }
+    .pill-strong:nth-child(2):hover{ background:linear-gradient(135deg,#ff922b,#ff6b6b); }
+    .pill-strong:nth-child(3):hover{ background:linear-gradient(135deg,#66d9e8,#5c7cfa); }
+    .pill-strong:nth-child(4):hover{ background:linear-gradient(135deg,#63e6be,#12b886); }
+    .pill-strong:nth-child(5):hover{ background:linear-gradient(135deg,#ffd8a8,#ffa94d); }
+    .pill-strong:nth-child(6):hover{ background:linear-gradient(135deg,#d0bfff,#845ef7); }
+
+    /* 第二排悬停时变成统一的浅蓝光感，字色保持黑色 */
+    .pill-soft:hover{
+      background:linear-gradient(135deg,#e7f5ff,#d0ebff);
+      color:#000000;
+    }
+    a.pill-soft:hover{ color:#000000; }
+
+    /* ===== 横线 + 流星 ===== */
+    .divider-wrap{
+      width:100%;
+      margin:1cm 0;
+      display:flex;
+      justify-content:center;
+    }
+    .divider{
+      position:relative;
+      width:80%;
+      max-width:var(--section-max-width);
+      height:1px;
+      background:linear-gradient(90deg,transparent,var(--line-glow),transparent);
+      overflow:hidden;
+    }
+    .divider::before{
+      content:"";
+      position:absolute;
+      top:-3px;
+      left:-10%;
+      width:90px;
+      height:7px;
+      background:radial-gradient(circle at 0% 50%, rgba(255,255,255,0.8), transparent 70%);
+      filter:blur(1px);
+      animation:shootingStar 11s linear infinite;
+    }
+    @keyframes shootingStar{
+      0%{ transform:translateX(0); opacity:0; }
+      12%{ opacity:1; }
+      60%{ opacity:1; }
+      100%{ transform:translateX(1200px); opacity:0; }
+    }
+
+    /* ===== 内容 ===== */
+    .content{
+      width:100%;
+      padding:0 16px 64px;
+      color:var(--text-light);
+    }
+    .section{
+      max-width:var(--section-max-width);
+      margin:0 auto 32px;
+    }
+    .section-title{
+      font-size:22px;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+
+    .about-text{
+      margin-top:16px;
+      font-size:var(--body-size);
+      color:rgba(255,255,255,0.96);
+      letter-spacing:0.02em;
+    }
+    .about-text p{
+      line-height:0.8cm;
+      margin-bottom:6px;
+    }
+
+    .lower{
+      width:100%;
+      padding:0 16px 56px 16px;
+      color:var(--text-light);
+    }
+    .timeline-section{
+      max-width:var(--section-max-width);
+      margin:0 auto 40px;
+      text-align:center;
+    }
+    .timeline-title{
+      font-size:20px;
+      font-weight:700;
+      margin-bottom:18px;
+    }
+
+    .role-pill,
+    .project-pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 22px;
+      border-radius:var(--pill-radius);
+      background:rgba(255,255,255,0.97);
+      color:var(--text-main);
+      font-size:16px;
+      font-weight:600;
+      box-shadow:0 16px 45px rgba(0,0,0,0.55);
+      margin-bottom:10px;
+      white-space:nowrap;
+      transition:transform 0.18s ease-out, box-shadow 0.18s ease-out,
+        background 0.18s ease-out, color 0.18s ease-out;
+      letter-spacing:0.02em;
+      text-decoration:none;
+    }
+    .role-pill:hover,
+    .project-pill:hover{
+      transform:translateY(-2px) scale(1.03);
+      box-shadow:0 20px 55px rgba(0,0,0,0.60);
+      background:linear-gradient(135deg,#ffe8cc,#ffa94d);
+      color:#000000;
+    }
+
+    .timeline-item{ margin-bottom:26px; }
+    .timeline-desc{
+      font-size:var(--body-size);
+      color:rgba(255,255,255,0.94);
+      max-width:900px;
+      margin:0 auto;
+      line-height:1.7;
+      letter-spacing:0.02em;
+    }
+
+    .contact-list{
+      font-size:var(--body-size);
+      line-height:1.9;
+      margin-top:14px;
+      letter-spacing:0.02em;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+    }
+    .contact-item{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 22px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.25);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.16), rgba(0,0,0,0.55));
+      backdrop-filter: blur(6px);
+      transition: box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+    .contact-item:hover{
+      box-shadow:0 0 18px rgba(255,255,255,0.7);
+      border-color:rgba(255,255,255,0.6);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(255,255,255,0.22), rgba(0,0,0,0.6));
+    }
+
+    @media (max-width:768px){
+      .hero-top-row{ flex-direction:column; align-items:center; gap:8px; }
+      .hero-name{ font-size:44px; }
+      .hero-subtitle-en{ letter-spacing:0.14em; font-size:14px; }
+      .divider{ width:90%; }
+    }
+  </style>
 </head>
+
 <body>
-<div class="bg-glow" aria-hidden="true">
-  <div class="glow-orb orb1"></div>
-  <div class="glow-orb orb2"></div>
-  <div class="glow-orb orb3"></div>
-  <div class="glow-line ln1"></div>
-  <div class="glow-line ln2"></div>
-  <div class="glow-line ln3"></div>
-  <span class="glow-star gs1">✦</span>
-  <span class="glow-star gs2">✦</span>
-  <span class="glow-star gs3">✦</span>
-  <span class="glow-star gs4">✦</span>
-  <span class="glow-star gs5">✦</span>
-  <span class="glow-star gs6">✦</span>
-</div>
-<div class="app">
-  <header class="header">
-    <div class="title-halo"></div>
-    <span class="sparkle s1">✦</span>
-    <span class="sparkle s2">✦</span>
-    <span class="sparkle s3">✦</span>
-    <span class="sparkle s4">✦</span>
-      <h1 class="title">Light Wind, Light Way.</h1>
-      <p class="title-sub">微风起处，光引前路。</p>
-  </header>
-
-  <div class="category-list" id="categories"></div>
-
-  <div class="stage">
-    <div class="mood-bubbles" id="mood-bubbles">
-      <button class="mood-chip" data-mood="happy">😄 开心</button>
-      <button class="mood-chip" data-mood="down">😞 沮丧</button>
-      <button class="mood-chip" data-mood="sad">😢 伤心</button>
-      <button class="mood-chip" data-mood="calm">🍃 平静</button>
-      <button class="mood-chip" data-mood="random">🎲 随机</button>
-      <button class="mood-chip" data-mood="praise">🌟 赞美</button>
-    </div>
-    <div class="sign-card-outer" id="card">
-      <div class="sign-face front">
-        <div class="sign-illustration" id="wand">
-          <span class="icon">🪄</span>
-        </div>
-        <div class="water-ripple" id="water-ripple"></div>
-      </div>
-      <div class="sign-face back" id="face-back"></div>
-    </div>
-    <p class="sign-back-hint" id="back-hint">轻点卡片返回首页</p>
+  <div class="bg-strip">
+    <div class="bg-panel"><img src="life-shop.jpg" alt="shop"></div>
+    <div class="bg-panel"><img src="life-house.jpg" alt="house"></div>
+    <div class="bg-panel"><img src="life-forest.jpg" alt="forest"></div>
+    <div class="bg-overlay"></div>
   </div>
-</div>
 
-<div class="toast" id="toast">已复制文字</div>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-top-row">
+          <div class="hero-name sms-stack d1">
+            <span>黄</span><span>文</span><span>艳</span>
+          </div>
+          <div class="hero-subtitle-en sms-stack d2">MARKETING &amp; GROWTH · RESUME SITE</div>
+        </div>
 
-<script>
-/* ====================================================
-   签文 — 积极正能量 + 心理学白话科普
-   ==================================================== */
-const FORTUNES = [
-  // ── 学习/成长 ──
-  { cat: 'study', grade: '上上签', num: 18,
-    poem: '温故知新',
-    cn: 'Review the old, know the new',
-    meaning: '翻一翻旧笔记，比追鲜的还赚。旧识里，常藏着好线索。重复一次，记忆就多扎根一层。',
-    source: '中国·儒学||孔子（春秋）《论语·为政》' },
-  { cat: 'study', grade: '上签', num: 56,
-    poem: 'Practice makes perfect.',
-    literal: '练习成就完美',
-    meaning: '做多了，自然就好。神经通路反复激活后越走越宽，熟练就长在身体里了。',
-    source: '英国·谚语||' },
-  { cat: 'study', grade: '上签', num: 92,
-    poem: '継続は力なり',
-    literal: '坚持就是力量',
-    meaning: '每天推进一点，日积月累就有劲。每天多百分之一，一年后差距是三十七倍。',
-    source: '日本·谚语||' },
-  { cat: 'study', grade: '中上签', num: 93,
-    poem: 'Übung macht den Meister.',
-    literal: '练习造就大师',
-    meaning: '多练几遍，慢慢就熟成了行家。每次都瞄着短板练，练在痛处才长进。',
-    source: '德国·谚语||' },
-  { cat: 'study', grade: '上上签', num: 105,
-    poem: 'Growth Mindset', cn: '成长型思维',
-    meaning: '能力像肌肉，越练越强。今天的笨拙，是明天的熟练。大脑会因新挑战长出新连接，越用越灵。',
-    source: '美国·发展心理学||卡罗尔·德韦克（Carol Dweck）' },
-  { cat: 'study', grade: '上签', num: 106,
-    poem: 'Flow', cn: '心流',
-    meaning: '全身心投入一件事，做到忘了时间。注意力全开时，焦虑自然消失，专注本身就是享受。',
-    source: '美国·积极心理学||米哈里·契克森米哈赖（Mihaly Csikszentmihalyi）' },
+        <p class="hero-line sms-stack d3">市场与增长方向｜8年整合营销与媒介经验</p>
+        <p class="hero-line sms-stack d4">以0代码背景为起点，用 AI 与 Vibe Coding 主动探索新的创造方式。</p>
 
-  // ── 工作/专注 ──
-  { cat: 'work', grade: '大吉签', num: 9,
-    poem: '事必躬亲',
-    cn: 'Handle it yourself',
-    meaning: '重要的事，自己上手。亲手做过，心里最踏实。心里有底，焦虑就少。',
-    source: '中国·诗经||《诗经·小雅·节南山》（西周）' },
-  { cat: 'work', grade: '上签', num: 27,
-    poem: '功不唐捐',
-    cn: 'No effort is ever wasted',
-    meaning: '下的功夫，不会白费。每一步都算数，早晚见分晓。耐住性子的人，回报往往更厚。',
-    source: '中国·佛学||《法华经》（东晋）' },
-  { cat: 'work', grade: '上上签', num: 14,
-    poem: 'Do it now.',
-    literal: '现在就做',
-    meaning: '想做的事，别等明天再说。未完成的事会一直占着脑容量，做了就释放了。',
-    source: '英国·谚语||' },
-  { cat: 'work', grade: '上签', num: 94,
-    poem: 'Chi va piano, va sano e va lontano.',
-    literal: '走得稳当的人，走得远',
-    meaning: '不急不躁，反而能到更远处。匀速比冲刺更省力，意志力是有限资源，省着用才走得远。',
-    source: '意大利·谚语||' },
-  { cat: 'work', grade: '中上签', num: 95,
-    poem: 'No hay atajo sin trabajo.',
-    literal: '没有不劳而获的捷径',
-    meaning: '想省力，也得先把功夫下足。走捷径省掉的往往是扎基本功的时间，关键时刻就露馅。',
-    source: '西班牙·谚语||' },
-  { cat: 'work', grade: '上上签', num: 107,
-    poem: 'Peak-End Rule', cn: '峰终定律',
-    meaning: '印象分看「高峰时刻」和「结尾」。认真收束，好感自然加分。记忆只截高潮和结尾两帧。',
-    source: '美国·行为经济学||丹尼尔·卡尼曼（Daniel Kahneman）' },
-  { cat: 'work', grade: '上签', num: 108,
-    poem: 'Dopamine Reward', cn: '多巴胺奖励',
-    meaning: '大脑偏爱「完成感」。把庞杂任务拆成小步，每做完一步，奖励自动到账。',
-    source: '美国·神经科学||' },
+        <div class="hero-meta">
+          <span class="sms-stack d5">常驻城市：上海</span>
+          <span class="sms-stack d6">职业方向：市场、增长、内容、媒介</span>
+        </div>
 
+        <div class="hero-pills">
+          <div class="pill-row sms-stack d7">
+            <button class="pill pill-strong">🌍 好奇心强</button>
+            <button class="pill pill-strong">⚡ 主动推进</button>
+            <button class="pill pill-strong">🧠 快速理解</button>
+            <button class="pill pill-strong">🤝 合作高效</button>
+            <button class="pill pill-strong">💡 积极心态</button>
+            <button class="pill pill-strong">🧩 友善沉稳</button>
+          </div>
 
-  // ── 自信/自我 ──
-  { cat: 'confidence', grade: '上签', num: 33,
-    poem: '我行我素',
-    cn: 'Go my own way',
-    meaning: '你走的路，不必第二个人懂。心安理得，就是最好的节奏。自己掌方向盘的人，比随大流的幸福一截。',
-    source: '中国·礼学||《礼记·中庸》（战国）' },
-  { cat: 'confidence', grade: '大吉签', num: 71,
-    poem: '天生我材必有用',
-    cn: 'My talent is meant to shine',
-    meaning: '老天给的本事，早晚能派上用场。别急着否定自己，你的光还没到时候亮。每个人擅长的频道不同，找到你的就行。',
-    source: '中国·诗学||李白（盛唐）《将进酒》' },
-  { cat: 'confidence', grade: '上上签', num: 3,
-    poem: 'Fortune favors the bold.',
-    literal: '命运偏爱勇敢者',
-    meaning: '勇气，总站在敢动的人那边。恐惧会放大风险，行动会缩小它。',
-    source: '古罗马·诗学||维吉尔（Virgil）《埃涅阿斯纪》' },
-  { cat: 'confidence', grade: '大吉签', num: 96,
-    poem: 'Γνώθι σεαυτόν',
-    literal: '认识你自己',
-    meaning: '看清自己的长处，才不会跟着别人的节奏乱。知道自己知道什么、不知道什么，比知识本身更要紧。',
-    source: '古希腊·哲学||德尔斐箴言' },
-  { cat: 'confidence', grade: '上上签', num: 109,
-    poem: 'Self-Efficacy', cn: '自我效能感',
-    meaning: '你越笃信能办到，就越容易实现。今天就先夸自己一句。遇困难先想「怎么解」，路就宽了。',
-    source: '美国·社会认知理论||阿尔伯特·班杜拉（Albert Bandura）' },
-  { cat: 'confidence', grade: '大吉签', num: 110,
-    poem: 'Pygmalion Effect', cn: '皮格马利翁效应',
-    meaning: '别人信你能行，你真的会更行。你笃信自己，你就在给自己这份期待。被看好的人，会不自觉地活成被期待的样子。',
-    source: '美国·教育心理学||罗伯特·罗森塔尔（Robert Rosenthal）' },
-
-
-  // ── 行动 ──
-  { cat: 'action', grade: '中上签', num: 47,
-    poem: '日拱一卒',
-    cn: 'One pawn, one step a day',
-    meaning: '慢，反而不慌。小卒每次只走一步，过河之后却有大用。每天一小步，大脑不抵抗，习惯悄悄长出来。',
-    source: '中国·棋谚||' },
-  { cat: 'action', grade: '上签', num: 22,
-    poem: '千里之行，始于足下',
-    cn: 'A thousand miles begins with a single step',
-    meaning: '再远的路，也是从脚下第一步开始。动起来，就不远了。迈出第一步后，惯性会推着你走。',
-    source: '中国·道学||老子（春秋）《道德经》' },
-  { cat: 'action', grade: '转运签', num: 86,
-    poem: 'Strike while the iron is hot.',
-    literal: '趁热打铁',
-    meaning: '想做就做，热度别等凉。动机有衰减期，热情和时机都有保质期，等久了冲动就退潮了。',
-    source: '英国·谚语||' },
-  { cat: 'action', grade: '上上签', num: 97,
-    poem: "Qui ne tente rien, n'a rien.",
-    literal: '不试的人什么也得不到',
-    meaning: '动手去试才有机会，空想一定没有。试的代价通常比想象的小得多，不试才是最大的损失。',
-    source: '法国·谚语||' },
-  { cat: 'action', grade: '上签', num: 98,
-    poem: 'Actions speak louder than words.',
-    literal: '行动比言语更响亮',
-    meaning: '说一车，不如做一步。一旦行动了，大脑会自动调整态度来匹配你的行为。',
-    source: '英国·谚语||' },
-  { cat: 'action', grade: '上上签', num: 111,
-    poem: '5-Minute Rule', cn: '五分钟法则',
-    meaning: '大脑畏难，行动不怕。先做五分钟，就赢过了拖延。一旦跨过那道坎，大脑自动切换到执行模式。',
-    source: '美国·行为心理学||' },
-  { cat: 'action', grade: '上签', num: 112,
-    poem: 'Anchoring Effect', cn: '锚定效应',
-    meaning: '起点决定走向。把目标设高一点，你会走出更远的路。最初的数字会变成参照系，锚得高，基线就高。',
-    source: '美国·行为经济学||阿莫斯·特沃斯基（Amos Tversky）' },
-
-  // ── 关系 ──
-  { cat: 'relationship', grade: '上签', num: 39,
-    poem: '君子之交',
-    cn: 'A friendship of gentlemen',
-    meaning: '淡如水，也是真。不黏不腻，却最长久。最有用的信息往往来自不亲密的人，因为圈子不重叠。',
-    source: '中国·道学||《庄子·山木》（战国）' },
-  { cat: 'relationship', grade: '解忧签', num: 12,
-    poem: '己所不欲，勿施于人',
-    cn: 'Do not impose on others what you dislike',
-    meaning: '自己不愿的，别压到别人身上。换位想一想，关系自然好。',
-    source: '中国·儒学||《论语·卫灵公》（春秋）' },
-  { cat: 'relationship', grade: '中上签', num: 58,
-    poem: 'Live and let live.',
-    literal: '各活各的，互不干涉',
-    meaning: '彼此都有位置。尊重边界，是关系的防腐剂。被控制感一上来，关系就变味。',
-    source: '荷兰·谚语||' },
-  { cat: 'relationship', grade: '上签', num: 99,
-    poem: 'It takes a village to raise a child.',
-    literal: '养育一个孩子，得全村之力帮忙',
-    meaning: '社会支持网络越密，心理承受力越强。找人分担是人类的生存策略，互相帮衬活得久。',
-    source: '非洲·谚语||' },
-  { cat: 'relationship', grade: '上上签', num: 113,
-    poem: 'Active Listening', cn: '积极倾听',
-    meaning: '好好聆听，是最高级的温柔。耐心听完，关系自动升温。被倾听的人压力激素会明显下降。',
-    source: '美国·人本主义心理学||卡尔·罗杰斯（Carl Rogers）' },
-  { cat: 'relationship', grade: '上签', num: 114,
-    poem: 'Mirroring', cn: '镜像效应',
-    meaning: '你怎样待人，对方就怎样回应你。先露出笑容，世界会还你阳光。你先笑，对方也会不自觉地笑回来。',
-    source: '美国·社会心理学||' },
-
-
-  // ── 财富/心态 ──（移除金钱直接相关签文，保留心态类）
-  { cat: 'selfcare', grade: '上上签', num: 115,
-    poem: 'Abundance Mindset', cn: '丰盛心态',
-    meaning: '觉得「足够」的人，往往越来越丰足。感恩已有，新机会就来敲门。越觉得不够，越看不见身边的好。',
-    source: '美国·积极心理学||' },
-
-
-  // ── 自己/自洽 ──
-  { cat: 'selfcare', grade: '大吉签', num: 2,
-    poem: '顺其自然',
-    cn: 'Go with the flow',
-    meaning: '不拧巴的时候，最顺。随缘而行，日子反而走得快。越想控制不可控的事，焦虑越重，放手反而松快。',
-    source: '中国·堪舆学||五代《灵城精义》' },
-  { cat: 'selfcare', grade: '解忧签', num: 77,
-    poem: '往者不可谏，来者犹可追',
-    cn: 'The past is past, the future awaits',
-    meaning: '过去的过去了，往前看才有新路。别回头，未来还在等你。反复假设「如果当初」只消耗精力，不改变结果。',
-    source: '中国·儒学||《论语·微子》（春秋）' },
-  { cat: 'selfcare', grade: '上上签', num: 91,
-    poem: 'This too shall pass.',
-    literal: '这一切也会过去',
-    meaning: '再难的日子，也有翻篇的那天。低谷不会永远停在同一深度。',
-    source: '波斯·谚语||' },
-  { cat: 'selfcare', grade: '解忧签', num: 101,
-    poem: 'Det er ingen skam å snu.',
-    literal: '回头不丢人',
-    meaning: '发现走错了，转身就是进步。沉没成本收不回来了，继续走只会赔更多，及时止损才是理性。',
-    source: '挪威·谚语||' },
-  { cat: 'selfcare', grade: '上上签', num: 116,
-    poem: 'Self-Compassion', cn: '自我关怀',
-    meaning: '对自己温柔，是最好的充电。今天允许你慢下来。给心理电池充电，亏电硬撑反而烧得快。',
-    source: '美国·临床心理学||克里斯汀·内夫（Kristin Neff）' },
-  { cat: 'selfcare', grade: '大吉签', num: 117,
-    poem: 'Mindfulness', cn: '正念',
-    meaning: '烦恼多在过去和未来，平静只在「现在」。深呼吸，就是一次治愈。把注意力拉回当下，焦虑没有此刻的土壤就长不出来。',
-    source: '美国·认知神经科学||乔·卡巴金（Jon Kabat-Zinn）' },
-
-
-  // ── 趣味小故事签（大器晚成主题） ──
-  { cat: 'selfcare', grade: '上上签', num: 201,
-    poem: '大器晚成',
-    cn: 'Great things ripen late',
-    meaning: '姜子牙72岁渭水边遇周文王，此后辅佐周朝一统天下。起点晚一点，不影响走很远。能力成熟需要更长时间窗。',
-    source: '中国·历史||姜子牙（商周）' },
-  { cat: 'selfcare', grade: '大吉签', num: 202,
-    poem: 'Never Too Late', cn: '永远不晚',
-    meaning: '黄公望50岁才开始正经学艺，70岁完成《富春山居图》。最好的作品，常写在人生后半场。积淀越久，笔墨越沉。',
-    source: '中国·艺术||黄公望（元）' },
-  { cat: 'selfcare', grade: '上上签', num: 203,
-    poem: 'Grandma Moses', cn: '摩西奶奶',
-    meaning: '她76岁才拿起画笔，80岁开画展，90岁依然在创作。年龄只是数字，热爱才是方向。大脑不论多大年纪都能长出新连接。',
-    source: '美国·艺术||安娜·摩西（Anna Moses）' },
-  { cat: 'selfcare', grade: '上签', num: 204,
-    poem: 'Colonel Sanders', cn: '肯德基上校',
-    meaning: '他65岁那年用退休金创业做炸鸡，72岁分店开遍全球。晚来的成功，反而更扎稳。经验熬到火候，一出手就稳。',
-    source: '美国·商业||哈兰德·山德士（Harland Sanders）' },
-  { cat: 'selfcare', grade: '上上签', num: 205,
-    poem: 'Harry Potter', cn: 'J.K.罗琳',
-    meaning: '她32岁出版《哈利·波特》，此前被十二家出版社拒稿。低谷也可以是转角。复原力是每次跌倒后爬起来的次数堆出来的。',
-    source: '英国·文学||J.K.罗琳（J.K. Rowling）' },
-  { cat: 'selfcare', grade: '中上签', num: 206,
-    poem: '晋文公重耳',
-    meaning: '重耳流亡19年，60多岁回国即位，终成春秋霸主。晚到的季候，一样繁花盛开。苦难当训练场，扛过去就更强。',
-    source: '中国·历史||晋文公（春秋）' },
-
-  // ── 行业心语 · 360行 ──
-  { cat: 'career', grade: '上上签', num: 301,
-    poem: '节气不等人', cn: 'The season waits for no one',
-    meaning: '庄稼人信节气：该下种就下种，错过一季要再等一年。人生也一样，时机到了就出手。犹豫期间，你损失的是这段时间的潜在收益。',
-    source: '中国·农谚||' },
-  { cat: 'career', grade: '上签', num: 302,
-    poem: 'Hello, World!', cn: '你好，世界',
-    meaning: '每个程序员写的第一行程序。再庞大的系统，也从一句「你好，世界」起步。先跑起来再说，别等完美才出手。',
-    source: '编程·行业||程序员' },
-  { cat: 'career', grade: '上上签', num: 303,
-    poem: '复式记账', cn: 'Double-entry bookkeeping',
-    meaning: '会计的规矩：有借必有贷，借贷必相等。人生也讲平衡，先付出，才会有进账。先给予的人，别人回报的冲动越强。',
-    source: '会计·行业||行话' },
-  { cat: 'career', grade: '大吉签', num: 304,
-    poem: '量体裁衣', cn: 'Cut to fit',
-    meaning: '好裁缝不照抄尺寸，先看清身材再下剪。任何选择，先看清自己，合适的比时髦的更耐穿。穿别人的尺码，怎么都不合身。',
-    source: '裁缝·行业||行话' },
-  { cat: 'career', grade: '上签', num: 305,
-    poem: '不拔苗', cn: 'Let it grow',
-    meaning: '苗有苗的节奏，根扎深了，长高是迟早的事。扎根，比出头更要紧。延迟满足能力越强，长期成就越高，急不得的事急了反而坏。',
-    source: '园艺·行业||行话' },
-  { cat: 'career', grade: '上上签', num: 306,
-    poem: '决定性瞬间', cn: 'The decisive moment',
-    meaning: '摄影里有些画面一生只出现一次。机会也一样，准备好了，手才稳。心定，手才不抖。练够了紧张就不至于失控。',
-    source: '摄影·行业||布列松' },
-  { cat: 'career', grade: '上签', num: 307,
-    poem: '台上一分钟', cn: 'One minute on stage',
-    meaning: '老戏班子里说：台上一个身段，台下千遍功夫。每一份本事，都有台下垫底。身体记住了，脑子就不慌了。',
-    source: '戏曲·行业||行话' },
-  { cat: 'career', grade: '中上签', num: 308,
-    poem: '红灯即绿灯', cn: 'Red light, green light',
-    meaning: '开车遇到红灯，是换挡前的缓冲。停一停，路反而顺。停，是为了更好地走。不停运转反而效率递减。',
-    source: '驾驶·行业||日常' },
-  { cat: 'career', grade: '上签', num: 309,
-    poem: '火候刚好', cn: 'The heat is right',
-    meaning: '厨师讲究火候：多一分嫌老，少一分夹生。做事也急不得，烫不得。时机到了，火候自然对。太早太晚都不对，耐心等信号。',
-    source: '厨师·行业||行话' },
-  { cat: 'career', grade: '大吉签', num: 310,
-    poem: '地基决定高度', cn: 'The foundation sets the height',
-    meaning: '看不见的地基，扛起整座楼。默默下的功夫，都在托着你往上走。藏得越深的，越扛事。基本功越扎实天花板越高。',
-    source: '建筑·行业||行话' },
-  { cat: 'career', grade: '上上签', num: 311,
-    poem: '咬合', cn: 'The gears mesh',
-    meaning: '修表匠看齿轮：每个齿都咬得准，钟才走得稳。把每一扣咬对，自然走得稳。差一扣整钟就停。',
-    source: '钟表·行业||行话' },
-  { cat: 'career', grade: '上签', num: 312,
-    poem: '水温刚好', cn: 'The water temperature is just right',
-    meaning: '茶人讲究水温：低一分不出香，高一分发苦。对人对事，温度对了，一切都对了。恰到好处最持久。',
-    source: '茶艺·行业||行话' },
-
-  // ── 情绪疗愈 · 伤心也可以 ──
-  { cat: 'selfcare', grade: '解忧签', num: 401,
-    poem: 'Crying is Healing', cn: '哭一场，也是在疗愈',
-    meaning: '眼泪会带走压力激素，哭泣是身体在帮你排毒。哭完了，人就轻了。',
-    source: '美国·进化心理学||威廉·弗雷（William Frey）' },
-  { cat: 'selfcare', grade: '解忧签', num: 402,
-    poem: 'Vulnerability is Strength', cn: '脆弱，也是一种力量',
-    meaning: '愿意承认难过的人，反而恢复更快。允许自己伤心，比假装坚强更勇敢。像弹簧，先允许变形才能弹回来，硬扛反而脆。',
-    source: '美国·社会心理学||布琳·布朗（Brené Brown）' },
-  { cat: 'selfcare', grade: '解忧签', num: 403,
-    poem: 'Grief is Love', cn: '悲伤，是爱过的痕迹',
-    meaning: '悲伤是你曾经认真爱过的证据。别急着赶它走，它在提醒你珍惜什么。跳过它，伤口会留更久。',
-    source: '美国·悲痛研究||大卫·凯斯勒（David Kessler）' },
-  { cat: 'selfcare', grade: '解忧签', num: 404,
-    poem: 'Storm Before Calm', cn: '风暴之后是平静',
-    meaning: '难过到极点之后，情绪会自动触底反弹。再撑一会儿，天就亮了。低谷不会永远停在同一深度。',
-    source: '美国·积极心理学||情绪周期理论' },
-  { cat: 'selfcare', grade: '解忧签', num: 405,
-    poem: 'Rumination Stop', cn: '停止反刍',
-    meaning: '反复回想痛苦，不等于在解决问题。给自己设个「难过上限」，到点就起身走走，换个场景。打断它就是最好的解药。',
-    source: '美国·临床心理学||苏珊·诺伦-霍克赛玛（Susan Nolen-Hoeksema）' },
-  { cat: 'selfcare', grade: '解忧签', num: 406,
-    poem: 'Post-Traumatic Growth', cn: '伤后成长',
-    meaning: '大多数经历低谷的人，反而会变得更有韧性。你现在的痛，日后会变成力量。大脑重建认知的自然修复机制。',
-    source: '美国·创伤心理学||理查德·泰德斯基（Richard Tedeschi）' },
-  { cat: 'selfcare', grade: '解忧签', num: 407,
-    poem: 'You Are Not Alone', cn: '你不是一个人',
-    meaning: '难过时主动找一个人说说话，比独自硬扛恢复快得多。别把脆弱藏起来。有人听你说，身体就在减负。',
-    source: '美国·社交支持理论||谢尔登·科恩（Sheldon Cohen）' },
-  { cat: 'selfcare', grade: '解忧签', num: 408,
-    poem: 'Permission to Feel', cn: '允许难过',
-    meaning: '情绪没有好坏，被压抑的才会伤人。伤心就来，走的时候，它会带走你不想要的东西。压制它身体替你记着账。',
-    source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
-
-];
-
-const CAT_LABEL = {
-  study:        '学 习',
-  work:         '工 作',
-  confidence:   '自 信',
-  action:       '行 动',
-  relationship: '关 系',
-  selfcare:     '自 己',
-};
-
-const STORAGE_KEY = 'sisterSign.history.v1';
-
-const state = {
-  currentSign: null,
-  history: [],
-  isDrawing: false,
-};
-
-function pickSign() {
-  return FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
-}
-
-/* 情绪 → 推荐签分类 */
-const MOOD_CATS = {
-  happy:  ['study', 'relationship', 'confidence'],
-  down:   ['selfcare', 'confidence', 'action'],
-  sad:    ['selfcare', 'confidence'],
-  calm:   ['selfcare', 'career', 'study'],
-  praise: ['confidence', 'career', 'study'],
-  random: null,
-};
-
-function pickSignByMood(mood) {
-  const cats = MOOD_CATS[mood] || null;
-  if (!cats) return pickSign();
-  const pool = FORTUNES.filter(f => cats.includes(f.cat));
-  return pool.length ? pool[Math.floor(Math.random() * pool.length)] : pickSign();
-}
-
-function isAscii(str) {
-  return /^[\x00-\x7F\s]+$/.test(str);
-}
-
-/* ====================================================
-   日期 + 天气感知 — 显示「2026/08/19 · 晴 28℃」
-   天气优先取 localStorage 手动设置；无则用本地时间推算季节天气
-   ==================================================== */
-const WEATHER_ICONS = {
-  sun: '☀️', cloud: '☁️', rain: '🌧️', snow: '❄️', fog: '🌫️',
-  thunder: '⛈️', wind: '💨', moon: '🌙', star: '✨'
-};
-
-function getSeasonWeather() {
-  // 根据月份 + 时段给一个温和的默认天气（无需联网、离线可用）
-  const d = new Date();
-  const mon = d.getMonth() + 1;
-  const h = d.getHours();
-  if (mon >= 3 && mon <= 5)  return { icon: 'sun',  label: '晴' };
-  if (mon >= 6 && mon <= 8)  return { icon: h >= 18 || h < 6 ? 'moon' : 'sun',  label: '晴' };
-  if (mon >= 9 && mon <= 11) return { icon: 'sun',  label: '晴' };
-  return { icon: h >= 18 || h < 6 ? 'moon' : 'sun', label: '晴' };
-}
-
-function getWeatherText() {
-  const saved = localStorage.getItem('sisterSign.weather');
-  if (saved) {
-    try {
-      const w = JSON.parse(saved);
-      if (w && w.label) return w;
-    } catch (e) {}
-  }
-  return getSeasonWeather();
-}
-
-function formatDateLine() {
-  const d = new Date();
-  const pad = n => String(n).padStart(2, '0');
-  const y = d.getFullYear(), m = pad(d.getMonth() + 1), day = pad(d.getDate());
-  const wd = ['日', '一', '二', '三', '四', '五', '六'][d.getDay()];
-  return `${y}/${m}/${day} 周${wd}`;
-}
-
-function formatWeatherLine() {
-  const w = getWeatherText();
-  const icon = WEATHER_ICONS[w.icon] || WEATHER_ICONS.sun;
-  const temp = localStorage.getItem('sisterSign.temperature');
-  const tempStr = temp ? ` · ${temp}℃` : '';
-  return `${icon} ${w.label}${tempStr}`;
-}
-
-function renderSign(sign) {
-  // 中文主题词：若 poem 本身是中文（成语/谚语），poem 即中文主题 → 银色发光大标题；
-  // 若 poem 是英文（心理签），cn 中文 → 银色发光大标题
-  const poemIsCn = !isAscii(sign.poem);
-  const poemClass = poemIsCn ? 'sign-poem sign-poem-cn' : 'sign-poem english';
-  const joinSegs = (segs) => segs.map(seg => `<span class="seg">${seg}</span>`)
-    .join(segs.some(sg => /[\x00-\x7F]/.test(sg)) ? ' ' : '');
-  // 英文签诗按子句断段（keepSpace），避免逐词竖排；中文按语义断句
-  const poemHtml = poemIsCn
-    ? `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.poem), 7))}</span>`
-    : joinSegs(smartSegments(escapeHtml(sign.poem), 9, !poemIsCn));
-  // cn：若 poem 是中文，cn 是英文翻译 → 英文小号样式；若 poem 是英文，cn 是中文主题 → 银色大样式
-  const cnIsAscii = sign.cn && /[\x00-\x7F]/.test(sign.cn);
-  const cnLine = sign.cn
-    ? `<p class="${cnIsAscii ? 'sign-cn-en' : 'sign-cn'}">${cnIsAscii ? escapeHtml(sign.cn) : `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.cn), 7))}</span>`}</p>`
-    : '';
-  const literalLine = sign.literal
-    ? `<p class="sign-literal"><span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.literal), 7))}</span></p>`
-    : '';
-  const meaningHtml = joinSegs(smartSegments(escapeHtml(sign.meaning), 16));
-  const sourceHtml = sign.source
-    ? (() => {
-        const parts = sign.source.split('||');
-        let html = '<span class="source-line">— ' + parts[0] + '</span>';
-        if (parts[1]) html += '<br><span class="source-line">' + parts[1] + '</span>';
-        return html;
-      })()
-    : '';
-  return `
-    <div class="sign-meta">
-      <span class="sign-date">${formatDateLine()}</span>
-      <span class="sign-weather">${formatWeatherLine()}</span>
-      <span class="sign-brand">Light Wind 风起</span>
-    </div>
-    <div class="sign-content">
-      <div class="sign-top">
-        <p class="${poemClass}">${poemHtml}</p>
-        ${cnLine}
-        ${literalLine}
+          <div class="pill-row sms-stack d8">
+            <a class="pill pill-soft" href="resume.pdf" download>📄 下载简历 PDF</a>
+            <a class="pill pill-soft" href="#contact">📧 获取联系方式</a>
+          </div>
+        </div>
       </div>
-      <div class="sign-mid">
-        <p class="sign-meaning">${meaningHtml}</p>
+
+      <div class="divider-wrap"><div class="divider"></div></div>
+    </header>
+
+    <main class="content">
+      <section class="section">
+        <h2 class="section-title sms-stack d1">关于我 · 生活</h2>
+        <div class="about-text">
+          <p class="sms-stack d2">🌍 对世界保持好奇心，热衷于主动出发，擅长在不确定中把事情推进到结果。</p>
+          <p class="sms-stack d3">⚡ 通常愿意先迈出第一步，亲和力强、行动力足，面对陌生关系和新场景，需要较少热身时间。</p>
+          <p class="sms-stack d4">📚 我的业余爱好广泛，从旅游阅读、健身运动，到今年持续尝试的 Vibe Coding 新工具学习。对我来说，兴趣是一种用来保持输入、训练高精力的方式。</p>
+          <p class="sms-stack d5">🧭 习惯在不同经历中快速理解人和场景，并找到一种更省力但更有效的协作方式。</p>
+          <p class="sms-stack d6">🌈 生活里是 ENFP，和不同背景的人相处都很自然；一旦进入工作状态，会切换到冷静理性、结果导向模式，习惯把事情理清楚，用自己的节奏循序完成。</p>
+          <p class="sms-stack d7">🤗 和我共事过的人，对我的正面评价往往集中在两点：做事靠谱，以及合作高效。</p>
+          <p class="sms-stack d8">📖 我始终相信，真正有价值的能力，来自终身学习，这会让人在复杂环境里也能保持秩序感。</p>
+        </div>
+      </section>
+
+      <div class="divider-wrap"><div class="divider"></div></div>
+
+      <section class="section">
+        <h2 class="section-title sms-stack d1">关于我 · 工作</h2>
+        <div class="about-text">
+          <p class="sms-stack d2">📊 长期负责品牌全渠道媒介与增长策略，从预算规划、资源整合到落地复盘，习惯在复杂项目中保持清晰结构和可执行路线。</p>
+          <p class="sms-stack d3">📌 擅长基于目标拆解链路，设计渠道组合、内容矩阵与投放节奏，建立从品牌曝光到效果转化的一体化闭环。</p>
+          <p class="sms-stack d4">📈 熟悉多种媒介 KPI 与数据指标，能够在预算有限的情况下，通过结构化优化与实验设计提升整体 ROI。</p>
+          <p class="sms-stack d5">🤝 工作中注重协作体验，习惯跨团队对齐信息、拆解责任边界，让合作伙伴在同一张作战地图上推进工作。</p>
+          <p class="sms-stack d6">🧠 正在把 AI 与 Vibe Coding 融入日常工作流，用它们辅助方案撰写、素材生成与数据拆解，把更多精力留给判断和决策。</p>
+        </div>
+      </section>
+    </main>
+
+    <section class="lower">
+      <div class="divider-wrap"><div class="divider"></div></div>
+
+      <div class="timeline-section">
+        <h2 class="timeline-title sms-stack d1">工作经历</h2>
+
+        <div class="timeline-item sms-stack d2">
+          <div class="role-pill">媒介主管｜恒沐（上海）广告有限公司　2021.01 – 2025.12</div>
+          <p class="timeline-desc sms-stack d3">负责品牌全年媒介策略与预算管理，搭建本地化内容矩阵，整合搜索、信息流与社交媒体资源，实现品牌曝光与转化双目标，并通过持续数据复盘提升整体投放效率。</p>
+        </div>
+
+        <div class="timeline-item sms-stack d4">
+          <div class="role-pill">媒介专员｜上海悦普网络科技有限公司　2020.04 – 2020.12</div>
+          <p class="timeline-desc sms-stack d5">负责微信、微博、抖音、小红书等平台资源拓展与投放执行，累计处理超 800 项需求，覆盖合同谈判、排期管理与执行跟进，保障项目顺利推进与效果达成。</p>
+        </div>
+
+        <div class="timeline-item sms-stack d6">
+          <div class="role-pill">媒介｜阳光恒美融信息技术服务（上海）股份有限公司　2018.01 – 2020.01</div>
+          <p class="timeline-desc sms-stack d7">独立开发并运营 KOL/KOC 资源网络，负责跨行业客户的内容合作匹配与投放建议，在预算可控前提下提升整体投放效率，并为品牌沉淀长期合作资产。</p>
+        </div>
       </div>
-      <div class="sign-bottom">
-        ${sign.source ? `<p class="sign-source">${sourceHtml}</p>` : ''}
+
+      <div class="divider-wrap"><div class="divider"></div></div>
+
+      <div class="timeline-section">
+        <h2 class="timeline-title sms-stack d1">项目经验</h2>
+
+        <div class="timeline-item sms-stack d2">
+          <div class="project-pill">巨量引擎整合营销 · 房地产品牌</div>
+          <p class="timeline-desc sms-stack d3">负责抖音生态整合营销项目，从预算规划、DMP 人群建模到 A/B 测试与投放节奏优化，搭建从公域曝光到线索转化的全链路模型，实现线索成本降低、转化率提升的双重效果。</p>
+        </div>
+
+        <div class="timeline-item sms-stack d4">
+          <div class="project-pill">洲际酒店集团 · 小红书内容营销与聚光投流</div>
+          <p class="timeline-desc sms-stack d5">主导多家酒店在小红书平台的内容策略与达人生态建设，搭建标准化合作流程，结合聚光投流工具做内容加热与精准引流，显著提升品牌社交声量与用户互动质量。</p>
+        </div>
+
+        <div class="timeline-item sms-stack d6">
+          <div class="project-pill">快消品牌新品上市 · 整合种草与投放项目</div>
+          <p class="timeline-desc sms-stack d7">从策略、排期到素材需求与效果复盘全流程跟进，结合人群洞察与渠道特性设计媒介组合，通过多轮创意与落地页优化，提升整体转化效率与品牌好感度。</p>
+        </div>
       </div>
-    </div>
-    <div class="actions">
-      <button class="btn-ghost" id="copy-btn">📋 复制</button>
-      <button class="btn-ghost mid" id="save-btn">🖼️ 保存</button>
-      <button class="btn-ghost solid" id="again-btn">🔁 重选</button>
-    </div>
-  `;
-}
 
-function escapeHtml(s) {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
+      <div class="divider-wrap"><div class="divider"></div></div>
 
-
-/* 智能断行：把长文本切成「语义段」，
-   每段 inline-block 不换行，整段放不下才整体换到下一行，
-   保证括号、单词、短句不被拆成两半。
-   - 中文：按句末标点断句；过长无标点段再按字数拆
-   - 英文：按空格断词（词不拆），逗号/句号后也断开 */
-function smartSegments(text, maxCn = 9, keepSpace = false) {
-  if (!text) return [];
-  const segs = [];
-  let cur = '';
-  const flush = () => {
-    const t = cur.trim();
-    if (t) {
-      // 纯标点段（如「。」「—」）并入前一段，避免孤立符号占一行
-      if (!/[a-zA-Z0-9\u4e00-\u9fff]/.test(t) && segs.length > 0) {
-        segs[segs.length - 1] += t;
-      } else if (/[\u4e00-\u9fff]/.test(t) && t.length > maxCn && !/[，。！？、；：]/.test(t)) {
-        const breakers = ['需要', '就是', '也是', '就能', '才是', '没有', '还有', '我们', '成为'];
-        let cutAt = -1;
-        for (const b of breakers) {
-          const idx = t.indexOf(b, 4);
-          if (idx > 0 && idx < t.length - 2 && idx <= maxCn) { cutAt = idx; break; }
-        }
-        if (cutAt > 0) {
-          segs.push(t.slice(0, cutAt));
-          segs.push(t.slice(cutAt));
-        } else {
-          for (let i = 0; i < t.length; i += maxCn) segs.push(t.slice(i, i + maxCn));
-        }
-      } else {
-        // 过短段（1-2字中文）并入前段，避免孤立单字占一行
-        if (segs.length > 0 && /[\u4e00-\u9fff]/.test(t) && t.length <= 2 && !/[，。！？、；：]/.test(t)) {
-          segs[segs.length - 1] += t;
-        } else {
-          segs.push(t);
-        }
-      }
-    }
-    cur = '';
-  };
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    // 「·」与两侧空格保留（如 美国 · 孔子），不拆散
-    if (ch === '·') { cur += ch; continue; }
-    if (ch === '（' || ch === '(') {
-      const close = text.indexOf(ch === '（' ? '）' : ')', i + 1);
-      if (close > -1) {
-        // 括号段与括号前累积的内容合并为完整一段（避免括号被拆两半）
-        const full = cur + text.slice(i, close + 1);
-        if (full.trim()) segs.push(full.trim());
-        cur = '';
-        i = close;
-        continue;
-      }
-    }
-    cur += ch;
-if (ch === ' ') {
-      // 纯标点累积（如「—」开头）不因空格打断，继续与后文合并
-      const curTrim = cur.trim();
-      if (curTrim && !/[a-zA-Z0-9\u4e00-\u9fff]/.test(curTrim)) continue;
-      // keepSpace（英文签诗）：空格已由 cur += ch 累积，仅按标点断句，避免逐词竖排
-      if (keepSpace) { continue; }
-      flush(); continue;
-    }
-    // 硬断点：句末标点（。！？；）→ 保证句子完整换行
-    if (/[。！？；!?;]/.test(ch)) { flush(); continue; }
-    // 软断点：逗号/顿号/冒号 → 只有当前段已接近行宽上限才断开，
-    // 否则保留在段内，避免「停一停，」「路反而顺。」被拆成孤立段
-    if (/[，、：,]/.test(ch)) {
-      if (cur.length >= Math.max(4, maxCn * 0.8)) { flush(); }
-      continue;
-    }
-    if (ch === '.') {
-      const next = text[i + 1];
-      if (next === undefined || next === ' ') { flush(); continue; }
-    }
-  }
-  flush();
-  return segs;
-}
-
-function drawSign(mood) {
-  if (state.isDrawing) return;
-  state.isDrawing = true;
-  hideHome();   // 抽签后隐藏情绪泡泡
-
-  const card  = document.getElementById('card');
-  const drawBtn = document.getElementById('draw-btn');
-  const wand  = document.getElementById('wand');
-  if (drawBtn) drawBtn.disabled = true;
-
-  if (navigator.vibrate) {
-    try { navigator.vibrate(40); } catch(e) {}
-  }
-
-  // 魔法棒叩击水面：涟漪扩散 → 片刻后牌面翻开（不再摇晃）
-  if (wand) {
-    wand.classList.remove('tap-wave');
-    void wand.offsetWidth;  // 强制重绘以重新触发动画
-    wand.classList.add('tap-wave');
-  }
-
-  // 触发水面涟漪波纹
-  const ripple = document.getElementById('water-ripple');
-  if (ripple) {
-    ripple.classList.remove('active');
-    void ripple.offsetWidth;
-    ripple.classList.add('active');
-  }
-
-  setTimeout(() => {
-    if (wand) wand.classList.remove('tap-wave');
-    card.classList.remove('shaking');
-    const sign = mood ? pickSignByMood(mood) : pickSign();
-    state.currentSign = sign;
-
-    const back = document.getElementById('face-back');
-    back.innerHTML = renderSign(sign);
-    card.classList.add('flipped');
-
-    // 显示卡片外的返回提示
-    const hint = document.getElementById('back-hint');
-    if (hint) hint.classList.add('visible');
-
-    bindResultEvents();
-
-    setTimeout(() => {
-      state.isDrawing = false;
-      if (drawBtn) drawBtn.disabled = false;
-      addToHistory(sign);
-    }, 700);
-  }, 560);
-}
-
-function resetCard() {
-  if (state.isDrawing) return;
-  const card = document.getElementById('card');
-  card.classList.remove('flipped');
-  state.currentSign = null;
-  // 隐藏卡片外的返回提示
-  const hint = document.getElementById('back-hint');
-  if (hint) hint.classList.remove('visible');
-  showHome();
-}
-
-/* 返回首页：显示情绪泡泡 */
-function showHome() {
-  const bubbles = document.getElementById('mood-bubbles');
-  if (bubbles) bubbles.classList.remove('hidden');
-}
-
-/* 抽签后：隐藏情绪泡泡 */
-function hideHome() {
-  const bubbles = document.getElementById('mood-bubbles');
-  if (bubbles) bubbles.classList.add('hidden');
-}
-
-function bindResultEvents() {
-  const copyBtn     = document.getElementById('copy-btn');
-  const saveBtn     = document.getElementById('save-btn');
-  const againBtn    = document.getElementById('again-btn');
-  if (copyBtn) copyBtn.onclick = copySign;
-  if (saveBtn) saveBtn.onclick = downloadSign;
-  if (againBtn) againBtn.onclick = (e) => {
-    e.stopPropagation();
-    // 先翻回正面（触发翻面动画），再在翻回途中重新抽签翻面
-    const card = document.getElementById('card');
-    card.classList.remove('flipped');
-    // 短暂延迟后重新翻面，确保有翻转动画效果
-    setTimeout(() => drawSign(), 350);
-  };
-  // 点击签文空白处 → 返回首页（绑在 back 面上，事件更可靠）
-  const back = document.getElementById('face-back');
-  if (back) {
-    back.onclick = (e) => {
-      // 点击按钮区域不触发返回
-      if (e.target.closest('.btn-ghost, .actions, a, button')) return;
-      resetCard();
-    };
-  }
-}
-
-function copySign() {
-  const s = state.currentSign;
-  if (!s) return;
-  const lines = [];
-  lines.push(`【${formatDateLine()} ${formatWeatherLine()}】`);
-  lines.push('');
-  if (s.poem) lines.push(s.poem);
-  if (s.cn) lines.push(`（${s.cn}）`);
-  if (s.literal) lines.push(`（${s.literal}）`);
-  lines.push('');
-  if (s.meaning) lines.push(`*${s.meaning}`);
-  if (s.tip) lines.push(`*${s.tip}`);
-  if (s.source) lines.push(`—— ${s.source.replace('||', '\n   ')}`);
-  lines.push('');
-  lines.push('《Light Wind 风起》');
-  const text = lines.join('\n');
-
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(
-      () => showToast('文字已复制 · 去发小红书'),
-      () => fallbackCopy(text)
-    );
-  } else {
-    fallbackCopy(text);
-  }
-}
-
-function fallbackCopy(text) {
-  const ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.position = 'fixed';
-  ta.style.opacity = '0';
-  document.body.appendChild(ta);
-  ta.select();
-  try {
-    document.execCommand('copy');
-    showToast('文字已复制 · 去发小红书');
-  } catch (e) {
-    showToast('复制失败，请长按选择文字');
-  }
-  document.body.removeChild(ta);
-}
-
-async function downloadSign() {
-  const s = state.currentSign;
-  if (!s) return;
-
-  if (typeof html2canvas === 'undefined') {
-    showToast('保存功能加载中，稍等一秒');
-    return;
-  }
-
-  showToast('生成图片中…');
-
-  try {
-    if (document.fonts && document.fonts.ready) {
-      try { await document.fonts.ready; } catch (e) {}
-    }
-
-    const node = document.getElementById('face-back');
-    // 关键修复：html2canvas 会把背面的 rotateY(180deg) 翻转也渲染出来导致图片颠倒。
-    // 真正翻转在父级 .sign-card-outer.flipped 上（父级 rotateY(180deg) + preserve-3d 会让整个背面倒过来）。
-    // 必须在真实 DOM 上临时去掉父级 flipped 类和子级的 transform（onclone 对 3D 容器不生效），截图后再恢复。
-    const card = document.getElementById('card');
-    const cardHadFlipped = card.classList.contains('flipped');
-    if (cardHadFlipped) card.classList.remove('flipped');
-    const prevTransform = node.style.transform;
-    const prevTransformStyle = node.style.transformStyle;
-    const prevBackface = node.style.backfaceVisibility;
-    node.style.transform = 'none';
-    node.style.transformStyle = 'flat';
-    node.style.backfaceVisibility = 'visible';
-    let canvas;
-    try {
-      canvas = await html2canvas(node, {
-        backgroundColor: '#FAF7FF',
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        onclone: (doc) => {
-          const el = doc.getElementById('face-back');
-          if (el) {
-            el.style.animation = 'none';
-            el.style.transform = 'none';
-            el.style.transformStyle = 'flat';
-            el.style.backfaceVisibility = 'visible';
-            el.style.boxShadow = '0 8px 32px rgba(122, 95, 192, 0.18), 0 0 60px rgba(155, 126, 222, 0.25)';
-            // 隐藏交互按钮：截图保存的图片只展示签条内容，不包含 UI 控制
-            const actions = el.querySelector('.actions');
-            // 品牌文字与日期天气同色
-            const brand = el.querySelector('.sign-brand');
-            if (brand) brand.style.color = '#B8A6DA';
-            if (actions) actions.style.display = 'none';
-            // 隐藏底部「轻点卡面返回」提示，不出现在保存图片中
-            const hint = el.querySelector('.sign-back-hint');
-            if (hint) hint.style.display = 'none';
-            // 强制显示原本依赖 fade-in 动画才能显示的元素（关掉动画后 opacity 会卡在 0）
-            el.querySelectorAll('.sign-poem, .sign-cn, .sign-cn-en, .sign-literal, .sign-meaning, .sign-tip, .sign-source').forEach(n => {
-              n.style.opacity = '1';
-            });
-            // html2canvas 不支持 background-clip:text / -webkit-text-fill-color:transparent，
-            // 银白渐变签诗 → 截图时换实色
-            el.querySelectorAll('.sign-poem').forEach(n => {
-              n.style.backgroundImage = 'none';
-              n.style.backgroundClip = 'border-box';
-              n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#D0CCE0';
-              n.style.color = '#D0CCE0';
-              n.style.filter = 'drop-shadow(0 0 4px rgba(140, 120, 190, 0.85)) drop-shadow(0 0 10px rgba(120, 100, 180, 0.5))';
-              n.style.textShadow = '0 0 10px rgba(140, 120, 190, 0.8), 0 1px 2px rgba(60, 40, 120, 0.35)';
-            });
-            // 中文签诗 .sign-poem-cn → 覆盖为深紫实色（颜色分级）
-            el.querySelectorAll('.sign-poem.sign-poem-cn').forEach(n => {
-              n.style.webkitTextFillColor = '#6C52A8';
-              n.style.color = '#6C52A8';
-              n.style.filter = 'drop-shadow(0 0 5px rgba(155, 130, 222, 0.55))';
-              n.style.textShadow = 'none';
-            });
-            // 释义、出处也改为浅色，与签诗协调
-            el.querySelectorAll('.sign-meaning').forEach(n => {
-              n.style.color = '#A892CE';
-            });
-            el.querySelectorAll('.sign-cn').forEach(n => {
-              // 中文主题词（偏深紫）→ 截图实色深紫
-              n.style.backgroundImage = 'none';
-              n.style.backgroundClip = 'border-box';
-              n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#6C52A8';
-              n.style.color = '#6C52A8';
-              n.style.filter = 'drop-shadow(0 0 4px rgba(155, 130, 222, 0.55))';
-              n.style.textShadow = 'none';
-            });
-            el.querySelectorAll('.sign-cn-en').forEach(n => {
-              n.style.backgroundImage = 'none';
-              n.style.backgroundClip = 'border-box';
-              n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#D0CCE0';
-              n.style.color = '#D0CCE0';
-              n.style.filter = 'drop-shadow(0 0 4px rgba(140, 120, 190, 0.85)) drop-shadow(0 0 10px rgba(120, 100, 180, 0.5))';
-              n.style.textShadow = '0 0 10px rgba(140, 120, 190, 0.8), 0 1px 2px rgba(60, 40, 120, 0.35)';
-            });
-            el.querySelectorAll('.sign-literal').forEach(n => {
-              // 中文直译 → 实色深紫
-              n.style.backgroundImage = 'none';
-              n.style.backgroundClip = 'border-box';
-              n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#6C52A8';
-              n.style.color = '#6C52A8';
-              n.style.filter = 'drop-shadow(0 0 5px rgba(155, 130, 222, 0.55))';
-              n.style.textShadow = 'none';
-            });
-            el.querySelectorAll('.sign-tip').forEach(n => {
-              n.style.color = '#B8A6DA';
-            });
-            el.querySelectorAll('.sign-source').forEach(n => {
-              n.style.color = '#B8A6DA';
-            });
-            // 顶部日期行、分隔线调浅
-            const meta = el.querySelector('.sign-meta');
-            if (meta) {
-              meta.style.color = '#B8A6DA';
-              meta.style.borderColor = 'rgba(184, 164, 220, 0.25)';
-            }
-            el.querySelectorAll('.sign-date, .sign-weather').forEach(n => {
-              n.style.color = '#B8A6DA';
-            });
-          }
-        }
-      });
-    } finally {
-      // 无论成功失败都恢复卡片 3D 翻转样式，保证页面正常
-      if (cardHadFlipped) card.classList.add('flipped');
-      node.style.transform = prevTransform;
-      node.style.transformStyle = prevTransformStyle;
-      node.style.backfaceVisibility = prevBackface;
-    }
-
-    // 真实下载路径：先把图片转成 data URL，再创建 <a> 标签触发下载
-    const dataUrl = canvas.toDataURL('image/png');
-    const link = document.createElement('a');
-    link.download = `LightWind-${new Date().toISOString().slice(0, 10)}.png`;
-    link.href = dataUrl;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    showToast('卡片图片已开始下载 · 去发小红书');
-  } catch (err) {
-    console.error(err);
-    showToast('下载失败，请截图保存');
-  }
-}
-
-function addToHistory(sign) {
-  state.history = state.history.filter(h => h.poem !== sign.poem);
-  state.history.unshift({ ...sign, time: Date.now() });
-  state.history = state.history.slice(0, 3);
-  saveHistory();
-}
-
-function loadHistory() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) state.history = JSON.parse(saved);
-  } catch (e) {}
-}
-
-function saveHistory() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.history));
-  } catch (e) {}
-}
-
-let toastTimer = null;
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  if (toastTimer) clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
-}
-
-function init() {
-  loadHistory();
-  const drawBtn = document.getElementById('draw-btn');
-  if (drawBtn) drawBtn.addEventListener('click', drawSign);
-  const wand = document.getElementById('wand');
-  if (wand) wand.addEventListener('click', drawSign);
-
-  // 情绪入口：点击推荐对应签文
-  const bubbles = document.getElementById('mood-bubbles');
-  if (bubbles) {
-    bubbles.querySelectorAll('.mood-chip').forEach(chip => {
-      chip.addEventListener('click', (e) => {
-        e.stopPropagation();
-        drawSign(chip.dataset.mood);
-      });
-    });
-  }
-}
-
-init();
-</script>
+      <div id="contact" class="timeline-section">
+        <h2 class="timeline-title sms-stack d1">联系方式</h2>
+        <div class="contact-list">
+          <div class="contact-item sms-stack d2">📱 电话：17621058773</div>
+          <div class="contact-item sms-stack d3">💬 微信：17621058773</div>
+          <div class="contact-item sms-stack d4">
+            ✉️ 邮箱：
+            <a href="mailto:17621058773@163.com" style="color:#ffffff;text-decoration:none;">17621058773@163.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </body>
 </html>
