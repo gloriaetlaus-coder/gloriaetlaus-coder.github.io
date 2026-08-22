@@ -180,7 +180,7 @@ body::after {
   position: relative;
   max-width: 480px;
   margin: 0 auto;
-  padding: 8px 22px 8px;
+  padding: 18px 22px 8px;
   z-index: 1;
   /* 垂直铺满视口：内容整体垂直居中，消除底部悬空 */
   min-height: 100dvh;
@@ -196,8 +196,8 @@ body::after {
   position: relative;
   text-align: center;
   margin: 0 0 4px;
-  padding: 4px 0 6px;
-  min-height: 140px;
+  padding: 10px 0 6px;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -235,16 +235,16 @@ body::after {
   font-weight: 700;
   line-height: 1.5;
   margin: 0;
-  padding: 22px 20px 22px 12px;
+  padding: 28px 20px 22px 12px;
   letter-spacing: 0;
   white-space: nowrap;
   overflow: visible;
   background: linear-gradient(135deg,
-    #FFFFFF 0%,
-    #E8DEF5 25%,
-    #D4C5ED 50%,
-    #E8DEF5 75%,
-    #FFFFFF 100%);
+    #D4C5ED 0%,
+    #B8A4DC 25%,
+    #9B82D4 50%,
+    #B8A4DC 75%,
+    #D4C5ED 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -267,13 +267,12 @@ body::after {
   white-space: nowrap;
   font-style: italic;
   display: inline-block;
-  transform: skewX(-8deg);
   background: linear-gradient(135deg,
-    #FFFFFF 0%,
-    #F4EEFC 25%,
-    #E4DAF2 50%,
-    #F4EEFC 75%,
-    #FFFFFF 100%);
+    #D4C5ED 0%,
+    #B8A4DC 25%,
+    #9B82D4 50%,
+    #B8A4DC 75%,
+    #D4C5ED 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -290,13 +289,13 @@ body::after {
 
 @keyframes title-float {
   0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-9px); }
+  50%      { transform: translateY(-4px); }
 }
 
 /* 中文专用浮动：保留 skewX 斜体 + translateY 漂浮（合并到一个 transform 中避免覆盖） */
 @keyframes title-sub-float {
-  0%, 100% { transform: skewX(-8deg) translateY(0); }
-  50%      { transform: skewX(-8deg) translateY(-7px); }
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
 }
 
 @keyframes title-shimmer {
@@ -515,7 +514,7 @@ body::after {
   position: relative;
   width: 100%;
   max-width: min(92vw, 320px);   /* 手机占屏更大，PC不超过320 */
-  height: 520px;  /* 适配内容，减少底部空白 */
+  height: 558px;  /* 卡片高度延长1cm ≈ 38px */
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
 }
@@ -644,7 +643,7 @@ body::after {
   -webkit-backdrop-filter: blur(24px) saturate(125%);
   border: 1px solid rgba(184, 164, 220, 0.35);
   border-radius: 18px;
-  padding: 24px 26px 20px;   /* 增加左右内边距防止斜体截断 */
+  padding: 24px 26px 14px;
   display: flex;
   flex-direction: column;
   animation: card-breathe 5s ease-in-out infinite;
@@ -821,7 +820,8 @@ body::after {
   min-height: 260px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 14px;
   padding: 10px 0 6px;
 }
 
@@ -851,7 +851,7 @@ body::after {
 .sign-meaning {
   margin: 0;
   font-size: 13px;
-  line-height: 1.75;
+  line-height: 1.5;
   color: var(--text-soft);
   text-align: center;
   letter-spacing: 0.5px;
@@ -899,9 +899,9 @@ body::after {
 
 .skew-wrap {
   display: inline-block;
-  transform: skewX(-8deg) translateX(2px);
   max-width: 100%;
   margin: 0 auto;
+  text-align: center;
 }
 
 /* 中文直译 — 深紫渐变 + shimmer 扫光 */
@@ -1087,7 +1087,7 @@ body::after {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 8px;
   margin-top: auto;
-  padding-top: 18px;
+  padding-top: 14px;
 }
 
 .btn-ghost {
@@ -1246,21 +1246,21 @@ body::after {
   :root { --font-cn: var(--font-cn-mobile); }
   .title { font-size: 42px; }
   .title-sub { font-size: 22px; margin-top: 10px; }
-  .header { min-height: 96px; padding: 4px 0 2px; margin-bottom: 2px; }
-  .app { padding: 6px 16px 10px; }
-  .sign-card-outer { max-width: min(92vw, 340px); height: min(76vh, 600px); }
+  .header { min-height: 96px; padding: 8px 0 2px; margin-bottom: 2px; }
+  .app { padding: 14px 16px 10px; }
+  .sign-card-outer { max-width: min(92vw, 340px); height: min(78vh, 640px); }
   .sign-face.back { padding: 20px 18px 18px; }
   .stage { margin-top: -4px; }
 }
 
 @media (max-width: 360px) {
-  .app { padding: 6px 14px 8px; }
-  .header { min-height: 84px; padding: 2px 0 0; margin-bottom: 2px; }
+  .app { padding: 14px 14px 8px; }
+  .header { min-height: 84px; padding: 6px 0 0; margin-bottom: 2px; }
   .title { font-size: 36px; }
   .title-sub { font-size: 20px; margin-top: 8px; letter-spacing: 3px; }
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
-  .sign-card-outer { max-width: min(94vw, 320px); height: min(78vh, 580px); }
+  .sign-card-outer { max-width: min(94vw, 320px); height: min(80vh, 620px); }
   .sign-face.back { padding: 18px 14px 16px; }
   .sign-poem.english { font-size: 22px; }
   .sign-source { font-size: 10px; padding: 0 6px; }
@@ -1271,7 +1271,7 @@ body::after {
 
 @media (min-width: 600px) {
   .title { font-size: 46px; }
-  .sign-card-outer { max-width: 320px; height: 520px; }
+  .sign-card-outer { max-width: 320px; height: 558px; }
 }
 </style>
 </head>
@@ -1603,7 +1603,7 @@ function renderSign(sign) {
     <div class="sign-meta">
       <span class="sign-date">${formatDateLine()}</span>
       <span class="sign-weather">${formatWeatherLine()}</span>
-      <span class="sign-brand">今朝·My Day</span>
+      <span class="sign-brand">今朝·Good day</span>
     </div>
     <div class="sign-content">
       <div class="sign-top">
@@ -1825,7 +1825,7 @@ function copySign() {
   if (s.tip) lines.push(`*${s.tip}`);
   if (s.source) lines.push(`—— ${s.source.replace('||', '\n   ')}`);
   lines.push('');
-  lines.push('《今朝·My Day》');
+  lines.push('《今朝·Good day》');
   const text = lines.join('\n');
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1935,23 +1935,22 @@ async function downloadSign() {
               n.style.color = '#A892CE';
             });
             el.querySelectorAll('.sign-cn').forEach(n => {
-              // 中文主题词 → 截图实色明亮淡紫（与释义协调）
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#B8A4DC';
-              n.style.color = '#B8A4DC';
-              n.style.filter = 'drop-shadow(0 0 4px rgba(155, 130, 222, 0.55))';
-              n.style.textShadow = 'none';
+              n.style.webkitTextFillColor = '#C4A8E0';
+              n.style.color = '#C4A8E0';
+              n.style.filter = 'drop-shadow(0 0 6px rgba(180, 150, 230, 0.7))';
+              n.style.textShadow = '0 0 8px rgba(180, 150, 230, 0.5)';
             });
             el.querySelectorAll('.sign-cn-en').forEach(n => {
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#B8A4DC';
-              n.style.color = '#B8A4DC';
-              n.style.filter = 'drop-shadow(0 0 4px rgba(155, 126, 222, 0.65)) drop-shadow(0 0 10px rgba(140, 110, 200, 0.4))';
-              n.style.textShadow = '0 0 10px rgba(155, 126, 222, 0.6), 0 1px 2px rgba(60, 40, 120, 0.25)';
+              n.style.webkitTextFillColor = '#C4A8E0';
+              n.style.color = '#C4A8E0';
+              n.style.filter = 'drop-shadow(0 0 6px rgba(180, 150, 230, 0.7))';
+              n.style.textShadow = '0 0 8px rgba(180, 150, 230, 0.5)';
             });
             el.querySelectorAll('.sign-literal').forEach(n => {
               // 中文直译 → 实色深紫
@@ -2002,7 +2001,7 @@ async function downloadSign() {
         link.href = URL.createObjectURL(blob);
         link.click();
         downloadOK = true;
-        setTimeout(() => URL.revokeObjectURL(link.href), 3000);
+        setTimeout(() => URL.revokeObjectURL(link.href), 5000);
       }
     } catch (e) {
       console.warn('toBlob failed, trying toDataURL', e);
@@ -2013,11 +2012,26 @@ async function downloadSign() {
         link.click();
         downloadOK = true;
       } catch (e2) {
-        console.error('All download methods failed', e2);
+        console.error('toDataURL also failed', e2);
       }
     }
     document.body.removeChild(link);
-    showToast(downloadOK ? '图片已保存到下载文件夹' : '下载失败，请长按截图保存');
+    if (!downloadOK) {
+      // 最后兜底：在新窗口打开图片，用户可长按保存
+      try {
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+        const w = window.open('', '_blank');
+        if (w) {
+          w.document.write(`<img src="${dataUrl}" style="width:100%;max-width:400px;display:block;margin:0 auto;">`);
+          w.document.title = '长按图片保存到相册';
+          showToast('长按新打开的图片保存到相册');
+          return;
+        }
+      } catch (e3) {}
+      showToast('保存失败，请截屏保存');
+    } else {
+      showToast('图片已保存，去发小红书');
+    }
   } catch (err) {
     console.error(err);
     showToast('下载失败，请截图保存');
