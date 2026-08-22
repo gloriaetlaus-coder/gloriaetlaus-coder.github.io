@@ -1315,11 +1315,11 @@ body::after {
 @media (max-width: 600px) {
   :root { --font-cn: var(--font-cn-mobile); }
   .title { font-size: 42px; }
-  .title-sub { font-size: 22px; margin-top: -8px; }
+  .title-sub { font-size: 28px; margin-top: 12px; }  /* 手机端：字号放大 + 下移 0.5cm（原 -8px → +12px） */
   .header { min-height: 58px; padding: 12px 0 2px; margin-bottom: 2px; }
   .app { padding: 10px 16px 10px; }
   .sign-card-outer { max-width: min(92vw, 340px); height: min(78vh, 640px); }
-  .sign-face.back { padding: 20px 18px 18px; }
+  .sign-cn { font-size: clamp(22px, 7vw, 28px); }  /* 手机端中文主题词放大 */
   .stage { margin-top: 32px; }  /* 手机断点：同样下移 1cm */
 }
 
@@ -1328,7 +1328,7 @@ body::after {
   .app { padding: 10px 14px 8px; }
   .header { min-height: 46px; padding: 10px 0 0; margin-bottom: 2px; }
   .title { font-size: 36px; }
-  .title-sub { font-size: 20px; margin-top: -8px; letter-spacing: 3px; }
+  .title-sub { font-size: 26px; margin-top: 12px; letter-spacing: 3px; }  /* 360px 断点：放大+下移 */
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
   .sign-card-outer { max-width: min(94vw, 320px); height: min(80vh, 620px); }
@@ -1563,7 +1563,45 @@ const FORTUNES = [
   { cat: 'calm', grade: '上签', num: 608,
     poem: 'Flow, Soft Zone', cn: '静出专注', meaning: '紧张做不出好东西，平静会。静下来，创造力才有房间住。让身体先静，答案会慢慢浮现。',
     source: '美国·积极心理学||' },
-];
+
+  /* ===== 新增语料：消解负面 / 延长快乐 ===== */
+  { cat: 'happy', grade: '上上签', num: 201,
+    poem: 'Savor the Moment', cn: '品味此刻', meaning: '快乐时停下来仔细感受，停留十秒以上，大脑会把这段记忆存得更深。多回味几次，快乐就能延长。',
+    source: '美国·积极心理学||弗雷德·布莱恩特（Fred Bryant）' },
+  { cat: 'happy', grade: '大吉签', num: 202,
+    poem: 'Share the Joy', cn: '分享快乐', meaning: '把好事告诉一个人，快乐感会翻倍。说出来就是在给大脑重新播放一遍开心，身体会再分泌一次多巴胺。',
+    source: '美国·社会心理学||雪莉·盖布尔（Shelly Gable）' },
+  { cat: 'sad', grade: '上签', num: 301,
+    poem: 'Move Your Body', cn: '动起来', meaning: '低落时哪怕只是散步十分钟，血清素就会开始回升。身体动起来，情绪会跟着松动，不需要等到心情好了再动。',
+    source: '美国·精神医学||约翰·瑞迪（John Ratey）' },
+  { cat: 'sad', grade: '上签', num: 302,
+    poem: 'Write It Out', cn: '写出来', meaning: '把难过的事写下来，连续写十五分钟，情绪负担会明显减轻。书写让大脑从感受模式切换到整理模式，痛苦就不再打转。',
+    source: '美国·心理学||詹姆斯·彭尼贝克（James Pennebaker）' },
+  { cat: 'angry', grade: '上签', num: 401,
+    poem: 'Pause Before You Act', cn: '停三秒', meaning: '愤怒的生理高峰只持续九十秒。撑过这三秒，身体就会开始降温。给自己一个倒计时，比说任何话都管用。',
+    source: '美国·神经科学||吉尔·博尔特·泰勒（Jill Bolte Taylor）' },
+  { cat: 'angry', grade: '上签', num: 402,
+    poem: 'Reframe the Story', cn: '换一个角度', meaning: '生气时你只看到一个版本。试着问自己：还有没有别的解释？光是换个说法，怒气值就会降一截。',
+    source: '美国·认知心理学||阿尔伯特·艾利斯（Albert Ellis）' },
+  { cat: 'anxious', grade: '上签', num: 501,
+    poem: 'Ground Your Senses', cn: '回到感官', meaning: '焦虑时找到五样能看到的东西、四样能摸到的、三样能听到的。感官拉回此刻，大脑就没有空去预演未来。',
+    source: '美国·临床心理学||' },
+  { cat: 'anxious', grade: '上签', num: 502,
+    poem: 'Worry Window', cn: '定时担忧', meaning: '每天给自己留二十分钟专门用来焦虑，时间一到就停。把担忧装进固定时段，它会从全天骚扰变成可控的任务。',
+    source: '美国·认知行为疗法||' },
+  { cat: 'lonely', grade: '上签', num: 601,
+    poem: 'Join Something Small', cn: '加入小圈子', meaning: '每周固定参加一个活动，哪怕只是线上读书会。重复见面是建立归属感最快的方式，比偶尔社交有效得多。',
+    source: '美国·社会学||罗伊·鲍迈斯特（Roy Baumeister）' },
+  { cat: 'lonely', grade: '上签', num: 602,
+    poem: 'Write a Letter', cn: '写一封信', meaning: '想一个很久没联系的人，给他写一段话发出去。主动迈出一步，连接就重新启动，身体会回报你催产素。',
+    source: '美国·社会神经科学||' },
+  { cat: 'calm', grade: '上签', num: 701,
+    poem: 'Body Scan', cn: '扫描身体', meaning: '从脚到头逐个部位感受紧张和松弛，五分钟就能把副交感神经打开。身体松了，心就跟着稳。',
+    source: '美国·正念减压||乔·卡巴金（Jon Kabat-Zinn）' },
+  { cat: 'calm', grade: '上签', num: 702,
+    poem: 'Nature Reset', cn: '走进自然', meaning: '在绿地待二十分钟，皮质醇水平就会明显下降。看树、听风、踩泥土，大自然是最省钱的神经系统修复器。',
+    source: '美国·环境心理学||' },
+ ];
 
 const CAT_LABEL = {
   study:        '学 习',
