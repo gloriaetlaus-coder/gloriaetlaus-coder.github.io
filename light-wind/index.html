@@ -4,17 +4,15 @@
      线上地址: https://gloriaetlaus-coder.github.io/light-wind/
      ============================================================
 
-     ★ 自我检查清单（每次修改后必须逐项验证）★
-     1. 文字截断：所有签诗、主题词、释义、出处 — 桌面端+手机端(375px)+小屏(360px) 均无左右上下裁切
-     2. 主题词居中：英文签诗(.sign-poem.english)和中文主题词(.sign-cn)必须 text-align:center
-     3. 出处紧凑：两行之间无多余空行（<br>已移除，source-line用display:block+line-height:1.2）
-     4. 中文主题词不溢出：使用 clamp() 字号自适应，max-width:100% + box-sizing:border-box
-     5. slogan完整：英文"How's Your Day?" + 中文"今天过得怎么样？" 上下不被截断
-     6. 魔法棒功能：点击魔法棒图标和"点击魔法棒随机抽一张"文字均可抽随机卡
-     7. 魔法棒文字样式：与slogan同款银白渐变+shimmer+breathe发光动效
-     8. 释义末句情绪价值：每条释义最后一句要给用户正向情绪价值（夸赞/治愈/鼓励），不要冷冰冰科普
-     9. 品牌角标：卡片右上角显示"今朝·My Day"
-     10. 控制台零报错（favicon 404除外）
+5. slogan完整：英文"How's Your Day?" + 中文"今天过得怎么样？" 上下不被截断
+     6. 魔法按钮点击：.mood-bubbles容器必须 pointer-events:none、.mood-chip/icons用 pointer-events:auto，点击魔法棒能翻转抽卡（不要被容器遮挡拦截）
+     7. 底部文字动效：.wand-label（点击魔法棒随机抽一张）与 .sign-back-hint（轻点卡片返回首页）都必须 = slogan 同款三重动画(title-float/shimmer/breathe)，且为银白渐变、放大字号、无下划线
+     8. 底部无悬空：.app 必须有 min-height:100dvh + flex垂直居中，卡片下方不留大片空白
+     9. 卡片高度：max-width:600px 用 min(76vh,600px)，max-width:360px 用 min(78vh,580px)
+     10. 释义末句情绪价值：每条释义最后一句要给用户正向情绪价值（夸赞/治愈/鼓励），不要冷冰冰科普
+     11. 品牌角标：卡片右上角显示"今朝·My Day"
+     12. 控制台零报错（favicon 404除外）
+     13. slogan颜色：英文/中文均银白渐变（#FFFFFF→#E8DEF5→#D4C5ED）
      ============================================================ -->
 <html lang="zh-CN">
 <head>
@@ -184,6 +182,11 @@ body::after {
   margin: 0 auto;
   padding: 8px 22px 8px;
   z-index: 1;
+  /* 垂直铺满视口：内容整体垂直居中，消除底部悬空 */
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* ====================================================
@@ -235,11 +238,11 @@ body::after {
   letter-spacing: 0;
   white-space: nowrap;
   background: linear-gradient(135deg,
-    #9B82D4 0%,
-    #7A5FC0 25%,
-    #5C42A6 50%,
-    #7A5FC0 75%,
-    #9B82D4 100%);
+    #FFFFFF 0%,
+    #E8DEF5 25%,
+    #D4C5ED 50%,
+    #E8DEF5 75%,
+    #FFFFFF 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -264,11 +267,11 @@ body::after {
   display: inline-block;
   transform: skewX(-8deg);
   background: linear-gradient(135deg,
-    #9B82D4 0%,
-    #7A5FC0 25%,
-    #5C42A6 50%,
-    #7A5FC0 75%,
-    #9B82D4 100%);
+    #FFFFFF 0%,
+    #F4EEFC 25%,
+    #E4DAF2 50%,
+    #F4EEFC 75%,
+    #FFFFFF 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -306,13 +309,15 @@ body::after {
 @keyframes title-breathe {
   0%, 100% {
     filter:
-      drop-shadow(0 0 6px rgba(122, 95, 192, 0.50))
-      drop-shadow(0 0 14px rgba(155, 126, 222, 0.35));
+      drop-shadow(0 0 10px rgba(160, 140, 210, 0.50))
+      drop-shadow(0 0 22px rgba(180, 165, 220, 0.35))
+      drop-shadow(0 0 40px rgba(212, 197, 232, 0.20));
   }
   50% {
     filter:
-      drop-shadow(0 0 10px rgba(122, 95, 192, 0.70))
-      drop-shadow(0 0 24px rgba(155, 126, 222, 0.50));
+      drop-shadow(0 0 18px rgba(160, 140, 210, 0.75))
+      drop-shadow(0 0 36px rgba(180, 165, 220, 0.55))
+      drop-shadow(0 0 60px rgba(212, 197, 232, 0.35));
   }
 }
 
@@ -351,7 +356,8 @@ body::after {
   gap: 8px 8px;
   padding: 16px 0;
   z-index: 5;
-  pointer-events: auto;
+  /* 容器不拦截点击：只让子按钮可点，魔法棒（z-index 下方）可正常接收点击 */
+  pointer-events: none;
 }
 /* 上排（开心/沮丧/伤心）& 下排（平静/随机/赞美）：两行之间留出空隙，
    魔法棒（卡片中心 110px）正好从中露出，不被遮挡 */
@@ -416,6 +422,7 @@ body::after {
   gap: 4px;
   padding: 8px 14px;
   border-radius: 100px;
+  pointer-events: auto;  /* 子按钮恢复可点击（父容器已 pointer-events:none） */
   background: linear-gradient(135deg,
     rgba(255, 255, 255, 0.85) 0%,
     rgba(232, 224, 248, 0.75) 100%);
@@ -553,7 +560,7 @@ body::after {
 
 .wand-label {
   margin: 24px 0 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
   letter-spacing: 2px;
   cursor: pointer;
@@ -561,16 +568,17 @@ body::after {
   -webkit-user-select: none;
   white-space: nowrap;
   background: linear-gradient(135deg,
-    #9B82D4 0%,
-    #7A5FC0 25%,
-    #6C52A8 50%,
-    #7A5FC0 75%,
-    #9B82D4 100%);
+    #FFFFFF 0%,
+    #E8DEF5 25%,
+    #D4C5ED 50%,
+    #E8DEF5 75%,
+    #FFFFFF 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: title-shimmer 6s linear infinite,
+  animation: title-float 4.5s ease-in-out infinite,
+             title-shimmer 6s linear infinite,
              title-breathe 4.5s ease-in-out infinite;
   filter:
     drop-shadow(0 0 6px rgba(155, 126, 222, 0.85))
@@ -979,24 +987,66 @@ body::after {
   padding: 0;
 }
 
-/* 卡片外部提示：轻点卡片返回首页（在卡片下方，不在卡片内） */
+/* 卡片外部提示：轻点卡片返回首页（在卡片下方，不在卡片内）
+   放大字号 + 与 slogan 相同的三重动效（float + shimmer + breathe） */
 .sign-back-hint {
-  margin: 14px 0 0;
-  font-size: 11px;
-  color: var(--text-muted);
+  margin: 18px 0 0;
+  font-size: 17px;
+  color: var(--text-soft);
   text-align: center;
-  letter-spacing: 1px;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-color: rgba(122, 95, 192, 0.35);
+  letter-spacing: 2px;
   opacity: 0;
   font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   transition: opacity 0.5s;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+  /* 与 slogan 一致的银白渐变 + shimmer + breathe 动效 */
+  background: linear-gradient(135deg,
+    #FFFFFF 0%,
+    #E8DEF5 25%,
+    #D4C5ED 50%,
+    #E8DEF5 75%,
+    #FFFFFF 100%);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: hint-float 4.5s ease-in-out infinite,
+             hint-shimmer 6s linear infinite,
+             hint-breathe 4.5s ease-in-out infinite;
 }
 .sign-back-hint.visible {
   opacity: 1;
-  animation: fadeUp 0.5s 0.7s forwards;
+  animation: fadeUp 0.5s 0.7s forwards,
+             hint-float 4.5s ease-in-out infinite,
+             hint-shimmer 6s linear infinite,
+             hint-breathe 4.5s ease-in-out infinite;
+}
+
+@keyframes hint-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+@keyframes hint-shimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 250% 50%; }
+}
+
+@keyframes hint-breathe {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 10px rgba(160, 140, 210, 0.50))
+      drop-shadow(0 0 22px rgba(180, 165, 220, 0.35));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 18px rgba(160, 140, 210, 0.75))
+      drop-shadow(0 0 36px rgba(180, 165, 220, 0.55));
+  }
 }
 
 @keyframes fadeUp {
@@ -1168,21 +1218,21 @@ body::after {
   :root { --font-cn: var(--font-cn-mobile); }
   .title { font-size: 42px; }
   .title-sub { font-size: 22px; margin-top: 10px; }
-  .header { min-height: 100px; padding: 6px 0 2px; margin-bottom: 2px; }
-  .app { padding: 6px 16px 12px; }
-  .sign-card-outer { max-width: min(92vw, 320px); height: min(72vh, 520px); }
+  .header { min-height: 96px; padding: 4px 0 2px; margin-bottom: 2px; }
+  .app { padding: 6px 16px 10px; }
+  .sign-card-outer { max-width: min(92vw, 340px); height: min(76vh, 600px); }
   .sign-face.back { padding: 20px 18px 18px; }
   .stage { margin-top: -4px; }
 }
 
 @media (max-width: 360px) {
-  .app { padding: 6px 14px 10px; }
-  .header { min-height: 88px; padding: 4px 0 0; margin-bottom: 2px; }
+  .app { padding: 6px 14px 8px; }
+  .header { min-height: 84px; padding: 2px 0 0; margin-bottom: 2px; }
   .title { font-size: 36px; }
   .title-sub { font-size: 20px; margin-top: 8px; letter-spacing: 3px; }
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
-  .sign-card-outer { max-width: min(94vw, 310px); height: min(76vh, 510px); }
+  .sign-card-outer { max-width: min(94vw, 320px); height: min(78vh, 580px); }
   .sign-face.back { padding: 18px 14px 16px; }
   .sign-poem.english { font-size: 22px; }
   .sign-source { font-size: 10px; padding: 0 6px; }
