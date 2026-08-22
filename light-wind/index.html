@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#7A5FC0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Light Wind 风起</title>
+<title>今朝·My Day</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
@@ -219,9 +219,9 @@ body::after {
   white-space: nowrap;
   background: linear-gradient(135deg,
     #FFFFFF 0%,
-    #E8DEF5 25%,
-    #D4C5ED 50%,
-    #E8DEF5 75%,
+    #F4EEFC 25%,
+    #E6DCF8 50%,
+    #F4EEFC 75%,
     #FFFFFF 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
@@ -233,7 +233,7 @@ body::after {
     title-breathe 4.5s ease-in-out infinite;
 }
 
-/* 中文副标题 — 发光斜体 + shimmer 扫光（与英文统一）*/
+/* 中文副标题 — 与英文 slogan 完全一致的三重动画：float + shimmer + breathe */
 .title-sub {
   position: relative;
   z-index: 2;
@@ -241,18 +241,25 @@ body::after {
   font-family: var(--font-cn);
   font-size: 26px;
   font-weight: 800;
-  color: #FFFFFF;
   letter-spacing: 4px;
-  text-shadow:
-    0 0 14px rgba(160, 140, 210, 0.70),
-    0 0 28px rgba(180, 165, 220, 0.45),
-    0 1px 3px rgba(100, 80, 160, 0.25);
   white-space: nowrap;
   font-style: italic;
   display: inline-block;
   transform: skewX(-8deg);
-  animation: sub-fade 4.5s ease-in-out infinite;
-  overflow: hidden;
+  background: linear-gradient(135deg,
+    #FFFFFF 0%,
+    #F4EEFC 25%,
+    #E4DAF2 50%,
+    #F4EEFC 75%,
+    #FFFFFF 100%);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation:
+    title-sub-float 4.5s ease-in-out infinite,
+    title-shimmer 6s linear infinite,
+    title-breathe 4.5s ease-in-out infinite;
 }
 /* 移除旧伪元素扫光 — 已统一为 shimmer 渐变动画 */
 .title-sub::after {
@@ -262,6 +269,12 @@ body::after {
 @keyframes title-float {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-9px); }
+}
+
+/* 中文专用浮动：保留 skewX 斜体 + translateY 漂浮（合并到一个 transform 中避免覆盖） */
+@keyframes title-sub-float {
+  0%, 100% { transform: skewX(-8deg) translateY(0); }
+  50%      { transform: skewX(-8deg) translateY(-7px); }
 }
 
 @keyframes title-shimmer {
@@ -276,15 +289,15 @@ body::after {
 @keyframes title-breathe {
   0%, 100% {
     filter:
-      drop-shadow(0 0 10px rgba(160, 140, 210, 0.50))
-      drop-shadow(0 0 22px rgba(180, 165, 220, 0.35))
-      drop-shadow(0 0 40px rgba(212, 197, 232, 0.20));
+      drop-shadow(0 0 10px rgba(170, 150, 235, 0.70))
+      drop-shadow(0 0 24px rgba(190, 175, 235, 0.55))
+      drop-shadow(0 0 44px rgba(222, 210, 242, 0.30));
   }
   50% {
     filter:
-      drop-shadow(0 0 18px rgba(160, 140, 210, 0.75))
-      drop-shadow(0 0 36px rgba(180, 165, 220, 0.55))
-      drop-shadow(0 0 60px rgba(212, 197, 232, 0.35));
+      drop-shadow(0 0 20px rgba(170, 150, 235, 0.95))
+      drop-shadow(0 0 40px rgba(190, 175, 235, 0.75))
+      drop-shadow(0 0 66px rgba(222, 210, 242, 0.45));
   }
 }
 
@@ -477,7 +490,7 @@ body::after {
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  overflow: hidden;
+  overflow: visible;  /* 允许斜体文字溢出，靠 padding 控制视觉边界 */
 }
 
 /* ---------- FRONT ---------- */
@@ -523,6 +536,19 @@ body::after {
   filter: drop-shadow(0 4px 12px rgba(122, 95, 192, 0.3));
 }
 
+.wand-label {
+  margin: 14px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--primary);
+  text-shadow: 0 0 8px rgba(155, 126, 222, 0.35);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.wand-label:hover { opacity: 0.85; }
+
 @keyframes gentleFloat {
   0%, 100% { transform: translateY(0) rotate(0); }
   50%      { transform: translateY(-8px) rotate(2deg); }
@@ -565,7 +591,7 @@ body::after {
   -webkit-backdrop-filter: blur(24px) saturate(125%);
   border: 1px solid rgba(184, 164, 220, 0.35);
   border-radius: 18px;
-  padding: 22px 22px 20px;   /* 增加左右内边距防止斜体截断 */
+  padding: 24px 26px 20px;   /* 增加左右内边距防止斜体截断 */
   display: flex;
   flex-direction: column;
   animation: card-breathe 5s ease-in-out infinite;
@@ -678,7 +704,7 @@ body::after {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  padding: 4px 16px 8px;  /* 底部多留白防截断 */
+  padding: 4px 20px 8px;  /* 底部多留白防截断 */
   filter:
     drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
     drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
@@ -774,7 +800,7 @@ body::after {
   animation: fadeUp 0.5s 0.5s forwards;
   font-family: var(--font-cn);
   font-weight: 700;
-  padding: 0 6px;  /* 两侧留白防止截断 */
+  padding: 0 10px;  /* 两侧留白防止截断 */
 }
 
 /* 中文主题词 — 深紫渐变 + shimmer 扫光（与签诗统一）*/
@@ -791,7 +817,7 @@ body::after {
   word-break: keep-all;
   position: relative;
   overflow: visible;
-  padding: 4px 16px 8px;  /* 底部多留白防截断 */
+  padding: 4px 20px 8px;  /* 底部多留白防截断 */
   background: linear-gradient(135deg,
     #6C52A8 0%,
     #5C42A6 30%,
@@ -812,6 +838,7 @@ body::after {
   display: inline-block;
   transform: skewX(-8deg);
   max-width: 100%;  /* 防止撑爆父容器 */
+  margin: 0 12px;   /* 补偿斜体溢出，防止被 overflow:hidden 裁切 */
 }
 
 /* 中文直译 — 深紫渐变 + shimmer 扫光 */
@@ -1160,8 +1187,8 @@ body::after {
     <span class="sparkle s2">✦</span>
     <span class="sparkle s3">✦</span>
     <span class="sparkle s4">✦</span>
-      <h1 class="title">Light Wind, Light Way.</h1>
-      <p class="title-sub">微风起处，光引前路。</p>
+      <h1 class="title">How's Your Day?</h1>
+      <p class="title-sub">今天过得怎么样？</p>
   </header>
 
   <div class="category-list" id="categories"></div>
@@ -1169,17 +1196,18 @@ body::after {
   <div class="stage">
     <div class="mood-bubbles" id="mood-bubbles">
       <button class="mood-chip" data-mood="happy">😄 开心</button>
-      <button class="mood-chip" data-mood="down">😞 沮丧</button>
       <button class="mood-chip" data-mood="sad">😢 伤心</button>
+      <button class="mood-chip" data-mood="angry">😠 生气</button>
+      <button class="mood-chip" data-mood="anxious">😰 焦虑</button>
+      <button class="mood-chip" data-mood="lonely">🧍 孤独</button>
       <button class="mood-chip" data-mood="calm">🍃 平静</button>
-      <button class="mood-chip" data-mood="random">🎲 随机</button>
-      <button class="mood-chip" data-mood="praise">🌟 赞美</button>
     </div>
     <div class="sign-card-outer" id="card">
       <div class="sign-face front">
         <div class="sign-illustration" id="wand">
           <span class="icon">🪄</span>
         </div>
+        <p class="wand-label" id="wand-label">随机抽一张</p>
         <div class="water-ripple" id="water-ripple"></div>
       </div>
       <div class="sign-face back" id="face-back"></div>
@@ -1195,318 +1223,153 @@ body::after {
    签文 — 积极正能量 + 心理学白话科普
    ==================================================== */
 const FORTUNES = [
-  // ── 学习/成长 ──
-  { cat: 'study', grade: '上上签', num: 18,
-    poem: '温故知新',
-    cn: 'Review the old, know the new',
-    meaning: '翻一翻旧笔记，比追鲜的还赚。旧识里，常藏着好线索。重复一次，记忆就多扎根一层。',
-    source: '中国·儒学||孔子（春秋）《论语·为政》' },
-  { cat: 'study', grade: '上签', num: 56,
-    poem: 'Practice makes perfect.',
-    literal: '练习成就完美',
-    meaning: '做多了，自然就好。神经通路反复激活后越走越宽，熟练就长在身体里了。',
-    source: '英国·谚语||' },
-  { cat: 'study', grade: '上签', num: 92,
-    poem: '継続は力なり',
-    literal: '坚持就是力量',
-    meaning: '每天推进一点，日积月累就有劲。每天多百分之一，一年后差距是三十七倍。',
-    source: '日本·谚语||' },
-  { cat: 'study', grade: '中上签', num: 93,
-    poem: 'Übung macht den Meister.',
-    literal: '练习造就大师',
-    meaning: '多练几遍，慢慢就熟成了行家。每次都瞄着短板练，练在痛处才长进。',
-    source: '德国·谚语||' },
-  { cat: 'study', grade: '上上签', num: 105,
-    poem: 'Growth Mindset', cn: '成长型思维',
-    meaning: '能力像肌肉，越练越强。今天的笨拙，是明天的熟练。大脑会因新挑战长出新连接，越用越灵。',
-    source: '美国·发展心理学||卡罗尔·德韦克（Carol Dweck）' },
-  { cat: 'study', grade: '上签', num: 106,
-    poem: 'Flow', cn: '心流',
-    meaning: '全身心投入一件事，做到忘了时间。注意力全开时，焦虑自然消失，专注本身就是享受。',
-    source: '美国·积极心理学||米哈里·契克森米哈赖（Mihaly Csikszentmihalyi）' },
-
-  // ── 工作/专注 ──
-  { cat: 'work', grade: '大吉签', num: 9,
-    poem: '事必躬亲',
-    cn: 'Handle it yourself',
-    meaning: '重要的事，自己上手。亲手做过，心里最踏实。心里有底，焦虑就少。',
-    source: '中国·诗经||《诗经·小雅·节南山》（西周）' },
-  { cat: 'work', grade: '上签', num: 27,
-    poem: '功不唐捐',
-    cn: 'No effort is ever wasted',
-    meaning: '下的功夫，不会白费。每一步都算数，早晚见分晓。耐住性子的人，回报往往更厚。',
-    source: '中国·佛学||《法华经》（东晋）' },
-  { cat: 'work', grade: '上上签', num: 14,
-    poem: 'Do it now.',
-    literal: '现在就做',
-    meaning: '想做的事，别等明天再说。未完成的事会一直占着脑容量，做了就释放了。',
-    source: '英国·谚语||' },
-  { cat: 'work', grade: '上签', num: 94,
-    poem: 'Chi va piano, va sano e va lontano.',
-    literal: '走得稳当的人，走得远',
-    meaning: '不急不躁，反而能到更远处。匀速比冲刺更省力，意志力是有限资源，省着用才走得远。',
-    source: '意大利·谚语||' },
-  { cat: 'work', grade: '中上签', num: 95,
-    poem: 'No hay atajo sin trabajo.',
-    literal: '没有不劳而获的捷径',
-    meaning: '想省力，也得先把功夫下足。走捷径省掉的往往是扎基本功的时间，关键时刻就露馅。',
-    source: '西班牙·谚语||' },
-  { cat: 'work', grade: '上上签', num: 107,
-    poem: 'Peak-End Rule', cn: '峰终定律',
-    meaning: '印象分看「高峰时刻」和「结尾」。认真收束，好感自然加分。记忆只截高潮和结尾两帧。',
-    source: '美国·行为经济学||丹尼尔·卡尼曼（Daniel Kahneman）' },
-  { cat: 'work', grade: '上签', num: 108,
-    poem: 'Dopamine Reward', cn: '多巴胺奖励',
-    meaning: '大脑偏爱「完成感」。把庞杂任务拆成小步，每做完一步，奖励自动到账。',
+  { cat: 'happy', grade: '上上签', num: 101,
+    poem: 'Smile, Spark Endorphins', cn: '微微一笑，点亮内啡肽', meaning: '嘴角上扬这个动作本身，就会让大脑分泌内啡肽，天然镇痛又提神。身体比你更先收到快乐的信号。',
+    source: '美国·神经科学||沃尔特·坎农（Walter Cannon）' },
+  { cat: 'happy', grade: '大吉签', num: 102,
+    poem: 'Laughter Is Medicine', cn: '笑，是最好的药', meaning: '大笑会释放内啡肽、血清素，还让免疫球蛋白短暂上升。十分钟真心大笑，效果堪比一次轻运动。',
+    source: '美国·心理神经免疫学||李·伯克（Lee Berk）' },
+  { cat: 'happy', grade: '上签', num: 103,
+    poem: 'Serotonin Boost', cn: '血清素：快乐燃料', meaning: '阳光、运动、吃一口喜欢的食物，都能催生血清素。它让你情绪平稳、睡眠踏实，是身体自带的定心丸。',
     source: '美国·神经科学||' },
-
-
-  // ── 自信/自我 ──
-  { cat: 'confidence', grade: '上签', num: 33,
-    poem: '我行我素',
-    cn: 'Go my own way',
-    meaning: '你走的路，不必第二个人懂。心安理得，就是最好的节奏。自己掌方向盘的人，比随大流的幸福一截。',
-    source: '中国·礼学||《礼记·中庸》（战国）' },
-  { cat: 'confidence', grade: '大吉签', num: 71,
-    poem: '天生我材必有用',
-    cn: 'My talent is meant to shine',
-    meaning: '老天给的本事，早晚能派上用场。别急着否定自己，你的光还没到时候亮。每个人擅长的频道不同，找到你的就行。',
-    source: '中国·诗学||李白（盛唐）《将进酒》' },
-  { cat: 'confidence', grade: '上上签', num: 3,
-    poem: 'Fortune favors the bold.',
-    literal: '命运偏爱勇敢者',
-    meaning: '勇气，总站在敢动的人那边。恐惧会放大风险，行动会缩小它。',
-    source: '古罗马·诗学||维吉尔（Virgil）《埃涅阿斯纪》' },
-  { cat: 'confidence', grade: '大吉签', num: 96,
-    poem: 'Γνώθι σεαυτόν',
-    literal: '认识你自己',
-    meaning: '看清自己的长处，才不会跟着别人的节奏乱。知道自己知道什么、不知道什么，比知识本身更要紧。',
-    source: '古希腊·哲学||德尔斐箴言' },
-  { cat: 'confidence', grade: '上上签', num: 109,
-    poem: 'Self-Efficacy', cn: '自我效能感',
-    meaning: '你越笃信能办到，就越容易实现。今天就先夸自己一句。遇困难先想「怎么解」，路就宽了。',
-    source: '美国·社会认知理论||阿尔伯特·班杜拉（Albert Bandura）' },
-  { cat: 'confidence', grade: '大吉签', num: 110,
-    poem: 'Pygmalion Effect', cn: '皮格马利翁效应',
-    meaning: '别人信你能行，你真的会更行。你笃信自己，你就在给自己这份期待。被看好的人，会不自觉地活成被期待的样子。',
-    source: '美国·教育心理学||罗伯特·罗森塔尔（Robert Rosenthal）' },
-
-
-  // ── 行动 ──
-  { cat: 'action', grade: '中上签', num: 47,
-    poem: '日拱一卒',
-    cn: 'One pawn, one step a day',
-    meaning: '慢，反而不慌。小卒每次只走一步，过河之后却有大用。每天一小步，大脑不抵抗，习惯悄悄长出来。',
-    source: '中国·棋谚||' },
-  { cat: 'action', grade: '上签', num: 22,
-    poem: '千里之行，始于足下',
-    cn: 'A thousand miles begins with a single step',
-    meaning: '再远的路，也是从脚下第一步开始。动起来，就不远了。迈出第一步后，惯性会推着你走。',
-    source: '中国·道学||老子（春秋）《道德经》' },
-  { cat: 'action', grade: '转运签', num: 86,
-    poem: 'Strike while the iron is hot.',
-    literal: '趁热打铁',
-    meaning: '想做就做，热度别等凉。动机有衰减期，热情和时机都有保质期，等久了冲动就退潮了。',
-    source: '英国·谚语||' },
-  { cat: 'action', grade: '上上签', num: 97,
-    poem: "Qui ne tente rien, n'a rien.",
-    literal: '不试的人什么也得不到',
-    meaning: '动手去试才有机会，空想一定没有。试的代价通常比想象的小得多，不试才是最大的损失。',
-    source: '法国·谚语||' },
-  { cat: 'action', grade: '上签', num: 98,
-    poem: 'Actions speak louder than words.',
-    literal: '行动比言语更响亮',
-    meaning: '说一车，不如做一步。一旦行动了，大脑会自动调整态度来匹配你的行为。',
-    source: '英国·谚语||' },
-  { cat: 'action', grade: '上上签', num: 111,
-    poem: '5-Minute Rule', cn: '五分钟法则',
-    meaning: '大脑畏难，行动不怕。先做五分钟，就赢过了拖延。一旦跨过那道坎，大脑自动切换到执行模式。',
-    source: '美国·行为心理学||' },
-  { cat: 'action', grade: '上签', num: 112,
-    poem: 'Anchoring Effect', cn: '锚定效应',
-    meaning: '起点决定走向。把目标设高一点，你会走出更远的路。最初的数字会变成参照系，锚得高，基线就高。',
-    source: '美国·行为经济学||阿莫斯·特沃斯基（Amos Tversky）' },
-
-  // ── 关系 ──
-  { cat: 'relationship', grade: '上签', num: 39,
-    poem: '君子之交',
-    cn: 'A friendship of gentlemen',
-    meaning: '淡如水，也是真。不黏不腻，却最长久。最有用的信息往往来自不亲密的人，因为圈子不重叠。',
-    source: '中国·道学||《庄子·山木》（战国）' },
-  { cat: 'relationship', grade: '解忧签', num: 12,
-    poem: '己所不欲，勿施于人',
-    cn: 'Do not impose on others what you dislike',
-    meaning: '自己不愿的，别压到别人身上。换位想一想，关系自然好。',
-    source: '中国·儒学||《论语·卫灵公》（春秋）' },
-  { cat: 'relationship', grade: '中上签', num: 58,
-    poem: 'Live and let live.',
-    literal: '各活各的，互不干涉',
-    meaning: '彼此都有位置。尊重边界，是关系的防腐剂。被控制感一上来，关系就变味。',
-    source: '荷兰·谚语||' },
-  { cat: 'relationship', grade: '上签', num: 99,
-    poem: 'It takes a village to raise a child.',
-    literal: '养育一个孩子，得全村之力帮忙',
-    meaning: '社会支持网络越密，心理承受力越强。找人分担是人类的生存策略，互相帮衬活得久。',
-    source: '非洲·谚语||' },
-  { cat: 'relationship', grade: '上上签', num: 113,
-    poem: 'Active Listening', cn: '积极倾听',
-    meaning: '好好聆听，是最高级的温柔。耐心听完，关系自动升温。被倾听的人压力激素会明显下降。',
-    source: '美国·人本主义心理学||卡尔·罗杰斯（Carl Rogers）' },
-  { cat: 'relationship', grade: '上签', num: 114,
-    poem: 'Mirroring', cn: '镜像效应',
-    meaning: '你怎样待人，对方就怎样回应你。先露出笑容，世界会还你阳光。你先笑，对方也会不自觉地笑回来。',
-    source: '美国·社会心理学||' },
-
-
-  // ── 财富/心态 ──（移除金钱直接相关签文，保留心态类）
-  { cat: 'selfcare', grade: '上上签', num: 115,
-    poem: 'Abundance Mindset', cn: '丰盛心态',
-    meaning: '觉得「足够」的人，往往越来越丰足。感恩已有，新机会就来敲门。越觉得不够，越看不见身边的好。',
-    source: '美国·积极心理学||' },
-
-
-  // ── 自己/自洽 ──
-  { cat: 'selfcare', grade: '大吉签', num: 2,
-    poem: '顺其自然',
-    cn: 'Go with the flow',
-    meaning: '不拧巴的时候，最顺。随缘而行，日子反而走得快。越想控制不可控的事，焦虑越重，放手反而松快。',
-    source: '中国·堪舆学||五代《灵城精义》' },
-  { cat: 'selfcare', grade: '解忧签', num: 77,
-    poem: '往者不可谏，来者犹可追',
-    cn: 'The past is past, the future awaits',
-    meaning: '过去的过去了，往前看才有新路。别回头，未来还在等你。反复假设「如果当初」只消耗精力，不改变结果。',
-    source: '中国·儒学||《论语·微子》（春秋）' },
-  { cat: 'selfcare', grade: '上上签', num: 91,
-    poem: 'This too shall pass.',
-    literal: '这一切也会过去',
-    meaning: '再难的日子，也有翻篇的那天。低谷不会永远停在同一深度。',
-    source: '波斯·谚语||' },
-  { cat: 'selfcare', grade: '解忧签', num: 101,
-    poem: 'Det er ingen skam å snu.',
-    literal: '回头不丢人',
-    meaning: '发现走错了，转身就是进步。沉没成本收不回来了，继续走只会赔更多，及时止损才是理性。',
-    source: '挪威·谚语||' },
-  { cat: 'selfcare', grade: '上上签', num: 116,
-    poem: 'Self-Compassion', cn: '自我关怀',
-    meaning: '对自己温柔，是最好的充电。今天允许你慢下来。给心理电池充电，亏电硬撑反而烧得快。',
-    source: '美国·临床心理学||克里斯汀·内夫（Kristin Neff）' },
-  { cat: 'selfcare', grade: '大吉签', num: 117,
-    poem: 'Mindfulness', cn: '正念',
-    meaning: '烦恼多在过去和未来，平静只在「现在」。深呼吸，就是一次治愈。把注意力拉回当下，焦虑没有此刻的土壤就长不出来。',
-    source: '美国·认知神经科学||乔·卡巴金（Jon Kabat-Zinn）' },
-
-
-  // ── 趣味小故事签（大器晚成主题） ──
-  { cat: 'selfcare', grade: '上上签', num: 201,
-    poem: '大器晚成',
-    cn: 'Great things ripen late',
-    meaning: '姜子牙72岁渭水边遇周文王，此后辅佐周朝一统天下。起点晚一点，不影响走很远。能力成熟需要更长时间窗。',
-    source: '中国·历史||姜子牙（商周）' },
-  { cat: 'selfcare', grade: '大吉签', num: 202,
-    poem: 'Never Too Late', cn: '永远不晚',
-    meaning: '黄公望50岁才开始正经学艺，70岁完成《富春山居图》。最好的作品，常写在人生后半场。积淀越久，笔墨越沉。',
-    source: '中国·艺术||黄公望（元）' },
-  { cat: 'selfcare', grade: '上上签', num: 203,
-    poem: 'Grandma Moses', cn: '摩西奶奶',
-    meaning: '她76岁才拿起画笔，80岁开画展，90岁依然在创作。年龄只是数字，热爱才是方向。大脑不论多大年纪都能长出新连接。',
-    source: '美国·艺术||安娜·摩西（Anna Moses）' },
-  { cat: 'selfcare', grade: '上签', num: 204,
-    poem: 'Colonel Sanders', cn: '肯德基上校',
-    meaning: '他65岁那年用退休金创业做炸鸡，72岁分店开遍全球。晚来的成功，反而更扎稳。经验熬到火候，一出手就稳。',
-    source: '美国·商业||哈兰德·山德士（Harland Sanders）' },
-  { cat: 'selfcare', grade: '上上签', num: 205,
-    poem: 'Harry Potter', cn: 'J.K.罗琳',
-    meaning: '她32岁出版《哈利·波特》，此前被十二家出版社拒稿。低谷也可以是转角。复原力是每次跌倒后爬起来的次数堆出来的。',
-    source: '英国·文学||J.K.罗琳（J.K. Rowling）' },
-  { cat: 'selfcare', grade: '中上签', num: 206,
-    poem: '晋文公重耳',
-    meaning: '重耳流亡19年，60多岁回国即位，终成春秋霸主。晚到的季候，一样繁花盛开。苦难当训练场，扛过去就更强。',
-    source: '中国·历史||晋文公（春秋）' },
-
-  // ── 行业心语 · 360行 ──
-  { cat: 'career', grade: '上上签', num: 301,
-    poem: '节气不等人', cn: 'The season waits for no one',
-    meaning: '庄稼人信节气：该下种就下种，错过一季要再等一年。人生也一样，时机到了就出手。犹豫期间，你损失的是这段时间的潜在收益。',
-    source: '中国·农谚||' },
-  { cat: 'career', grade: '上签', num: 302,
-    poem: 'Hello, World!', cn: '你好，世界',
-    meaning: '每个程序员写的第一行程序。再庞大的系统，也从一句「你好，世界」起步。先跑起来再说，别等完美才出手。',
-    source: '编程·行业||程序员' },
-  { cat: 'career', grade: '上上签', num: 303,
-    poem: '复式记账', cn: 'Double-entry bookkeeping',
-    meaning: '会计的规矩：有借必有贷，借贷必相等。人生也讲平衡，先付出，才会有进账。先给予的人，别人回报的冲动越强。',
-    source: '会计·行业||行话' },
-  { cat: 'career', grade: '大吉签', num: 304,
-    poem: '量体裁衣', cn: 'Cut to fit',
-    meaning: '好裁缝不照抄尺寸，先看清身材再下剪。任何选择，先看清自己，合适的比时髦的更耐穿。穿别人的尺码，怎么都不合身。',
-    source: '裁缝·行业||行话' },
-  { cat: 'career', grade: '上签', num: 305,
-    poem: '不拔苗', cn: 'Let it grow',
-    meaning: '苗有苗的节奏，根扎深了，长高是迟早的事。扎根，比出头更要紧。延迟满足能力越强，长期成就越高，急不得的事急了反而坏。',
-    source: '园艺·行业||行话' },
-  { cat: 'career', grade: '上上签', num: 306,
-    poem: '决定性瞬间', cn: 'The decisive moment',
-    meaning: '摄影里有些画面一生只出现一次。机会也一样，准备好了，手才稳。心定，手才不抖。练够了紧张就不至于失控。',
-    source: '摄影·行业||布列松' },
-  { cat: 'career', grade: '上签', num: 307,
-    poem: '台上一分钟', cn: 'One minute on stage',
-    meaning: '老戏班子里说：台上一个身段，台下千遍功夫。每一份本事，都有台下垫底。身体记住了，脑子就不慌了。',
-    source: '戏曲·行业||行话' },
-  { cat: 'career', grade: '中上签', num: 308,
-    poem: '红灯即绿灯', cn: 'Red light, green light',
-    meaning: '开车遇到红灯，是换挡前的缓冲。停一停，路反而顺。停，是为了更好地走。不停运转反而效率递减。',
-    source: '驾驶·行业||日常' },
-  { cat: 'career', grade: '上签', num: 309,
-    poem: '火候刚好', cn: 'The heat is right',
-    meaning: '厨师讲究火候：多一分嫌老，少一分夹生。做事也急不得，烫不得。时机到了，火候自然对。太早太晚都不对，耐心等信号。',
-    source: '厨师·行业||行话' },
-  { cat: 'career', grade: '大吉签', num: 310,
-    poem: '地基决定高度', cn: 'The foundation sets the height',
-    meaning: '看不见的地基，扛起整座楼。默默下的功夫，都在托着你往上走。藏得越深的，越扛事。基本功越扎实天花板越高。',
-    source: '建筑·行业||行话' },
-  { cat: 'career', grade: '上上签', num: 311,
-    poem: '咬合', cn: 'The gears mesh',
-    meaning: '修表匠看齿轮：每个齿都咬得准，钟才走得稳。把每一扣咬对，自然走得稳。差一扣整钟就停。',
-    source: '钟表·行业||行话' },
-  { cat: 'career', grade: '上签', num: 312,
-    poem: '水温刚好', cn: 'The water temperature is just right',
-    meaning: '茶人讲究水温：低一分不出香，高一分发苦。对人对事，温度对了，一切都对了。恰到好处最持久。',
-    source: '茶艺·行业||行话' },
-
-  // ── 情绪疗愈 · 伤心也可以 ──
-  { cat: 'selfcare', grade: '解忧签', num: 401,
-    poem: 'Crying is Healing', cn: '哭一场，也是在疗愈',
-    meaning: '眼泪会带走压力激素，哭泣是身体在帮你排毒。哭完了，人就轻了。',
+  { cat: 'happy', grade: '上签', num: 104,
+    poem: 'Dopamine, the Spark', cn: '多巴胺，行动的火花', meaning: '期待一件事，多巴胺就开始分泌。把生活拆成小期待，快乐不用等大事，身体时刻有盼头。',
+    source: '美国·神经科学||沃尔弗拉姆·舒尔茨（Wolfram Schultz）' },
+  { cat: 'happy', grade: '上上签', num: 105,
+    poem: 'Joy Spreads', cn: '快乐会传染', meaning: '你在笑，身边人的镜像神经元也在笑。快乐天然是社会性气体，你开心，就是在给周围人充能。',
+    source: '意大利·认知神经科学||贾科莫·里佐拉蒂（Giacomo Rizzolatti）' },
+  { cat: 'happy', grade: '上签', num: 106,
+    poem: 'Gratitude Rewires', cn: '感恩，给大脑重新布线', meaning: '每晚写下三件小事，六周后大脑前额叶活动明显增强。感恩不是鸡汤，是实证有效的神经训练。',
+    source: '美国·积极心理学||罗伯特·埃蒙斯（Robert Emmons）' },
+  { cat: 'happy', grade: '上上签', num: 107,
+    poem: 'Peak-End Glow', cn: '记住的，都是最好的时刻', meaning: '大脑只截取「高峰」和「结尾」两帧。把一个普通日子过出高光收尾，回忆会自动美化这一天。',
+    source: '美国·行为经济学||丹尼尔·卡尼曼（Daniel Kahneman）' },
+  { cat: 'happy', grade: '中上签', num: 108,
+    poem: 'Flow', cn: '心流，忘记时间', meaning: '全神贯注时，大脑会关闭多余通路，焦虑自动静音。认真做眼前的事，快乐就藏在这阵专注里。',
+    source: '美国·积极心理学||米哈里·契克森米哈赖（Mihaly Csikszentmihalyi）' },
+  { cat: 'sad', grade: '解忧签', num: 201,
+    poem: 'Crying Is Healing', cn: '哭一场，也是疗愈', meaning: '眼泪会带走压力激素，哭声是身体在帮你排毒。哭完了，人会轻一截，这是生理上的释重。',
     source: '美国·进化心理学||威廉·弗雷（William Frey）' },
-  { cat: 'selfcare', grade: '解忧签', num: 402,
-    poem: 'Vulnerability is Strength', cn: '脆弱，也是一种力量',
-    meaning: '愿意承认难过的人，反而恢复更快。允许自己伤心，比假装坚强更勇敢。像弹簧，先允许变形才能弹回来，硬扛反而脆。',
+  { cat: 'sad', grade: '解忧签', num: 202,
+    poem: 'This too shall pass', cn: '这一切也会过去', meaning: '再难的日子，也有翻篇的那一天。情绪是波浪，会涨也会退，不会永远停在同一个深度。',
+    source: '波斯·谚语||' },
+  { cat: 'sad', grade: '解忧签', num: 203,
+    poem: 'The past is past, the future awaits', cn: '往者不可谏，来者犹可追', meaning: '反复假设「如果当初」只消耗精力，不改变结果。把回收来的力气，留给还没来的明天。',
+    source: '中国·儒学||《论语·微子》（春秋）' },
+  { cat: 'sad', grade: '上签', num: 204,
+    poem: 'Vulnerability Is Strength', cn: '脆弱，也是一种力量', meaning: '愿意承认难过的人，反而恢复得更快。允许自己伤心，比假装坚强更勇敢。像弹簧，先变形才能弹回来。',
     source: '美国·社会心理学||布琳·布朗（Brené Brown）' },
-  { cat: 'selfcare', grade: '解忧签', num: 403,
-    poem: 'Grief is Love', cn: '悲伤，是爱过的痕迹',
-    meaning: '悲伤是你曾经认真爱过的证据。别急着赶它走，它在提醒你珍惜什么。跳过它，伤口会留更久。',
+  { cat: 'sad', grade: '上上签', num: 205,
+    poem: 'Grief Is Love', cn: '悲伤，是爱过的痕迹', meaning: '悲伤是你曾经认真在乎过的证据。别急着赶它走，它在提醒你，什么东西值得珍惜。',
     source: '美国·悲痛研究||大卫·凯斯勒（David Kessler）' },
-  { cat: 'selfcare', grade: '解忧签', num: 404,
-    poem: 'Storm Before Calm', cn: '风暴之后是平静',
-    meaning: '难过到极点之后，情绪会自动触底反弹。再撑一会儿，天就亮了。低谷不会永远停在同一深度。',
-    source: '美国·积极心理学||情绪周期理论' },
-  { cat: 'selfcare', grade: '解忧签', num: 405,
-    poem: 'Rumination Stop', cn: '停止反刍',
-    meaning: '反复回想痛苦，不等于在解决问题。给自己设个「难过上限」，到点就起身走走，换个场景。打断它就是最好的解药。',
-    source: '美国·临床心理学||苏珊·诺伦-霍克赛玛（Susan Nolen-Hoeksema）' },
-  { cat: 'selfcare', grade: '解忧签', num: 406,
-    poem: 'Post-Traumatic Growth', cn: '伤后成长',
-    meaning: '大多数经历低谷的人，反而会变得更有韧性。你现在的痛，日后会变成力量。大脑重建认知的自然修复机制。',
-    source: '美国·创伤心理学||理查德·泰德斯基（Richard Tedeschi）' },
-  { cat: 'selfcare', grade: '解忧签', num: 407,
-    poem: 'You Are Not Alone', cn: '你不是一个人',
-    meaning: '难过时主动找一个人说说话，比独自硬扛恢复快得多。别把脆弱藏起来。有人听你说，身体就在减负。',
+  { cat: 'sad', grade: '上签', num: 206,
+    poem: 'You Are Not Alone', cn: '你不是一个人', meaning: '难过时找人说说话，压力激素会明显下降。有人听你说，身体就在帮你减负，别独自硬扛。',
     source: '美国·社交支持理论||谢尔登·科恩（Sheldon Cohen）' },
-  { cat: 'selfcare', grade: '解忧签', num: 408,
-    poem: 'Permission to Feel', cn: '允许难过',
-    meaning: '情绪没有好坏，被压抑的才会伤人。伤心就来，走的时候，它会带走你不想要的东西。压制它身体替你记着账。',
+  { cat: 'sad', grade: '上上签', num: 207,
+    poem: 'Permission to Feel', cn: '允许难过', meaning: '情绪没有好坏，被压抑的才会伤人。让它来，它会走；压制它，身体替它记着账。',
     source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
-
+  { cat: 'sad', grade: '大吉签', num: 208,
+    poem: 'Self-Compassion', cn: '对自己温柔，是最好的充电', meaning: '把安慰朋友的话，说给自己听。自我关怀能降低皮质醇，恢复速度比自我批评快得多。',
+    source: '美国·临床心理学||克里斯汀·内夫（Kristin Neff）' },
+  { cat: 'sad', grade: '转运签', num: 209,
+    poem: 'After Rain Comes Sun', cn: '雨后，总会放晴', meaning: '坏情绪有生理周期，就像暴风雨，再强也会过境。给身体一点时间，它自带修复机制。',
+    source: '美国·积极心理学||情绪周期理论' },
+  { cat: 'angry', grade: '上上签', num: 301,
+    poem: 'Anger Is a Signal', cn: '愤怒，是身体的警报', meaning: '愤怒不是坏，而是身体在提示边界被碰了。先听懂信号，再处理事情，比直接发火更高一级。',
+    source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
+  { cat: 'angry', grade: '中上签', num: 302,
+    poem: 'Name It to Tame It', cn: '说出来，火就小一半', meaning: '给自己说一句「我在生气」，杏仁核的活跃度会明显下降。命名情绪，就是最有效的情绪灭火器。',
+    source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
+  { cat: 'angry', grade: '上签', num: 303,
+    poem: 'Ten Deep Breaths', cn: '十个深呼吸，让激素降下来', meaning: '怒火的燃料是肾上腺素，深呼吸会激活副交感神经，让心跳慢慢回到正常。气头上，先呼吸，再说话。',
+    source: '生理学·基础||自主神经研究' },
+  { cat: 'angry', grade: '上签', num: 304,
+    poem: 'Walk It Off', cn: '走几步，气就消一半', meaning: '散步能加速肾上腺素代谢，愤怒值会随步数下降。身体动起来，情绪自己会刹车。',
+    source: '美国·运动心理学||运动情绪调节研究' },
+  { cat: 'angry', grade: '转运签', num: 305,
+    poem: 'Express, Don\'t Suppress', cn: '表达，而不是压抑', meaning: '把感受说给值得的人，心血管的负担比闷在心里轻得多。生气不表达伤身体，好好说才养生。',
+    source: '美国·健康心理学||情绪表达研究' },
+  { cat: 'angry', grade: '上上签', num: 306,
+    poem: 'Boundaries Are Strength', cn: '边界感，就是保护自己', meaning: '生气常在提醒你哪里被越界。划清界限，不是冷漠，是身体在为未来的平静扫路。',
+    source: '美国·心理治疗||内德拉·格洛弗·塔瓦布（Nedra Glover Tawwab）' },
+  { cat: 'angry', grade: '大吉签', num: 307,
+    poem: 'Turn Anger into Energy', cn: '把怒火，变成冲锋', meaning: '愤怒带来的高唤醒，可以转化为行动力。怒到极点去跑一步、写一页、搬砖，力量就归你用了。',
+    source: '美国·运动心理学||' },
+  { cat: 'angry', grade: '上签', num: 308,
+    poem: 'Cool Down, Then Speak', cn: '先冷静，再开口', meaning: '愤怒时会话冲口而出，大脑供血都在杏仁核。等一下，等皮质醇回落，再说的话更接近真心。',
+    source: '生理学·神经||' },
+  { cat: 'anxious', grade: '上上签', num: 401,
+    poem: 'Anxiety Is a Signal', cn: '焦虑，是身体的预警雷达', meaning: '适度焦虑是大脑在喊「有准备」。它让你更有动力应对重要场合。一点紧张，说明你真的很在乎。',
+    source: '美国·行为心理学||耶克斯与多德森定律' },
+  { cat: 'anxious', grade: '上签', num: 402,
+    poem: 'Best Tension', cn: '恰到好处的紧张，状态最好', meaning: '耶克斯-多德森定律说：中等焦虑时，表现最优。焦虑不一定是敌人，适度反而是引擎。',
+    source: '美国·心理学||罗伯特·耶克斯（Robert Yerkes）' },
+  { cat: 'anxious', grade: '转运签', num: 403,
+    poem: 'Five-Minute Start', cn: '先做五分钟，焦虑就漏气', meaning: '大脑畏难，行动不怕。先动五分钟，焦虑燃料就断供。跨过起点，大脑自动切到执行模式。',
+    source: '美国·行为心理学||' },
+  { cat: 'anxious', grade: '大吉签', num: 404,
+    poem: 'Box Breathing', cn: '箱式呼吸，给心率踩刹车', meaning: '吸气四秒、屏息四秒、呼气四秒，三分钟后心率回落，压力激素下降。身体一平，心就跟着平。',
+    source: '美国·呼吸训练||美国海军绿贝雷（Mark Divine）' },
+  { cat: 'anxious', grade: '上上签', num: 405,
+    poem: 'Mindfulness, the Pause', cn: '正念，是把注意拉回此刻', meaning: '焦虑都住在「未来」，只有此刻是安全的。一分钟深呼吸，把注意放回呼吸上，大脑就停止空转。',
+    source: '美国·认知神经科学||乔·卡巴金（Jon Kabat-Zinn）' },
+  { cat: 'anxious', grade: '上签', num: 406,
+    poem: 'Courage Walks with Fear', cn: '勇气，是和恐惧并肩走', meaning: '大胆的人不是没有焦虑，而是带着它一起走。心率加快和紧张兴奋，生理反应是同一个频道。',
+    source: '美国·存在心理学||' },
+  { cat: 'anxious', grade: '中上签', num: 407,
+    poem: 'The Now Is Safe', cn: '此刻，你是安全的', meaning: '让焦虑安静下来的最好方法：扫描现在的身体，周围没有威胁，你被此刻稳稳托住。',
+    source: '美国·认知行为疗法||' },
+  { cat: 'anxious', grade: '上上签', num: 408,
+    poem: 'Growth over Panic', cn: '成长思维，给焦虑换挡', meaning: '把「我做不到」换成「我还没做到」，压力激素会明显降低。大脑不喜欢死局，它喜欢开放题。',
+    source: '美国·发展心理学||卡罗尔·德韦克（Carol Dweck）' },
+  { cat: 'lonely', grade: '上上签', num: 501,
+    poem: 'Lonely Is the Body Crying', cn: '孤独，是身体在提醒你连接', meaning: '孤独不是弱点，是身体发出的「找连接」信号。它就像饿了提醒你吃饭一样，是健康的自然反应。',
+    source: '美国·社会神经科学||约翰·卡乔波（John Cacioppo）' },
+  { cat: 'lonely', grade: '大吉签', num: 502,
+    poem: 'One Small Hello', cn: '一个问好，也能退潮', meaning: '哪怕只和一个快递员、收银员说一句话，孤独感也会下降。别小看微小的连接，它正在给心里充氧。',
+    source: '美国·社会心理学||' },
+  { cat: 'lonely', grade: '上签', num: 503,
+    poem: 'Reach Out First', cn: '先伸手，世界会回应', meaning: '主动发一条消息，身体的催产素就开始分泌。孤独怕的从来不是距离，是「我先开口」的勇气。',
+    source: '美国·神经经济学||保罗·扎克（Paul Zak）' },
+  { cat: 'lonely', grade: '上上签', num: 504,
+    poem: 'Company of Others', cn: '有一群人，也在等你', meaning: '即使彼此不同频，共同的记忆也能降低皮质醇。同一个场合、同一种笑声，就是最低成本的疗愈。',
+    source: '美国·社会支持研究||' },
+  { cat: 'lonely', grade: '转运签', num: 505,
+    poem: 'Alone is a Charge', cn: '独处，也可以是自己充电', meaning: '一个人待着不等于孤独，把独处当休息，身体会恢复得更快。真正的孤独，是没有好好陪自己。',
+    source: '英国·心理学||安东尼·斯托尔（Anthony Storr）' },
+  { cat: 'lonely', grade: '中上签', num: 506,
+    poem: 'A Pet\'s Warmth', cn: '毛茸茸的陪伴，也在治疗', meaning: '撸猫撸狗十分钟，催产素上升、压力激素下降。有时一段亲近，来自另一双不同的眼睛。',
+    source: '美国·人与动物研究||' },
+  { cat: 'lonely', grade: '上签', num: 507,
+    poem: 'Small Circle, Deep Bonds', cn: '小圈子，也有深连接', meaning: '不需要呼朋唤友，两三个谈得来的人，就足够供能。关系的质量，比数量更能抵御孤独。',
+    source: '美国·心理学研究||' },
+  { cat: 'lonely', grade: '上上签', num: 508,
+    poem: 'Belonging is Built', cn: '归属感，需要主动搭桥', meaning: '加入一个小组、学一个爱好，人就会慢慢融入。归属感不是等的，是一步一步走出来的。',
+    source: '美国·社会心理学||罗伊·鲍迈斯特（Roy Baumeister）' },
+  { cat: 'calm', grade: '大吉签', num: 601,
+    poem: 'Parasympathetic Reset', cn: '副交感神经，正在给你做保养', meaning: '平静时身体会启动修复模式：心率慢下来、消化加强、免疫更活跃。平静，是身体最划算的投资。',
+    source: '生理学·基础||自主神经系统研究' },
+  { cat: 'calm', grade: '上上签', num: 602,
+    poem: 'Mindfulness Works', cn: '正念，真的改变大脑', meaning: '每天十分钟正念，几周后杏仁核变小、前额叶增强。焦虑的「火警」反应，会越来越小。',
+    source: '美国·认知神经科学||乔·卡巴金（Jon Kabat-Zinn）' },
+  { cat: 'calm', grade: '上签', num: 603,
+    poem: 'Slow Down, Repair', cn: '慢下来，身体才开始修复', meaning: '紧张时，修复机制停摆；平静时，身体才开始修墙。慢一点，不是浪费时间，是给身体发信号。',
+    source: '生理学||' },
+  { cat: 'calm', grade: '中上签', num: 604,
+    poem: 'One Minute, One Breath', cn: '一分钟，一整片安静', meaning: '慢慢呼气，比吸气长两拍，心率会自动下降。身体会先平静下来，再带上你的心。',
+    source: '生理学·呼吸||' },
+  { cat: 'calm', grade: '上上签', num: 605,
+    poem: 'The Present is Peace', cn: '此刻，就是安放', meaning: '现在没有要追赶的、没有要解释的，只有这一秒。把心放回此刻，焦虑没有立足之地。',
+    source: '美国·认知神经科学||' },
+  { cat: 'calm', grade: '上签', num: 606,
+    poem: 'Calm Deepens Sleep', cn: '平静，是深度睡眠的钥匙', meaning: '睡前十五分钟放空，褪黑素顺畅分泌，睡眠变深。睡好觉，第二天所有事情都会轻一些。',
+    source: '睡眠科学||' },
+  { cat: 'calm', grade: '大吉签', num: 607,
+    poem: 'Peace is a Practice', cn: '平静，是可以练的能力', meaning: '大脑的平静路径越练越粗。每天一小段安静时光，相当于给神经系统做「刻意练习」。',
+    source: '美国·神经科学||' },
+  { cat: 'calm', grade: '上签', num: 608,
+    poem: 'Flow, Soft Zone', cn: '平静，是专注的底色', meaning: '紧张做不出好东西，平静会。静下来，创造力才有房间住。让身体先静，答案会慢慢浮现。',
+    source: '美国·积极心理学||' },
 ];
 
 const CAT_LABEL = {
@@ -1530,14 +1393,14 @@ function pickSign() {
   return FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
 }
 
-/* 情绪 → 推荐签分类 */
+/* 情绪 → 推荐签分类（情绪签：与身体/神经/激素相关的正向科普） */
 const MOOD_CATS = {
-  happy:  ['study', 'relationship', 'confidence'],
-  down:   ['selfcare', 'confidence', 'action'],
-  sad:    ['selfcare', 'confidence'],
-  calm:   ['selfcare', 'career', 'study'],
-  praise: ['confidence', 'career', 'study'],
-  random: null,
+  happy:   ['happy'],
+  sad:     ['sad'],
+  angry:   ['angry'],
+  anxious: ['anxious'],
+  lonely:  ['lonely'],
+  calm:    ['calm'],
 };
 
 function pickSignByMood(mood) {
@@ -1630,7 +1493,7 @@ function renderSign(sign) {
     <div class="sign-meta">
       <span class="sign-date">${formatDateLine()}</span>
       <span class="sign-weather">${formatWeatherLine()}</span>
-      <span class="sign-brand">Light Wind 风起</span>
+      <span class="sign-brand">今朝·My Day</span>
     </div>
     <div class="sign-content">
       <div class="sign-top">
@@ -1856,7 +1719,7 @@ function copySign() {
   if (s.tip) lines.push(`*${s.tip}`);
   if (s.source) lines.push(`—— ${s.source.replace('||', '\n   ')}`);
   lines.push('');
-  lines.push('《Light Wind 风起》');
+  lines.push('《今朝·My Day》');
   const text = lines.join('\n');
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
