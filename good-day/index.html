@@ -505,7 +505,7 @@ body::after {
    SIGN STAGE — 竖着的长方形签条
    ==================================================== */
 .stage {
-  margin-top: -6px;
+  margin-top: 32px;  /* 卡片整体下移 1cm（原 -6px + 38px） */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1320,7 +1320,7 @@ body::after {
   .app { padding: 10px 16px 10px; }
   .sign-card-outer { max-width: min(92vw, 340px); height: min(78vh, 640px); }
   .sign-face.back { padding: 20px 18px 18px; }
-  .stage { margin-top: -4px; }
+  .stage { margin-top: 32px; }  /* 手机断点：同样下移 1cm */
 }
 
 @media (max-width: 360px) {
@@ -1332,6 +1332,7 @@ body::after {
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
   .sign-card-outer { max-width: min(94vw, 320px); height: min(80vh, 620px); }
+  .stage { margin-top: 32px; }  /* 360px 断点：卡片下移 1cm */
   .sign-face.back { padding: 18px 14px 16px; }
   .sign-poem.english { font-size: 24px; }
   .sign-source { font-size: 10px; padding: 0 6px; }
@@ -1406,7 +1407,7 @@ body::after {
       <img id="save-overlay-img" alt="长按保存">
       <p class="save-overlay-tip">长按图片，保存到相册</p>
     </div>
-    <button class="save-overlay-close" id="save-overlay-close">完成</button>
+    <button class="save-overlay-close" id="save-overlay-close">关闭</button>
   </div>
 </div>
 
@@ -1434,7 +1435,7 @@ const FORTUNES = [
     poem: 'Gratitude Rewires', cn: '感恩重塑大脑', meaning: '每晚写下三件小事，六周后大脑前额叶活动明显增强。感恩不是鸡汤，是实证有效的神经训练。',
     source: '美国·积极心理学||罗伯特·埃蒙斯（Robert Emmons）' },
   { cat: 'happy', grade: '上上签', num: 107,
-    poem: 'Peak-End Glow', cn: '记住的都是最好时刻', meaning: '大脑只截取「高峰」和「结尾」两帧。今天的好好收尾，明天回忆起来全是甜。你的开心，就是最好的良药。',
+    poem: 'Peak-End Glow', cn: '铭记巅峰', meaning: '大脑只截取「高峰」和「结尾」两帧。今天的好好收尾，明天回忆起来全是甜。你的开心，就是最好的良药。',
     source: '美国·行为经济学||丹尼尔·卡尼曼（Daniel Kahneman）' },
   { cat: 'happy', grade: '中上签', num: 108,
     poem: 'Flow', cn: '心流忘却时间', meaning: '全神贯注时，大脑会关闭多余通路，焦虑自动静音。认真做眼前的事，快乐就藏在这阵专注里。',
@@ -1446,13 +1447,13 @@ const FORTUNES = [
     poem: 'This too shall pass', cn: '这一切也会过去', meaning: '再难的日子，也有翻篇的那一天。情绪是波浪，会涨也会退，不会永远停在同一个深度。',
     source: '波斯·谚语||' },
   { cat: 'sad', grade: '解忧签', num: 203,
-    poem: 'The past is past, the future awaits', cn: '往者不可谏，来者犹可追', meaning: '反复假设「如果当初」只消耗精力，不改变结果。把回收来的力气，留给还没来的明天。',
+    poem: 'The past is past, the future awaits', cn: '既往不恋', meaning: '反复假设「如果当初」只消耗精力，不改变结果。把回收来的力气，留给还没来的明天。',
     source: '中国·儒学||《论语·微子》（春秋）' },
   { cat: 'sad', grade: '上签', num: 204,
     poem: 'Vulnerability Is Strength', cn: '脆弱也是力量', meaning: '愿意承认难过的人，反而恢复得更快。允许自己伤心，比假装坚强更勇敢。像弹簧，先变形才能弹回来。',
     source: '美国·社会心理学||布琳·布朗（Brené Brown）' },
   { cat: 'sad', grade: '上上签', num: 205,
-    poem: 'Grief Is Love', cn: '悲伤是爱过的痕迹', meaning: '悲伤是你曾经认真在乎过的证据。别急着赶它走，它在提醒你，什么东西值得珍惜。',
+    poem: 'Grief Is Love', cn: '悲伤是爱', meaning: '悲伤是你曾经认真在乎过的证据。别急着赶它走，它在提醒你，什么东西值得珍惜。',
     source: '美国·悲痛研究||大卫·凯斯勒（David Kessler）' },
   { cat: 'sad', grade: '上签', num: 206,
     poem: 'You Are Not Alone', cn: '你不是一个人', meaning: '难过时找人说说话，压力激素会明显下降。有人听你说，身体就在帮你减负，别独自硬扛。',
@@ -1461,7 +1462,7 @@ const FORTUNES = [
     poem: 'Permission to Feel', cn: '允许难过', meaning: '情绪没有好坏，被压抑的才会伤人。让它来，它会走；压制它，身体替它记着账。',
     source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
   { cat: 'sad', grade: '大吉签', num: 208,
-    poem: 'Self-Compassion', cn: '对自己温柔是最好的充电', meaning: '把安慰朋友的话，说给自己听。温柔对待自己的人，身体会更快卸下压力，恢复速度比硬扛快得多。',
+    poem: 'Self-Compassion', cn: '善待自己', meaning: '把安慰朋友的话，说给自己听。温柔对待自己的人，身体会更快卸下压力，恢复速度比硬扛快得多。',
     source: '美国·临床心理学||克里斯汀·内夫（Kristin Neff）' },
   { cat: 'sad', grade: '转运签', num: 209,
     poem: 'After Rain Comes Sun', cn: '雨后总会放晴', meaning: '坏情绪有生理周期，就像暴风雨，再强也会过境。给身体一点时间，它自带修复机制。',
@@ -1470,13 +1471,13 @@ const FORTUNES = [
     poem: 'Anger Is a Signal', cn: '愤怒是身体警报', meaning: '愤怒不是坏，而是身体在提示边界被碰了。先听懂信号，再处理事情，比直接发火更高一级。',
     source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
   { cat: 'angry', grade: '中上签', num: 302,
-    poem: 'Name It to Tame It', cn: '说出来火就小一半', meaning: '给自己说一句「我在生气」，杏仁核的活跃度会明显下降。命名情绪，就是最有效的情绪灭火器。',
+    poem: 'Name It to Tame It', cn: '命名即降火', meaning: '给自己说一句「我在生气」，杏仁核的活跃度会明显下降。命名情绪，就是最有效的情绪灭火器。',
     source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
   { cat: 'angry', grade: '上签', num: 303,
-    poem: 'Ten Deep Breaths', cn: '十个深呼吸降激素', meaning: '怒火的燃料是肾上腺素，深呼吸会激活副交感神经，让心跳慢慢回到正常。气头上，先呼吸，再说话。',
+    poem: 'Ten Deep Breaths', cn: '呼吸降火', meaning: '怒火的燃料是肾上腺素，深呼吸会激活副交感神经，让心跳慢慢回到正常。气头上，先呼吸，再说话。',
     source: '生理学·基础||自主神经研究' },
   { cat: 'angry', grade: '上签', num: 304,
-    poem: 'Walk It Off', cn: '走几步气就消一半', meaning: '散步能加速肾上腺素代谢，愤怒值会随步数下降。身体动起来，情绪自己会刹车。',
+    poem: 'Walk It Off', cn: '行走消气', meaning: '散步能加速肾上腺素代谢，愤怒值会随步数下降。身体动起来，情绪自己会刹车。',
     source: '美国·运动心理学||运动情绪调节研究' },
   { cat: 'angry', grade: '转运签', num: 305,
     poem: 'Express, Don\'t Suppress', cn: '表达而非压抑', meaning: '把感受说给值得的人，心血管的负担比闷在心里轻得多。生气不表达伤身体，好好说才养生。',
@@ -1494,10 +1495,10 @@ const FORTUNES = [
     poem: 'Anxiety Is a Signal', cn: '焦虑是预警雷达', meaning: '适度焦虑是大脑在喊「有准备」。它让你更有动力应对重要场合。一点紧张，说明你真的很在乎。',
     source: '美国·行为心理学||耶克斯与多德森定律' },
   { cat: 'anxious', grade: '上签', num: 402,
-    poem: 'Best Tension', cn: '适度紧张状态最好', meaning: '耶克斯-多德森定律说：中等焦虑时，表现最优。焦虑不一定是敌人，适度反而是引擎。',
+    poem: 'Best Tension', cn: '适度最优', meaning: '耶克斯-多德森定律说：中等焦虑时，表现最优。焦虑不一定是敌人，适度反而是引擎。',
     source: '美国·心理学||罗伯特·耶克斯（Robert Yerkes）' },
   { cat: 'anxious', grade: '转运签', num: 403,
-    poem: 'Five-Minute Start', cn: '先做五分钟焦虑漏气', meaning: '大脑畏难，行动不怕。先动五分钟，焦虑燃料就断供。跨过起点，大脑自动切到执行模式。',
+    poem: 'Five-Minute Start', cn: '先行五分钟', meaning: '大脑畏难，行动不怕。先动五分钟，焦虑燃料就断供。跨过起点，大脑自动切到执行模式。',
     source: '美国·行为心理学||' },
   { cat: 'anxious', grade: '大吉签', num: 404,
     poem: 'Box Breathing', cn: '箱式呼吸踩刹车', meaning: '吸气四秒、屏息四秒、呼气四秒，三分钟后心率回落，压力激素下降。身体一平，心就跟着平。',
@@ -1512,55 +1513,55 @@ const FORTUNES = [
     poem: 'The Now Is Safe', cn: '此刻你是安全的', meaning: '让焦虑安静下来的最好方法：扫描现在的身体，周围没有威胁，你被此刻稳稳托住。',
     source: '美国·认知行为疗法||' },
   { cat: 'anxious', grade: '上上签', num: 408,
-    poem: 'Growth over Panic', cn: '成长思维给焦虑换挡', meaning: '把「我做不到」换成「我还没做到」，压力激素会明显降低。大脑不喜欢死局，它喜欢开放题。',
+    poem: 'Growth over Panic', cn: '成长破局', meaning: '把「我做不到」换成「我还没做到」，压力激素会明显降低。大脑不喜欢死局，它喜欢开放题。',
     source: '美国·发展心理学||卡罗尔·德韦克（Carol Dweck）' },
   { cat: 'lonely', grade: '上上签', num: 501,
-    poem: 'Lonely Is the Body Crying', cn: '孤独是身体的连接信号', meaning: '孤独不是弱点，是身体发出的「找连接」信号。它就像饿了提醒你吃饭一样，是健康的自然反应。',
+    poem: 'Lonely Is the Body Crying', cn: '孤独求联', meaning: '孤独不是弱点，是身体发出的「找连接」信号。它就像饿了提醒你吃饭一样，是健康的自然反应。',
     source: '美国·社会神经科学||约翰·卡乔波（John Cacioppo）' },
   { cat: 'lonely', grade: '大吉签', num: 502,
-    poem: 'One Small Hello', cn: '一个问好也能退潮', meaning: '哪怕只和一个快递员、收银员说一句话，孤独感也会下降。别小看微小的连接，它正在给心里充氧。',
+    poem: 'One Small Hello', cn: '问好退潮', meaning: '哪怕只和一个快递员、收银员说一句话，孤独感也会下降。别小看微小的连接，它正在给心里充氧。',
     source: '美国·社会心理学||' },
   { cat: 'lonely', grade: '上签', num: 503,
-    poem: 'Reach Out First', cn: '先伸手世界会回应', meaning: '主动发一条消息，身体的催产素就开始分泌。孤独怕的从来不是距离，是「我先开口」的勇气。',
+    poem: 'Reach Out First', cn: '先伸手', meaning: '主动发一条消息，身体的催产素就开始分泌。孤独怕的从来不是距离，是「我先开口」的勇气。',
     source: '美国·神经经济学||保罗·扎克（Paul Zak）' },
   { cat: 'lonely', grade: '上上签', num: 504,
-    poem: 'Company of Others', cn: '有一群人也在等你', meaning: '即使彼此不同频，共同的记忆也能降低皮质醇。同一个场合、同一种笑声，就是最低成本的疗愈。',
+    poem: 'Company of Others', cn: '有人在等', meaning: '即使彼此不同频，共同的记忆也能降低皮质醇。同一个场合、同一种笑声，就是最低成本的疗愈。',
     source: '美国·社会支持研究||' },
   { cat: 'lonely', grade: '转运签', num: 505,
-    poem: 'Alone is a Charge', cn: '独处也能自己充电', meaning: '一个人待着不等于孤独，把独处当休息，身体会恢复得更快。真正的孤独，是没有好好陪自己。',
+    poem: 'Alone is a Charge', cn: '独处充电', meaning: '一个人待着不等于孤独，把独处当休息，身体会恢复得更快。真正的孤独，是没有好好陪自己。',
     source: '英国·心理学||安东尼·斯托尔（Anthony Storr）' },
   { cat: 'lonely', grade: '中上签', num: 506,
     poem: 'A Pet\'s Warmth', cn: '毛茸茸的陪伴也在治疗', meaning: '撸猫撸狗十分钟，催产素上升、压力激素下降。有时一段亲近，来自另一双不同的眼睛。',
     source: '美国·人与动物研究||' },
   { cat: 'lonely', grade: '上签', num: 507,
-    poem: 'Small Circle, Deep Bonds', cn: '小圈子也有深连接', meaning: '不需要呼朋唤友，两三个谈得来的人，就足够供能。关系的质量，比数量更能抵御孤独。',
+    poem: 'Small Circle, Deep Bonds', cn: '小圈深连', meaning: '不需要呼朋唤友，两三个谈得来的人，就足够供能。关系的质量，比数量更能抵御孤独。',
     source: '美国·心理学研究||' },
   { cat: 'lonely', grade: '上上签', num: 508,
-    poem: 'Belonging is Built', cn: '归属感需要主动搭桥', meaning: '加入一个小组、学一个爱好，人就会慢慢融入。归属感不是等的，是一步一步走出来的。',
+    poem: 'Belonging is Built', cn: '归属靠搭桥', meaning: '加入一个小组、学一个爱好，人就会慢慢融入。归属感不是等的，是一步一步走出来的。',
     source: '美国·社会心理学||罗伊·鲍迈斯特（Roy Baumeister）' },
   { cat: 'calm', grade: '大吉签', num: 601,
-    poem: 'Parasympathetic Reset', cn: '副交感神经在给你做保养', meaning: '平静时身体会启动修复模式：心率慢下来、消化加强、免疫更活跃。平静，是身体最划算的投资。',
+    poem: 'Parasympathetic Reset', cn: '副交感充电', meaning: '平静时身体会启动修复模式：心率慢下来、消化加强、免疫更活跃。平静，是身体最划算的投资。',
     source: '生理学·基础||自主神经系统研究' },
   { cat: 'calm', grade: '上上签', num: 602,
-    poem: 'Mindfulness Works', cn: '正念真的改变大脑', meaning: '每天十分钟正念，几周后杏仁核变小、前额叶增强。焦虑的「火警」反应，会越来越小。',
+    poem: 'Mindfulness Works', cn: '正念塑脑', meaning: '每天十分钟正念，几周后杏仁核变小、前额叶增强。焦虑的「火警」反应，会越来越小。',
     source: '美国·认知神经科学||乔·卡巴金（Jon Kabat-Zinn）' },
   { cat: 'calm', grade: '上签', num: 603,
-    poem: 'Slow Down, Repair', cn: '慢下来身体才修复', meaning: '紧张时，修复机制停摆；平静时，身体才开始修墙。慢一点，不是浪费时间，是给身体发信号。',
+    poem: 'Slow Down, Repair', cn: '慢则修复', meaning: '紧张时，修复机制停摆；平静时，身体才开始修墙。慢一点，不是浪费时间，是给身体发信号。',
     source: '生理学||' },
   { cat: 'calm', grade: '中上签', num: 604,
-    poem: 'One Minute, One Breath', cn: '一分钟一整片安静', meaning: '慢慢呼气，比吸气长两拍，心率会自动下降。身体会先平静下来，再带上你的心。',
+    poem: 'One Minute, One Breath', cn: '一分得静', meaning: '慢慢呼气，比吸气长两拍，心率会自动下降。身体会先平静下来，再带上你的心。',
     source: '生理学·呼吸||' },
   { cat: 'calm', grade: '上上签', num: 605,
     poem: 'The Present is Peace', cn: '此刻就是安放', meaning: '现在没有要追赶的、没有要解释的，只有这一秒。把心放回此刻，焦虑没有立足之地。',
     source: '美国·认知神经科学||' },
   { cat: 'calm', grade: '上签', num: 606,
-    poem: 'Calm Deepens Sleep', cn: '平静是深度睡眠的钥匙', meaning: '睡前十五分钟放空，褪黑素顺畅分泌，睡眠变深。睡好觉，第二天所有事情都会轻一些。',
+    poem: 'Calm Deepens Sleep', cn: '静则深眠', meaning: '睡前十五分钟放空，褪黑素顺畅分泌，睡眠变深。睡好觉，第二天所有事情都会轻一些。',
     source: '睡眠科学||' },
   { cat: 'calm', grade: '大吉签', num: 607,
-    poem: 'Peace is a Practice', cn: '平静是可以练的能力', meaning: '大脑的平静路径越练越粗。每天一小段安静时光，相当于给神经系统做「刻意练习」。',
+    poem: 'Peace is a Practice', cn: '平静可练', meaning: '大脑的平静路径越练越粗。每天一小段安静时光，相当于给神经系统做「刻意练习」。',
     source: '美国·神经科学||' },
   { cat: 'calm', grade: '上签', num: 608,
-    poem: 'Flow, Soft Zone', cn: '平静是专注的底色', meaning: '紧张做不出好东西，平静会。静下来，创造力才有房间住。让身体先静，答案会慢慢浮现。',
+    poem: 'Flow, Soft Zone', cn: '静出专注', meaning: '紧张做不出好东西，平静会。静下来，创造力才有房间住。让身体先静，答案会慢慢浮现。',
     source: '美国·积极心理学||' },
 ];
 
@@ -1702,7 +1703,7 @@ function renderSign(sign) {
     </div>
     <div class="actions">
       <button class="btn-ghost" id="copy-btn">📋 复制</button>
-      <button class="btn-ghost mid" id="save-btn">🖼️ 保存</button>
+      <button class="btn-ghost mid" id="save-btn">🖼️ 长按保存</button>
       <button class="btn-ghost solid" id="again-btn">🏠 首页</button>
     </div>
   `;
@@ -1877,7 +1878,38 @@ function bindResultEvents() {
   const saveBtn     = document.getElementById('save-btn');
   const againBtn    = document.getElementById('again-btn');
   if (copyBtn) copyBtn.onclick = copySign;
-  if (saveBtn) saveBtn.onclick = downloadSign;
+  // 保存按钮：支持「长按」触发（触屏设备长按保存按钮 → 生成图片浮层 → 长按图片存相册）
+  if (saveBtn) {
+    if (('ontouchstart' in window) || navigator.maxTouchPoints > 0) {
+      let longPressTimer = null;
+      let longPressFired = false;
+      const startLongPress = (e) => {
+        if (e.cancelable) e.preventDefault();
+        longPressFired = false;
+        longPressTimer = setTimeout(() => {
+          longPressFired = true;
+          navigator.vibrate && navigator.vibrate(30); // 轻震动反馈
+          downloadSign();
+        }, 500);
+      };
+      const cancelLongPress = () => {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+      };
+      saveBtn.addEventListener('touchstart', startLongPress, { passive: false });
+      saveBtn.addEventListener('touchend', (e) => {
+        clearTimeout(longPressTimer);
+        // 长按已触发就不再重复触发单击
+        if (longPressFired) { e.preventDefault(); return; }
+        downloadSign(); // 短按也触发生成，保证功能可用
+      });
+      saveBtn.addEventListener('touchmove', cancelLongPress);
+      saveBtn.addEventListener('touchcancel', cancelLongPress);
+      saveBtn.addEventListener('contextmenu', (e) => e.preventDefault());
+    } else {
+      saveBtn.onclick = downloadSign;
+    }
+  }
   if (againBtn) againBtn.onclick = (e) => {
     e.stopPropagation();
     resetCard();
@@ -2014,7 +2046,8 @@ async function downloadSign() {
             });
             // 释义、出处也改为浅色，与签诗协调
             el.querySelectorAll('.sign-meaning').forEach(n => {
-              n.style.color = '#5A4A75';
+              n.style.color = '#7A6D9C';  // 浅灰紫（比原深色 #5A4A75 浅、可读性好）
+              n.style.fontWeight = '400'; // 细字
             });
             el.querySelectorAll('.sign-cn').forEach(n => {
               n.style.backgroundImage = 'none';
