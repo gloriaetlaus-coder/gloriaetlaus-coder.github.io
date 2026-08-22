@@ -183,13 +183,13 @@ body::after {
   position: relative;
   max-width: 480px;
   margin: 0 auto;
-  padding: 8px 22px 8px;
+  padding: 10px 22px 8px;
   z-index: 1;
-  /* 垂直铺满视口：内容整体垂直居中，消除底部悬空 */
+  /* 垂直铺满视口：顶部对齐 + 底部留白，避免居中导致 slogan 无法上移 */
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 /* ====================================================
@@ -199,7 +199,7 @@ body::after {
   position: relative;
   text-align: center;
   margin: 0 0 4px;
-  padding: 4px 0 6px;
+  padding: 14px 0 4px;
   min-height: 82px;
   display: flex;
   flex-direction: column;
@@ -236,9 +236,9 @@ body::after {
   font-family: 'Great Vibes', 'Allura', 'Pacifico', 'Snell Roundhand', 'Apple Chancery', cursive;
   font-size: 52px;
   font-weight: 700;
-  line-height: 1.5;
+  line-height: 1.3;
   margin: 0;
-  padding: 22px 20px 22px 12px;
+  padding: 8px 20px 8px 12px;
   letter-spacing: 0;
   white-space: nowrap;
   overflow: visible;
@@ -262,7 +262,7 @@ body::after {
 .title-sub {
   position: relative;
   z-index: 2;
-  margin: -12px 0 0;   /* 中文slogan上移0.5cm（≈19px） */
+  margin: -10px 0 0;   /* 中文slogan上移，与英文 slogan 紧凑 */
   font-family: var(--font-cn);
   font-size: 26px;
   font-weight: 800;
@@ -738,7 +738,7 @@ body::after {
     drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
     drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
     drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", "Playfair Display", serif;
 }
 
 /* 中文签诗 — 深紫色 + 发光斜体 + shimmer 扫光（与英文统一）*/
@@ -782,8 +782,8 @@ body::after {
 }
 
 .sign-poem.english {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: 30px;
+  font-family: Georgia, "Times New Roman", "Playfair Display", serif;
+  font-size: 34px;
   letter-spacing: 0;
   font-style: italic;
   line-height: 1.35;
@@ -950,7 +950,7 @@ body::after {
   text-align: center;
   letter-spacing: 0;
   font-weight: 700;
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", "Playfair Display", serif;
   font-style: italic;
   opacity: 0;
   white-space: normal;
@@ -1172,9 +1172,16 @@ body::after {
   padding: 18px 18px 14px;
   max-width: 92vw;
   max-height: 88vh;
-  overflow: auto;
   box-shadow: 0 18px 48px rgba(42, 31, 61, 0.35);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+/* 图片区独立滚动：矮屏时滚动图片，关闭按钮始终固定在底部可见 */
+.save-overlay-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(88vh - 100px);
 }
 .save-overlay-inner img {
   display: block;
@@ -1308,24 +1315,25 @@ body::after {
 @media (max-width: 600px) {
   :root { --font-cn: var(--font-cn-mobile); }
   .title { font-size: 42px; }
-  .title-sub { font-size: 22px; margin-top: -9px; }
-  .header { min-height: 58px; padding: 4px 0 2px; margin-bottom: 2px; }
-  .app { padding: 6px 16px 10px; }
+  .title-sub { font-size: 22px; margin-top: -8px; }
+  .header { min-height: 58px; padding: 12px 0 2px; margin-bottom: 2px; }
+  .app { padding: 10px 16px 10px; }
   .sign-card-outer { max-width: min(92vw, 340px); height: min(78vh, 640px); }
   .sign-face.back { padding: 20px 18px 18px; }
   .stage { margin-top: -4px; }
 }
 
 @media (max-width: 360px) {
-  .app { padding: 6px 14px 8px; }
-  .header { min-height: 46px; padding: 2px 0 0; margin-bottom: 2px; }
+  :root { --font-cn: var(--font-cn-mobile); }
+  .app { padding: 10px 14px 8px; }
+  .header { min-height: 46px; padding: 10px 0 0; margin-bottom: 2px; }
   .title { font-size: 36px; }
-  .title-sub { font-size: 20px; margin-top: -11px; letter-spacing: 3px; }
+  .title-sub { font-size: 20px; margin-top: -8px; letter-spacing: 3px; }
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
   .sign-card-outer { max-width: min(94vw, 320px); height: min(80vh, 620px); }
   .sign-face.back { padding: 18px 14px 16px; }
-  .sign-poem.english { font-size: 22px; }
+  .sign-poem.english { font-size: 24px; }
   .sign-source { font-size: 10px; padding: 0 6px; }
   .sign-meaning { font-size: 11px; padding: 0 10px; line-height: 1.7; }
   .category-list { grid-template-columns: repeat(4, 1fr); font-size: 11px; }
@@ -1394,8 +1402,10 @@ body::after {
 <!-- 保存图片浮层：手机端长按保存到相册 -->
 <div class="save-overlay" id="save-overlay">
   <div class="save-overlay-inner">
-    <img id="save-overlay-img" alt="长按保存">
-    <p class="save-overlay-tip">长按图片，保存到相册</p>
+    <div class="save-overlay-scroll">
+      <img id="save-overlay-img" alt="长按保存">
+      <p class="save-overlay-tip">长按图片，保存到相册</p>
+    </div>
     <button class="save-overlay-close" id="save-overlay-close">完成</button>
   </div>
 </div>
@@ -1992,15 +2002,6 @@ async function downloadSign() {
               n.style.webkitBackgroundClip = 'border-box';
               n.style.webkitTextFillColor = '#D0CCE0';
               n.style.color = '#D0CCE0';
-              n.style.filter = 'drop-shadow(0 0 4px rgba(140, 120, 190, 0.85)) drop-shadow(0 0 10px rgba(120, 100, 180, 0.5))';
-              n.style.textShadow = '0 0 10px rgba(140, 120, 190, 0.8), 0 1px 2px rgba(60, 40, 120, 0.35)';
-            });
-            el.querySelectorAll('.sign-poem.english').forEach(n => {
-              n.style.backgroundImage = 'none';
-              n.style.backgroundClip = 'border-box';
-              n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#9B82D4';
-              n.style.color = '#9B82D4';
               n.style.filter = 'drop-shadow(0 0 4px rgba(140, 120, 190, 0.85)) drop-shadow(0 0 10px rgba(120, 100, 180, 0.5))';
               n.style.textShadow = '0 0 10px rgba(140, 120, 190, 0.8), 0 1px 2px rgba(60, 40, 120, 0.35)';
             });
