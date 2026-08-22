@@ -197,7 +197,7 @@ body::after {
 .header {
   position: relative;
   text-align: center;
-  margin: 0 0 0;  /* header底部不留白，由stage margin-top控制slogan到卡片间距 */
+  margin: 0 0 0;  /* header底部不留白 */
   padding: 14px 0 4px;
   min-height: 82px;
   display: flex;
@@ -261,7 +261,7 @@ body::after {
 .title-sub {
   position: relative;
   z-index: 2;
-  margin: 30px 0 0;   /* 中文slogan下移：与英文间距≈0.8cm(30px)，与卡片间距≈0.8cm(header margin-bottom=30px) */
+  margin: 19px 0 0;   /* 中文slogan：与英文间距0.5cm(约19px) */
   font-family: var(--font-cn);
   font-size: 30px;
   font-weight: 800;
@@ -504,7 +504,7 @@ body::after {
    SIGN STAGE — 竖着的长方形签条
    ==================================================== */
 .stage {
-  margin-top: 25px;  /* 卡片整体下移，与slogan间距保持平衡（slogan到卡片≈30px） */
+  margin-top: 13px;  /* 中卡间距≈0.5cm(约19px)，与英中间距均衡 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -861,11 +861,11 @@ body::after {
   opacity: 0;
   animation: fadeUp 0.5s 0.5s forwards;
   font-family: var(--font-cn);
-  font-weight: 700;
+  font-weight: 400;
   padding: 0 14px;  /* 两侧留白防止截断 */
 }
 
-/* 中文主题词 — 深紫渐变 + shimmer 扫光（与签诗统一）*/
+/* 中文主题词 — 浅紫渐变 + 发光 + shimmer（与英文主题词风格类似但不完全一样）*/
 .sign-cn {
   margin: 14px auto 0;
   font-size: clamp(24px, 6vw, 34px);
@@ -884,19 +884,20 @@ body::after {
   box-sizing: border-box;
   width: fit-content;
   background: linear-gradient(135deg,
-    #6C52A8 0%,
-    #5C42A6 30%,
-    #7A5FC0 50%,
-    #5C42A6 70%,
-    #6C52A8 100%);
+    #D4C5ED 0%,
+    #C4B0E8 25%,
+    #B8A4DC 50%,
+    #C4B0E8 75%,
+    #D4C5ED 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: fadeUp 0.5s 0.55s forwards, cn-shimmer 6s linear 0.55s infinite;
   filter:
-    drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
-    drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
+    drop-shadow(0 0 5px rgba(180, 160, 230, 0.7))
+    drop-shadow(0 0 12px rgba(160, 140, 210, 0.4))
+    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
 }
 
 .skew-wrap {
@@ -925,20 +926,22 @@ body::after {
   position: relative;
   overflow: visible;
   padding: 4px 16px 8px;  /* 底部留白防截断 */
+  /* 浅紫渐变 + 发光，与英文主题词风格类似但不完全一样 */
   background: linear-gradient(135deg,
-    #6C52A8 0%,
-    #5C42A6 30%,
-    #7A5FC0 50%,
-    #5C42A6 70%,
-    #6C52A8 100%);
+    #E8DEF5 0%,
+    #D4C5ED 25%,
+    #C4B0E8 50%,
+    #D4C5ED 75%,
+    #E8DEF5 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: fadeUp 0.5s 0.58s forwards, cn-shimmer 6s linear 0.58s infinite;
   filter:
-    drop-shadow(0 0 6px rgba(155, 130, 222, 0.45))
-    drop-shadow(0 0 14px rgba(155, 130, 222, 0.25));
+    drop-shadow(0 0 5px rgba(180, 160, 230, 0.7))
+    drop-shadow(0 0 12px rgba(160, 140, 210, 0.4))
+    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
 }
 
 .sign-cn-en {
@@ -1251,12 +1254,12 @@ body::after {
 @media (max-width: 600px) {
   :root { --font-cn: var(--font-cn-mobile); }
   .title { font-size: 42px; }
-  .title-sub { font-size: 28px; margin-top: 30px; }  /* 手机端：slogan间距改为0.8cm(30px) */
+  .title-sub { font-size: 28px; margin-top: 19px; }  /* 手机端：slogan间距0.5cm(19px) */
   .header { min-height: 58px; padding: 12px 0 2px; margin-bottom: 2px; }
   .app { padding: 10px 16px 10px; }
   .sign-card-outer { max-width: min(92vw, 340px); height: min(78vh, 640px); }
-  .sign-cn { font-size: clamp(22px, 7vw, 28px); }  /* 手机端中文主题词放大 */
-  .stage { margin-top: 25px; }  /* 手机断点：与slogan间距保持平衡 */
+  .sign-cn { font-size: clamp(26px, 8vw, 32px); }  /* 手机端中文主题词放大 */
+  .stage { margin-top: 13px; }  /* 手机断点：中卡间距≈0.5cm */
 }
 
 @media (max-width: 360px) {
@@ -1264,15 +1267,15 @@ body::after {
   .app { padding: 10px 14px 8px; }
   .header { min-height: 46px; padding: 10px 0 0; margin-bottom: 2px; }
   .title { font-size: 36px; }
-  .title-sub { font-size: 26px; margin-top: 30px; letter-spacing: 3px; }  /* 360px 断点：slogan间距0.8cm */
+  .title-sub { font-size: 26px; margin-top: 19px; letter-spacing: 3px; }  /* 360px 断点：slogan间距0.5cm(19px) */
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
   .sign-card-outer { max-width: min(94vw, 320px); height: min(80vh, 620px); }
-  .stage { margin-top: 25px; }  /* 360px 断点：与slogan间距保持平衡 */
+  .stage { margin-top: 13px; }  /* 360px 断点：中卡间距≈0.5cm */
   .sign-face.back { padding: 18px 14px 16px; }
   .sign-poem.english { font-size: 24px; }
   .sign-source { font-size: 10px; padding: 0 6px; }
-  .sign-meaning { font-size: 11px; padding: 0 10px; line-height: 1.7; }
+  .sign-meaning { font-size: 12px; padding: 0 10px; line-height: 1.7; }
   .category-list { grid-template-columns: repeat(4, 1fr); font-size: 11px; }
   .chip { font-size: 11px; padding: 10px 2px; }
 }
