@@ -24,7 +24,7 @@
 <meta name="theme-color" content="#7A5FC0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>今朝·My Day</title>
+<title>今朝·Good day</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
@@ -200,7 +200,7 @@ body::after {
   text-align: center;
   margin: 0 0 4px;
   padding: 4px 0 6px;
-  min-height: 120px;
+  min-height: 82px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -233,7 +233,7 @@ body::after {
 .title {
   position: relative;
   z-index: 2;
-  font-family: 'Great Vibes', 'Allura', 'Pacifico', cursive;
+  font-family: 'Great Vibes', 'Allura', 'Pacifico', 'Snell Roundhand', 'Apple Chancery', cursive;
   font-size: 52px;
   font-weight: 700;
   line-height: 1.5;
@@ -738,7 +738,7 @@ body::after {
     drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
     drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
     drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
-  font-family: Georgia, "Times New Roman", "Playfair Display", serif;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
 }
 
 /* 中文签诗 — 深紫色 + 发光斜体 + shimmer 扫光（与英文统一）*/
@@ -782,7 +782,7 @@ body::after {
 }
 
 .sign-poem.english {
-  font-family: Georgia, "Times New Roman", "Playfair Display", serif;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
   font-size: 30px;
   letter-spacing: 0;
   font-style: italic;
@@ -950,7 +950,7 @@ body::after {
   text-align: center;
   letter-spacing: 0;
   font-weight: 700;
-  font-family: Georgia, "Times New Roman", "Playfair Display", serif;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
   font-style: italic;
   opacity: 0;
   white-space: normal;
@@ -1183,6 +1183,8 @@ body::after {
   border-radius: 10px;
   -webkit-user-select: all;
   user-select: all;
+  -webkit-touch-callout: default;
+  pointer-events: auto;
 }
 .save-overlay-tip {
   margin: 12px 0 10px;
@@ -1307,7 +1309,7 @@ body::after {
   :root { --font-cn: var(--font-cn-mobile); }
   .title { font-size: 42px; }
   .title-sub { font-size: 22px; margin-top: -9px; }
-  .header { min-height: 96px; padding: 4px 0 2px; margin-bottom: 2px; }
+  .header { min-height: 58px; padding: 4px 0 2px; margin-bottom: 2px; }
   .app { padding: 6px 16px 10px; }
   .sign-card-outer { max-width: min(92vw, 340px); height: min(78vh, 640px); }
   .sign-face.back { padding: 20px 18px 18px; }
@@ -1316,7 +1318,7 @@ body::after {
 
 @media (max-width: 360px) {
   .app { padding: 6px 14px 8px; }
-  .header { min-height: 84px; padding: 2px 0 0; margin-bottom: 2px; }
+  .header { min-height: 46px; padding: 2px 0 0; margin-bottom: 2px; }
   .title { font-size: 36px; }
   .title-sub { font-size: 20px; margin-top: -11px; letter-spacing: 3px; }
   .title-halo { width: 260px; height: 120px; }
@@ -1404,31 +1406,31 @@ body::after {
    ==================================================== */
 const FORTUNES = [
   { cat: 'happy', grade: '上上签', num: 101,
-    poem: 'Smile, Spark Endorphins', cn: '微微一笑，点亮内啡肽', meaning: '嘴角上扬这个动作本身，就会让大脑分泌内啡肽，天然镇痛又提神。身体比你更先收到快乐的信号。',
+    poem: 'Smile, Spark Endorphins', cn: '微笑点亮内啡肽', meaning: '嘴角上扬这个动作本身，就会让大脑分泌内啡肽，天然镇痛又提神。身体比你更先收到快乐的信号。',
     source: '美国·神经科学||沃尔特·坎农（Walter Cannon）' },
   { cat: 'happy', grade: '大吉签', num: 102,
-    poem: 'Laughter Is Medicine', cn: '笑，是最好的药', meaning: '大笑会释放内啡肽、血清素，还让免疫球蛋白短暂上升。十分钟真心大笑，效果堪比一次轻运动。',
+    poem: 'Laughter Is Medicine', cn: '笑是最好的药', meaning: '大笑会释放内啡肽、血清素，还让免疫球蛋白短暂上升。十分钟真心大笑，效果堪比一次轻运动。',
     source: '美国·心理神经免疫学||李·伯克（Lee Berk）' },
   { cat: 'happy', grade: '上签', num: 103,
-    poem: 'Serotonin Boost', cn: '血清素：快乐燃料', meaning: '阳光、运动、吃一口喜欢的食物，都能催生血清素。它让你情绪平稳、睡眠踏实，是身体自带的定心丸。',
+    poem: 'Serotonin Boost', cn: '血清素快乐燃料', meaning: '阳光、运动、吃一口喜欢的食物，都能催生血清素。它让你情绪平稳、睡眠踏实，是身体自带的定心丸。',
     source: '美国·神经科学||' },
   { cat: 'happy', grade: '上签', num: 104,
-    poem: 'Dopamine, the Spark', cn: '多巴胺，行动的火花', meaning: '期待一件事，多巴胺就开始分泌。把生活拆成小期待，快乐不用等大事，身体时刻有盼头。',
+    poem: 'Dopamine, the Spark', cn: '多巴胺行动火花', meaning: '期待一件事，多巴胺就开始分泌。把生活拆成小期待，快乐不用等大事，身体时刻有盼头。',
     source: '美国·神经科学||沃尔弗拉姆·舒尔茨（Wolfram Schultz）' },
   { cat: 'happy', grade: '上上签', num: 105,
     poem: 'Joy Spreads', cn: '快乐会传染', meaning: '你在笑，身边人的镜像神经元也在笑。快乐天生会传染，你开心，就是在给周围人充能。',
     source: '意大利·认知神经科学||贾科莫·里佐拉蒂（Giacomo Rizzolatti）' },
   { cat: 'happy', grade: '上签', num: 106,
-    poem: 'Gratitude Rewires', cn: '感恩，给大脑重新布线', meaning: '每晚写下三件小事，六周后大脑前额叶活动明显增强。感恩不是鸡汤，是实证有效的神经训练。',
+    poem: 'Gratitude Rewires', cn: '感恩重塑大脑', meaning: '每晚写下三件小事，六周后大脑前额叶活动明显增强。感恩不是鸡汤，是实证有效的神经训练。',
     source: '美国·积极心理学||罗伯特·埃蒙斯（Robert Emmons）' },
   { cat: 'happy', grade: '上上签', num: 107,
-    poem: 'Peak-End Glow', cn: '记住的，都是最好的时刻', meaning: '大脑只截取「高峰」和「结尾」两帧。今天的好好收尾，明天回忆起来全是甜。你的开心，就是最好的良药。',
+    poem: 'Peak-End Glow', cn: '记住的都是最好时刻', meaning: '大脑只截取「高峰」和「结尾」两帧。今天的好好收尾，明天回忆起来全是甜。你的开心，就是最好的良药。',
     source: '美国·行为经济学||丹尼尔·卡尼曼（Daniel Kahneman）' },
   { cat: 'happy', grade: '中上签', num: 108,
-    poem: 'Flow', cn: '心流，忘记时间', meaning: '全神贯注时，大脑会关闭多余通路，焦虑自动静音。认真做眼前的事，快乐就藏在这阵专注里。',
+    poem: 'Flow', cn: '心流忘却时间', meaning: '全神贯注时，大脑会关闭多余通路，焦虑自动静音。认真做眼前的事，快乐就藏在这阵专注里。',
     source: '美国·积极心理学||米哈里·契克森米哈赖（Mihaly Csikszentmihalyi）' },
   { cat: 'sad', grade: '解忧签', num: 201,
-    poem: 'Crying Is Healing', cn: '哭一场，也是疗愈', meaning: '眼泪会带走压力激素，哭声是身体在帮你排毒。哭完了，人会轻一截，这是生理上的释重。',
+    poem: 'Crying Is Healing', cn: '哭泣也是疗愈', meaning: '眼泪会带走压力激素，哭声是身体在帮你排毒。哭完了，人会轻一截，这是生理上的释重。',
     source: '美国·进化心理学||威廉·弗雷（William Frey）' },
   { cat: 'sad', grade: '解忧签', num: 202,
     poem: 'This too shall pass', cn: '这一切也会过去', meaning: '再难的日子，也有翻篇的那一天。情绪是波浪，会涨也会退，不会永远停在同一个深度。',
@@ -1437,10 +1439,10 @@ const FORTUNES = [
     poem: 'The past is past, the future awaits', cn: '往者不可谏，来者犹可追', meaning: '反复假设「如果当初」只消耗精力，不改变结果。把回收来的力气，留给还没来的明天。',
     source: '中国·儒学||《论语·微子》（春秋）' },
   { cat: 'sad', grade: '上签', num: 204,
-    poem: 'Vulnerability Is Strength', cn: '脆弱，也是一种力量', meaning: '愿意承认难过的人，反而恢复得更快。允许自己伤心，比假装坚强更勇敢。像弹簧，先变形才能弹回来。',
+    poem: 'Vulnerability Is Strength', cn: '脆弱也是力量', meaning: '愿意承认难过的人，反而恢复得更快。允许自己伤心，比假装坚强更勇敢。像弹簧，先变形才能弹回来。',
     source: '美国·社会心理学||布琳·布朗（Brené Brown）' },
   { cat: 'sad', grade: '上上签', num: 205,
-    poem: 'Grief Is Love', cn: '悲伤，是爱过的痕迹', meaning: '悲伤是你曾经认真在乎过的证据。别急着赶它走，它在提醒你，什么东西值得珍惜。',
+    poem: 'Grief Is Love', cn: '悲伤是爱过的痕迹', meaning: '悲伤是你曾经认真在乎过的证据。别急着赶它走，它在提醒你，什么东西值得珍惜。',
     source: '美国·悲痛研究||大卫·凯斯勒（David Kessler）' },
   { cat: 'sad', grade: '上签', num: 206,
     poem: 'You Are Not Alone', cn: '你不是一个人', meaning: '难过时找人说说话，压力激素会明显下降。有人听你说，身体就在帮你减负，别独自硬扛。',
@@ -1449,106 +1451,106 @@ const FORTUNES = [
     poem: 'Permission to Feel', cn: '允许难过', meaning: '情绪没有好坏，被压抑的才会伤人。让它来，它会走；压制它，身体替它记着账。',
     source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
   { cat: 'sad', grade: '大吉签', num: 208,
-    poem: 'Self-Compassion', cn: '对自己温柔，是最好的充电', meaning: '把安慰朋友的话，说给自己听。温柔对待自己的人，身体会更快卸下压力，恢复速度比硬扛快得多。',
+    poem: 'Self-Compassion', cn: '对自己温柔是最好的充电', meaning: '把安慰朋友的话，说给自己听。温柔对待自己的人，身体会更快卸下压力，恢复速度比硬扛快得多。',
     source: '美国·临床心理学||克里斯汀·内夫（Kristin Neff）' },
   { cat: 'sad', grade: '转运签', num: 209,
-    poem: 'After Rain Comes Sun', cn: '雨后，总会放晴', meaning: '坏情绪有生理周期，就像暴风雨，再强也会过境。给身体一点时间，它自带修复机制。',
+    poem: 'After Rain Comes Sun', cn: '雨后总会放晴', meaning: '坏情绪有生理周期，就像暴风雨，再强也会过境。给身体一点时间，它自带修复机制。',
     source: '美国·积极心理学||情绪周期理论' },
   { cat: 'angry', grade: '上上签', num: 301,
-    poem: 'Anger Is a Signal', cn: '愤怒，是身体的警报', meaning: '愤怒不是坏，而是身体在提示边界被碰了。先听懂信号，再处理事情，比直接发火更高一级。',
+    poem: 'Anger Is a Signal', cn: '愤怒是身体警报', meaning: '愤怒不是坏，而是身体在提示边界被碰了。先听懂信号，再处理事情，比直接发火更高一级。',
     source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
   { cat: 'angry', grade: '中上签', num: 302,
-    poem: 'Name It to Tame It', cn: '说出来，火就小一半', meaning: '给自己说一句「我在生气」，杏仁核的活跃度会明显下降。命名情绪，就是最有效的情绪灭火器。',
+    poem: 'Name It to Tame It', cn: '说出来火就小一半', meaning: '给自己说一句「我在生气」，杏仁核的活跃度会明显下降。命名情绪，就是最有效的情绪灭火器。',
     source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
   { cat: 'angry', grade: '上签', num: 303,
-    poem: 'Ten Deep Breaths', cn: '十个深呼吸，让激素降下来', meaning: '怒火的燃料是肾上腺素，深呼吸会激活副交感神经，让心跳慢慢回到正常。气头上，先呼吸，再说话。',
+    poem: 'Ten Deep Breaths', cn: '十个深呼吸降激素', meaning: '怒火的燃料是肾上腺素，深呼吸会激活副交感神经，让心跳慢慢回到正常。气头上，先呼吸，再说话。',
     source: '生理学·基础||自主神经研究' },
   { cat: 'angry', grade: '上签', num: 304,
-    poem: 'Walk It Off', cn: '走几步，气就消一半', meaning: '散步能加速肾上腺素代谢，愤怒值会随步数下降。身体动起来，情绪自己会刹车。',
+    poem: 'Walk It Off', cn: '走几步气就消一半', meaning: '散步能加速肾上腺素代谢，愤怒值会随步数下降。身体动起来，情绪自己会刹车。',
     source: '美国·运动心理学||运动情绪调节研究' },
   { cat: 'angry', grade: '转运签', num: 305,
-    poem: 'Express, Don\'t Suppress', cn: '表达，而不是压抑', meaning: '把感受说给值得的人，心血管的负担比闷在心里轻得多。生气不表达伤身体，好好说才养生。',
+    poem: 'Express, Don\'t Suppress', cn: '表达而非压抑', meaning: '把感受说给值得的人，心血管的负担比闷在心里轻得多。生气不表达伤身体，好好说才养生。',
     source: '美国·健康心理学||情绪表达研究' },
   { cat: 'angry', grade: '上上签', num: 306,
-    poem: 'Boundaries Are Strength', cn: '边界感，就是保护自己', meaning: '生气常在提醒你哪里被越界。划清界限，不是冷漠，是身体在为未来的平静扫路。',
+    poem: 'Boundaries Are Strength', cn: '边界感保护自己', meaning: '生气常在提醒你哪里被越界。划清界限，不是冷漠，是身体在为未来的平静扫路。',
     source: '美国·心理治疗||内德拉·格洛弗·塔瓦布（Nedra Glover Tawwab）' },
   { cat: 'angry', grade: '大吉签', num: 307,
-    poem: 'Turn Anger into Energy', cn: '把怒火，变成冲锋', meaning: '愤怒带来的高唤醒，可以转化为行动力。怒到极点去跑一步、写一页、搬砖，力量就归你用了。',
+    poem: 'Turn Anger into Energy', cn: '把怒火变成冲锋', meaning: '愤怒带来的高唤醒，可以转化为行动力。怒到极点去跑一步、写一页、搬砖，力量就归你用了。',
     source: '美国·运动心理学||' },
   { cat: 'angry', grade: '上签', num: 308,
-    poem: 'Cool Down, Then Speak', cn: '先冷静，再开口', meaning: '愤怒时会话冲口而出，大脑供血都在杏仁核。等一下，等皮质醇回落，再说的话更接近真心。',
+    poem: 'Cool Down, Then Speak', cn: '先冷静再开口', meaning: '愤怒时会话冲口而出，大脑供血都在杏仁核。等一下，等皮质醇回落，再说的话更接近真心。',
     source: '生理学·神经||' },
   { cat: 'anxious', grade: '上上签', num: 401,
-    poem: 'Anxiety Is a Signal', cn: '焦虑，是身体的预警雷达', meaning: '适度焦虑是大脑在喊「有准备」。它让你更有动力应对重要场合。一点紧张，说明你真的很在乎。',
+    poem: 'Anxiety Is a Signal', cn: '焦虑是预警雷达', meaning: '适度焦虑是大脑在喊「有准备」。它让你更有动力应对重要场合。一点紧张，说明你真的很在乎。',
     source: '美国·行为心理学||耶克斯与多德森定律' },
   { cat: 'anxious', grade: '上签', num: 402,
-    poem: 'Best Tension', cn: '恰到好处的紧张，状态最好', meaning: '耶克斯-多德森定律说：中等焦虑时，表现最优。焦虑不一定是敌人，适度反而是引擎。',
+    poem: 'Best Tension', cn: '适度紧张状态最好', meaning: '耶克斯-多德森定律说：中等焦虑时，表现最优。焦虑不一定是敌人，适度反而是引擎。',
     source: '美国·心理学||罗伯特·耶克斯（Robert Yerkes）' },
   { cat: 'anxious', grade: '转运签', num: 403,
-    poem: 'Five-Minute Start', cn: '先做五分钟，焦虑就漏气', meaning: '大脑畏难，行动不怕。先动五分钟，焦虑燃料就断供。跨过起点，大脑自动切到执行模式。',
+    poem: 'Five-Minute Start', cn: '先做五分钟焦虑漏气', meaning: '大脑畏难，行动不怕。先动五分钟，焦虑燃料就断供。跨过起点，大脑自动切到执行模式。',
     source: '美国·行为心理学||' },
   { cat: 'anxious', grade: '大吉签', num: 404,
-    poem: 'Box Breathing', cn: '箱式呼吸，给心率踩刹车', meaning: '吸气四秒、屏息四秒、呼气四秒，三分钟后心率回落，压力激素下降。身体一平，心就跟着平。',
+    poem: 'Box Breathing', cn: '箱式呼吸踩刹车', meaning: '吸气四秒、屏息四秒、呼气四秒，三分钟后心率回落，压力激素下降。身体一平，心就跟着平。',
     source: '美国·呼吸训练||美国海军绿贝雷（Mark Divine）' },
   { cat: 'anxious', grade: '上上签', num: 405,
-    poem: 'Mindfulness, the Pause', cn: '正念，是把注意拉回此刻', meaning: '焦虑都住在「未来」，只有此刻是安全的。一分钟深呼吸，把注意放回呼吸上，大脑就停止空转。',
+    poem: 'Mindfulness, the Pause', cn: '正念拉回此刻', meaning: '焦虑都住在「未来」，只有此刻是安全的。一分钟深呼吸，把注意放回呼吸上，大脑就停止空转。',
     source: '美国·认知神经科学||乔·卡巴金（Jon Kabat-Zinn）' },
   { cat: 'anxious', grade: '上签', num: 406,
-    poem: 'Courage Walks with Fear', cn: '勇气，是和恐惧并肩走', meaning: '大胆的人不是没有焦虑，而是带着它一起走。心率加快和紧张兴奋，生理反应是同一个频道。',
+    poem: 'Courage Walks with Fear', cn: '勇气与恐惧并肩', meaning: '大胆的人不是没有焦虑，而是带着它一起走。心率加快和紧张兴奋，生理反应是同一个频道。',
     source: '美国·存在心理学||' },
   { cat: 'anxious', grade: '中上签', num: 407,
-    poem: 'The Now Is Safe', cn: '此刻，你是安全的', meaning: '让焦虑安静下来的最好方法：扫描现在的身体，周围没有威胁，你被此刻稳稳托住。',
+    poem: 'The Now Is Safe', cn: '此刻你是安全的', meaning: '让焦虑安静下来的最好方法：扫描现在的身体，周围没有威胁，你被此刻稳稳托住。',
     source: '美国·认知行为疗法||' },
   { cat: 'anxious', grade: '上上签', num: 408,
-    poem: 'Growth over Panic', cn: '成长思维，给焦虑换挡', meaning: '把「我做不到」换成「我还没做到」，压力激素会明显降低。大脑不喜欢死局，它喜欢开放题。',
+    poem: 'Growth over Panic', cn: '成长思维给焦虑换挡', meaning: '把「我做不到」换成「我还没做到」，压力激素会明显降低。大脑不喜欢死局，它喜欢开放题。',
     source: '美国·发展心理学||卡罗尔·德韦克（Carol Dweck）' },
   { cat: 'lonely', grade: '上上签', num: 501,
-    poem: 'Lonely Is the Body Crying', cn: '孤独，是身体在提醒你连接', meaning: '孤独不是弱点，是身体发出的「找连接」信号。它就像饿了提醒你吃饭一样，是健康的自然反应。',
+    poem: 'Lonely Is the Body Crying', cn: '孤独是身体的连接信号', meaning: '孤独不是弱点，是身体发出的「找连接」信号。它就像饿了提醒你吃饭一样，是健康的自然反应。',
     source: '美国·社会神经科学||约翰·卡乔波（John Cacioppo）' },
   { cat: 'lonely', grade: '大吉签', num: 502,
-    poem: 'One Small Hello', cn: '一个问好，也能退潮', meaning: '哪怕只和一个快递员、收银员说一句话，孤独感也会下降。别小看微小的连接，它正在给心里充氧。',
+    poem: 'One Small Hello', cn: '一个问好也能退潮', meaning: '哪怕只和一个快递员、收银员说一句话，孤独感也会下降。别小看微小的连接，它正在给心里充氧。',
     source: '美国·社会心理学||' },
   { cat: 'lonely', grade: '上签', num: 503,
-    poem: 'Reach Out First', cn: '先伸手，世界会回应', meaning: '主动发一条消息，身体的催产素就开始分泌。孤独怕的从来不是距离，是「我先开口」的勇气。',
+    poem: 'Reach Out First', cn: '先伸手世界会回应', meaning: '主动发一条消息，身体的催产素就开始分泌。孤独怕的从来不是距离，是「我先开口」的勇气。',
     source: '美国·神经经济学||保罗·扎克（Paul Zak）' },
   { cat: 'lonely', grade: '上上签', num: 504,
-    poem: 'Company of Others', cn: '有一群人，也在等你', meaning: '即使彼此不同频，共同的记忆也能降低皮质醇。同一个场合、同一种笑声，就是最低成本的疗愈。',
+    poem: 'Company of Others', cn: '有一群人也在等你', meaning: '即使彼此不同频，共同的记忆也能降低皮质醇。同一个场合、同一种笑声，就是最低成本的疗愈。',
     source: '美国·社会支持研究||' },
   { cat: 'lonely', grade: '转运签', num: 505,
-    poem: 'Alone is a Charge', cn: '独处，也可以是自己充电', meaning: '一个人待着不等于孤独，把独处当休息，身体会恢复得更快。真正的孤独，是没有好好陪自己。',
+    poem: 'Alone is a Charge', cn: '独处也能自己充电', meaning: '一个人待着不等于孤独，把独处当休息，身体会恢复得更快。真正的孤独，是没有好好陪自己。',
     source: '英国·心理学||安东尼·斯托尔（Anthony Storr）' },
   { cat: 'lonely', grade: '中上签', num: 506,
-    poem: 'A Pet\'s Warmth', cn: '毛茸茸的陪伴，也在治疗', meaning: '撸猫撸狗十分钟，催产素上升、压力激素下降。有时一段亲近，来自另一双不同的眼睛。',
+    poem: 'A Pet\'s Warmth', cn: '毛茸茸的陪伴也在治疗', meaning: '撸猫撸狗十分钟，催产素上升、压力激素下降。有时一段亲近，来自另一双不同的眼睛。',
     source: '美国·人与动物研究||' },
   { cat: 'lonely', grade: '上签', num: 507,
-    poem: 'Small Circle, Deep Bonds', cn: '小圈子，也有深连接', meaning: '不需要呼朋唤友，两三个谈得来的人，就足够供能。关系的质量，比数量更能抵御孤独。',
+    poem: 'Small Circle, Deep Bonds', cn: '小圈子也有深连接', meaning: '不需要呼朋唤友，两三个谈得来的人，就足够供能。关系的质量，比数量更能抵御孤独。',
     source: '美国·心理学研究||' },
   { cat: 'lonely', grade: '上上签', num: 508,
-    poem: 'Belonging is Built', cn: '归属感，需要主动搭桥', meaning: '加入一个小组、学一个爱好，人就会慢慢融入。归属感不是等的，是一步一步走出来的。',
+    poem: 'Belonging is Built', cn: '归属感需要主动搭桥', meaning: '加入一个小组、学一个爱好，人就会慢慢融入。归属感不是等的，是一步一步走出来的。',
     source: '美国·社会心理学||罗伊·鲍迈斯特（Roy Baumeister）' },
   { cat: 'calm', grade: '大吉签', num: 601,
-    poem: 'Parasympathetic Reset', cn: '副交感神经，正在给你做保养', meaning: '平静时身体会启动修复模式：心率慢下来、消化加强、免疫更活跃。平静，是身体最划算的投资。',
+    poem: 'Parasympathetic Reset', cn: '副交感神经在给你做保养', meaning: '平静时身体会启动修复模式：心率慢下来、消化加强、免疫更活跃。平静，是身体最划算的投资。',
     source: '生理学·基础||自主神经系统研究' },
   { cat: 'calm', grade: '上上签', num: 602,
-    poem: 'Mindfulness Works', cn: '正念，真的改变大脑', meaning: '每天十分钟正念，几周后杏仁核变小、前额叶增强。焦虑的「火警」反应，会越来越小。',
+    poem: 'Mindfulness Works', cn: '正念真的改变大脑', meaning: '每天十分钟正念，几周后杏仁核变小、前额叶增强。焦虑的「火警」反应，会越来越小。',
     source: '美国·认知神经科学||乔·卡巴金（Jon Kabat-Zinn）' },
   { cat: 'calm', grade: '上签', num: 603,
-    poem: 'Slow Down, Repair', cn: '慢下来，身体才开始修复', meaning: '紧张时，修复机制停摆；平静时，身体才开始修墙。慢一点，不是浪费时间，是给身体发信号。',
+    poem: 'Slow Down, Repair', cn: '慢下来身体才修复', meaning: '紧张时，修复机制停摆；平静时，身体才开始修墙。慢一点，不是浪费时间，是给身体发信号。',
     source: '生理学||' },
   { cat: 'calm', grade: '中上签', num: 604,
-    poem: 'One Minute, One Breath', cn: '一分钟，一整片安静', meaning: '慢慢呼气，比吸气长两拍，心率会自动下降。身体会先平静下来，再带上你的心。',
+    poem: 'One Minute, One Breath', cn: '一分钟一整片安静', meaning: '慢慢呼气，比吸气长两拍，心率会自动下降。身体会先平静下来，再带上你的心。',
     source: '生理学·呼吸||' },
   { cat: 'calm', grade: '上上签', num: 605,
-    poem: 'The Present is Peace', cn: '此刻，就是安放', meaning: '现在没有要追赶的、没有要解释的，只有这一秒。把心放回此刻，焦虑没有立足之地。',
+    poem: 'The Present is Peace', cn: '此刻就是安放', meaning: '现在没有要追赶的、没有要解释的，只有这一秒。把心放回此刻，焦虑没有立足之地。',
     source: '美国·认知神经科学||' },
   { cat: 'calm', grade: '上签', num: 606,
-    poem: 'Calm Deepens Sleep', cn: '平静，是深度睡眠的钥匙', meaning: '睡前十五分钟放空，褪黑素顺畅分泌，睡眠变深。睡好觉，第二天所有事情都会轻一些。',
+    poem: 'Calm Deepens Sleep', cn: '平静是深度睡眠的钥匙', meaning: '睡前十五分钟放空，褪黑素顺畅分泌，睡眠变深。睡好觉，第二天所有事情都会轻一些。',
     source: '睡眠科学||' },
   { cat: 'calm', grade: '大吉签', num: 607,
-    poem: 'Peace is a Practice', cn: '平静，是可以练的能力', meaning: '大脑的平静路径越练越粗。每天一小段安静时光，相当于给神经系统做「刻意练习」。',
+    poem: 'Peace is a Practice', cn: '平静是可以练的能力', meaning: '大脑的平静路径越练越粗。每天一小段安静时光，相当于给神经系统做「刻意练习」。',
     source: '美国·神经科学||' },
   { cat: 'calm', grade: '上签', num: 608,
-    poem: 'Flow, Soft Zone', cn: '平静，是专注的底色', meaning: '紧张做不出好东西，平静会。静下来，创造力才有房间住。让身体先静，答案会慢慢浮现。',
+    poem: 'Flow, Soft Zone', cn: '平静是专注的底色', meaning: '紧张做不出好东西，平静会。静下来，创造力才有房间住。让身体先静，答案会慢慢浮现。',
     source: '美国·积极心理学||' },
 ];
 
@@ -2011,7 +2013,7 @@ async function downloadSign() {
             });
             // 释义、出处也改为浅色，与签诗协调
             el.querySelectorAll('.sign-meaning').forEach(n => {
-              n.style.color = '#A892CE';
+              n.style.color = '#5A4A75';
             });
             el.querySelectorAll('.sign-cn').forEach(n => {
               n.style.backgroundImage = 'none';
@@ -2026,10 +2028,10 @@ async function downloadSign() {
               n.style.backgroundImage = 'none';
               n.style.backgroundClip = 'border-box';
               n.style.webkitBackgroundClip = 'border-box';
-              n.style.webkitTextFillColor = '#9B82D4';
-              n.style.color = '#9B82D4';
-              n.style.filter = 'drop-shadow(0 0 6px rgba(180, 150, 230, 0.7))';
-              n.style.textShadow = '0 0 8px rgba(180, 150, 230, 0.5)';
+              n.style.webkitTextFillColor = '#D4C5ED';
+              n.style.color = '#D4C5ED';
+              n.style.filter = 'drop-shadow(0 0 4px rgba(140, 120, 190, 0.85)) drop-shadow(0 0 10px rgba(120, 100, 180, 0.5)) drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3))';
+              n.style.textShadow = '0 0 10px rgba(140, 120, 190, 0.8), 0 1px 2px rgba(60, 40, 120, 0.35)';
             });
             el.querySelectorAll('.sign-literal').forEach(n => {
               // 中文直译 → 实色深紫
@@ -2075,7 +2077,7 @@ async function downloadSign() {
     if (!isTouch) {
       // 桌面端：用 toBlob + a.download
       const link = document.createElement('a');
-      link.download = `JinZhao-MyDay-${new Date().toISOString().slice(0, 10)}.png`;
+      link.download = `JinZhao-GoodDay-${new Date().toISOString().slice(0, 10)}.png`;
       document.body.appendChild(link);
       try {
         const blob = await new Promise((resolve, reject) => {
@@ -2105,19 +2107,34 @@ async function downloadSign() {
     if (!downloadOK) {
       // 触屏设备 / 下载失败：在当前页面浮层展示图片，用户长按保存
       try {
-        const dataUrl = canvas.toDataURL('image/png');
+        // 用 blob URL 替代 dataURL —— iOS Safari 长按 blob URL 图片可保存到相册
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 0.95));
+        const blobUrl = blob ? URL.createObjectURL(blob) : canvas.toDataURL('image/png');
         const overlay = document.getElementById('save-overlay');
         const img = document.getElementById('save-overlay-img');
         if (overlay && img) {
-          img.src = dataUrl;
+          img.src = blobUrl;
           overlay.classList.add('show');
           const close = document.getElementById('save-overlay-close');
-          if (close) {
-            close.onclick = () => overlay.classList.remove('show');
+          // 关闭浮层并释放 blob URL
+          function closeOverlay() {
+            overlay.classList.remove('show');
+            if (blobUrl.startsWith('blob:')) {
+              setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+            }
           }
-          overlay.onclick = (e) => {
-            if (e.target === overlay) overlay.classList.remove('show');
-          };
+          if (close) {
+            // iOS Safari 的 onclick 在触屏上不可靠，同时绑 touchend
+            close.addEventListener('click', closeOverlay, { once: true });
+            close.addEventListener('touchend', (ev) => {
+              ev.preventDefault();
+              closeOverlay();
+            }, { once: true, passive: false });
+          }
+          // 点击浮层背景也可关闭
+          overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeOverlay();
+          }, { once: true });
           showToast('长按图片保存到相册');
           return;
         }
