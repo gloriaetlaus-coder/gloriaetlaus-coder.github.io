@@ -263,7 +263,7 @@ body::after {
   z-index: 2;
   margin: 19px 0 0;   /* 中文slogan：与英文间距0.5cm(约19px) */
   font-family: var(--font-cn);
-  font-size: 30px;
+  font-size: 34px;
   font-weight: 800;
   letter-spacing: 4px;
   white-space: nowrap;
@@ -780,6 +780,12 @@ body::after {
   100% { background-position: 250% 50%; }
 }
 
+/* 中文主题词专用漂浮：保留 skewX 斜体 + translateY（与 title-sub-float 类似） */
+@keyframes cn-float {
+  0%, 100% { transform: skewX(-8deg) translateY(0); }
+  50%      { transform: skewX(-8deg) translateY(-5px); }
+}
+
 .sign-poem.english {
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
   font-size: 34px;
@@ -893,7 +899,7 @@ body::after {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.55s forwards, cn-shimmer 6s linear 0.55s infinite;
+  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
   filter:
     drop-shadow(0 0 5px rgba(180, 160, 230, 0.7))
     drop-shadow(0 0 12px rgba(160, 140, 210, 0.4))
@@ -1096,16 +1102,12 @@ body::after {
 }
 
 .btn-ghost {
-  padding: 7px 24px;
+  padding: 11px 6px;
   background: linear-gradient(135deg, #F5EEFC 0%, #EDE1F9 100%);   /* 浅紫 — 复制 */
   color: #6C52A8;
   border: none;
   border-radius: 100px;
   font-size: 13px;
-  min-width: 120px;
-  flex: 1;
-  max-width: 140px;
-  text-align: center;
   font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   cursor: pointer;
   transition: all 0.2s;
@@ -1254,11 +1256,12 @@ body::after {
 @media (max-width: 600px) {
   :root { --font-cn: var(--font-cn-mobile); }
   .title { font-size: 42px; }
-  .title-sub { font-size: 28px; margin-top: 19px; }  /* 手机端：slogan间距0.5cm(19px) */
+  .title-sub { font-size: 28px; margin-top: 12px; }  /* 手机端：间距减少0.2~0.3cm(19px→12px) */
   .header { min-height: 58px; padding: 12px 0 2px; margin-bottom: 2px; }
   .app { padding: 10px 16px 10px; }
   .sign-card-outer { max-width: min(92vw, 340px); height: min(78vh, 640px); }
   .sign-cn { font-size: clamp(26px, 8vw, 32px); }  /* 手机端中文主题词放大 */
+  .sign-meaning { font-size: 15px; }  /* 手机端释义字号放大 */
   .stage { margin-top: 13px; }  /* 手机断点：中卡间距≈0.5cm */
 }
 
@@ -1267,7 +1270,7 @@ body::after {
   .app { padding: 10px 14px 8px; }
   .header { min-height: 46px; padding: 10px 0 0; margin-bottom: 2px; }
   .title { font-size: 36px; }
-  .title-sub { font-size: 26px; margin-top: 19px; letter-spacing: 3px; }  /* 360px 断点：slogan间距0.5cm(19px) */
+  .title-sub { font-size: 26px; margin-top: 12px; letter-spacing: 3px; }  /* 360px 断点：间距减少 */
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
   .sign-card-outer { max-width: min(94vw, 320px); height: min(80vh, 620px); }
@@ -1275,7 +1278,7 @@ body::after {
   .sign-face.back { padding: 18px 14px 16px; }
   .sign-poem.english { font-size: 24px; }
   .sign-source { font-size: 10px; padding: 0 6px; }
-  .sign-meaning { font-size: 12px; padding: 0 10px; line-height: 1.7; }
+  .sign-meaning { font-size: 15px; padding: 0 10px; line-height: 1.7; }
   .category-list { grid-template-columns: repeat(4, 1fr); font-size: 11px; }
   .chip { font-size: 11px; padding: 10px 2px; }
 }
