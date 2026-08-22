@@ -1,4 +1,21 @@
 <!DOCTYPE html>
+<!-- ============================================================
+     今朝·My Day — 情绪抽卡工具
+     线上地址: https://gloriaetlaus-coder.github.io/light-wind/
+     ============================================================
+
+     ★ 自我检查清单（每次修改后必须逐项验证）★
+     1. 文字截断：所有签诗、主题词、释义、出处 — 桌面端+手机端(375px)+小屏(360px) 均无左右上下裁切
+     2. 主题词居中：英文签诗(.sign-poem.english)和中文主题词(.sign-cn)必须 text-align:center
+     3. 出处紧凑：两行之间无多余空行（<br>已移除，source-line用display:block+line-height:1.2）
+     4. 中文主题词不溢出：使用 clamp() 字号自适应，max-width:100% + box-sizing:border-box
+     5. slogan完整：英文"How's Your Day?" + 中文"今天过得怎么样？" 上下不被截断
+     6. 魔法棒功能：点击魔法棒图标和"点击魔法棒随机抽一张"文字均可抽随机卡
+     7. 魔法棒文字样式：与slogan同款银白渐变+shimmer+breathe发光动效
+     8. 释义末句情绪价值：每条释义最后一句要给用户正向情绪价值（夸赞/治愈/鼓励），不要冷冰冰科普
+     9. 品牌角标：卡片右上角显示"今朝·My Day"
+     10. 控制台零报错（favicon 404除外）
+     ============================================================ -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -165,7 +182,7 @@ body::after {
   position: relative;
   max-width: 480px;
   margin: 0 auto;
-  padding: 8px 22px 16px;
+  padding: 8px 22px 8px;
   z-index: 1;
 }
 
@@ -176,7 +193,7 @@ body::after {
   position: relative;
   text-align: center;
   margin: 0 0 4px;
-  padding: 8px 0 2px;
+  padding: 20px 0 6px;
   min-height: 120px;
   display: flex;
   flex-direction: column;
@@ -218,11 +235,11 @@ body::after {
   letter-spacing: 0;
   white-space: nowrap;
   background: linear-gradient(135deg,
-    #FFFFFF 0%,
-    #F4EEFC 25%,
-    #E6DCF8 50%,
-    #F4EEFC 75%,
-    #FFFFFF 100%);
+    #C4B0E8 0%,
+    #9B82D4 25%,
+    #7A5FC0 50%,
+    #9B82D4 75%,
+    #C4B0E8 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -247,11 +264,11 @@ body::after {
   display: inline-block;
   transform: skewX(-8deg);
   background: linear-gradient(135deg,
-    #FFFFFF 0%,
-    #F4EEFC 25%,
-    #E4DAF2 50%,
-    #F4EEFC 75%,
-    #FFFFFF 100%);
+    #C4B0E8 0%,
+    #9B82D4 25%,
+    #7A5FC0 50%,
+    #9B82D4 75%,
+    #C4B0E8 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -478,7 +495,7 @@ body::after {
   position: relative;
   width: 100%;
   max-width: min(92vw, 320px);   /* 手机占屏更大，PC不超过320 */
-  height: 580px;  /* 加高卡片 */
+  height: 520px;  /* 适配内容，减少底部空白 */
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
 }
@@ -537,15 +554,29 @@ body::after {
 }
 
 .wand-label {
-  margin: 14px 0 0;
-  font-size: 13px;
-  font-weight: 700;
+  margin: 24px 0 0;
+  font-size: 14px;
+  font-weight: 800;
   letter-spacing: 2px;
-  color: var(--primary);
-  text-shadow: 0 0 8px rgba(155, 126, 222, 0.35);
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
+  white-space: nowrap;
+  background: linear-gradient(135deg,
+    #9B82D4 0%,
+    #7A5FC0 25%,
+    #6C52A8 50%,
+    #7A5FC0 75%,
+    #9B82D4 100%);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: title-shimmer 6s linear infinite,
+             title-breathe 4.5s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 6px rgba(155, 126, 222, 0.85))
+    drop-shadow(0 0 14px rgba(140, 110, 200, 0.55));
 }
 .wand-label:hover { opacity: 0.85; }
 
@@ -689,10 +720,12 @@ body::after {
 /* 中文签诗 — 深紫色 + 发光斜体 + shimmer 扫光（与英文统一）*/
 .sign-poem.sign-poem-cn {
   font-family: var(--font-cn);
-  font-size: 34px;
-  letter-spacing: 2px;
+  font-size: clamp(20px, 6.5vw, 26px);
+  letter-spacing: 0.5px;
   font-weight: 700;
   font-style: italic;
+  max-width: 100%;
+  box-sizing: border-box;
   /* 中文主题词：深紫渐变 + shimmer 扫光（与英文 slogan 一致的 background-position 动画）*/
   background: linear-gradient(135deg,
     #6C52A8 0%,
@@ -726,7 +759,7 @@ body::after {
 
 .sign-poem.english {
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
-  font-size: 34px;
+  font-size: 30px;
   letter-spacing: 0;
   font-style: italic;
   line-height: 1.35;
@@ -800,15 +833,15 @@ body::after {
   animation: fadeUp 0.5s 0.5s forwards;
   font-family: var(--font-cn);
   font-weight: 700;
-  padding: 0 10px;  /* 两侧留白防止截断 */
+  padding: 0 14px;  /* 两侧留白防止截断 */
 }
 
 /* 中文主题词 — 深紫渐变 + shimmer 扫光（与签诗统一）*/
 .sign-cn {
   margin: 14px 0 0;
-  font-size: 34px;
+  font-size: clamp(18px, 6vw, 24px);
   text-align: center;
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
   font-weight: 700;
   font-family: var(--font-cn);
   font-style: italic;
@@ -817,7 +850,9 @@ body::after {
   word-break: keep-all;
   position: relative;
   overflow: visible;
-  padding: 4px 20px 8px;  /* 底部多留白防截断 */
+  padding: 4px 20px 8px;
+  max-width: 100%;
+  box-sizing: border-box;
   background: linear-gradient(135deg,
     #6C52A8 0%,
     #5C42A6 30%,
@@ -844,10 +879,10 @@ body::after {
 /* 中文直译 — 深紫渐变 + shimmer 扫光 */
 .sign-literal {
   margin: 10px 0 0;
-  font-size: 34px;
+  font-size: clamp(20px, 6.5vw, 26px);
   line-height: 1.35;
   text-align: center;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   font-weight: 700;
   font-family: var(--font-cn);
   font-style: italic;
@@ -855,6 +890,8 @@ body::after {
   animation: fadeUp 0.5s 0.58s forwards;
   overflow-wrap: break-word;
   word-break: keep-all;
+  max-width: 100%;
+  box-sizing: border-box;
   position: relative;
   overflow: visible;
   padding: 4px 16px 8px;  /* 底部留白防截断 */
@@ -935,11 +972,13 @@ body::after {
   overflow-wrap: break-word;
   word-break: keep-all;
   padding: 0 8px;
-  line-height: 1.35;  /* 压紧行高，消除两行间空行 */
+  line-height: 1.2;  /* 压紧行高，消除两行间空行 */
 }
 .sign-source .source-line {
   display: block;
-  line-height: 1.35;  /* 与父级一致 */
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
 }
 
 /* 卡片外部提示：轻点卡片返回首页（在卡片下方，不在卡片内） */
@@ -1133,8 +1172,8 @@ body::after {
   .title-sub { font-size: 22px; margin-top: 10px; }
   .header { min-height: 100px; padding: 6px 0 2px; margin-bottom: 2px; }
   .app { padding: 6px 16px 12px; }
-  .sign-card-outer { max-width: min(92vw, 320px); height: min(76vh, 560px); }  /* 加高 */
-  .sign-face.back { padding: 20px 16px 18px; }
+  .sign-card-outer { max-width: min(92vw, 320px); height: min(72vh, 520px); }
+  .sign-face.back { padding: 20px 18px 18px; }
   .stage { margin-top: -4px; }
 }
 
@@ -1145,23 +1184,18 @@ body::after {
   .title-sub { font-size: 20px; margin-top: 8px; letter-spacing: 3px; }
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
-  .sign-card-outer { max-width: min(94vw, 310px); height: min(80vh, 550px); }  /* 加高 */
+  .sign-card-outer { max-width: min(94vw, 310px); height: min(76vh, 510px); }
   .sign-face.back { padding: 18px 14px 16px; }
-  .sign-poem { font-size: 24px; }
-  .sign-poem.english { font-size: 24px; }
-  .sign-poem.sign-poem-cn { font-size: 24px; letter-spacing: 1px; }
-  .sign-cn { font-size: 24px; margin-top: 10px; letter-spacing: 1px; padding: 0 8px; }
-  .sign-cn-en { font-size: 24px; padding: 0 8px; }
-  .sign-literal { font-size: 20px; letter-spacing: 1px; padding: 0 8px; }
+  .sign-poem.english { font-size: 22px; }
   .sign-source { font-size: 10px; padding: 0 6px; }
-  .sign-meaning { font-size: 11px; padding: 0 8px; line-height: 1.7; }
+  .sign-meaning { font-size: 11px; padding: 0 10px; line-height: 1.7; }
   .category-list { grid-template-columns: repeat(4, 1fr); font-size: 11px; }
   .chip { font-size: 11px; padding: 10px 2px; }
 }
 
 @media (min-width: 600px) {
   .title { font-size: 46px; }
-  .sign-card-outer { max-width: 320px; height: 580px; }  /* 加高 */
+  .sign-card-outer { max-width: 320px; height: 520px; }
 }
 </style>
 </head>
@@ -1207,7 +1241,7 @@ body::after {
         <div class="sign-illustration" id="wand">
           <span class="icon">🪄</span>
         </div>
-        <p class="wand-label" id="wand-label">随机抽一张</p>
+        <p class="wand-label" id="wand-label">点击魔法棒随机抽一张</p>
         <div class="water-ripple" id="water-ripple"></div>
       </div>
       <div class="sign-face back" id="face-back"></div>
@@ -1236,13 +1270,13 @@ const FORTUNES = [
     poem: 'Dopamine, the Spark', cn: '多巴胺，行动的火花', meaning: '期待一件事，多巴胺就开始分泌。把生活拆成小期待，快乐不用等大事，身体时刻有盼头。',
     source: '美国·神经科学||沃尔弗拉姆·舒尔茨（Wolfram Schultz）' },
   { cat: 'happy', grade: '上上签', num: 105,
-    poem: 'Joy Spreads', cn: '快乐会传染', meaning: '你在笑，身边人的镜像神经元也在笑。快乐天然是社会性气体，你开心，就是在给周围人充能。',
+    poem: 'Joy Spreads', cn: '快乐会传染', meaning: '你在笑，身边人的镜像神经元也在笑。快乐天生会传染，你开心，就是在给周围人充能。',
     source: '意大利·认知神经科学||贾科莫·里佐拉蒂（Giacomo Rizzolatti）' },
   { cat: 'happy', grade: '上签', num: 106,
     poem: 'Gratitude Rewires', cn: '感恩，给大脑重新布线', meaning: '每晚写下三件小事，六周后大脑前额叶活动明显增强。感恩不是鸡汤，是实证有效的神经训练。',
     source: '美国·积极心理学||罗伯特·埃蒙斯（Robert Emmons）' },
   { cat: 'happy', grade: '上上签', num: 107,
-    poem: 'Peak-End Glow', cn: '记住的，都是最好的时刻', meaning: '大脑只截取「高峰」和「结尾」两帧。把一个普通日子过出高光收尾，回忆会自动美化这一天。',
+    poem: 'Peak-End Glow', cn: '记住的，都是最好的时刻', meaning: '大脑只截取「高峰」和「结尾」两帧。今天的好好收尾，明天回忆起来全是甜。你的开心，就是最好的良药。',
     source: '美国·行为经济学||丹尼尔·卡尼曼（Daniel Kahneman）' },
   { cat: 'happy', grade: '中上签', num: 108,
     poem: 'Flow', cn: '心流，忘记时间', meaning: '全神贯注时，大脑会关闭多余通路，焦虑自动静音。认真做眼前的事，快乐就藏在这阵专注里。',
@@ -1269,7 +1303,7 @@ const FORTUNES = [
     poem: 'Permission to Feel', cn: '允许难过', meaning: '情绪没有好坏，被压抑的才会伤人。让它来，它会走；压制它，身体替它记着账。',
     source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
   { cat: 'sad', grade: '大吉签', num: 208,
-    poem: 'Self-Compassion', cn: '对自己温柔，是最好的充电', meaning: '把安慰朋友的话，说给自己听。自我关怀能降低皮质醇，恢复速度比自我批评快得多。',
+    poem: 'Self-Compassion', cn: '对自己温柔，是最好的充电', meaning: '把安慰朋友的话，说给自己听。温柔对待自己的人，身体会更快卸下压力，恢复速度比硬扛快得多。',
     source: '美国·临床心理学||克里斯汀·内夫（Kristin Neff）' },
   { cat: 'sad', grade: '转运签', num: 209,
     poem: 'After Rain Comes Sun', cn: '雨后，总会放晴', meaning: '坏情绪有生理周期，就像暴风雨，再强也会过境。给身体一点时间，它自带修复机制。',
@@ -1485,7 +1519,7 @@ function renderSign(sign) {
     ? (() => {
         const parts = sign.source.split('||');
         let html = '<span class="source-line">— ' + parts[0] + '</span>';
-        if (parts[1]) html += '<br><span class="source-line">' + parts[1] + '</span>';
+        if (parts[1]) html += '<span class="source-line">' + parts[1] + '</span>';
         return html;
       })()
     : '';
@@ -1932,6 +1966,12 @@ function init() {
   if (drawBtn) drawBtn.addEventListener('click', drawSign);
   const wand = document.getElementById('wand');
   if (wand) wand.addEventListener('click', drawSign);
+  // 魔法棒下方文字也可点击抽卡
+  const wandLabel = document.getElementById('wand-label');
+  if (wandLabel) wandLabel.addEventListener('click', (e) => {
+    e.stopPropagation();
+    drawSign();
+  });
 
   // 情绪入口：点击推荐对应签文
   const bubbles = document.getElementById('mood-bubbles');
