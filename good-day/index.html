@@ -27,7 +27,8 @@
 <title>今朝·Good day</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&family=Playfair+Display:ital@1&family=Noto+Serif+SC:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<script src="html2canvas.min.js"></script>
 <style>
 :root {
   --primary: #7A5FC0;
@@ -50,9 +51,9 @@
   --radius-lg: 28px;
   --radius-md: 18px;
   --radius-sm: 12px;
-  --font-cn: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Songti SC", "STSong", "SimSun", "宋体", serif;
-  /* 手机端中文：Google Fonts Noto Serif SC 优先（与PC端一致），系统宋体回退 */
-  --font-cn-mobile: "Noto Serif SC", "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", "宋体", serif;
+  --font-cn: "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Songti SC", "STSong", "SimSun", "宋体", serif;
+  /* 手机端中文：系统宋体优先，避免 Noto Serif SC 在手机上渲染过粗 */
+  --font-cn-mobile: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", "宋体", serif;
 }
 
 * {
@@ -1094,9 +1095,9 @@ body::after {
 }
 
 .actions {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
   margin-top: auto;
   padding-top: 14px;
 }
@@ -1127,6 +1128,72 @@ body::after {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
   color: var(--white);
   box-shadow: 0 4px 14px rgba(92, 66, 166, 0.40);
+}
+
+/* ====================================================
+   SAVE OVERLAY — 保存图片浮层（手机端长按保存）
+   ==================================================== */
+.save-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(42, 31, 61, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.save-overlay.show {
+  display: flex;
+}
+.save-overlay-inner {
+  background: #FAF7FF;
+  border-radius: 20px;
+  padding: 18px 18px 14px;
+  max-width: 92vw;
+  max-height: 88vh;
+  box-shadow: 0 18px 48px rgba(42, 31, 61, 0.35);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+/* 图片区独立滚动：矮屏时滚动图片，关闭按钮始终固定在底部可见 */
+.save-overlay-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(88vh - 100px);
+}
+.save-overlay-inner img {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  border-radius: 10px;
+  -webkit-user-select: all;
+  user-select: all;
+  -webkit-touch-callout: default;
+  pointer-events: auto;
+}
+.save-overlay-tip {
+  margin: 12px 0 10px;
+  font-size: 13px;
+  color: var(--text-soft);
+  letter-spacing: 1px;
+  font-family: -apple-system, "PingFang SC", sans-serif;
+}
+.save-overlay-close {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #B8A4DC 0%, #9B82D4 100%);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  cursor: pointer;
+  font-family: -apple-system, "PingFang SC", sans-serif;
 }
 
 /* ====================================================
@@ -1341,6 +1408,17 @@ body::after {
 </div>
 
 <div class="toast" id="toast">已复制文字</div>
+
+<!-- 保存图片浮层：手机端长按保存到相册 -->
+<div class="save-overlay" id="save-overlay">
+  <div class="save-overlay-inner">
+    <div class="save-overlay-scroll">
+      <img id="save-overlay-img" alt="长按保存">
+      <p class="save-overlay-tip">长按图片，保存到相册</p>
+    </div>
+    <button class="save-overlay-close" id="save-overlay-close">关闭</button>
+  </div>
+</div>
 
 <script>
 /* ====================================================
@@ -1672,6 +1750,7 @@ function renderSign(sign) {
     </div>
     <div class="actions">
       <button class="btn-ghost" id="copy-btn">📋 复制</button>
+      <button class="btn-ghost mid" id="save-btn">🖼️ 长按保存</button>
       <button class="btn-ghost solid" id="again-btn">🏠 首页</button>
     </div>
   `;
@@ -1843,8 +1922,41 @@ function hideHome() {
 
 function bindResultEvents() {
   const copyBtn     = document.getElementById('copy-btn');
+  const saveBtn     = document.getElementById('save-btn');
   const againBtn    = document.getElementById('again-btn');
   if (copyBtn) copyBtn.onclick = copySign;
+  // 保存按钮：支持「长按」触发（触屏设备长按保存按钮 → 生成图片浮层 → 长按图片存相册）
+  if (saveBtn) {
+    if (('ontouchstart' in window) || navigator.maxTouchPoints > 0) {
+      let longPressTimer = null;
+      let longPressFired = false;
+      const startLongPress = (e) => {
+        if (e.cancelable) e.preventDefault();
+        longPressFired = false;
+        longPressTimer = setTimeout(() => {
+          longPressFired = true;
+          navigator.vibrate && navigator.vibrate(30); // 轻震动反馈
+          downloadSign();
+        }, 500);
+      };
+      const cancelLongPress = () => {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+      };
+      saveBtn.addEventListener('touchstart', startLongPress, { passive: false });
+      saveBtn.addEventListener('touchend', (e) => {
+        clearTimeout(longPressTimer);
+        // 长按已触发就不再重复触发单击
+        if (longPressFired) { e.preventDefault(); return; }
+        downloadSign(); // 短按也触发生成，保证功能可用
+      });
+      saveBtn.addEventListener('touchmove', cancelLongPress);
+      saveBtn.addEventListener('touchcancel', cancelLongPress);
+      saveBtn.addEventListener('contextmenu', (e) => e.preventDefault());
+    } else {
+      saveBtn.onclick = downloadSign;
+    }
+  }
   if (againBtn) againBtn.onclick = (e) => {
     e.stopPropagation();
     resetCard();
@@ -1903,6 +2015,222 @@ function fallbackCopy(text) {
   document.body.removeChild(ta);
 }
 
+async function downloadSign() {
+  const s = state.currentSign;
+  if (!s) return;
+
+  if (typeof html2canvas === 'undefined') {
+    showToast('保存功能加载中，稍等一秒');
+    return;
+  }
+
+  showToast('生成图片中…');
+
+  try {
+    if (document.fonts && document.fonts.ready) {
+      try { await document.fonts.ready; } catch (e) {}
+    }
+
+    const node = document.getElementById('face-back');
+    // 关键修复：html2canvas 会把背面的 rotateY(180deg) 翻转也渲染出来导致图片颠倒。
+    // 真正翻转在父级 .sign-card-outer.flipped 上（父级 rotateY(180deg) + preserve-3d 会让整个背面倒过来）。
+    // 必须在真实 DOM 上临时去掉父级 flipped 类和子级的 transform（onclone 对 3D 容器不生效），截图后再恢复。
+    const card = document.getElementById('card');
+    const cardHadFlipped = card.classList.contains('flipped');
+    if (cardHadFlipped) card.classList.remove('flipped');
+    const prevTransform = node.style.transform;
+    const prevTransformStyle = node.style.transformStyle;
+    const prevBackface = node.style.backfaceVisibility;
+    node.style.transform = 'none';
+    node.style.transformStyle = 'flat';
+    node.style.backfaceVisibility = 'visible';
+    let canvas;
+    try {
+      canvas = await html2canvas(node, {
+        backgroundColor: '#FAF7FF',
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        onclone: (doc) => {
+          const el = doc.getElementById('face-back');
+          if (el) {
+            el.style.animation = 'none';
+            el.style.transform = 'none';
+            el.style.transformStyle = 'flat';
+            el.style.backfaceVisibility = 'visible';
+            el.style.borderRadius = '0';
+            el.style.boxShadow = '0 8px 32px rgba(122, 95, 192, 0.18), 0 0 60px rgba(155, 126, 222, 0.25)';
+            // 隐藏交互按钮：截图保存的图片只展示签条内容，不包含 UI 控制
+            const actions = el.querySelector('.actions');
+            // 品牌文字与日期天气同色
+            const brand = el.querySelector('.sign-brand');
+            if (brand) brand.style.color = '#B8A6DA';
+            if (actions) actions.style.display = 'none';
+            // 隐藏底部「轻点卡面返回」提示，不出现在保存图片中
+            const hint = el.querySelector('.sign-back-hint');
+            if (hint) hint.style.display = 'none';
+            // 强制显示原本依赖 fade-in 动画才能显示的元素（关掉动画后 opacity 会卡在 0）
+            el.querySelectorAll('.sign-poem, .sign-cn, .sign-cn-en, .sign-literal, .sign-meaning, .sign-tip, .sign-source').forEach(n => {
+              n.style.opacity = '1';
+            });
+            // html2canvas 不支持 background-clip:text / -webkit-text-fill-color:transparent，
+            // 银白渐变签诗 → 截图时换实色
+            el.querySelectorAll('.sign-poem').forEach(n => {
+              n.style.backgroundImage = 'none';
+              n.style.backgroundClip = 'border-box';
+              n.style.webkitBackgroundClip = 'border-box';
+              n.style.webkitTextFillColor = '#D0CCE0';
+              n.style.color = '#D0CCE0';
+              n.style.filter = 'drop-shadow(0 0 4px rgba(140, 120, 190, 0.85)) drop-shadow(0 0 10px rgba(120, 100, 180, 0.5))';
+              n.style.textShadow = '0 0 10px rgba(140, 120, 190, 0.8), 0 1px 2px rgba(60, 40, 120, 0.35)';
+            });
+            // 中文签诗 .sign-poem-cn → 覆盖为深紫实色（颜色分级）
+            el.querySelectorAll('.sign-poem.sign-poem-cn').forEach(n => {
+              n.style.webkitTextFillColor = '#6C52A8';
+              n.style.color = '#6C52A8';
+              n.style.filter = 'drop-shadow(0 0 5px rgba(155, 130, 222, 0.55))';
+              n.style.textShadow = 'none';
+            });
+            // 释义、出处也改为浅色，与签诗协调
+            el.querySelectorAll('.sign-meaning').forEach(n => {
+              n.style.color = '#7A6D9C';  // 浅灰紫（比原深色 #5A4A75 浅、可读性好）
+              n.style.fontWeight = '400'; // 细字
+            });
+            el.querySelectorAll('.sign-cn').forEach(n => {
+              n.style.backgroundImage = 'none';
+              n.style.backgroundClip = 'border-box';
+              n.style.webkitBackgroundClip = 'border-box';
+              n.style.webkitTextFillColor = '#9B82D4';
+              n.style.color = '#9B82D4';
+              n.style.filter = 'drop-shadow(0 0 6px rgba(180, 150, 230, 0.7))';
+              n.style.textShadow = '0 0 8px rgba(180, 150, 230, 0.5)';
+            });
+            el.querySelectorAll('.sign-cn-en').forEach(n => {
+              n.style.backgroundImage = 'none';
+              n.style.backgroundClip = 'border-box';
+              n.style.webkitBackgroundClip = 'border-box';
+              n.style.webkitTextFillColor = '#D4C5ED';
+              n.style.color = '#D4C5ED';
+              n.style.filter = 'drop-shadow(0 0 4px rgba(140, 120, 190, 0.85)) drop-shadow(0 0 10px rgba(120, 100, 180, 0.5)) drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3))';
+              n.style.textShadow = '0 0 10px rgba(140, 120, 190, 0.8), 0 1px 2px rgba(60, 40, 120, 0.35)';
+            });
+            el.querySelectorAll('.sign-literal').forEach(n => {
+              // 中文直译 → 实色深紫
+              n.style.backgroundImage = 'none';
+              n.style.backgroundClip = 'border-box';
+              n.style.webkitBackgroundClip = 'border-box';
+              n.style.webkitTextFillColor = '#6C52A8';
+              n.style.color = '#6C52A8';
+              n.style.filter = 'drop-shadow(0 0 5px rgba(155, 130, 222, 0.55))';
+              n.style.textShadow = 'none';
+            });
+            el.querySelectorAll('.sign-tip').forEach(n => {
+              n.style.color = '#B8A6DA';
+            });
+            el.querySelectorAll('.sign-source').forEach(n => {
+              n.style.color = '#B8A6DA';
+            });
+            // 顶部日期行、分隔线调浅
+            const meta = el.querySelector('.sign-meta');
+            if (meta) {
+              meta.style.color = '#B8A6DA';
+              meta.style.borderColor = 'rgba(184, 164, 220, 0.25)';
+            }
+            el.querySelectorAll('.sign-date, .sign-weather').forEach(n => {
+              n.style.color = '#B8A6DA';
+            });
+          }
+        }
+      });
+    } finally {
+      // 无论成功失败都恢复卡片 3D 翻转样式，保证页面正常
+      if (cardHadFlipped) card.classList.add('flipped');
+      node.style.transform = prevTransform;
+      node.style.transformStyle = prevTransformStyle;
+      node.style.backfaceVisibility = prevBackface;
+    }
+
+    // 跨平台保存：触屏设备（iOS/Android）用浮层展示图片，长按保存到相册；
+    // 桌面端用 a.download 直接下载
+    const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    let downloadOK = false;
+
+    if (!isTouch) {
+      // 桌面端：用 toBlob + a.download
+      const link = document.createElement('a');
+      link.download = `JinZhao-GoodDay-${new Date().toISOString().slice(0, 10)}.png`;
+      document.body.appendChild(link);
+      try {
+        const blob = await new Promise((resolve, reject) => {
+          canvas.toBlob(resolve, 'image/png', 0.95);
+        });
+        if (blob) {
+          link.href = URL.createObjectURL(blob);
+          link.click();
+          downloadOK = true;
+          setTimeout(() => URL.revokeObjectURL(link.href), 5000);
+        }
+      } catch (e) {
+        console.warn('toBlob failed', e);
+      }
+      if (!downloadOK) {
+        try {
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          downloadOK = true;
+        } catch (e2) {
+          console.error('toDataURL also failed', e2);
+        }
+      }
+      document.body.removeChild(link);
+    }
+
+    if (!downloadOK) {
+      // 触屏设备 / 下载失败：在当前页面浮层展示图片，用户长按保存
+      try {
+        // 用 blob URL 替代 dataURL —— iOS Safari 长按 blob URL 图片可保存到相册
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 0.95));
+        const blobUrl = blob ? URL.createObjectURL(blob) : canvas.toDataURL('image/png');
+        const overlay = document.getElementById('save-overlay');
+        const img = document.getElementById('save-overlay-img');
+        if (overlay && img) {
+          img.src = blobUrl;
+          overlay.classList.add('show');
+          const close = document.getElementById('save-overlay-close');
+          // 关闭浮层并释放 blob URL
+          function closeOverlay() {
+            overlay.classList.remove('show');
+            if (blobUrl.startsWith('blob:')) {
+              setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+            }
+          }
+          if (close) {
+            // iOS Safari 的 onclick 在触屏上不可靠，同时绑 touchend
+            close.addEventListener('click', closeOverlay, { once: true });
+            close.addEventListener('touchend', (ev) => {
+              ev.preventDefault();
+              closeOverlay();
+            }, { once: true, passive: false });
+          }
+          // 点击浮层背景也可关闭
+          overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeOverlay();
+          }, { once: true });
+          showToast('长按图片保存到相册');
+          return;
+        }
+      } catch (e3) {
+        console.error('save overlay failed', e3);
+      }
+      showToast('保存失败，请截屏保存');
+    } else {
+      showToast('图片已保存，去发小红书');
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('下载失败，请截图保存');
+  }
+}
 
 function addToHistory(sign) {
   state.history = state.history.filter(h => h.poem !== sign.poem);
