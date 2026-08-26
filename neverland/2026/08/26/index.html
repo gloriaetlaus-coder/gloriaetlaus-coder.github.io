@@ -14,12 +14,7 @@
     padding: 20px;
     -webkit-font-smoothing: antialiased;
   }
-  .container {
-    max-width: 720px;
-    margin: 0 auto;
-  }
-
-  /* Header */
+  .container { max-width: 720px; margin: 0 auto; }
   .header {
     text-align: center;
     padding: 36px 24px;
@@ -31,153 +26,68 @@
   }
   .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
   .header .title {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: #4338ca;
-    letter-spacing: 2px;
-    margin-bottom: 6px;
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
   }
-  .header .date {
-    font-size: 0.92rem;
-    color: #6b7280;
-    letter-spacing: 1px;
-  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
   .header .badge {
-    display: inline-block;
-    margin-top: 14px;
-    padding: 5px 18px;
-    background: #eef2ff;
-    border: 1px solid #c7d2fe;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    color: #4338ca;
-    font-weight: 500;
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
   }
-
-  /* Summary bar */
   .summary-bar {
-    text-align: center;
-    padding: 14px;
-    background: #fff;
-    border: 1px solid #e5e9f2;
-    border-radius: 12px;
-    margin-bottom: 26px;
-    font-size: 0.95rem;
-    color: #4b5563;
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }
   .summary-bar span { color: #4338ca; font-weight: 700; }
-
-  /* Category */
   .category { margin-bottom: 22px; }
   .category-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: #4b5563;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-    padding: 0 4px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
   }
-  .category-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: #e5e9f2;
-  }
-
-  /* Card */
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
   .card {
-    background: #ffffff;
-    border: 1px solid #e5e9f2;
-    border-radius: 14px;
-    padding: 22px;
-    margin-bottom: 14px;
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     transition: box-shadow 0.2s, transform 0.2s;
   }
-  .card:hover {
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1);
-    transform: translateY(-1px);
-  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
   .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
   .card.finance .card-header  { border-left: 4px solid #10b981; }
   .card.politics .card-header { border-left: 4px solid #ef4444; }
   .card.business .card-header { border-left: 4px solid #a855f7; }
 
-  .card-header {
-    padding-left: 14px;
-    margin-bottom: 16px;
-  }
-  .card-title {
-    font-size: 1.08rem;
-    font-weight: 700;
-    color: #111827;
-    line-height: 1.55;
-  }
-
-  /* Points */
-  .points {
-    list-style: none;
-    margin: 0 0 16px 0;
-    padding-left: 14px;
-    border-left: 2px solid transparent;
-  }
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
   .points li {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-    font-size: 0.92rem;
-    color: #374151;
-    line-height: 1.6;
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
   }
   .points li:last-child { margin-bottom: 0; }
   .points li::before {
     content: attr(data-num);
-    min-width: 22px;
-    height: 22px;
-    background: #f3f4f6;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.72rem;
-    color: #6b7280;
-    font-weight: 600;
-    flex-shrink: 0;
-    margin-top: 2px;
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
   }
-
-  /* Source */
   .source {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.8rem;
-    color: #6b7280;
-    background: #f9fafb;
-    padding: 5px 12px;
-    border-radius: 8px;
-    border: 1px solid #f3f4f6;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
   }
-
-  /* Footer */
   .footer {
-    text-align: center;
-    padding: 28px;
-    color: #9ca3af;
-    font-size: 0.78rem;
-    line-height: 1.6;
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
   }
-  .footer a {
-    color: #6b7280;
-    text-decoration: none;
-  }
-
-  /* Mobile */
+  .footer a { color: #6b7280; text-decoration: none; }
   @media (max-width: 480px) {
     body { padding: 12px; }
     .header { padding: 28px 18px; }
@@ -190,7 +100,6 @@
 </head>
 <body>
 <div class="container">
-
   <div class="header">
     <div class="logo">🌍</div>
     <div class="title">NEVERLAND 每日简报</div>
@@ -199,12 +108,11 @@
   </div>
 
   <div class="summary-bar">
-    📊 今日共收录 <span>8</span> 条重要资讯，涵盖科技 / 财经 / 国际 / 商业
+    📊 今日共收录 <span>8</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
   </div>
 
-  <!-- 科技/AI -->
   <div class="category">
-    <div class="category-label">🤖 科技 / AI</div>
+    <div class="category-label">🤖 科技/AI</div>
 
     <div class="card ai">
       <div class="card-header">
@@ -217,7 +125,6 @@
       </ul>
       <div class="source">🔗 来源：AI Breaking Wire / aibrief.kit.com</div>
     </div>
-
     <div class="card ai">
       <div class="card-header">
         <div class="card-title">宇树科技港股 IPO 首日暴涨629%，人形机器人赛道降温后重新升温</div>
@@ -229,7 +136,6 @@
       </ul>
       <div class="source">🔗 来源：AI Breaking Wire / TechCrunch</div>
     </div>
-
     <div class="card ai">
       <div class="card-header">
         <div class="card-title">欧盟《AI 法案》第50条透明度条款正式生效，Anthropic 全球首推文本水印</div>
@@ -243,9 +149,8 @@
     </div>
   </div>
 
-  <!-- 财经投资 -->
   <div class="category">
-    <div class="category-label">💹 财经 / 投资</div>
+    <div class="category-label">💹 财经/投资</div>
 
     <div class="card finance">
       <div class="card-header">
@@ -260,9 +165,8 @@
     </div>
   </div>
 
-  <!-- 国际政治 -->
   <div class="category">
-    <div class="category-label">🌐 国际 / 政治</div>
+    <div class="category-label">🌐 国际/政治</div>
 
     <div class="card politics">
       <div class="card-header">
@@ -275,7 +179,6 @@
       </ul>
       <div class="source">🔗 来源：Geopolitical Monitor / 人民网</div>
     </div>
-
     <div class="card politics">
       <div class="card-header">
         <div class="card-title">北约峰会承诺2026年向乌克兰提供700亿欧元军援，欧洲加速战略自主</div>
@@ -289,9 +192,8 @@
     </div>
   </div>
 
-  <!-- 商业创业 -->
   <div class="category">
-    <div class="category-label">🚀 商业 / 创业</div>
+    <div class="category-label">🚀 商业/创业</div>
 
     <div class="card business">
       <div class="card-header">
@@ -304,7 +206,6 @@
       </ul>
       <div class="source">🔗 来源：星岛环球网 / 新浪财经</div>
     </div>
-
     <div class="card business">
       <div class="card-header">
         <div class="card-title">全球并购市场回暖，上半年交易额达2.6万亿美元，大型交易占比激增</div>
@@ -322,7 +223,6 @@
     Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
     由 QClaw Agent 驱动 · 2026年8月26日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
   </div>
-
 </div>
 </body>
 </html>
