@@ -171,7 +171,7 @@ html, body {
 .bg-glow .glow-star.gs5 { top: 60%; left: 10%; animation-delay: 2.2s; }
 .bg-glow .glow-star.gs6 { bottom: 44%; right: 8%; animation-delay: 0.9s; }
 
-/* ====== 银白色流星雨 ====== */
+/* ====== 银白色流星雨（Canvas 流线型） ====== */
 .meteor-container {
   position: fixed;
   top: 0; left: 0;
@@ -180,51 +180,10 @@ html, body {
   z-index: 0;
   overflow: hidden;
 }
-.meteor {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  background: radial-gradient(circle, #FFFFFF 0%, rgba(255,255,255,1) 55%, rgba(235,225,252,0.5) 100%);
-  border-radius: 50%;
-  box-shadow:
-    0 0 10px 4px rgba(255,255,255,0.95),
-    0 0 24px 10px rgba(215,205,250,0.5),
-    0 0 40px 16px rgba(200,190,245,0.25);
-  opacity: 0;
-  will-change: transform, opacity;
-}
-.meteor::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 0;
-  width: 220px;
-  height: 3px;
-  background: linear-gradient(to right,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.6) 35%,
-    rgba(255,255,255,0.95) 75%,
-    rgba(255,255,255,1) 100%);
-  transform: translateY(-50%);
-  border-radius: 3px;
-  box-shadow: 0 0 14px 3px rgba(255,255,255,0.55);
-}
-@keyframes meteor-fall {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0);
-  }
-  5% {
-    opacity: 1;
-  }
-  75% {
-    opacity: 1;
-    transform: translate(calc(var(--dx) * 0.75), calc(var(--dy) * 0.75));
-  }
-  100% {
-    opacity: 0;
-    transform: translate(var(--dx), var(--dy));
-  }
+#meteor-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 
@@ -1408,7 +1367,7 @@ body::after {
   <span class="glow-star gs5">✦</span>
   <span class="glow-star gs6">✦</span>
 </div>
-<div class="meteor-container" id="meteor-container" aria-hidden="true"></div>
+<div class="meteor-container" id="meteor-container" aria-hidden="true"><canvas id="meteor-canvas"></canvas></div>
 <div class="app">
   <header class="header">
     <div class="title-halo"></div>
@@ -1453,7 +1412,7 @@ body::after {
    ==================================================== */
 const FORTUNES = [
   { cat: 'happy', num: 101,
-    poem: 'Smile, Spark Endorphins', cn: '微笑激活内啡肽', meaning: '嘴角上扬的动作本身，就能触发大脑释放内啡肽，这是一种天然的镇痛与愉悦分子。身体比你的意识更早接收到快乐信号。',
+    poem: 'The Spark of Smile', cn: '微笑点燃内啡肽', meaning: '嘴角上扬的动作本身，就能触发大脑释放内啡肽，这是一种天然的镇痛与愉悦分子。身体比你的意识更早接收到快乐信号。',
     source: '美国·神经科学||沃尔特·坎农（Walter Cannon）' },
   { cat: 'happy', num: 102,
     poem: 'Laughter Is Medicine', cn: '笑是良药', meaning: '大笑会释放内啡肽和血清素，并短暂提高免疫球蛋白。十分钟的真心大笑，其生理增益不亚于一次轻运动。',
@@ -1471,7 +1430,7 @@ const FORTUNES = [
     poem: 'Gratitude Rewires', cn: '感恩重塑大脑', meaning: '每晚记录三件小事，六周后大脑前额叶活动增强。感恩练习是被实证支持的神经训练。',
     source: '美国·积极心理学||罗伯特·埃蒙斯（Robert Emmons）' },
   { cat: 'happy', num: 107,
-    poem: 'Peak-End Glow', cn: '高峰结尾', meaning: '大脑在回忆时只截取最强烈的“峰值”和“结尾”。给今天一个好的收尾，明天就会记得甜。',
+    poem: 'Peak-End Rule', cn: '峰终定律', meaning: '人类对体验的评价，主要由“峰值时刻”和“结束时刻”的感受决定。这意味着，给一天画上温柔的句号，比延长快乐的时间更重要。',
     source: '美国·行为经济学||丹尼尔·卡尼曼（Daniel Kahneman）' },
   { cat: 'happy', num: 108,
     poem: 'Flow', cn: '心流', meaning: '全神贯注时，大脑会关闭多余的信息通路，焦虑自动静音。专注本身，就是快乐所在。',
@@ -1494,14 +1453,23 @@ const FORTUNES = [
   { cat: 'happy', num: 114,
     poem: 'Light Up a Room', cn: '点亮房间', meaning: '阳光充足的午后在窗边坐一会，天然的蓝光会启动血清素分泌。多晒10分钟太阳，好心情就会自己长出来。',
     source: '人类·神经科学||哈佛医学院（Harvard Medical School）' },
+  { cat: 'happy', num: 115,
+    poem: '有朋自远方来，不亦乐乎', cn: 'A friend comes from afar, is that not a joy?', meaning: '知己的到来，是生命里最直接的喜悦。连接本身，就是快乐的源泉。',
+    source: '中国·儒学||《论语·学而》（春秋）' },
+  { cat: 'happy', num: 201,
+    poem: 'Savor the Moment', cn: '品味此刻', meaning: '快乐时停下来仔细感受十秒以上，大脑会将这段记忆存储得更深。反复回味，快乐会被拉长。',
+    source: '美国·积极心理学||弗雷德·布莱恩特（Fred Bryant）' },
+  { cat: 'happy', num: 202,
+    poem: 'Share the Joy', cn: '分享快乐', meaning: '告诉一个人你的好事，快乐感会翻倍。讲述的过程就是在大脑里重播一次，身体会分泌多巴胺。',
+    source: '美国·社会心理学||雪莉·盖布尔（Shelly Gable）' },
   { cat: 'sad', num: 201,
     poem: 'Crying Is Healing', cn: '哭泣疗愈', meaning: '眼泪会带走一部分压力激素，哭泣是生理性的排毒。哭完后的轻盈感，是身体通过眼泪在减压。',
     source: '美国·进化心理学||威廉·弗雷（William Frey）' },
   { cat: 'sad', num: 202,
-    poem: 'This too shall pass', cn: '这一切会过去', meaning: '情绪如波浪，有其涨落周期。再艰难的时刻，也不会永远停在同一深度。',
+    poem: 'This too shall pass', cn: '这一切也会过去', meaning: '情绪如波浪，有其涨落周期。再艰难的时刻，也不会永远停在同一深度。',
     source: '波斯·谚语||波斯谚语（Persian Proverb）' },
   { cat: 'sad', num: 203,
-    poem: 'The past is past, the future awaits', cn: '过去已去，未来等待', meaning: '反复假设“如果当初”只会消耗精力，无法改变已发生的事实。把力气留给尚未到来的明天。',
+    poem: '往者不可谏，来者犹可追', cn: 'The past is past, the future awaits', meaning: '已经过去的事情无法挽回，未来的日子还来得及把握。别把精力耗在“如果当初”上。',
     source: '中国·儒学||《论语·微子》（春秋）' },
   { cat: 'sad', num: 204,
     poem: 'Vulnerability Is Strength', cn: '脆弱即力量', meaning: '承认难过的人恢复得更快。允许自己像弹簧一样先压缩，才有弹回原状的余地。',
@@ -1522,7 +1490,7 @@ const FORTUNES = [
     poem: 'Hot Shower Reset', cn: '热水澡重置', meaning: '洗个热水澡能舒张血管，提高催产素水平，缓解身体僵硬。温热感会提醒身体现在可以放松了。',
     source: '人类·生理学||世界卫生组织（World Health Organization）' },
   { cat: 'sad', num: 210,
-    poem: 'Nature\'s Hug', cn: '自然的拥抱', meaning: '去外面走走，哪怕是看着远处的天空发十分钟呆。换一个场景，会让大脑的“灾难化”自动停止。',
+    poem: "Nature's Hug", cn: '自然的拥抱', meaning: '去外面走走，哪怕是看着远处的天空发十分钟呆。换一个场景，会让大脑的“灾难化”自动停止。',
     source: '美国·环境心理学||密歇根大学（University of Michigan）' },
   { cat: 'sad', num: 211,
     poem: 'Soft Blanket', cn: '柔软的毯子', meaning: '窝在柔软的毯子里，触觉上的包裹感会促进催产素分泌，告诉神经系统现在很安全。',
@@ -1531,11 +1499,32 @@ const FORTUNES = [
     poem: 'Warm Drink', cn: '一杯温热', meaning: '手上捧一杯温热的水或茶，温度传递到指尖。身体暖和起来，心理的安全感也会随之升温。',
     source: '人类·生理学||世界卫生组织（World Health Organization）' },
   { cat: 'sad', num: 213,
-    poem: 'Comfort Food', cn: '记忆中的味道', meaning: '吃一口有温暖记忆的食物，大脑会启动安全信号。味觉的连接，是对情绪最直接的抚慰。',
-    source: '美国·神经科学||耶鲁大学（Yale University）' },
+    poem: 'Music Lifts the Heart', cn: '音乐拨动心弦', meaning: '听喜欢的音乐时，大脑纹状体会释放多巴胺。音乐是成本最低、见效最快的情绪调节器。',
+    source: '人类·神经科学||麦吉尔大学（McGill University）' },
   { cat: 'sad', num: 214,
-    poem: 'Dark Room Rest', cn: '黑暗房间休息', meaning: '在光线暗淡的房间闭眼休息十五分钟，光线刺激减少，压力激素开始自然回落。',
-    source: '人类·神经科学||美国睡眠医学学会（American Academy of Sleep Medicine）' },
+    poem: 'Art as Therapy', cn: '艺术即疗愈', meaning: '画画、捏泥、剪贴，动手创作能激活大脑的右半球。色彩和形状，是情绪最诚实的出口。',
+    source: '美国·艺术治疗||美国艺术治疗协会（AATA）' },
+  { cat: 'sad', num: 215,
+    poem: '行到水穷处，坐看云起时', cn: 'When the road ends, sit and watch the clouds rise', meaning: '走到水尽头，不妨坐下来看云升起。绝境处也许正是转机，安静里藏着新的可能。',
+    source: '中国·诗学||王维（盛唐）《终南别业》' },
+  { cat: 'sad', num: 216,
+    poem: 'Après la pluie, le beau temps', cn: '雨过天晴', meaning: '法语里的谚语。暴风雨过后，总是会有好天气，坏情绪也是。',
+    source: '法国·谚语||法国谚语（French Proverb）' },
+  { cat: 'sad', num: 301,
+    poem: 'Move Your Body', cn: '动起来', meaning: '低落时散步十分钟，血清素就开始回升。身体动起来，情绪会跟着松动，不必等心情好再动。',
+    source: '美国·精神医学||约翰·瑞迪（John Ratey）' },
+  { cat: 'sad', num: 302,
+    poem: 'Write It Out', cn: '写出来', meaning: '连续写十五分钟难过的事，情绪负担会明显减轻。书写让大脑从感受切换到整理模式。',
+    source: '美国·心理学||詹姆斯·彭尼贝克（James Pennebaker）' },
+  { cat: 'sad', num: 303,
+    poem: '云卷云舒', cn: 'Clouds roll in, clouds roll away', meaning: '悲伤时，可以只是安静地坐着，看云慢慢飘过。变化是不变的规律，好心情也会随着云飘回来。',
+    source: '中国·道学||《道德经》（春秋）' },
+  { cat: 'sad', num: 304,
+    poem: '上善若水', cn: 'The highest good is like water', meaning: '难过时，想象自己是一滴水。水从不抗拒流动，只是静静地向前走，直到穿过最暗的峡谷。',
+    source: '中国·道学||《道德经》（春秋）' },
+  { cat: 'sad', num: 305,
+    poem: '岁寒，然后知松柏之后凋也', cn: 'Only in cold winter does the pine reveal its endurance', meaning: '等到天气寒冷，才知道松柏是最后凋零的。低谷里熬过的时间，都会变成你扎根的力量。',
+    source: '中国·儒学||《论语·子罕》（春秋）' },
   { cat: 'angry', num: 301,
     poem: 'Anger Is a Signal', cn: '愤怒是信号', meaning: '愤怒是身体在提示边界受到了触碰。先听懂信号再处理事情，比直接爆发能更有效地保护自己。',
     source: '美国·情绪科学||马克·布拉克特（Marc Brackett）' },
@@ -1549,7 +1538,7 @@ const FORTUNES = [
     poem: 'Walk It Off', cn: '行走消气', meaning: '散步加速肾上腺素代谢，愤怒值会随着步数增加而下降。身体动起来，情绪就会减速。',
     source: '美国·运动心理学||运动情绪调节研究（Exercise Research）' },
   { cat: 'angry', num: 305,
-    poem: 'Express, Don\'t Suppress', cn: '表达而非压抑', meaning: '向值得信任的人表达感受，比闷在心里更能减轻心血管负担。健康的表达本身就是一种保养。',
+    poem: "Express, Don't Suppress", cn: '表达而非压抑', meaning: '向值得信任的人表达感受，比闷在心里更能减轻心血管负担。健康的表达本身就是一种保养。',
     source: '美国·健康心理学||情绪表达研究（Emotional Expression）' },
   { cat: 'angry', num: 306,
     poem: 'Boundaries Are Strength', cn: '边界即力量', meaning: '生气常提醒自己被越界的地方。划清界限，本质上是在维护自己未来的平静。',
@@ -1572,6 +1561,21 @@ const FORTUNES = [
   { cat: 'angry', num: 312,
     poem: 'Write the Rant', cn: '写下吐槽', meaning: '把想骂的话全写下来，不发给任何人。写完就撕掉，情绪从大脑转移到纸张，身体就轻松了。',
     source: '美国·心理学||詹姆斯·彭尼贝克（James Pennebaker）' },
+  { cat: 'angry', num: 313,
+    poem: '止怒莫若诗', cn: 'Nothing calms anger better than poetry', meaning: '平息怒气最好的方法，是吟诗或写诗，让冲动的情绪流进字句里，代替拳头和争吵。',
+    source: '中国·哲学||《管子》（先秦）' },
+  { cat: 'angry', num: 313,
+    poem: '知止而后有定', cn: 'Knowing when to stop brings stability', meaning: '愤怒起于片刻，若能在最初察觉它，就不会被它推着走。知道什么时候停下，才是力量的开始。',
+    source: '中国·儒学||《大学》（先秦）' },
+  { cat: 'angry', num: 314,
+    poem: 'Ira furor brevis est', cn: '愤怒是短暂的疯狂', meaning: '古罗马诗人贺拉斯的格言。愤怒来去匆匆，若不在它最猛烈时做决定，伤害会小很多。',
+    source: '古罗马·诗学||贺拉斯（Horace）' },
+  { cat: 'angry', num: 401,
+    poem: 'Pause Before You Act', cn: '行动前暂停', meaning: '愤怒的生理高峰只持续九十秒。撑过这三秒，身体就开始降温。这是比说任何话都管用的倒计时。',
+    source: '人类·神经科学||吉尔·博尔特·泰勒（Jill Bolte Taylor）' },
+  { cat: 'angry', num: 402,
+    poem: 'Reframe the Story', cn: '换一个角度', meaning: '生气时你只看到一种可能。试着问自己：还有没有别的解释？换个说法，怒气值就会下降。',
+    source: '美国·认知心理学||阿尔伯特·艾利斯（Albert Ellis）' },
   { cat: 'anxious', num: 401,
     poem: 'Anxiety Is a Signal', cn: '焦虑是信号', meaning: '适度焦虑是大脑在提醒“有重要的事需要准备”。一点紧张，是你在乎这件事的生理证据。',
     source: '美国·行为心理学||耶克斯与多德森定律（Yerkes-Dodson Law）' },
@@ -1608,6 +1612,21 @@ const FORTUNES = [
   { cat: 'anxious', num: 412,
     poem: 'Decaf Switch', cn: '少喝咖啡因', meaning: '焦虑期减少咖啡因摄入，能降低中枢神经的过度兴奋。暂时退出刺激，有助于系统恢复平静。',
     source: '人类·生理学||约翰霍普金斯大学（Johns Hopkins University）' },
+  { cat: 'anxious', num: 413,
+    poem: 'Ball Games Clear the Mind', cn: '球类清空大脑', meaning: '打羽毛球或篮球时，大脑必须全神贯注盯球。运动让认知资源被占满，焦虑自然没有空间。',
+    source: '人类·运动心理学||美国运动医学会（ACSM）' },
+  { cat: 'anxious', num: 414,
+    poem: 'Sweat It Out', cn: '流汗排解', meaning: '一次高强度的有氧运动，能快速代谢体内的压力激素。让汗流出来，烦恼就跟着流走了。',
+    source: '美国·运动科学||哈佛医学院（Harvard Medical School）' },
+  { cat: 'anxious', num: 415,
+    poem: '心无挂碍', cn: 'With no attachments, there is no fear', meaning: '心里没有牵挂和阻碍，也就没有恐惧。把担忧暂时放下，本身就是一种勇敢。',
+    source: '中国·佛学||《般若波罗蜜多心经》（唐代）' },
+  { cat: 'anxious', num: 501,
+    poem: 'Ground Your Senses', cn: '回到感官', meaning: '焦虑时找到五样能看到的、四样能摸到的、三样能听到的。感官回到此刻，大脑就没有空去预演未来。',
+    source: '美国·临床心理学||美国心理学会（American Psychological Association）' },
+  { cat: 'anxious', num: 502,
+    poem: 'Worry Window', cn: '担忧窗口', meaning: '每天固定留二十分钟专门焦虑，时间一到就停。把担忧装进固定时段，它就会变成可控任务。',
+    source: '美国·认知行为疗法||宾夕法尼亚大学（University of Pennsylvania）' },
   { cat: 'lonely', num: 501,
     poem: 'Lonely Is the Body Crying', cn: '孤独是身体在呼喊', meaning: '孤独是身体发出的“寻找连接”的信号，如同饥饿提醒你吃饭。这是健康且自然的生存本能。',
     source: '美国·社会神经科学||约翰·卡乔波（John Cacioppo）' },
@@ -1624,7 +1643,7 @@ const FORTUNES = [
     poem: 'Alone is a Charge', cn: '独处是充电', meaning: '独处不等于孤独，把独处当成恢复精力，身体会修得更快。真正的孤独，是没能好好陪伴自己。',
     source: '英国·心理学||安东尼·斯托尔（Anthony Storr）' },
   { cat: 'lonely', num: 506,
-    poem: 'A Pet\'s Warmth', cn: '宠物的温暖', meaning: '撸猫狗十分钟，催产素上升，压力激素下降。有时最亲近的连结，来自另一双不同的眼睛。',
+    poem: "A Pet's Warmth", cn: '宠物的温暖', meaning: '撸猫狗十分钟，催产素上升，压力激素下降。有时最亲近的连结，来自另一双不同的眼睛。',
     source: '美国·人与动物研究||密苏里大学（University of Missouri）' },
   { cat: 'lonely', num: 507,
     poem: 'Small Circle, Deep Bonds', cn: '小圈子深连接', meaning: '两三个谈得来的人就足以提供能量。关系的质量比数量更能抵御孤独感。',
@@ -1644,6 +1663,18 @@ const FORTUNES = [
   { cat: 'lonely', num: 512,
     poem: 'Call a Family Member', cn: '给家人打电话', meaning: '熟悉的声音会激活大脑中安全感相关的记忆，哪怕只是闲聊五分钟。血脉的底层连接很难被切断。',
     source: '人类·社会心理学||哈佛大学（Harvard University）' },
+  { cat: 'lonely', num: 513,
+    poem: '举头望明月，低头思故乡', cn: 'I raise my head to look at the bright moon, I lower my head and think of home', meaning: '孤独的夜晚，抬头看看月亮。无论你在哪里，月光都会温柔地照着你。这是一种跨越时空的陪伴。',
+    source: '中国·诗学||李白（盛唐）《静夜思》' },
+  { cat: 'lonely', num: 514,
+    poem: 'No man is an island', cn: '没有人是一座孤岛', meaning: '英国诗人多恩的经典名言。每个人的生命都与他人息息相关，你总会找到那个连接你的港湾。',
+    source: '英国·文学||约翰·多恩（John Donne）' },
+  { cat: 'lonely', num: 601,
+    poem: 'Join Something Small', cn: '加入小事', meaning: '每周固定参加一个活动，哪怕是线上读书会。重复见面是建立归属感最快的方式。',
+    source: '美国·社会学||罗伊·鲍迈斯特（Roy Baumeister）' },
+  { cat: 'lonely', num: 602,
+    poem: 'Write a Letter', cn: '写一封信', meaning: '想一个很久没联系的人，发一段话出去。主动迈出一步，连接就重新启动，身体会回报催产素。',
+    source: '美国·社会神经科学||斯坦福大学（Stanford University）' },
   { cat: 'calm', num: 601,
     poem: 'Parasympathetic Reset', cn: '副交感重置', meaning: '平静时身体进入修复模式：心率变慢、消化加强、免疫活跃。平静是身体最划算的投资。',
     source: '人类·生理学||自主神经系统研究（Autonomic Research）' },
@@ -1666,7 +1697,7 @@ const FORTUNES = [
     poem: 'Peace is a Practice', cn: '平静是练习', meaning: '大脑的平静路径越练越粗。每天一小段安静时光，就是对神经系统进行刻意练习。',
     source: '美国·神经科学||加州大学伯克利分校（UC Berkeley）' },
   { cat: 'calm', num: 608,
-    poem: 'Flow, Soft Zone', cn: '心流，柔和区', meaning: '紧张做不出好东西，平静可以。静下来，创造力才有空间生长。',
+    poem: 'Flow', cn: '心流', meaning: '紧张做不出好东西，平静可以。静下来，创造力才有空间生长。',
     source: '美国·积极心理学||米哈里·契克森米哈赖（Mihaly Csikszentmihalyi）' },
   { cat: 'calm', num: 609,
     poem: 'Body Scan', cn: '扫描身体', meaning: '从头到脚逐个部位感受紧张与松弛，五分钟就能激活副交感神经。身体松了，心就会跟着稳。',
@@ -1680,41 +1711,29 @@ const FORTUNES = [
   { cat: 'calm', num: 612,
     poem: 'Write a Gratitude Line', cn: '写下一句感恩', meaning: '睡前写下今天发生的一个小美好，大脑会把注意力锚定在正面信息上，帮助你带着暖意入睡。',
     source: '美国·积极心理学||罗伯特·埃蒙斯（Robert Emmons）' },
-  { cat: 'happy', num: 201,
-    poem: 'Savor the Moment', cn: '品味此刻', meaning: '快乐时停下来仔细感受十秒以上，大脑会将这段记忆存储得更深。反复回味，快乐会被拉长。',
-    source: '美国·积极心理学||弗雷德·布莱恩特（Fred Bryant）' },
-  { cat: 'happy', num: 202,
-    poem: 'Share the Joy', cn: '分享快乐', meaning: '告诉一个人你的好事，快乐感会翻倍。讲述的过程就是在大脑里重播一次，身体会分泌多巴胺。',
-    source: '美国·社会心理学||雪莉·盖布尔（Shelly Gable）' },
-  { cat: 'sad', num: 301,
-    poem: 'Move Your Body', cn: '动起来', meaning: '低落时散步十分钟，血清素就开始回升。身体动起来，情绪会跟着松动，不必等心情好再动。',
-    source: '美国·精神医学||约翰·瑞迪（John Ratey）' },
-  { cat: 'sad', num: 302,
-    poem: 'Write It Out', cn: '写出来', meaning: '连续写十五分钟难过的事，情绪负担会明显减轻。书写让大脑从感受切换到整理模式。',
-    source: '美国·心理学||詹姆斯·彭尼贝克（James Pennebaker）' },
-  { cat: 'angry', num: 401,
-    poem: 'Pause Before You Act', cn: '行动前暂停', meaning: '愤怒的生理高峰只持续九十秒。撑过这三秒，身体就开始降温。这是比说任何话都管用的倒计时。',
-    source: '人类·神经科学||吉尔·博尔特·泰勒（Jill Bolte Taylor）' },
-  { cat: 'angry', num: 402,
-    poem: 'Reframe the Story', cn: '换一个角度', meaning: '生气时你只看到一种可能。试着问自己：还有没有别的解释？换个说法，怒气值就会下降。',
-    source: '美国·认知心理学||阿尔伯特·艾利斯（Albert Ellis）' },
-  { cat: 'anxious', num: 501,
-    poem: 'Ground Your Senses', cn: '回到感官', meaning: '焦虑时找到五样能看到的、四样能摸到的、三样能听到的。感官回到此刻，大脑就没有空去预演未来。',
-    source: '美国·临床心理学||美国心理学会（American Psychological Association）' },
-  { cat: 'anxious', num: 502,
-    poem: 'Worry Window', cn: '担忧窗口', meaning: '每天固定留二十分钟专门焦虑，时间一到就停。把担忧装进固定时段，它就会变成可控任务。',
-    source: '美国·认知行为疗法||宾夕法尼亚大学（University of Pennsylvania）' },
-  { cat: 'lonely', num: 601,
-    poem: 'Join Something Small', cn: '加入小事', meaning: '每周固定参加一个活动，哪怕是线上读书会。重复见面是建立归属感最快的方式。',
-    source: '美国·社会学||罗伊·鲍迈斯特（Roy Baumeister）' },
-  { cat: 'lonely', num: 602,
-    poem: 'Write a Letter', cn: '写一封信', meaning: '想一个很久没联系的人，发一段话出去。主动迈出一步，连接就重新启动，身体会回报催产素。',
-    source: '美国·社会神经科学||斯坦福大学（Stanford University）' },
+  { cat: 'calm', num: 613,
+    poem: '知止而后有定', cn: 'Knowing where to stop brings true stability', meaning: '知道要达到的境界，才能有坚定的方向。不随外物沉浮，内心的宁静才是真正的归宿。',
+    source: '中国·儒学||《大学》（先秦）' },
+  { cat: 'calm', num: 613,
+    poem: '行到水穷处，坐看云起时', cn: 'When the road ends, sit and watch the clouds rise', meaning: '走到水的尽头，不妨坐下来看云升起。绝境处也许正是转机，安静里藏着新的可能。',
+    source: '中国·诗学||王维（盛唐）《终南别业》' },
+  { cat: 'calm', num: 614,
+    poem: '静水流深', cn: 'Still waters run deep', meaning: '水面最安静的地方，往往藏得最深。真正的力量，总是在最沉静的时候积蓄。',
+    source: '中国·道学||《道德经》（春秋）' },
+  { cat: 'calm', num: 614,
+    poem: '心无挂碍', cn: 'With no attachments, there is no fear', meaning: '心里没有牵挂和阻碍，也就没有恐惧。把担忧暂时放下，本身就是一种勇敢。',
+    source: '中国·佛学||《般若波罗蜜多心经》（唐代）' },
+  { cat: 'calm', num: 615,
+    poem: '本来无一物，何处惹尘埃', cn: 'Originally there is not a single thing, where can dust alight?', meaning: '烦恼像尘埃，起风时漫天飞舞，风停后自然落地。不必执念，不必清扫，看它落下就好。',
+    source: '中国·禅学||《六祖坛经》（唐代）' },
+  { cat: 'calm', num: 615,
+    poem: '大音希声', cn: 'The greatest sound is silence', meaning: '最高级的声响，反而听不见声音。最平静的状态，不需要语言去解释，静静感受就好。',
+    source: '中国·道学||《道德经》（春秋）' },
   { cat: 'calm', num: 701,
     poem: 'Grounding Breath', cn: '接地呼吸', meaning: '把注意力放在脚底接触地面的感觉，配合缓慢呼吸。脚稳了，情绪的根也就稳了。',
     source: '美国·认知神经科学||加州大学洛杉矶分校（UCLA）' },
   { cat: 'calm', num: 702,
-    poem: 'Blue Sky Gazing', cn: '看蓝天', meaning: '抬头看三十秒蓝天，视线开阔会降低大脑警报。天空那么大，你的烦恼装得下。',
+    poem: 'Blue Sky Gazing', cn: '凝视蓝天', meaning: '抬头凝视三十秒蓝天，视线开阔会降低大脑警报。天空那么大，你的烦恼装得下。',
     source: '人类·环境心理学||普林斯顿大学（Princeton University）' },
 ];
 
@@ -2145,51 +2164,137 @@ function init() {
 
 init();
 
-/* ====== 流星雨逻辑 ====== */
-let meteorTimer = null;
-let meteorMode = 'sparse';
-
-function setMeteorMode(mode) {
-  meteorMode = mode;
-  if (meteorTimer) { clearInterval(meteorTimer); meteorTimer = null; }
-  if (mode === 'dense') {
-    // 抽卡时：密集流星，每 300-600ms 一颗
-    spawnMeteor();
-    meteorTimer = setInterval(() => spawnMeteor(), 350 + Math.random() * 250);
-  } else {
-    // 首页：稀疏流星，每 2-5s 一颗
-    meteorTimer = setInterval(() => spawnMeteor(), 2000 + Math.random() * 3000);
-  }
-}
-
-function spawnMeteor() {
+/* ====== 流星雨逻辑（Canvas 流线型粒子） ====== */
+(function () {
   const container = document.getElementById('meteor-container');
-  if (!container) return;
-  const m = document.createElement('div');
-  m.className = 'meteor';
-  // 随机起点（从上方/右上方划入）
-  const startX = 20 + Math.random() * 70;  // 20%~90% 水平位置
-  const startY = -10 + Math.random() * 30;  // 上方 -10%~20%
-  const travelMs = 1100 + Math.random() * 600;  // 飞行时长
-  const distance = 260 + Math.random() * 300;   // 向下距离
-  const drift = 160 + Math.random() * 200;      // 向右漂移
+  const canvas = document.getElementById('meteor-canvas');
+  if (!container || !canvas) return;
 
-  m.style.left = startX + '%';
-  m.style.top = startY + '%';
+  const ctx = canvas.getContext('2d');
+  let W = 0, H = 0, dpr = 1;
+  let meteors = [];
+  let mode = 'sparse';            // 'sparse' 首页零星 | 'dense' 抽卡密集
+  let burstUntil = 0;             // 密集爆发结束时间戳
+  let spawnAccum = 0;             // 稀疏模式累计计时（秒）
+  let last = performance.now();
 
-  // 先闪烁出现（纯 CSS 关键帧，先亮后飞）
-  m.style.animation = `meteor-fall ${travelMs}ms cubic-bezier(0.25,0.46,0.45,0.94) forwards`;
-  m.style.setProperty('--dx', drift + 'px');
-  m.style.setProperty('--dy', distance + 'px');
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = container.clientWidth;
+    H = container.clientHeight;
+    canvas.width = Math.max(1, Math.round(W * dpr));
+    canvas.height = Math.max(1, Math.round(H * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  window.addEventListener('resize', resize);
 
-  container.appendChild(m);
+  /* 生成一颗流星：斜线（左上→右下），带细长尾迹 */
+  function spawnMeteor(opts) {
+    opts = opts || {};
+    const lenMul = opts.long ? 1.5 : 1;
+    const speedMul = opts.fast ? 1.6 : 1;
+    const ang = -0.5 + Math.random() * 0.5;      // 斜率约 -0.5~0（向下偏右）
+    const len = (150 + Math.random() * 220) * lenMul;
+    const speed = (3.4 + Math.random() * 4.2) * speedMul;
+    // 起点：上/左上/右上随机
+    const fromEdge = Math.random();
+    let x, y;
+    if (fromEdge < 0.5) { x = Math.random() * W; y = -40; }        // 顶部
+    else if (fromEdge < 0.75) { x = -60; y = Math.random() * H * 0.5; }  // 左上
+    else { x = W + 60; y = Math.random() * H * 0.3; }               // 右上
+    meteors.push({
+      x, y,
+      vx: Math.cos(ang) * speed,
+      vy: Math.sin(ang) * speed * 1.4,
+      len,
+      life: 1,               // 1 → 0
+      decay: 0.006 + Math.random() * 0.008,
+      glow: 0.55 + Math.random() * 0.45
+    });
+  }
 
-  // 动画结束后清理
-  setTimeout(() => m.remove(), travelMs + 400);
-}
+  /* 密集爆发：一次性生成大量流星（抽卡瞬间） */
+  function burst(n) {
+    for (let i = 0; i < n; i++) spawnMeteor({ burst: true, fast: true });
+  }
 
-// 初始化流星雨（首页模式）
-setMeteorMode('sparse');
+  function update(dt) {
+    const now = performance.now();
+    // 时间驱动：抽卡后 1.8s 内保持密集，之后回落到零星
+    if (now < burstUntil) {
+      // 密集期持续补给
+      if (Math.random() < dt * 14) spawnMeteor({ burst: true, fast: true });
+    } else if (mode === 'sparse') {
+      // 首页零星：每 1.6~3.2s 一颗
+      spawnAccum += dt;
+      if (spawnAccum > 1.6 + Math.random() * 1.6) {
+        spawnAccum = 0;
+        spawnMeteor();
+      }
+    }
+    // 更新粒子
+    for (let i = meteors.length - 1; i >= 0; i--) {
+      const m = meteors[i];
+      m.x += m.vx * dt * 60;
+      m.y += m.vy * dt * 60;
+      m.life -= m.decay * dt * 60;
+      if (m.life <= 0 || m.y > H + 120 || m.x < -200 || m.x > W + 200) {
+        meteors.splice(i, 1);
+      }
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (const m of meteors) {
+      const alpha = m.life * 0.9;
+      // 尾迹：沿运动方向的反向渐变（细长流线）
+      const tx = m.x - m.vx * m.len * 0.9;
+      const ty = m.y - m.vy * m.len * 0.9;
+      const grad = ctx.createLinearGradient(tx, ty, m.x, m.y);
+      grad.addColorStop(0, `rgba(255,255,255,0)`);
+      grad.addColorStop(0.6, `rgba(255,255,255,${0.45 * alpha * m.glow})`);
+      grad.addColorStop(1, `rgba(255,255,255,${0.95 * alpha})`);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.6;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(tx, ty);
+      ctx.lineTo(m.x, m.y);
+      ctx.stroke();
+      // 头部光晕
+      const headGlow = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, 8);
+      headGlow.addColorStop(0, `rgba(255,255,255,${0.85 * alpha})`);
+      headGlow.addColorStop(1, `rgba(255,255,255,0)`);
+      ctx.fillStyle = headGlow;
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, 8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function loop(now) {
+    const dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+    update(dt);
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  window.setMeteorMode = function (m) {
+    mode = m;
+    if (m === 'dense') {
+      // 抽卡瞬间：大量流星爆发
+      burstUntil = performance.now() + 1800;
+      burst(14 + Math.floor(Math.random() * 6));   // 14~19 颗瞬时爆发
+    } else {
+      burstUntil = 0;
+    }
+  };
+
+  resize();
+  requestAnimationFrame(loop);
+})();
 
 </script>
 </body>
