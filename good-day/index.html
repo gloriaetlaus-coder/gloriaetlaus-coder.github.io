@@ -313,6 +313,8 @@ body::after {
   display: inline-block;
   padding: 8px 8px 8px 12px;
   text-indent: 6px;  /* 首字前留空，补偿英文花体左探出的空间 */
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.85);  /* 描边补足司源赢宋无 bold 字形的视觉粗度 */
+  paint-order: stroke fill;  /* 描边在渐变填充之下，不遮挡银白渐变 */
   background: linear-gradient(135deg,
     #FFFFFF 0%,
     #F4EEFC 25%,
@@ -780,9 +782,10 @@ body::after {
   background-clip: text;
   animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
   filter:
-    drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
-    drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
-    drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
+    drop-shadow(0 0 6px rgba(200, 180, 240, 0.85))
+    drop-shadow(0 0 16px rgba(180, 160, 230, 0.6))
+    drop-shadow(0 0 28px rgba(160, 140, 220, 0.35))
+    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
 }
 
@@ -1030,9 +1033,10 @@ body::after {
   background-clip: text;
   animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
   filter:
-    drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
-    drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
-    drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
+    drop-shadow(0 0 6px rgba(200, 180, 240, 0.85))
+    drop-shadow(0 0 16px rgba(180, 160, 230, 0.6))
+    drop-shadow(0 0 28px rgba(160, 140, 220, 0.35))
+    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
   padding: 4px 16px 8px;
 }
 
@@ -1052,8 +1056,9 @@ body::after {
   background-clip: text;
   animation: fadeUp 0.5s 0.58s forwards, poem-silver-shimmer 6s linear 0.58s infinite;
   filter:
-    drop-shadow(0 0 5px rgba(180, 160, 230, 0.7))
-    drop-shadow(0 0 12px rgba(160, 140, 210, 0.4))
+    drop-shadow(0 0 6px rgba(200, 180, 240, 0.85))
+    drop-shadow(0 0 16px rgba(180, 160, 230, 0.6))
+    drop-shadow(0 0 28px rgba(160, 140, 220, 0.35))
     drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
 }
 
@@ -1895,6 +1900,57 @@ const FORTUNES = [
   { cat: 'happy', num: 705,
     poem: 'Dum vivimus, vivamus', cn: '活着就要好好活', meaning: '古罗马谚语。生命短暂，尽情享受当下。快乐不需要理由，活着本身就是最好的理由。',
     source: '古罗马·哲学||伊壁鸠鲁（Epicurus）' },
+  { cat: 'happy', num: 706,
+    poem: 'La vida es bella', cn: '生活是美好的', meaning: '西班牙谚语。即使身处逆境，也要学会发现美。大脑在感恩时释放多巴胺，让快乐成为日常习惯。',
+    source: '西班牙·谚语||西班牙谚语（Spanish Proverb）' },
+  { cat: 'happy', num: 707,
+    poem: 'Jeevan ek utsav hai', cn: '生命是一场庆典', meaning: '印度谚语。活着本身就值得庆祝，每一次心跳都是身体给你的礼物。',
+    source: '印度·谚语||印度谚语（Indian Proverb）' },
+  { cat: 'sad', num: 706,
+    poem: 'Anche la notte più bua ha una fine', cn: '最暗的夜也有尽头', meaning: '意大利谚语。悲伤不会永驻，大脑的杏仁核会随时间自我调节，黎明总会到来。',
+    source: '意大利·谚语||意大利谚语（Italian Proverb）' },
+  { cat: 'sad', num: 707,
+    poem: 'Utro vechera mudrenee', cn: '早晨比夜晚更清醒', meaning: '俄罗斯谚语（Утро вечера мудренее）。夜晚的悲伤到了清晨往往会减轻，睡眠能重置情绪回路，让大脑重新出发。',
+    source: '俄罗斯·谚语||俄罗斯谚语（Russian Proverb）' },
+  { cat: 'sad', num: 708,
+    poem: 'La tristesse dure plus que la joie', cn: '悲伤比快乐更持久', meaning: '法国谚语。悲伤确实停留更久，但正因如此，每一次快乐都弥足珍贵。大脑会记住快乐的瞬间，并在低谷时调用这些记忆。',
+    source: '法国·谚语||法国谚语（French Proverb）' },
+  { cat: 'angry', num: 705,
+    poem: 'La colera è cattiva consigliera', cn: '愤怒是坏军师', meaning: '意大利谚语。愤怒时前额叶被抑制，决策质量骤降。等愤怒的生理高峰过去再行动，是对自己最好的保护。',
+    source: '意大利·谚语||意大利谚语（Italian Proverb）' },
+  { cat: 'angry', num: 706,
+    poem: 'Gnev — vrag cheloveka', cn: '愤怒是人的敌人', meaning: '俄罗斯谚语（Гнев — враг человека）。愤怒攻击的是自己的身体，血压升高、心跳加速。放下怒气，就是保护自己的心脏。',
+    source: '俄罗斯·谚语||俄罗斯谚语（Russian Proverb）' },
+  { cat: 'angry', num: 707,
+    poem: 'Al-ghadab yebtedi bajasour wa yantahee banasr', cn: '怒气始于愚者终于悔', meaning: '阿拉伯谚语。愤怒让人做出后悔的决定。忍过九十秒的生理高峰，理性就会回来掌舵。',
+    source: '阿拉伯·谚语||阿拉伯谚语（Arabic Proverb）' },
+  { cat: 'anxious', num: 706,
+    poem: 'O que há de ser, será', cn: '该来的终会来', meaning: '葡萄牙谚语。焦虑是对未来的恐惧，但大部分担忧从未发生。把注意力拉回此刻，身体会跟着放松。',
+    source: '葡萄牙·谚语||葡萄牙谚语（Portuguese Proverb）' },
+  { cat: 'anxious', num: 707,
+    poem: 'Kavmiko seme, mwen kontan', cn: '少担忧多安心', meaning: '海地谚语。担忧偷走当下的平静，深呼吸能激活副交感神经，让身体从紧张模式切换到休息模式。',
+    source: '海地·谚语||海地谚语（Haitian Proverb）' },
+  { cat: 'anxious', num: 708,
+    poem: 'Il meglio è nemico del bene', cn: '追求完美反伤已有', meaning: '意大利谚语。完美主义是焦虑的温床，接受「足够好」能让大脑松一口气，降低皮质醇水平。',
+    source: '意大利·谚语||意大利谚语（Italian Proverb）' },
+  { cat: 'lonely', num: 705,
+    poem: 'La solitude est la patrie des forts', cn: '孤独是强者的故乡', meaning: '法国谚语。独处时大脑进入默认模式网络，创造力与自我认知都会提升。孤独不是缺失，是另一种丰盛。',
+    source: '法国·文学||阿尔贝·加缪（Albert Camus）' },
+  { cat: 'lonely', num: 706,
+    poem: 'Al-wahid la yastaqil', cn: '独行者未必孤单', meaning: '阿拉伯谚语。一个人行走也能走得远，内心丰富的人不会因独处而枯萎。',
+    source: '阿拉伯·谚语||阿拉伯谚语（Arabic Proverb）' },
+  { cat: 'lonely', num: 707,
+    poem: 'Stilstand ist auch eine Bewegung', cn: '静止也是一种运动', meaning: '德国谚语。在孤独中静下来，身体在默默修复。不急于寻找陪伴，也是一种对自己的善待。',
+    source: '德国·哲学||德国谚语（German Proverb）' },
+  { cat: 'calm', num: 706,
+    poem: 'Chisoku wa hoka ni arazu, jibun no kokoro ni arikere', cn: '知足不在他方，就在自己心中', meaning: '日本谚语（知足は他にあらず、自分の心にありけれ）。平静不依赖外物，大脑在满足感中释放血清素，让内心安定如水。',
+    source: '日本·文学||鸭长明（Kamo no Chōmei）' },
+  { cat: 'calm', num: 707,
+    poem: 'Qui ne s\'agite point ne se trompe point', cn: '不急则不误', meaning: '法国谚语。急躁时容易犯错，慢下来让前额叶重新掌舵，身体和决策都会感谢你。',
+    source: '法国·谚语||法国谚语（French Proverb）' },
+  { cat: 'calm', num: 708,
+    poem: 'Aquietarse es sabiduría', cn: '安静是智慧', meaning: '西班牙谚语。安静不是无所作为，是给大脑留出空间去整合信息。沉默中做出的决定，往往比冲动时更明智。',
+    source: '西班牙·谚语||西班牙谚语（Spanish Proverb）' },
 ];
 
 const CAT_LABEL = {
@@ -1912,10 +1968,31 @@ const state = {
   currentSign: null,
   history: [],
   isDrawing: false,
+  lastCountry: null,  // 上次抽到的国家，用于国家轮换
 };
 
+/* 从语料 source 字段提取国家名（取 '||' 前的「国家·领域」中的国家部分）*/
+function getCountry(sign) {
+  if (!sign.source) return 'unknown';
+  const part = sign.source.split('||')[0];
+  return part.split('·')[0].trim();
+}
+
+/* 国家轮换抽取：优先从与上次不同的国家池中抽取 */
 function pickSign() {
-  return FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
+  // 如果有上次国家记录，先尝试从不同国家的卡片中抽取
+  if (state.lastCountry) {
+    const diffPool = FORTUNES.filter(f => getCountry(f) !== state.lastCountry);
+    if (diffPool.length > 0) {
+      const pick = diffPool[Math.floor(Math.random() * diffPool.length)];
+      state.lastCountry = getCountry(pick);
+      return pick;
+    }
+  }
+  // 退化为纯随机
+  const pick = FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
+  state.lastCountry = getCountry(pick);
+  return pick;
 }
 
 /* 情绪 → 推荐签分类（情绪签：与身体/神经/激素相关的正向科普） */
@@ -1932,7 +2009,20 @@ function pickSignByMood(mood) {
   const cats = MOOD_CATS[mood] || null;
   if (!cats) return pickSign();
   const pool = FORTUNES.filter(f => cats.includes(f.cat));
-  return pool.length ? pool[Math.floor(Math.random() * pool.length)] : pickSign();
+  if (!pool.length) return pickSign();
+  // 国家轮换：优先从与上次不同的国家中抽取
+  if (state.lastCountry) {
+    const diffPool = pool.filter(f => getCountry(f) !== state.lastCountry);
+    if (diffPool.length > 0) {
+      const pick = diffPool[Math.floor(Math.random() * diffPool.length)];
+      state.lastCountry = getCountry(pick);
+      return pick;
+    }
+  }
+  // 退化：同国家池内随机
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  state.lastCountry = getCountry(pick);
+  return pick;
 }
 
 function isAscii(str) {
