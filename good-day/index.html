@@ -306,7 +306,7 @@ body::after {
   margin: 0;
   font-family: "CorpSrcWinSong", var(--font-cn);  /* 司源赢宋 — SIL OFL 1.1 */
   font-size: 48px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 12px;
   white-space: nowrap;
   font-style: italic;
@@ -338,10 +338,10 @@ body::after {
   50%      { transform: translateY(-9px); }
 }
 
-/* 中文专用浮动：skewX(-10deg) 明显左倾飘逸 + translateY 漂浮（合并到一个 transform 中避免覆盖） */
+/* 中文专用浮动：skewX(-16deg) 补偿司源赢宋无合成斜体，视觉接近旧版宋体 italic+skewX(-8deg) 的叠加倾斜 */
 @keyframes title-sub-float {
-  0%, 100% { transform: skewX(-10deg) translateY(0); }
-  50%      { transform: skewX(-10deg) translateY(-7px); }
+  0%, 100% { transform: skewX(-16deg) translateY(0); }
+  50%      { transform: skewX(-16deg) translateY(-7px); }
 }
 
 @keyframes title-shimmer {
@@ -766,6 +766,7 @@ body::after {
   overflow-wrap: break-word;
   word-break: normal;
   text-align: center;
+  padding: 4px 12px 8px;  /* 两侧留白防止截断 */
   /* 银白渐变 + shimmer 扫光（与英文 slogan 一致）*/
   background: linear-gradient(135deg,
     #FFFFFF 0%,
@@ -790,11 +791,14 @@ body::after {
   font-family: var(--font-cn);
   font-size: clamp(24px, 6vw, 34px);
   letter-spacing: 1px;
-  font-weight: 700;
+  font-weight: 800;
   font-style: italic;
   max-width: 100%;
   box-sizing: border-box;
-  /* 中文主题词：银白渐变 + shimmer 扫光（与英文 slogan 完全一致的视觉层级）*/
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  width: 100%;
+  /* 中文主题词：银白渐变 + shimmer 扫光 + 强发光（恢复旧版隐隐发光的柔和光晕）*/
   background: linear-gradient(135deg,
     #FFFFFF 0%,
     #E8DEF5 25%,
@@ -805,11 +809,12 @@ body::after {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  padding: 4px 20px 8px;  /* 底部多留白防截断 */
+  padding: 4px 24px 8px;  /* 两侧留白 24px 防止截断 */
   filter:
-    drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
-    drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
-    drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
+    drop-shadow(0 0 6px rgba(200, 180, 240, 0.85))
+    drop-shadow(0 0 16px rgba(180, 160, 230, 0.6))
+    drop-shadow(0 0 28px rgba(160, 140, 220, 0.35))
+    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
   position: relative;
   overflow: visible;
   animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
@@ -931,26 +936,27 @@ body::after {
   word-break: keep-all;
   position: relative;
   overflow: visible;
-  padding: 4px 6px 8px;
+  padding: 4px 16px 8px;  /* 两侧留白 16px 防止截断 */
   max-width: 100%;
   box-sizing: border-box;
   width: 100%;
-  /* 银白渐变 + shimmer 扫光 + 发光（与英文主题词 .sign-poem 完全一致）*/
+  /* 浅紫渐变 + 强发光 + shimmer（恢复旧版 66 张卡片的发光效果）*/
   background: linear-gradient(135deg,
-    #FFFFFF 0%,
-    #E8DEF5 25%,
-    #D4C5ED 50%,
-    #E8DEF5 75%,
-    #FFFFFF 100%);
+    #D4C5ED 0%,
+    #C4B0E8 25%,
+    #B8A4DC 50%,
+    #C4B0E8 75%,
+    #D4C5ED 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
   filter:
-    drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
-    drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
-    drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
+    drop-shadow(0 0 6px rgba(200, 180, 240, 0.85))
+    drop-shadow(0 0 16px rgba(180, 160, 230, 0.6))
+    drop-shadow(0 0 28px rgba(160, 140, 220, 0.35))
+    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
 }
 
 .skew-wrap {
@@ -967,7 +973,7 @@ body::after {
   line-height: 1.35;
   text-align: center;
   letter-spacing: 1px;
-  font-weight: 700;
+  font-weight: 800;
   font-family: var(--font-cn);
   font-style: italic;
   opacity: 0;
@@ -1004,7 +1010,7 @@ body::after {
   line-height: 1.35;
   text-align: center;
   letter-spacing: 0;
-  font-weight: 700;
+  font-weight: 800;
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
   font-style: italic;
   opacity: 0;
@@ -1027,13 +1033,13 @@ body::after {
     drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
     drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
     drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
-  padding: 4px 8px 6px;
+  padding: 4px 16px 8px;
 }
 
 /* 中文诗的英文翻译副题 — 浅紫衬线小号（与中文副题 sign-cn 视觉层级一致） */
 .sign-cn-en.sub {
   font-size: clamp(18px, 5vw, 24px);
-  font-weight: 700;
+  font-weight: 800;
   background: linear-gradient(135deg,
     #D4C5ED 0%,
     #C4B0E8 25%,
@@ -1424,11 +1430,12 @@ body::after {
    ==================================================== */
 @media (max-width: 600px) {
   :root { --font-cn: var(--font-cn-mobile); }
-  .title { font-size: 42px; }
-  .title-sub { font-size: 40px; margin-top: 8px; letter-spacing: 10px; padding: 4px 6px 4px 10px; text-indent: 4px; }
-  .header { min-height: 58px; padding: 12px 0 2px; margin-bottom: 2px; }
-  .app { padding: 10px 16px 10px; }
-  .sign-card-outer { max-width: min(92vw, 340px); height: min(78vh, 640px); }
+  .title { font-size: 42px; padding: 10px 20px 4px 12px; }
+  .title-sub { font-size: 40px; margin-top: 2px; letter-spacing: 10px; padding: 4px 6px 2px 10px; text-indent: 4px; }
+  .header { min-height: 50px; padding: 6px 0 2px; margin-bottom: 0; }
+  .app { padding: 6px 16px 6px; }
+  .stage { margin-top: 6px; }
+  .sign-card-outer { max-width: min(92vw, 340px); height: min(82vh, 660px); }
   .sign-cn { font-size: clamp(26px, 8vw, 32px); }  /* 手机端中文主题词放大 */
   .sign-meaning { font-size: 15px; color: #4A3A65; font-weight: 600; }  /* 手机端释义字号放大 + 颜色加深 */
   .btn-ghost { font-size: 15px; }  /* 手机端按钮字号放大到与释义一致 */
@@ -1437,13 +1444,14 @@ body::after {
 
 @media (max-width: 360px) {
   :root { --font-cn: var(--font-cn-mobile); }
-  .app { padding: 10px 14px 8px; }
-  .header { min-height: 46px; padding: 10px 0 0; margin-bottom: 2px; }
-  .title { font-size: 36px; }
-  .title-sub { font-size: 36px; margin-top: 8px; letter-spacing: 8px; padding: 4px 4px 4px 8px; text-indent: 3px; }
+  .app { padding: 4px 14px 4px; }
+  .header { min-height: 44px; padding: 4px 0 2px; margin-bottom: 0; }
+  .title { font-size: 36px; padding: 8px 20px 4px 12px; }
+  .title-sub { font-size: 36px; margin-top: 2px; letter-spacing: 8px; padding: 4px 4px 2px 8px; text-indent: 3px; }
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
-  .sign-card-outer { max-width: min(94vw, 320px); height: min(80vh, 620px); }
+  .stage { margin-top: 6px; }
+  .sign-card-outer { max-width: min(94vw, 320px); height: min(84vh, 640px); }
   .stage { margin-top: 13px; }  /* 360px 断点：中卡间距≈0.5cm */
   .sign-face.back { padding: 18px 14px 16px; }
   .sign-poem.english { font-size: 24px; }
@@ -1561,7 +1569,7 @@ const FORTUNES = [
     poem: 'Light Up a Room', cn: '点亮房间', meaning: '阳光充足的午后在窗边坐一会，天然的蓝光会启动血清素分泌。多晒10分钟太阳，好心情就会自己长出来。',
     source: '人类·神经科学||哈佛医学院（Harvard Medical School）' },
   { cat: 'happy', num: 115,
-    poem: '有朋自远方来，不亦乐乎', cn: 'A friend comes from afar, is that not a joy?', meaning: '知己的到来，是生命里最直接的喜悦。连接本身，就是快乐的源泉。',
+    poem: '有朋自远方来，不亦乐乎', cn: 'A friend from afar brings joy', meaning: '知己的到来，是生命里最直接的喜悦。连接本身，就是快乐的源泉。',
     source: '中国·儒学||《论语·学而》（春秋）' },
   { cat: 'happy', num: 201,
     poem: 'Savor the Moment', cn: '品味此刻', meaning: '快乐时停下来仔细感受十秒以上，大脑会将这段记忆存储得更深。反复回味，快乐会被拉长。',
@@ -1576,7 +1584,7 @@ const FORTUNES = [
     poem: 'This too shall pass', cn: '这一切也会过去', meaning: '情绪如波浪，有其涨落周期。再艰难的时刻，也不会永远停在同一深度。',
     source: '波斯·谚语||波斯谚语（Persian Proverb）' },
   { cat: 'sad', num: 203,
-    poem: '往者不可谏，来者犹可追', cn: 'The past is past, the future awaits', meaning: '已经过去的事情无法挽回，未来的日子还来得及把握。别把精力耗在“如果当初”上。',
+    poem: '往者不可谏，来者犹可追', cn: 'The past is gone, the future is yours', meaning: '已经过去的事情无法挽回，未来的日子还来得及把握。别把精力耗在“如果当初”上。',
     source: '中国·儒学||《论语·微子》（春秋）' },
   { cat: 'sad', num: 204,
     poem: 'Vulnerability Is Strength', cn: '脆弱即力量', meaning: '承认难过的人恢复得更快。允许自己像弹簧一样先压缩，才有弹回原状的余地。',
@@ -1612,7 +1620,7 @@ const FORTUNES = [
     poem: 'Art as Therapy', cn: '艺术即疗愈', meaning: '画画、捏泥、剪贴，动手创作能激活大脑的右半球。色彩和形状，是情绪最诚实的出口。',
     source: '美国·艺术治疗||美国艺术治疗协会（AATA）' },
   { cat: 'sad', num: 215,
-    poem: '行到水穷处，坐看云起时', cn: 'When the road ends, sit and watch the clouds rise', meaning: '走到水尽头，不妨坐下来看云升起。绝境处也许正是转机，安静里藏着新的可能。',
+    poem: '行到水穷处，坐看云起时', cn: 'Where water ends, sit and watch clouds rise', meaning: '走到水尽头，不妨坐下来看云升起。绝境处也许正是转机，安静里藏着新的可能。',
     source: '中国·诗学||王维（盛唐）《终南别业》' },
   { cat: 'sad', num: 216,
     poem: 'Après la pluie, le beau temps', cn: '雨过天晴', meaning: '法语里的谚语。暴风雨过后，总是会有好天气，坏情绪也是。',
@@ -1630,7 +1638,7 @@ const FORTUNES = [
     poem: '上善若水', cn: 'The highest good is like water', meaning: '难过时，想象自己是一滴水。水从不抗拒流动，只是静静地向前走，直到穿过最暗的峡谷。',
     source: '中国·道学||《道德经》（春秋）' },
   { cat: 'sad', num: 305,
-    poem: '岁寒，然后知松柏之后凋也', cn: 'Only in cold winter does the pine reveal its endurance', meaning: '等到天气寒冷，才知道松柏是最后凋零的。低谷里熬过的时间，都会变成你扎根的力量。',
+    poem: '岁寒，然后知松柏之后凋也', cn: 'Only in winter does the pine endure', meaning: '等到天气寒冷，才知道松柏是最后凋零的。低谷里熬过的时间，都会变成你扎根的力量。',
     source: '中国·儒学||《论语·子罕》（春秋）' },
   { cat: 'angry', num: 301,
     poem: 'Anger Is a Signal', cn: '愤怒是信号', meaning: '愤怒是身体在提示边界受到了触碰。先听懂信号再处理事情，比直接爆发能更有效地保护自己。',
@@ -1669,7 +1677,7 @@ const FORTUNES = [
     poem: 'Write the Rant', cn: '写下吐槽', meaning: '把想骂的话全写下来，不发给任何人。写完就撕掉，情绪从大脑转移到纸张，身体就轻松了。',
     source: '美国·心理学||詹姆斯·彭尼贝克（James Pennebaker）' },
   { cat: 'angry', num: 313,
-    poem: '止怒莫若诗', cn: 'Nothing calms anger better than poetry', meaning: '平息怒气最好的方法，是吟诗或写诗，让冲动的情绪流进字句里，代替拳头和争吵。',
+    poem: '止怒莫若诗', cn: 'Nothing calms anger like poetry', meaning: '平息怒气最好的方法，是吟诗或写诗，让冲动的情绪流进字句里，代替拳头和争吵。',
     source: '中国·哲学||《管子》（先秦）' },
   { cat: 'angry', num: 313,
     poem: '知止而后有定', cn: 'Knowing when to stop brings stability', meaning: '愤怒起于片刻，若能在最初察觉它，就不会被它推着走。知道什么时候停下，才是力量的开始。',
@@ -1726,7 +1734,7 @@ const FORTUNES = [
     poem: 'Sweat It Out', cn: '流汗排解', meaning: '一次高强度的有氧运动，能快速代谢体内的压力激素。让汗流出来，烦恼就跟着流走了。',
     source: '美国·运动科学||哈佛医学院（Harvard Medical School）' },
   { cat: 'anxious', num: 415,
-    poem: '心无挂碍', cn: 'With no attachments, there is no fear', meaning: '心里没有牵挂和阻碍，也就没有恐惧。把担忧暂时放下，本身就是一种勇敢。',
+    poem: '心无挂碍', cn: 'No attachments, no fear', meaning: '心里没有牵挂和阻碍，也就没有恐惧。把担忧暂时放下，本身就是一种勇敢。',
     source: '中国·佛学||《般若波罗蜜多心经》（唐代）' },
   { cat: 'anxious', num: 501,
     poem: 'Ground Your Senses', cn: '回到感官', meaning: '焦虑时找到五样能看到的、四样能摸到的、三样能听到的。感官回到此刻，大脑就没有空去预演未来。',
@@ -1771,7 +1779,7 @@ const FORTUNES = [
     poem: 'Call a Family Member', cn: '给家人打电话', meaning: '熟悉的声音会激活大脑中安全感相关的记忆，哪怕只是闲聊五分钟。血脉的底层连接很难被切断。',
     source: '人类·社会心理学||哈佛大学（Harvard University）' },
   { cat: 'lonely', num: 513,
-    poem: '举头望明月，低头思故乡', cn: 'I raise my head to look at the bright moon, I lower my head and think of home', meaning: '孤独的夜晚，抬头看看月亮。无论你在哪里，月光都会温柔地照着你。这是一种跨越时空的陪伴。',
+    poem: '举头望明月，低头思故乡',     cn: 'Gazing at the moon, longing for home', meaning: '孤独的夜晚，抬头看看月亮。无论你在哪里，月光都会温柔地照着你。这是一种跨越时空的陪伴。',
     source: '中国·诗学||李白（盛唐）《静夜思》' },
   { cat: 'lonely', num: 514,
     poem: 'No man is an island', cn: '没有人是一座孤岛', meaning: '英国诗人多恩的经典名言。每个人的生命都与他人息息相关，你总会找到那个连接你的港湾。',
@@ -1792,7 +1800,7 @@ const FORTUNES = [
     poem: 'Slow Down, Repair', cn: '慢下来修复', meaning: '紧张时修复机制停摆，平静时身体才开始修墙。慢一点，是给身体发送修复信号。',
     source: '人类·生理学||世界卫生组织（World Health Organization）' },
   { cat: 'calm', num: 604,
-    poem: 'One Minute, One Breath', cn: '一分钟一次呼吸', meaning: '缓慢呼气比吸气长两拍，心率会自动下降。身体先平静下来，心就会跟着平稳。',
+    poem: 'One Minute, One Breath', cn: '一呼一吸', meaning: '缓慢呼气比吸气长两拍，心率会自动下降。身体先平静下来，心就会跟着平稳。',
     source: '人类·生理学||哈佛大学（Harvard University）' },
   { cat: 'calm', num: 605,
     poem: 'The Present is Peace', cn: '此刻即安宁', meaning: '此刻没有需要追赶的，也没有需要解释的。把心放回眼前，焦虑将没有立足之地。',
@@ -1819,19 +1827,19 @@ const FORTUNES = [
     poem: 'Write a Gratitude Line', cn: '写下一句感恩', meaning: '睡前写下今天发生的一个小美好，大脑会把注意力锚定在正面信息上，帮助你带着暖意入睡。',
     source: '美国·积极心理学||罗伯特·埃蒙斯（Robert Emmons）' },
   { cat: 'calm', num: 613,
-    poem: '知止而后有定', cn: 'Knowing where to stop brings true stability', meaning: '知道要达到的境界，才能有坚定的方向。不随外物沉浮，内心的宁静才是真正的归宿。',
+    poem: '知止而后有定', cn: 'Knowing where to stop brings stability', meaning: '知道要达到的境界，才能有坚定的方向。不随外物沉浮，内心的宁静才是真正的归宿。',
     source: '中国·儒学||《大学》（先秦）' },
   { cat: 'calm', num: 613,
-    poem: '行到水穷处，坐看云起时', cn: 'When the road ends, sit and watch the clouds rise', meaning: '走到水的尽头，不妨坐下来看云升起。绝境处也许正是转机，安静里藏着新的可能。',
+    poem: '行到水穷处，坐看云起时', cn: 'Where water ends, sit and watch clouds rise', meaning: '走到水的尽头，不妨坐下来看云升起。绝境处也许正是转机，安静里藏着新的可能。',
     source: '中国·诗学||王维（盛唐）《终南别业》' },
   { cat: 'calm', num: 614,
     poem: '静水流深', cn: 'Still waters run deep', meaning: '水面最安静的地方，往往藏得最深。真正的力量，总是在最沉静的时候积蓄。',
     source: '中国·道学||《道德经》（春秋）' },
   { cat: 'calm', num: 614,
-    poem: '心无挂碍', cn: 'With no attachments, there is no fear', meaning: '心里没有牵挂和阻碍，也就没有恐惧。把担忧暂时放下，本身就是一种勇敢。',
+    poem: '心无挂碍', cn: 'No attachments, no fear', meaning: '心里没有牵挂和阻碍，也就没有恐惧。把担忧暂时放下，本身就是一种勇敢。',
     source: '中国·佛学||《般若波罗蜜多心经》（唐代）' },
   { cat: 'calm', num: 615,
-    poem: '本来无一物，何处惹尘埃', cn: 'Originally there is not a single thing, where can dust alight?', meaning: '烦恼像尘埃，起风时漫天飞舞，风停后自然落地。不必执念，不必清扫，看它落下就好。',
+    poem: '本来无一物，何处惹尘埃', cn: 'Nothing to begin with, where can dust alight?', meaning: '烦恼像尘埃，起风时漫天飞舞，风停后自然落地。不必执念，不必清扫，看它落下就好。',
     source: '中国·禅学||《六祖坛经》（唐代）' },
   { cat: 'calm', num: 615,
     poem: '大音希声', cn: 'The greatest sound is silence', meaning: '最高级的声响，反而听不见声音。最平静的状态，不需要语言去解释，静静感受就好。',
@@ -1842,6 +1850,51 @@ const FORTUNES = [
   { cat: 'calm', num: 702,
     poem: 'Blue Sky Gazing', cn: '凝视蓝天', meaning: '抬头凝视三十秒蓝天，视线开阔会降低大脑警报。天空那么大，你的烦恼装得下。',
     source: '人类·环境心理学||普林斯顿大学（Princeton University）' },
+  { cat: 'happy', num: 703,
+    poem: 'Ichigo ichie', cn: '一期一会', meaning: '日本茶道精神：此生此世，此刻的相遇只此一次。认真对待眼前人，幸福就藏在不可重复的瞬间。',
+    source: '日本·茶道||千利休（Sen no Rikyū）' },
+  { cat: 'happy', num: 704,
+    poem: 'La joie vient de petits choses', cn: '喜悦藏于小事', meaning: '法语谚语。生活中的微小确幸比大事件更能持续滋养内心，一杯咖啡、一缕阳光就足够。',
+    source: '法国·谚语||法国谚语（French Proverb）' },
+  { cat: 'sad', num: 703,
+    poem: 'Nana-korobi ya oki', cn: '跌倒七次，起身八次', meaning: '日本谚语（七転び八起き）。悲伤和挫折不是终点，每一次站起来都在重建神经回路，身体会记住你恢复的力量。',
+    source: '日本·谚语||日本谚语（Japanese Proverb）' },
+  { cat: 'sad', num: 704,
+    poem: 'Und dies wird vorübergehen', cn: '这一切终将过去', meaning: '德语谚语。再深的悲伤也有保质期，大脑的情绪回路会自行修复，时间是最好的缓冲带。',
+    source: '德国·谚语||德国谚语（German Proverb）' },
+  { cat: 'angry', num: 703,
+    poem: 'Der Zorn ist ein kurzer Wahnsinn', cn: '愤怒是短暂的疯狂', meaning: '德国谚语，源自古罗马诗人贺拉斯。愤怒的生理高峰只有九十秒，忍过这一刻，理性就会回来。',
+    source: '德国·谚语||德国谚语（German Proverb）' },
+  { cat: 'angry', num: 704,
+    poem: 'Ikari wa mi o horobosu', cn: '怒气毁自身', meaning: '日本谚语（怒りは身を滅ぼす）。愤怒时血压飙升、血管收缩，长期积怒会损害心血管。及时释怀，是给身体最好的保护。',
+    source: '日本·谚语||日本谚语（Japanese Proverb）' },
+  { cat: 'anxious', num: 703,
+    poem: 'Sorgen machen graue Haare', cn: '忧虑催人老', meaning: '德国谚语。长期焦虑加速细胞老化，压力激素让头发变白。放下担忧，就是给身体按下暂停键。',
+    source: '德国·谚语||德国谚语（German Proverb）' },
+  { cat: 'anxious', num: 704,
+    poem: 'Shinpai ji ta okonai', cn: '担心的事大多不会发生', meaning: '日本谚语（心配事は大抵起こらない）。大脑为应对威胁而预演灾难，但绝大多数忧虑从未实现。别让虚构的未来消耗此刻的能量。',
+    source: '日本·谚语||日本谚语（Japanese Proverb）' },
+  { cat: 'anxious', num: 705,
+    poem: 'Qui s'inquiète mal vit', cn: '忧虑者难安', meaning: '法语谚语。焦虑会偷走当下的氧气，让你在安全的环境中也无法呼吸。学着把注意力从未来拉回此刻。',
+    source: '法国·谚语||法国谚语（French Proverb）' },
+  { cat: 'lonely', num: 703,
+    poem: 'Hitori de aruku michi mo, yagate wa dareka to majiwari', cn: '独行之路终会与人交汇', meaning: '日本谚语（一人で歩く道も、やがては誰かと交わる）。孤独是阶段性的，不是永久的。你走过的每一步，都在靠近那个愿意与你同行的人。',
+    source: '日本·谚语||日本谚语（Japanese Proverb）' },
+  { cat: 'lonely', num: 704,
+    poem: 'Ein Freund ist jemand, der die Melodie in dir kennt und sie dir vorsingt, wenn du sie vergessen hast', cn: '朋友是那个记得你内心旋律的人', meaning: '德国谚语。真正的连接不在于数量，而在于有人了解你内心的节奏。被理解，是孤独最深处的解药。',
+    source: '德国·谚语||德国谚语（German Proverb）' },
+  { cat: 'calm', num: 703,
+    poem: 'Stille ist die höchste Form der Kraft', cn: '静默是最高形式的力量', meaning: '德国谚语。安静时大脑进入修复模式，压力激素下降，免疫细胞活跃。沉默不是空虚，是给身体充电。',
+    source: '德国·谚语||德国谚语（German Proverb）' },
+  { cat: 'calm', num: 704,
+    poem: 'Ruhig Blut, klarer Kopf', cn: '心静则智明', meaning: '德国谚语。情绪平稳时前额叶皮层最活跃，判断力和创造力都会提升。冷静不只是态度，是大脑的最佳工作状态。',
+    source: '德国·谚语||德国谚语（German Proverb）' },
+  { cat: 'calm', num: 705,
+    poem: 'Dar sokoot, khoda harf mizanad', cn: '静默中自有回响', meaning: '波斯谚语。安静不是空白，是内心秩序的重建。在沉默中，身体会找到自己的节奏。',
+    source: '波斯·谚语||波斯谚语（Persian Proverb）' },
+  { cat: 'happy', num: 705,
+    poem: 'Dum vivimus, vivamus', cn: '活着就要好好活', meaning: '古罗马谚语。生命短暂，尽情享受当下。快乐不需要理由，活着本身就是最好的理由。',
+    source: '古罗马·哲学||伊壁鸠鲁（Epicurus）' },
 ];
 
 const CAT_LABEL = {
