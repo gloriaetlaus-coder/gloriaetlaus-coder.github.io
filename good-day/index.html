@@ -307,14 +307,11 @@ body::after {
   font-family: "CorpSrcWinSong", var(--font-cn);  /* 司源赢宋 — SIL OFL 1.1 */
   font-size: 48px;
   font-weight: 800;
-  letter-spacing: 12px;
+  letter-spacing: 6px;  /* 缩小字间距，使7字总宽接近英文 */
   white-space: nowrap;
   font-style: italic;
   display: inline-block;
-  padding: 8px 8px 8px 12px;
-  text-indent: 6px;  /* 首字前留空，补偿英文花体左探出的空间 */
-  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.9);  /* 描边补足司源赢宋无 bold 字形的视觉粗度 */
-  paint-order: fill stroke;  /* 描边在渐变填充之上，确保描边可见 */
+  padding: 8px 8px 8px 22px;  /* 左侧 padding 加大 22px，让"今"右移约 10px 对齐英文 H */
   background: linear-gradient(135deg,
     #FFFFFF 0%,
     #F4EEFC 25%,
@@ -756,7 +753,7 @@ body::after {
   white-space: nowrap;
 }
 
-/* 签诗 — 非中文（英/日/德等）银白光泽 + shimmer + 漂浮 */
+/* 签诗 — 非中文（英/日/德等）银白光泽 + shimmer + 呼吸发光 */
 .sign-poem {
   margin: 0;
   font-size: 34px;
@@ -780,16 +777,11 @@ body::after {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
-  filter:
-    drop-shadow(0 0 6px rgba(200, 180, 240, 0.85))
-    drop-shadow(0 0 16px rgba(180, 160, 230, 0.6))
-    drop-shadow(0 0 28px rgba(160, 140, 220, 0.35))
-    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
+  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite, title-breathe 4.5s ease-in-out 0.55s infinite;
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
 }
 
-/* 中文签诗 — 银色渐变发光斜体 + shimmer 扫光（与英文标题统一视觉，宋体渲染） */
+/* 中文签诗 — 银白渐变发光斜体 + shimmer 扫光 + 呼吸发光（与英文 Slogan 统一） */
 .sign-poem.sign-poem-cn {
   font-family: var(--font-cn);
   font-size: clamp(24px, 6vw, 34px);
@@ -801,7 +793,6 @@ body::after {
   overflow-wrap: break-word;
   word-break: keep-all;
   width: 100%;
-  /* 中文主题词：银白渐变 + shimmer 扫光 + 强发光（恢复旧版隐隐发光的柔和光晕）*/
   background: linear-gradient(135deg,
     #FFFFFF 0%,
     #E8DEF5 25%,
@@ -813,14 +804,9 @@ body::after {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   padding: 4px 24px 8px;  /* 两侧留白 24px 防止截断 */
-  filter:
-    drop-shadow(0 0 6px rgba(200, 180, 240, 0.85))
-    drop-shadow(0 0 16px rgba(180, 160, 230, 0.6))
-    drop-shadow(0 0 28px rgba(160, 140, 220, 0.35))
-    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
   position: relative;
   overflow: visible;
-  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
+  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite, title-breathe 4.5s ease-in-out 0.55s infinite;
 }
 /* 移除旧的伪元素扫光效果 — 已改用 background-position shimmer 统一 */
 .sign-poem.sign-poem-cn::after,
@@ -925,7 +911,7 @@ body::after {
   padding: 0 14px;  /* 两侧留白防止截断 */
 }
 
-/* 中文主题词 — 浅紫渐变 + 发光 + shimmer（与英文主题词风格类似但不完全一样）*/
+/* 中文主题词 — 银白渐变 + shimmer + 呼吸发光（与 Slogan 统一） */
 .sign-cn {
   margin: 14px 0 0;
   font-size: clamp(24px, 6vw, 34px);
@@ -939,27 +925,21 @@ body::after {
   word-break: keep-all;
   position: relative;
   overflow: visible;
-  padding: 4px 16px 8px;  /* 两侧留白 16px 防止截断 */
+  padding: 4px 16px 8px;
   max-width: 100%;
   box-sizing: border-box;
   width: 100%;
-  /* 浅紫渐变 + 强发光 + shimmer（恢复旧版 66 张卡片的发光效果）*/
   background: linear-gradient(135deg,
-    #D4C5ED 0%,
-    #C4B0E8 25%,
-    #B8A4DC 50%,
-    #C4B0E8 75%,
-    #D4C5ED 100%);
+    #FFFFFF 0%,
+    #E8DEF5 25%,
+    #D4C5ED 50%,
+    #E8DEF5 75%,
+    #FFFFFF 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
-  filter:
-    drop-shadow(0 0 6px rgba(200, 180, 240, 0.85))
-    drop-shadow(0 0 16px rgba(180, 160, 230, 0.6))
-    drop-shadow(0 0 28px rgba(160, 140, 220, 0.35))
-    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
+  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite, title-breathe 4.5s ease-in-out 0.55s infinite;
 }
 
 .skew-wrap {
@@ -969,7 +949,7 @@ body::after {
   text-align: center;
 }
 
-/* 中文直译 — 深紫渐变 + shimmer 扫光 */
+/* 中文直译 — 银白渐变 + shimmer + 呼吸发光 */
 .sign-literal {
   margin: 10px 0 0;
   font-size: clamp(20px, 6.5vw, 26px);
@@ -980,31 +960,24 @@ body::after {
   font-family: var(--font-cn);
   font-style: italic;
   opacity: 0;
-  animation: fadeUp 0.5s 0.58s forwards;
   overflow-wrap: break-word;
   word-break: keep-all;
   max-width: 100%;
   box-sizing: border-box;
   position: relative;
   overflow: visible;
-  padding: 4px 16px 8px;  /* 底部留白防截断 */
-  /* 浅紫渐变 + 发光，与英文主题词风格类似但不完全一样 */
+  padding: 4px 16px 8px;
   background: linear-gradient(135deg,
-    #E8DEF5 0%,
-    #D4C5ED 25%,
-    #C4B0E8 50%,
-    #D4C5ED 75%,
-    #E8DEF5 100%);
+    #FFFFFF 0%,
+    #E8DEF5 25%,
+    #D4C5ED 50%,
+    #E8DEF5 75%,
+    #FFFFFF 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.58s forwards, cn-shimmer 6s linear 0.58s infinite;
-  filter:
-    drop-shadow(0 0 6px rgba(200, 180, 240, 0.85))
-    drop-shadow(0 0 16px rgba(180, 160, 230, 0.6))
-    drop-shadow(0 0 28px rgba(160, 140, 220, 0.35))
-    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
+  animation: fadeUp 0.5s 0.58s forwards, cn-shimmer 6s linear 0.58s infinite, title-breathe 4.5s ease-in-out 0.58s infinite;
 }
 
 .sign-cn-en {
@@ -1020,46 +993,36 @@ body::after {
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
-  /* 非中文主题词 — 淡紫渐变 + shimmer */
+  /* 非中文主题词 — 银白渐变 + shimmer + 呼吸发光（与 Slogan 统一） */
   background: linear-gradient(135deg,
-    #D4C5ED 0%,
-    #C4B0E8 25%,
-    #B8A4DC 50%,
-    #C4B0E8 75%,
-    #D4C5ED 100%);
+    #FFFFFF 0%,
+    #E8DEF5 25%,
+    #D4C5ED 50%,
+    #E8DEF5 75%,
+    #FFFFFF 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
-  filter:
-    drop-shadow(0 0 6px rgba(200, 180, 240, 0.85))
-    drop-shadow(0 0 16px rgba(180, 160, 230, 0.6))
-    drop-shadow(0 0 28px rgba(160, 140, 220, 0.35))
-    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
+  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite, title-breathe 4.5s ease-in-out 0.55s infinite;
   padding: 4px 16px 8px;
 }
 
-/* 中文诗的英文翻译副题 — 浅紫衬线小号（与中文副题 sign-cn 视觉层级一致） */
+/* 中文诗的原文副题 — 银白渐变 + shimmer + 呼吸发光 */
 .sign-cn-en.sub {
   font-size: clamp(18px, 5vw, 24px);
   font-weight: 800;
   background: linear-gradient(135deg,
-    #D4C5ED 0%,
-    #C4B0E8 25%,
-    #B8A4DC 50%,
-    #C4B0E8 75%,
-    #D4C5ED 100%);
+    #FFFFFF 0%,
+    #E8DEF5 25%,
+    #D4C5ED 50%,
+    #E8DEF5 75%,
+    #FFFFFF 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.58s forwards, poem-silver-shimmer 6s linear 0.58s infinite;
-  filter:
-    drop-shadow(0 0 6px rgba(200, 180, 240, 0.85))
-    drop-shadow(0 0 16px rgba(180, 160, 230, 0.6))
-    drop-shadow(0 0 28px rgba(160, 140, 220, 0.35))
-    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
+  animation: fadeUp 0.5s 0.58s forwards, poem-silver-shimmer 6s linear 0.58s infinite, title-breathe 4.5s ease-in-out 0.58s infinite;
 }
 
 .sign-tip {
@@ -1436,7 +1399,7 @@ body::after {
 @media (max-width: 600px) {
   :root { --font-cn: var(--font-cn-mobile); }
   .title { font-size: 42px; padding: 10px 20px 4px 12px; }
-  .title-sub { font-size: 40px; margin-top: 2px; letter-spacing: 10px; padding: 4px 6px 2px 10px; text-indent: 4px; }
+  .title-sub { font-size: 40px; margin-top: 2px; letter-spacing: 5px; padding: 4px 6px 2px 18px; }
   .header { min-height: 50px; padding: 6px 0 2px; margin-bottom: 0; }
   .app { padding: 6px 16px 6px; }
   .stage { margin-top: 6px; }
@@ -1452,7 +1415,7 @@ body::after {
   .app { padding: 4px 14px 4px; }
   .header { min-height: 44px; padding: 4px 0 2px; margin-bottom: 0; }
   .title { font-size: 36px; padding: 8px 20px 4px 12px; }
-  .title-sub { font-size: 36px; margin-top: 2px; letter-spacing: 8px; padding: 4px 4px 2px 8px; text-indent: 3px; }
+  .title-sub { font-size: 36px; margin-top: 2px; letter-spacing: 4px; padding: 4px 4px 2px 14px; }
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
   .stage { margin-top: 6px; }
@@ -1628,7 +1591,7 @@ const FORTUNES = [
     poem: '行到水穷处，坐看云起时', cn: 'Where water ends, sit and watch clouds rise', meaning: '走到水尽头，不妨坐下来看云升起。绝境处也许正是转机，安静里藏着新的可能。',
     source: '中国·诗学||王维（盛唐）《终南别业》' },
   { cat: 'sad', num: 216,
-    poem: 'Après la pluie, le beau temps', cn: '雨过天晴', meaning: '法语里的谚语。暴风雨过后，总是会有好天气，坏情绪也是。',
+    poem: 'Après la pluie, le beau temps', cn: '雨过天晴',     meaning: '暴风雨过后，总是会有好天气，坏情绪也是。',
     source: '法国·谚语||法国谚语（French Proverb）' },
   { cat: 'sad', num: 301,
     poem: 'Move Your Body', cn: '动起来', meaning: '低落时散步十分钟，血清素就开始回升。身体动起来，情绪会跟着松动，不必等心情好再动。',
@@ -1688,7 +1651,7 @@ const FORTUNES = [
     poem: '知止而后有定', cn: 'Knowing when to stop brings stability', meaning: '愤怒起于片刻，若能在最初察觉它，就不会被它推着走。知道什么时候停下，才是力量的开始。',
     source: '中国·儒学||《大学》（先秦）' },
   { cat: 'angry', num: 314,
-    poem: 'Ira furor brevis est', cn: '愤怒是短暂的疯狂', meaning: '古罗马诗人贺拉斯的格言。愤怒来去匆匆，若不在它最猛烈时做决定，伤害会小很多。',
+    poem: 'Ira furor brevis est', cn: '愤怒是短暂的疯狂',     meaning: '愤怒来去匆匆，若不在它最猛烈时做决定，伤害会小很多。',
     source: '古罗马·诗学||贺拉斯（Horace）' },
   { cat: 'angry', num: 401,
     poem: 'Pause Before You Act', cn: '行动前暂停', meaning: '愤怒的生理高峰只持续九十秒。撑过这三秒，身体就开始降温。这是比说任何话都管用的倒计时。',
@@ -1856,100 +1819,100 @@ const FORTUNES = [
     poem: 'Blue Sky Gazing', cn: '凝视蓝天', meaning: '抬头凝视三十秒蓝天，视线开阔会降低大脑警报。天空那么大，你的烦恼装得下。',
     source: '人类·环境心理学||普林斯顿大学（Princeton University）' },
   { cat: 'happy', num: 703,
-    poem: 'Ichigo ichie', cn: '一期一会', meaning: '日本茶道精神：此生此世，此刻的相遇只此一次。认真对待眼前人，幸福就藏在不可重复的瞬间。',
+    poem: '一期一会', cn: '一期一会',     meaning: '此生此世，此刻的相遇只此一次。认真对待眼前人，幸福就藏在不可重复的瞬间。',
     source: '日本·茶道||千利休（Sen no Rikyū）' },
   { cat: 'happy', num: 704,
-    poem: 'La joie vient de petits choses', cn: '喜悦藏于小事', meaning: '法语谚语。生活中的微小确幸比大事件更能持续滋养内心，一杯咖啡、一缕阳光就足够。',
+    poem: 'La joie vient de petits choses', cn: '喜悦藏于小事',     meaning: '生活中的微小确幸比大事件更能持续滋养内心，一杯咖啡、一缕阳光就足够。',
     source: '法国·谚语||法国谚语（French Proverb）' },
   { cat: 'sad', num: 703,
-    poem: 'Nana-korobi ya oki', cn: '跌倒七次，起身八次', meaning: '日本谚语（七転び八起き）。悲伤和挫折不是终点，每一次站起来都在重建神经回路，身体会记住你恢复的力量。',
+    poem: '七転び八起き', cn: '跌倒七次，起身八次',     meaning: '悲伤和挫折不是终点，每一次站起来都在重建神经回路，身体会记住你恢复的力量。',
     source: '日本·谚语||日本谚语（Japanese Proverb）' },
   { cat: 'sad', num: 704,
-    poem: 'Und dies wird vorübergehen', cn: '这一切终将过去', meaning: '德语谚语。再深的悲伤也有保质期，大脑的情绪回路会自行修复，时间是最好的缓冲带。',
+    poem: 'Und dies wird vorübergehen', cn: '这一切终将过去',     meaning: '再深的悲伤也有保质期，大脑的情绪回路会自行修复，时间是最好的缓冲带。',
     source: '德国·谚语||德国谚语（German Proverb）' },
   { cat: 'angry', num: 703,
-    poem: 'Der Zorn ist ein kurzer Wahnsinn', cn: '愤怒是短暂的疯狂', meaning: '德国谚语，源自古罗马诗人贺拉斯。愤怒的生理高峰只有九十秒，忍过这一刻，理性就会回来。',
+    poem: 'Der Zorn ist ein kurzer Wahnsinn', cn: '愤怒是短暂的疯狂',     meaning: '愤怒的生理高峰只有九十秒，忍过这一刻，理性就会回来。',
     source: '德国·谚语||德国谚语（German Proverb）' },
   { cat: 'angry', num: 704,
-    poem: 'Ikari wa mi o horobosu', cn: '怒气毁自身', meaning: '日本谚语（怒りは身を滅ぼす）。愤怒时血压飙升、血管收缩，长期积怒会损害心血管。及时释怀，是给身体最好的保护。',
+    poem: '怒りは身を滅ぼす', cn: '怒气毁自身',     meaning: '愤怒时血压飙升、血管收缩，长期积怒会损害心血管。及时释怀，是给身体最好的保护。',
     source: '日本·谚语||日本谚语（Japanese Proverb）' },
   { cat: 'anxious', num: 703,
-    poem: 'Sorgen machen graue Haare', cn: '忧虑催人老', meaning: '德国谚语。长期焦虑加速细胞老化，压力激素让头发变白。放下担忧，就是给身体按下暂停键。',
+    poem: 'Sorgen machen graue Haare', cn: '忧虑催人老',     meaning: '长期焦虑加速细胞老化，压力激素让头发变白。放下担忧，就是给身体按下暂停键。',
     source: '德国·谚语||德国谚语（German Proverb）' },
   { cat: 'anxious', num: 704,
-    poem: 'Shinpai ji ta okonai', cn: '担心的事大多不会发生', meaning: '日本谚语（心配事は大抵起こらない）。大脑为应对威胁而预演灾难，但绝大多数忧虑从未实现。别让虚构的未来消耗此刻的能量。',
+    poem: '心配事は大抵起こらない', cn: '担心的事大多不会发生', meaning: '日本谚语（心配事は大抵起こらない）。大脑为应对威胁而预演灾难，但绝大多数忧虑从未实现。别让虚构的未来消耗此刻的能量。',
     source: '日本·谚语||日本谚语（Japanese Proverb）' },
   { cat: 'anxious', num: 705,
-    poem: "Qui s'inquiète mal vit", cn: '忧虑者难安', meaning: '法语谚语。焦虑会偷走当下的氧气，让你在安全的环境中也无法呼吸。学着把注意力从未来拉回此刻。',
+    poem: "Qui s'inquiète mal vit", cn: '忧虑者难安',     meaning: '焦虑会偷走当下的氧气，让你在安全的环境中也无法呼吸。学着把注意力从未来拉回此刻。',
     source: '法国·谚语||法国谚语（French Proverb）' },
   { cat: 'lonely', num: 703,
-    poem: 'Hitori de aruku michi mo, yagate wa dareka to majiwari', cn: '独行之路终会与人交汇', meaning: '日本谚语（一人で歩く道も、やがては誰かと交わる）。孤独是阶段性的，不是永久的。你走过的每一步，都在靠近那个愿意与你同行的人。',
+    poem: '一人で歩く道も、やがては誰かと交わる', cn: '独行之路终会与人交汇',     meaning: '孤独是阶段性的，不是永久的。你走过的每一步，都在靠近那个愿意与你同行的人。',
     source: '日本·谚语||日本谚语（Japanese Proverb）' },
   { cat: 'lonely', num: 704,
-    poem: 'Ein Freund ist jemand, der die Melodie in dir kennt und sie dir vorsingt, wenn du sie vergessen hast', cn: '朋友是那个记得你内心旋律的人', meaning: '德国谚语。真正的连接不在于数量，而在于有人了解你内心的节奏。被理解，是孤独最深处的解药。',
+    poem: 'Ein Freund ist jemand, der die Melodie in dir kennt und sie dir vorsingt, wenn du sie vergessen hast', cn: '朋友是那个记得你内心旋律的人',     meaning: '真正的连接不在于数量，而在于有人了解你内心的节奏。被理解，是孤独最深处的解药。',
     source: '德国·谚语||德国谚语（German Proverb）' },
   { cat: 'calm', num: 703,
-    poem: 'Stille ist die höchste Form der Kraft', cn: '静默是最高形式的力量', meaning: '德国谚语。安静时大脑进入修复模式，压力激素下降，免疫细胞活跃。沉默不是空虚，是给身体充电。',
+    poem: 'Stille ist die höchste Form der Kraft', cn: '静默是最高形式的力量',     meaning: '安静时大脑进入修复模式，压力激素下降，免疫细胞活跃。沉默不是空虚，是给身体充电。',
     source: '德国·谚语||德国谚语（German Proverb）' },
   { cat: 'calm', num: 704,
-    poem: 'Ruhig Blut, klarer Kopf', cn: '心静则智明', meaning: '德国谚语。情绪平稳时前额叶皮层最活跃，判断力和创造力都会提升。冷静不只是态度，是大脑的最佳工作状态。',
+    poem: 'Ruhig Blut, klarer Kopf', cn: '心静则智明',     meaning: '情绪平稳时前额叶皮层最活跃，判断力和创造力都会提升。冷静不只是态度，是大脑的最佳工作状态。',
     source: '德国·谚语||德国谚语（German Proverb）' },
   { cat: 'calm', num: 705,
-    poem: 'Dar sokoot, khoda harf mizanad', cn: '静默中自有回响', meaning: '波斯谚语。安静不是空白，是内心秩序的重建。在沉默中，身体会找到自己的节奏。',
+    poem: 'در سکوت، خدا حرف میزند', cn: '静默中自有回响',     meaning: '安静不是空白，是内心秩序的重建。在沉默中，身体会找到自己的节奏。',
     source: '波斯·谚语||波斯谚语（Persian Proverb）' },
   { cat: 'happy', num: 705,
-    poem: 'Dum vivimus, vivamus', cn: '活着就要好好活', meaning: '古罗马谚语。生命短暂，尽情享受当下。快乐不需要理由，活着本身就是最好的理由。',
+    poem: 'Dum vivimus, vivamus', cn: '活着就要好好活',     meaning: '生命短暂，尽情享受当下。快乐不需要理由，活着本身就是最好的理由。',
     source: '古罗马·哲学||伊壁鸠鲁（Epicurus）' },
   { cat: 'happy', num: 706,
-    poem: 'La vida es bella', cn: '生活是美好的', meaning: '西班牙谚语。即使身处逆境，也要学会发现美。大脑在感恩时释放多巴胺，让快乐成为日常习惯。',
+    poem: 'La vida es bella', cn: '生活是美好的',     meaning: '即使身处逆境，也要学会发现美。大脑在感恩时释放多巴胺，让快乐成为日常习惯。',
     source: '西班牙·谚语||西班牙谚语（Spanish Proverb）' },
   { cat: 'happy', num: 707,
-    poem: 'Jeevan ek utsav hai', cn: '生命是一场庆典', meaning: '印度谚语。活着本身就值得庆祝，每一次心跳都是身体给你的礼物。',
+    poem: 'जीवन एक उत्सव है', cn: '生命是一场庆典',     meaning: '活着本身就值得庆祝，每一次心跳都是身体给你的礼物。',
     source: '印度·谚语||印度谚语（Indian Proverb）' },
   { cat: 'sad', num: 706,
-    poem: 'Anche la notte più bua ha una fine', cn: '最暗的夜也有尽头', meaning: '意大利谚语。悲伤不会永驻，大脑的杏仁核会随时间自我调节，黎明总会到来。',
+    poem: 'Anche la notte più bua ha una fine', cn: '最暗的夜也有尽头',     meaning: '悲伤不会永驻，大脑的杏仁核会随时间自我调节，黎明总会到来。',
     source: '意大利·谚语||意大利谚语（Italian Proverb）' },
   { cat: 'sad', num: 707,
-    poem: 'Utro vechera mudrenee', cn: '早晨比夜晚更清醒', meaning: '俄罗斯谚语（Утро вечера мудренее）。夜晚的悲伤到了清晨往往会减轻，睡眠能重置情绪回路，让大脑重新出发。',
+    poem: 'Утро вечера мудренее', cn: '早晨比夜晚更清醒',     meaning: '夜晚的悲伤到了清晨往往会减轻，睡眠能重置情绪回路，让大脑重新出发。',
     source: '俄罗斯·谚语||俄罗斯谚语（Russian Proverb）' },
   { cat: 'sad', num: 708,
-    poem: 'La tristesse dure plus que la joie', cn: '悲伤比快乐更持久', meaning: '法国谚语。悲伤确实停留更久，但正因如此，每一次快乐都弥足珍贵。大脑会记住快乐的瞬间，并在低谷时调用这些记忆。',
+    poem: 'La tristesse dure plus que la joie', cn: '悲伤比快乐更持久',     meaning: '悲伤确实停留更久，但正因如此，每一次快乐都弥足珍贵。大脑会记住快乐的瞬间，并在低谷时调用这些记忆。',
     source: '法国·谚语||法国谚语（French Proverb）' },
   { cat: 'angry', num: 705,
-    poem: 'La colera è cattiva consigliera', cn: '愤怒是坏军师', meaning: '意大利谚语。愤怒时前额叶被抑制，决策质量骤降。等愤怒的生理高峰过去再行动，是对自己最好的保护。',
+    poem: 'La colera è cattiva consigliera', cn: '愤怒是坏军师',     meaning: '愤怒时前额叶被抑制，决策质量骤降。等愤怒的生理高峰过去再行动，是对自己最好的保护。',
     source: '意大利·谚语||意大利谚语（Italian Proverb）' },
   { cat: 'angry', num: 706,
-    poem: 'Gnev — vrag cheloveka', cn: '愤怒是人的敌人', meaning: '俄罗斯谚语（Гнев — враг человека）。愤怒攻击的是自己的身体，血压升高、心跳加速。放下怒气，就是保护自己的心脏。',
+    poem: 'Гнев — враг человека', cn: '愤怒是人的敌人',     meaning: '愤怒攻击的是自己的身体，血压升高、心跳加速。放下怒气，就是保护自己的心脏。',
     source: '俄罗斯·谚语||俄罗斯谚语（Russian Proverb）' },
   { cat: 'angry', num: 707,
-    poem: 'Al-ghadab yebtedi bajasour wa yantahee banasr', cn: '怒气始于愚者终于悔', meaning: '阿拉伯谚语。愤怒让人做出后悔的决定。忍过九十秒的生理高峰，理性就会回来掌舵。',
+    poem: 'الغضب يبدأ بجنون وينتهي بندم', cn: '怒气始于愚者终于悔',     meaning: '愤怒让人做出后悔的决定。忍过九十秒的生理高峰，理性就会回来掌舵。',
     source: '阿拉伯·谚语||阿拉伯谚语（Arabic Proverb）' },
   { cat: 'anxious', num: 706,
-    poem: 'O que há de ser, será', cn: '该来的终会来', meaning: '葡萄牙谚语。焦虑是对未来的恐惧，但大部分担忧从未发生。把注意力拉回此刻，身体会跟着放松。',
+    poem: 'O que há de ser, será', cn: '该来的终会来',     meaning: '焦虑是对未来的恐惧，但大部分担忧从未发生。把注意力拉回此刻，身体会跟着放松。',
     source: '葡萄牙·谚语||葡萄牙谚语（Portuguese Proverb）' },
   { cat: 'anxious', num: 707,
-    poem: 'Kavmiko seme, mwen kontan', cn: '少担忧多安心', meaning: '海地谚语。担忧偷走当下的平静，深呼吸能激活副交感神经，让身体从紧张模式切换到休息模式。',
+    poem: 'Kavmiko seme, mwen kontan', cn: '少担忧多安心',     meaning: '担忧偷走当下的平静，深呼吸能激活副交感神经，让身体从紧张模式切换到休息模式。',
     source: '海地·谚语||海地谚语（Haitian Proverb）' },
   { cat: 'anxious', num: 708,
-    poem: 'Il meglio è nemico del bene', cn: '追求完美反伤已有', meaning: '意大利谚语。完美主义是焦虑的温床，接受「足够好」能让大脑松一口气，降低皮质醇水平。',
+    poem: 'Il meglio è nemico del bene', cn: '追求完美反伤已有',     meaning: '完美主义是焦虑的温床，接受「足够好」能让大脑松一口气，降低皮质醇水平。',
     source: '意大利·谚语||意大利谚语（Italian Proverb）' },
   { cat: 'lonely', num: 705,
-    poem: 'La solitude est la patrie des forts', cn: '孤独是强者的故乡', meaning: '法国谚语。独处时大脑进入默认模式网络，创造力与自我认知都会提升。孤独不是缺失，是另一种丰盛。',
+    poem: 'La solitude est la patrie des forts', cn: '孤独是强者的故乡',     meaning: '独处时大脑进入默认模式网络，创造力与自我认知都会提升。孤独不是缺失，是另一种丰盛。',
     source: '法国·文学||阿尔贝·加缪（Albert Camus）' },
   { cat: 'lonely', num: 706,
-    poem: 'Al-wahid la yastaqil', cn: '独行者未必孤单', meaning: '阿拉伯谚语。一个人行走也能走得远，内心丰富的人不会因独处而枯萎。',
+    poem: 'الواحد لا يستقل', cn: '独行者未必孤单',     meaning: '一个人行走也能走得远，内心丰富的人不会因独处而枯萎。',
     source: '阿拉伯·谚语||阿拉伯谚语（Arabic Proverb）' },
   { cat: 'lonely', num: 707,
-    poem: 'Stilstand ist auch eine Bewegung', cn: '静止也是一种运动', meaning: '德国谚语。在孤独中静下来，身体在默默修复。不急于寻找陪伴，也是一种对自己的善待。',
+    poem: 'Stilstand ist auch eine Bewegung', cn: '静止也是一种运动',     meaning: '在孤独中静下来，身体在默默修复。不急于寻找陪伴，也是一种对自己的善待。',
     source: '德国·哲学||德国谚语（German Proverb）' },
   { cat: 'calm', num: 706,
-    poem: 'Chisoku wa hoka ni arazu, jibun no kokoro ni arikere', cn: '知足不在他方，就在自己心中', meaning: '日本谚语（知足は他にあらず、自分の心にありけれ）。平静不依赖外物，大脑在满足感中释放血清素，让内心安定如水。',
+    poem: '知足は他にあらず、自分の心にありけれ', cn: '知足不在他方，就在自己心中',     meaning: '平静不依赖外物，大脑在满足感中释放血清素，让内心安定如水。',
     source: '日本·文学||鸭长明（Kamo no Chōmei）' },
   { cat: 'calm', num: 707,
-    poem: 'Qui ne s\'agite point ne se trompe point', cn: '不急则不误', meaning: '法国谚语。急躁时容易犯错，慢下来让前额叶重新掌舵，身体和决策都会感谢你。',
+    poem: 'Qui ne s\'agite point ne se trompe point', cn: '不急则不误',     meaning: '急躁时容易犯错，慢下来让前额叶重新掌舵，身体和决策都会感谢你。',
     source: '法国·谚语||法国谚语（French Proverb）' },
   { cat: 'calm', num: 708,
-    poem: 'Aquietarse es sabiduría', cn: '安静是智慧', meaning: '西班牙谚语。安静不是无所作为，是给大脑留出空间去整合信息。沉默中做出的决定，往往比冲动时更明智。',
+    poem: 'Aquietarse es sabiduría', cn: '安静是智慧',     meaning: '安静不是无所作为，是给大脑留出空间去整合信息。沉默中做出的决定，往往比冲动时更明智。',
     source: '西班牙·谚语||西班牙谚语（Spanish Proverb）' },
 ];
 
