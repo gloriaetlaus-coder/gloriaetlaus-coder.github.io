@@ -785,7 +785,7 @@ body::after {
   line-height: 1.4;
   font-weight: 600;
   font-style: italic;
-  font-synthesis: weight;  /* 禁止合成粗体，允许合成斜体 */
+  font-synthesis: none;  /* 禁止字体合成，斜体由 transform:skewX 实现 */
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
@@ -818,7 +818,7 @@ body::after {
   letter-spacing: 1px;
   font-weight: 700;
   font-style: italic;
-  font-synthesis: weight;  /* 禁止合成粗体（确保每字粗细一致），但允许合成斜体 */
+  font-synthesis: none;  /* 禁止字体合成，斜体由 transform:skewX 实现 */
   max-width: 100%;
   box-sizing: border-box;
   overflow-wrap: break-word;
@@ -963,7 +963,7 @@ body::after {
   text-align: center;
   letter-spacing: 0.5px;
   font-weight: 700;
-  font-synthesis: weight;  /* 禁止合成粗体，每字粗细一致；允许斜体合成 */
+  font-synthesis: none;  /* 禁止字体合成，斜体由 transform:skewX 实现 */
   font-family: var(--font-cn);
   font-style: italic;
   opacity: 0;
@@ -997,6 +997,7 @@ body::after {
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
+  transform: skewX(-8deg);  /* 宋体无原生斜体字形，用 transform 物理倾斜实现斜体效果 */
 }
 
 /* 中文直译 — 银白渐变 + shimmer 扫光 */
@@ -1007,14 +1008,12 @@ body::after {
   text-align: center;
   letter-spacing: 1px;
   font-weight: 700;
-  font-synthesis: weight;  /* 禁止合成粗体，允许合成斜体 */
+  font-synthesis: none;  /* 禁止字体合成，斜体由 transform:skewX 实现 */
   font-family: var(--font-cn);
   font-style: italic;
   opacity: 0;
   overflow-wrap: break-word;
   word-break: keep-all;
-  max-width: 100%;
-  box-sizing: border-box;
   position: relative;
   overflow: visible;
   padding: 4px 16px 8px;
@@ -1042,7 +1041,7 @@ body::after {
   text-align: center;
   letter-spacing: 0;
   font-weight: 700;
-  font-synthesis: weight;  /* 禁止合成粗体，允许合成斜体 */
+  font-synthesis: none;  /* 禁止字体合成，斜体由 transform:skewX 实现 */
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
   font-style: italic;
   opacity: 0;
