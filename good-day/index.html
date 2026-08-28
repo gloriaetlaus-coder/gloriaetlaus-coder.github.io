@@ -2490,13 +2490,24 @@ function renderShowAll() {
     container.appendChild(card);
   });
 
-  // 替换 app 内容
-  const app = document.getElementById('app');
+  // 替换 app 内容（页面用 class="app" 而非 id="app"）
+  const app = document.querySelector('.app');
   if (app) {
-    app.style.cssText = 'background:#f8f6fb;min-height:100vh;';
+    app.style.cssText = 'background:#f8f6fb;min-height:100vh;display:block !important;';
     app.innerHTML = '';
     app.appendChild(container);
+  } else {
+    // 如果找不到 .app，直接添加到 body
+    document.body.innerHTML = '';
+    document.body.appendChild(container);
   }
+  // 隐藏 header（slogan 区）
+  const header = document.querySelector('.header');
+  if (header) header.style.display = 'none';
+  const meteor = document.querySelector('.meteor-container');
+  if (meteor) meteor.style.display = 'none';
+  const toast = document.getElementById('toast');
+  if (toast) toast.style.display = 'none';
   document.body.style.background = '#f8f6fb';
   document.title = '语料审查 · 今朝·Good day';
   return true;
