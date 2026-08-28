@@ -785,8 +785,7 @@ body::after {
   line-height: 1.4;
   font-weight: 600;
   font-style: italic;
-  font-synthesis: none;
-  opacity: 0;
+  font-synthesis: weight;  /* 禁止合成粗体，允许合成斜体 */
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
@@ -819,7 +818,7 @@ body::after {
   letter-spacing: 1px;
   font-weight: 700;
   font-style: italic;
-  font-synthesis: none;  /* 禁止浏览器合成粗体，确保每字粗细一致 */
+  font-synthesis: weight;  /* 禁止合成粗体（确保每字粗细一致），但允许合成斜体 */
   max-width: 100%;
   box-sizing: border-box;
   overflow-wrap: break-word;
@@ -964,7 +963,7 @@ body::after {
   text-align: center;
   letter-spacing: 0.5px;
   font-weight: 700;
-  font-synthesis: none;  /* 禁止合成粗体，每字粗细一致 */
+  font-synthesis: weight;  /* 禁止合成粗体，每字粗细一致；允许斜体合成 */
   font-family: var(--font-cn);
   font-style: italic;
   opacity: 0;
@@ -1008,7 +1007,7 @@ body::after {
   text-align: center;
   letter-spacing: 1px;
   font-weight: 700;
-  font-synthesis: none;
+  font-synthesis: weight;  /* 禁止合成粗体，允许合成斜体 */
   font-family: var(--font-cn);
   font-style: italic;
   opacity: 0;
@@ -1043,7 +1042,7 @@ body::after {
   text-align: center;
   letter-spacing: 0;
   font-weight: 700;
-  font-synthesis: none;
+  font-synthesis: weight;  /* 禁止合成粗体，允许合成斜体 */
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
   font-style: italic;
   opacity: 0;
@@ -1906,7 +1905,7 @@ const FORTUNES = [
     source: '德国·谚语||德国谚语（German Proverb）' , hidden: true},
   { cat: 'angry', num: 704,
     poem: '怒りは身を滅ぼす', cn: '怒气毁自身',     meaning: '愤怒时血压飙升、血管收缩，长期积怒会损害心血管。及时释怀，是给身体最好的保护。',
-    source: '日本·谚语||日本谚语（Japanese Proverb）' },
+    source: '日本·谚语||日本谚语（Japanese Proverb）', hidden: true },
   { cat: 'anxious', num: 703,
     poem: 'Sorgen machen graue Haare', cn: '忧虑催人老',     meaning: '长期焦虑加速细胞老化，压力激素让头发变白。放下担忧，就是给身体按下暂停键。',
     source: '德国·谚语||德国谚语（German Proverb）' },
