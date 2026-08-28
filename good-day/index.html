@@ -96,8 +96,15 @@ html, body {
     linear-gradient(165deg, var(--bg-1) 0%, var(--bg-2) 55%, var(--bg-3) 100%);
   min-height: 100vh;
   overflow-x: hidden;
+  scroll-behavior: auto;  /* 禁止 smooth scroll，防止移动端地址栏收起时自动滚动 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* 强制移动端打开时从顶端开始，不偏移 */
+@media (max-width: 600px) {
+  html { scroll-behavior: auto; }
+  body { scroll-behavior: auto; }
 }
 
 /* ====================================================
@@ -932,14 +939,27 @@ body::after {
   margin: 0;
   font-size: 13px;
   line-height: 1.5;
-  color: var(--text-soft);
+  color: #8B7AA6;  /* 浅紫色，与首页提示语相近，可读性好 */
   text-align: center;
   letter-spacing: 0.5px;
   opacity: 0;
-  animation: fadeUp 0.5s 0.5s forwards;
+  animation: fadeUp 0.5s 0.5s forwards, meaning-breathe 5s ease-in-out 1s infinite;
+  text-shadow: 0 0 6px rgba(184, 164, 220, 0.3);  /* 微弱案光 */
   font-family: var(--font-cn);
   font-weight: 600;
   padding: 0 14px;  /* 两侧留白防止截断 */
+}
+
+/* 释义专属：极克制呼吸发光，不加漂浮，只微调 text-shadow + opacity */
+@keyframes meaning-breathe {
+  0%, 100% {
+    text-shadow: 0 0 6px rgba(184, 164, 220, 0.25);
+    opacity: 0.88;
+  }
+  50% {
+    text-shadow: 0 0 10px rgba(184, 164, 220, 0.45), 0 0 18px rgba(200, 180, 235, 0.15);
+    opacity: 1;
+  }
 }
 
 /* 中文主题词 — 斜体+发光由 .skew-wrap 统一处理，此处仅保留排版属性 */
@@ -1446,7 +1466,7 @@ body::after {
   .sign-literal { font-size: clamp(22px, 6.5vw, 28px); }  /* 手机端直译增大 */
   .sign-cn-en { font-size: 28px; }  /* 手机端外文副题增大 */
   .sign-cn-en.sub { font-size: 28px; }  /* 手机端翻译副题与 .sign-cn-en 统一 */
-  .sign-meaning { font-size: 15px; color: #4A3A65; font-weight: 700; }  /* 手机端释义字号+字重增大 */
+  .sign-meaning { font-size: 15px; color: #8B7AA6; font-weight: 700; }  /* 手机端释义字号+字重增大，颜色与PC统一浅紫 */
   .sign-source { font-size: 12px; }  /* 手机端出处 11→12px */
   .sign-tip { font-size: 13px; }  /* 手机端提示 12→13px */
   .sign-brand { font-size: 11px; }  /* 手机端品牌 10→11px */
@@ -1460,7 +1480,7 @@ body::after {
   .title { font-size: 36px; padding: 8px 20px 4px 12px; }
   .title-sub { font-size: 36px; margin-top: 2px; letter-spacing: 4px; padding: 4px 4px 2px 14px; }
   .title-halo { width: 260px; height: 120px; }
-  .mood-chip { font-size: 12px; padding: 8px 13px; }
+  .mood-chip { font-size: 16px; padding: 8px 13px; }  /* 手机端情绪按钮字号 12→16px(1.3倍)，只改字号 */
   .stage { margin-top: 8px; }  /* 中卡间距 13→8px 缩小约0.13cm */
   .sign-card-outer { max-width: min(94vw, 320px); height: min(84vh, 640px); }
   .sign-face.back { padding: 18px 14px 16px; }
@@ -2569,6 +2589,8 @@ function renderShowAll() {
 }
 
 function init() {
+  // 强制移动端从顶端开始，防止地址栏收起时自动偏移滚动
+  window.scrollTo(0, 0);
   // 全量测试模式优先
   if (checkShowAllMode()) {
     renderShowAll();
