@@ -2017,7 +2017,10 @@ function getCountry(sign) {
   return part.split('·')[0].trim();
 }
 
-/* 国家轮换抽取：优先从与上次不同的国家池中抽取 */
+/* 国家轮换抽取：连续两次抽取的卡片必须来自不同国家
+    - 任意牌 pickSign / 情绪牌 pickSignByMood 共用 state.lastCountry
+    - 优先从「非上次国家」池中抽取
+    - 若候选池全为同一国家（无法规避），才允许同国家，但尽量少出现 */
 function pickSign() {
   const safePool = FORTUNES.filter(f => isSignSafe(f));
   // 如果有上次国家记录，先尝试从不同国家的卡片中抽取
@@ -2029,7 +2032,7 @@ function pickSign() {
       return pick;
     }
   }
-  // 退化为纯随机
+  // 退化：全池随机（仅当 diffPool 为空，即池内全是同一国家时）
   const pick = safePool[Math.floor(Math.random() * safePool.length)];
   state.lastCountry = getCountry(pick);
   return pick;
@@ -2058,8 +2061,16 @@ function pickSignByMood(mood) {
       state.lastCountry = getCountry(pick);
       return pick;
     }
+    // 该情绪池内所有卡片均为上次国家 → 跨池随机（保证国家不重复优先于情绪）
+    const safePool = FORTUNES.filter(f => isSignSafe(f));
+    const globalDiff = safePool.filter(f => getCountry(f) !== state.lastCountry);
+    if (globalDiff.length > 0) {
+      const pick = globalDiff[Math.floor(Math.random() * globalDiff.length)];
+      state.lastCountry = getCountry(pick);
+      return pick;
+    }
   }
-  // 退化：同国家池内随机
+  // 退化：同情绪池内随机（仅当无任何其他国家的卡片可选时）
   const pick = pool[Math.floor(Math.random() * pool.length)];
   state.lastCountry = getCountry(pick);
   return pick;
@@ -2622,12 +2633,9 @@ function renderReviewMode() {
   if (toast) toast.style.display = 'none';
 
   const hiddenMap = loadReviewHidden();
-  // 预先决定每张卡的「初始是否已隐藏」：已有 hidden:true 标记的卡默认视为有问题
-  FORTUNES.forEach(f => {
-    const k = signKey(f);
-    if (f.hidden && hiddenMap[k] === undefined) hiddenMap[k] = true;
-  });
-  saveReviewHidden(hiddenMap);
+  // 注意：所有卡片一律从第 1 张开始，由人工逐张确认。
+  // 语料库中已有 hidden:true 标记的卡片（超长/高危）不在此处自动计入已处理，
+  // 是否隐藏完全由人工在审核中决定。进度从 0 开始。
 
   const app = document.querySelector('.app');
   if (!app) return;
