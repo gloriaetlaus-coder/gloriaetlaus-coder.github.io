@@ -2644,8 +2644,8 @@ function init() {
    - 每张卡片：真实预览效果 + 「没问题」/「有问题请隐藏」按钮
    - 决策存 localStorage，刷新不丢失
    ==================================================== */
-const REVIEW_KEY = 'sisterSign.review.hidden.v3';
-// v3：升级存储键，让一期一会(happy/703)重新回到待审核列表
+const REVIEW_KEY = 'sisterSign.review.hidden.v4';
+// v4：强制清空旧版审核记录，每次进入审核模式必须从第1张开始，不允许跳过已审核过的卡片
 
 function checkReviewMode() {
   const params = new URLSearchParams(location.search);
@@ -2679,7 +2679,10 @@ function renderReviewMode() {
   const toast = document.getElementById('toast');
   if (toast) toast.style.display = 'none';
 
-  const hiddenMap = loadReviewHidden();
+  // 强制从第1张开始：每次进入审核模式，清空 localStorage 中的审核记录
+  // 用户要求：每次审核必须从头到尾亲自看一遍，不允许自动跳过
+  localStorage.removeItem(REVIEW_KEY);
+  const hiddenMap = {};
   // 注意：所有卡片一律从第 1 张开始，由人工逐张确认。
   // 语料库中已有 hidden:true 标记的卡片（超长/高危）不在此处自动计入已处理，
   // 是否隐藏完全由人工在审核中决定。进度从 0 开始。
