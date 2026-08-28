@@ -777,7 +777,11 @@ body::after {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite, title-breathe 4.5s ease-in-out 0.55s infinite;
+  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
+  filter:
+    drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
+    drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
+    drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
 }
 
@@ -806,8 +810,13 @@ body::after {
   padding: 4px 24px 8px;  /* 两侧留白 24px 防止截断 */
   position: relative;
   overflow: visible;
-  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite, title-breathe 4.5s ease-in-out 0.55s infinite;
+  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
+  filter:
+    drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
+    drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
+    drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
 }
+
 /* 移除旧的伪元素扫光效果 — 已改用 background-position shimmer 统一 */
 .sign-poem.sign-poem-cn::after,
 .sign-cn::after,
@@ -939,7 +948,11 @@ body::after {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite, title-breathe 4.5s ease-in-out 0.55s infinite;
+  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
+  filter:
+    drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
+    drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
+    drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
 }
 
 .skew-wrap {
@@ -949,7 +962,7 @@ body::after {
   text-align: center;
 }
 
-/* 中文直译 — 银白渐变 + shimmer + 呼吸发光 */
+/* 中文直译 — 银白渐变 + shimmer 扫光 */
 .sign-literal {
   margin: 10px 0 0;
   font-size: clamp(20px, 6.5vw, 26px);
@@ -977,7 +990,11 @@ body::after {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.58s forwards, cn-shimmer 6s linear 0.58s infinite, title-breathe 4.5s ease-in-out 0.58s infinite;
+  animation: fadeUp 0.5s 0.58s forwards, cn-shimmer 6s linear 0.58s infinite;
+  filter:
+    drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
+    drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
+    drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
 }
 
 .sign-cn-en {
@@ -1004,11 +1021,15 @@ body::after {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite, title-breathe 4.5s ease-in-out 0.55s infinite;
+  animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
+  filter:
+    drop-shadow(0 0 4px rgba(160, 140, 210, 0.85))
+    drop-shadow(0 0 10px rgba(140, 120, 190, 0.55))
+    drop-shadow(0 1px 2px rgba(80, 60, 140, 0.3));
   padding: 4px 16px 8px;
 }
 
-/* 中文诗的原文副题 — 银白渐变 + shimmer + 呼吸发光 */
+/* 中文诗的原文副题 — 银白渐变 + shimmer 扫光 */
 .sign-cn-en.sub {
   font-size: clamp(18px, 5vw, 24px);
   font-weight: 800;
@@ -1022,7 +1043,11 @@ body::after {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.5s 0.58s forwards, poem-silver-shimmer 6s linear 0.58s infinite, title-breathe 4.5s ease-in-out 0.58s infinite;
+  animation: fadeUp 0.5s 0.58s forwards, poem-silver-shimmer 6s linear 0.58s infinite;
+  filter:
+    drop-shadow(0 0 5px rgba(180, 160, 230, 0.7))
+    drop-shadow(0 0 12px rgba(160, 140, 210, 0.4))
+    drop-shadow(0 1px 2px rgba(120, 100, 170, 0.2));
 }
 
 .sign-tip {
