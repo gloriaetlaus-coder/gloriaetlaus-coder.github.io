@@ -2141,8 +2141,9 @@ function renderSign(sign) {
   // 主题词视觉标准（66 张旧卡片）：
   //   大标题 = 银色发光衬线（英文）或 银色发光宋体（中文诗）→ 34px/700/italic + shimmer
   //   副题   = 浅紫宋体（中文）或 浅紫衬线（英文翻译）→ clamp(24px,6vw,34px)
-  // 中文字符判定：包含 CJK 统一表意文字才算中文，法语/拉丁等非 ASCII 不算
-  const poemIsCn = /[\u4e00-\u9fff]/.test(sign.poem);
+  // 中文字符判定：包含 CJK 统一表意文字且不含日文假名（平假名/片假名）才算中文
+  // 日文汉字虽在 CJK 范围内，但含假名 → 视为外文，中文翻译 cn 放上方
+  const poemIsCn = /[\u4e00-\u9fff]/.test(sign.poem) && !/[\u3040-\u30ff]/.test(sign.poem);
   // 中文诗 → 银白大标题样式（宋体）；英文诗 → 银白衬线大标题样式
   const poemClass = poemIsCn ? 'sign-poem sign-poem-cn' : 'sign-poem english';
   const joinSegs = (segs, useBr = false) => segs.map(seg => `<span class="seg">${seg}</span>`)
@@ -2614,14 +2615,12 @@ function init() {
     drawSign();
   });
 
-  // 人工审核入口按钮：仅审核模式显示，正常预览模式隐藏
+  // 人工审核入口按钮：正常预览模式与审核模式均显示
   const reviewBtn = document.getElementById('review-entry-btn');
   if (reviewBtn) {
     reviewBtn.addEventListener('click', () => {
       location.href = location.pathname + '?review=true';
     });
-    // 正常预览模式下隐藏审核按钮
-    reviewBtn.style.display = 'none';
   }
 
   // 情绪入口：点击推荐对应签文
