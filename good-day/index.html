@@ -1605,7 +1605,7 @@ const FORTUNES = [
     poem: 'Crying Is Healing', cn: '哭泣疗愈', meaning: '眼泪会带走一部分压力激素，哭泣是生理性的排毒。哭完后的轻盈感，是身体通过眼泪在减压。',
     source: '美国·进化心理学||威廉·弗雷（William Frey）' },
   { cat: 'sad', num: 202,
-    poem: 'This too shall pass', cn: '这一切也会过去', meaning: '情绪如波浪，有其涨落周期。再艰难的时刻，也不会永远停在同一深度。',
+    poem: 'This too shall pass', cn: '一切都会过去', meaning: '情绪如波浪，有其涨落周期。再艰难的时刻，也不会永远停在同一深度。',
     source: '波斯·谚语||波斯谚语（Persian Proverb）' },
   { cat: 'sad', num: 203,
     poem: '往者不可谏，来者犹可追', cn: 'Past gone, future yours', meaning: '已经过去的事情无法挽回，未来的日子还来得及把握。别把精力耗在“如果当初”上。',
@@ -2713,12 +2713,13 @@ function renderReviewMode() {
   bar.appendChild(barInner);
   app.appendChild(bar);
 
-  // 卡片区
+  // 卡片区（单卡切换：点「没问题/有问题」后立即切换下一张，无动效）
   const listWrap = document.createElement('div');
-  listWrap.style.cssText = 'max-width:560px;margin:0 auto;padding:20px 16px 80px;display:flex;flex-direction:column;gap:24px;';
+  listWrap.style.cssText = 'max-width:560px;margin:0 auto;padding:20px 16px 80px;display:flex;flex-direction:column;gap:16px;';
 
   const total = FORTUNES.length;
   let processed = 0;
+  let currentIdx = 0; // 当前展示的卡片在 FORTUNES 中的下标（跳过已决策的）
 
   const updateProgress = () => {
     processed = 0;
@@ -2733,93 +2734,72 @@ function renderReviewMode() {
     }
   };
 
-  const rebuildList = () => {
-    const scrollY = window.scrollY;   // 重建前记录滚动位置
-    listWrap.innerHTML = '';
-    FORTUNES.forEach((fn, idx) => {
-      const k = signKey(fn);
-      const decided = hiddenMap[k] !== undefined;
-      const isHidden = hiddenMap[k] === true;
-      const wrap = document.createElement('div');
-      wrap.id = 'review-card-' + idx;
-      wrap.style.cssText = 'display:flex;flex-direction:column;gap:8px;';
-
-      // 卡片编号条
-      const info = document.createElement('div');
-      info.style.cssText = 'display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#9a8bbf;font-family:-apple-system,"PingFang SC",sans-serif;';
-      const num = document.createElement('span');
-      num.textContent = `#${idx + 1} / ${total}  [${fn.cat}] ${fn.num}`;
-      const status = document.createElement('span');
-      if (decided) {
-        status.textContent = isHidden ? '❌ 已隐藏' : '✅ 已通过';
-        status.style.cssText = 'font-weight:700;color:' + (isHidden ? '#c0392b' : '#27ae60') + ';';
-      } else {
-        status.textContent = '⏳ 待检查';
-        status.style.cssText = 'font-weight:600;color:#9a8a9f;';
-      }
-      info.appendChild(num);
-      info.appendChild(status);
-      wrap.appendChild(info);
-
-      // 真实卡片渲染（复用 renderSign 完整 HTML）
-      const cardHost = document.createElement('div');
-      cardHost.style.cssText = 'position:relative;width:100%;max-width:320px;margin:0 auto;';
-      // 直接放入 renderSign 的 HTML（.sign-face.back 的样式需要宿主提供卡片背景）
-      cardHost.innerHTML = `<div class="sign-face back" style="position:relative;inset:auto;transform:none;animation:none;display:flex;flex-direction:column;height:auto;min-height:480px;">${renderSign(fn)}</div>`;
-      // 审核模式下移除卡片自带的「复制/首页」按钮，避免与审核按钮混淆
-      const innerActions = cardHost.querySelector('.actions');
-      if (innerActions) innerActions.remove();
-      wrap.appendChild(cardHost);
-
-      // 操作按钮
-      const btns = document.createElement('div');
-      btns.style.cssText = 'display:flex;gap:10px;justify-content:center;';
-
-      const okBtn = document.createElement('button');
-      okBtn.textContent = '✓ 这张没问题';
-      okBtn.style.cssText = 'flex:1;max-width:180px;padding:10px 0;font-size:14px;font-family:-apple-system,"PingFang SC",sans-serif;color:#7e60c0;background:#fff;border:1.5px solid rgba(122,95,192,0.35);border-radius:999px;cursor:pointer;transition:all 0.2s;';
-      okBtn.addEventListener('click', () => {
-        if (hiddenMap[k] === false) return;
-        hiddenMap[k] = false;
-        saveReviewHidden(hiddenMap);
-        updateProgress();
-        rebuildList();
-      });
-
-      const badBtn = document.createElement('button');
-      badBtn.textContent = '✕ 这张有问题，请隐藏';
-      badBtn.style.cssText = 'flex:1;max-width:180px;padding:10px 0;font-size:14px;font-family:-apple-system,"PingFang SC",sans-serif;color:#fff;background:#c0392b;border:none;border-radius:999px;cursor:pointer;transition:all 0.2s;';
-      badBtn.addEventListener('click', () => {
-        hiddenMap[k] = true;
-        saveReviewHidden(hiddenMap);
-        updateProgress();
-        rebuildList();
-      });
-
-      // 已决策的卡片视觉反馈
-      if (decided) {
-        cardHost.style.opacity = isHidden ? '0.45' : '1';
-        cardHost.style.filter = isHidden ? 'grayscale(0.7)' : 'none';
-        okBtn.style.background = !isHidden ? '#27ae60' : '#fff';
-        okBtn.style.color = !isHidden ? '#fff' : '#27ae60';
-        okBtn.style.borderColor = !isHidden ? '#27ae60' : 'rgba(122,95,192,0.35)';
-        badBtn.style.background = isHidden ? '#c0392b' : '#fff';
-        badBtn.style.color = isHidden ? '#fff' : '#c0392b';
-        badBtn.style.border = isHidden ? 'none' : '1.5px solid #c0392b';
-      }
-
-      btns.appendChild(okBtn);
-      btns.appendChild(badBtn);
-      wrap.appendChild(btns);
-      listWrap.appendChild(wrap);
-    });
+  // 找到下一张未决策的卡片下标；若没有则返回 -1
+  const nextUndecided = (from) => {
+    for (let i = from; i < total; i++) {
+      if (hiddenMap[signKey(FORTUNES[i])] === undefined) return i;
+    }
+    return -1;
   };
 
-  rebuildList();
+  const showCard = (idx) => {
+    listWrap.innerHTML = '';
+    if (idx < 0) { updateProgress(); return; }  // 全部审完
+    const fn = FORTUNES[idx];
+    const k = signKey(fn);
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:flex;flex-direction:column;gap:10px;';
+
+    // 卡片编号条
+    const info = document.createElement('div');
+    info.style.cssText = 'display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#9a8bbf;font-family:-apple-system,"PingFang SC",sans-serif;';
+    const num = document.createElement('span');
+    num.textContent = `#${idx + 1} / ${total}  [${fn.cat}] ${fn.num}`;
+    info.appendChild(num);
+    wrap.appendChild(info);
+
+    // 真实卡片渲染（复用 renderSign 完整 HTML，无动效）
+    const cardHost = document.createElement('div');
+    cardHost.style.cssText = 'position:relative;width:100%;max-width:320px;margin:0 auto;';
+    cardHost.innerHTML = `<div class="sign-face back" style="position:relative;inset:auto;transform:none;animation:none;display:flex;flex-direction:column;height:auto;min-height:480px;">${renderSign(fn)}</div>`;
+    const innerActions = cardHost.querySelector('.actions');
+    if (innerActions) innerActions.remove();
+    wrap.appendChild(cardHost);
+
+    // 操作按钮：点击后立即记录并切换到下一张，无任何动效
+    const btns = document.createElement('div');
+    btns.style.cssText = 'display:flex;gap:10px;justify-content:center;';
+
+    const okBtn = document.createElement('button');
+    okBtn.textContent = '✓ 这张没问题';
+    okBtn.style.cssText = 'flex:1;max-width:180px;padding:10px 0;font-size:14px;font-family:-apple-system,"PingFang SC",sans-serif;color:#7e60c0;background:#fff;border:1.5px solid rgba(122,95,192,0.35);border-radius:999px;cursor:pointer;';
+    okBtn.addEventListener('click', () => {
+      hiddenMap[k] = false;
+      saveReviewHidden(hiddenMap);
+      updateProgress();
+      showCard(nextUndecided(idx + 1));
+    });
+
+    const badBtn = document.createElement('button');
+    badBtn.textContent = '✕ 这张有问题，请隐藏';
+    badBtn.style.cssText = 'flex:1;max-width:180px;padding:10px 0;font-size:14px;font-family:-apple-system,"PingFang SC",sans-serif;color:#fff;background:#c0392b;border:none;border-radius:999px;cursor:pointer;';
+    badBtn.addEventListener('click', () => {
+      hiddenMap[k] = true;
+      saveReviewHidden(hiddenMap);
+      updateProgress();
+      showCard(nextUndecided(idx + 1));
+    });
+
+    btns.appendChild(okBtn);
+    btns.appendChild(badBtn);
+    wrap.appendChild(btns);
+    listWrap.appendChild(wrap);
+    // 页面顶部固定不动，无需滚动（单卡视图本身很矮）
+  };
+
   updateProgress();
   app.appendChild(listWrap);
-  // 重建后恢复滚动位置（列表高度不变，直接还原）
-  requestAnimationFrame(() => { window.scrollTo(0, scrollY); });
+  showCard(nextUndecided(0));
   return true;
 }
 
