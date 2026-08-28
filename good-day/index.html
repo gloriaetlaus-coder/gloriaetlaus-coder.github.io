@@ -785,10 +785,12 @@ body::after {
   line-height: 1.4;
   font-weight: 600;
   font-style: italic;
+  font-synthesis: none;
   opacity: 0;
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
+  text-wrap: balance;
   text-align: center;
   padding: 4px 12px 8px;  /* 两侧留白防止截断 */
   /* 银白渐变 + shimmer 扫光（与英文 slogan 一致）*/
@@ -815,12 +817,15 @@ body::after {
   font-family: var(--font-cn);
   font-size: clamp(24px, 6vw, 34px);
   letter-spacing: 1px;
-  font-weight: 800;
+  font-weight: 700;
   font-style: italic;
+  font-synthesis: none;  /* 禁止浏览器合成粗体，确保每字粗细一致 */
   max-width: 100%;
   box-sizing: border-box;
   overflow-wrap: break-word;
-  word-break: keep-all;
+  word-break: keep-all;  /* 中文不逐字拆行 */
+  white-space: normal;
+  text-wrap: balance;  /* 浏览器自动平衡换行，避免孤字 */
   width: 100%;
   background: linear-gradient(135deg,
     #FFFFFF 0%,
@@ -832,7 +837,7 @@ body::after {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  padding: 4px 24px 8px;  /* 两侧留白 24px 防止截断 */
+  padding: 4px 12px 8px;  /* 两侧留白 12px 防止截断，同时给短句更多空间 */
   position: relative;
   overflow: visible;
   animation: fadeUp 0.5s 0.55s forwards, poem-silver-shimmer 6s linear 0.55s infinite;
@@ -879,8 +884,15 @@ body::after {
 
 .seg {
   display: inline-block;
-  white-space: nowrap;
   vertical-align: top;
+}
+
+/* 中文主题词短句：允许自然换行，不强制 nowrap */
+.sign-poem.sign-poem-cn .seg {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  text-wrap: balance;
 }
 
 .sign-meaning .seg {
@@ -951,7 +963,8 @@ body::after {
   font-size: clamp(24px, 6vw, 34px);
   text-align: center;
   letter-spacing: 0.5px;
-  font-weight: 800;
+  font-weight: 700;
+  font-synthesis: none;  /* 禁止合成粗体，每字粗细一致 */
   font-family: var(--font-cn);
   font-style: italic;
   opacity: 0;
@@ -994,7 +1007,8 @@ body::after {
   line-height: 1.35;
   text-align: center;
   letter-spacing: 1px;
-  font-weight: 800;
+  font-weight: 700;
+  font-synthesis: none;
   font-family: var(--font-cn);
   font-style: italic;
   opacity: 0;
@@ -1028,7 +1042,8 @@ body::after {
   line-height: 1.35;
   text-align: center;
   letter-spacing: 0;
-  font-weight: 800;
+  font-weight: 700;
+  font-synthesis: none;
   font-family: Georgia, "Times New Roman", "Playfair Display", serif;
   font-style: italic;
   opacity: 0;
@@ -1560,7 +1575,7 @@ const FORTUNES = [
     poem: 'Serotonin Boost', cn: '血清素补充', meaning: '阳光、运动和喜欢的食物都能催生血清素。它维持情绪平稳与深度睡眠，是身体自带的稳定剂。',
     source: '人类·神经科学||剑桥大学（University of Cambridge）' },
   { cat: 'happy', num: 104,
-    poem: 'Dopamine, the Spark', cn: '多巴胺火花', meaning: '期待一件事发生的过程，多巴胺就开始分泌。把生活拆成小期待，快乐不必非要等大事。',
+    poem: 'Dopamine the Spark', cn: '多巴胺火花', meaning: '期待一件事发生的过程，多巴胺就开始分泌。把生活拆成小期待，快乐不必非要等大事。',
     source: '美国·神经科学||沃尔弗拉姆·舒尔茨（Wolfram Schultz）' },
   { cat: 'happy', num: 105,
     poem: 'Joy Spreads', cn: '快乐传染', meaning: '你笑时，身边人的镜像神经元会被激活。快乐具有天然的传染性，你的开心就是在给周围人充电。',
@@ -1593,7 +1608,7 @@ const FORTUNES = [
     poem: 'Light Up a Room', cn: '点亮房间', meaning: '窗边晒会太阳，天然蓝光启动血清素分泌。多晒十分钟，好心情自己长出来。',
     source: '人类·神经科学||哈佛医学院（Harvard Medical School）'  },
   { cat: 'happy', num: 115,
-    poem: '有朋自远方来，不亦乐乎', cn: 'Far friend, joy', meaning: '知己的到来，是生命里最直接的喜悦。连接本身，就是快乐的源泉。',
+    poem: '有朋自远方来不亦乐乎', cn: 'Far friend joy', meaning: '知己的到来，是生命里最直接的喜悦。连接本身，就是快乐的源泉。',
     source: '中国·儒学||《论语·学而》（春秋）', hidden: true  },
   { cat: 'happy', num: 201,
     poem: 'Savor the Moment', cn: '品味此刻', meaning: '快乐时停下来仔细感受十秒以上，大脑会将这段记忆存储得更深。反复回味，快乐会被拉长。',
@@ -1608,7 +1623,7 @@ const FORTUNES = [
     poem: 'This too shall pass', cn: '一切都会过去', meaning: '情绪如波浪，有其涨落周期。再艰难的时刻，也不会永远停在同一深度。',
     source: '波斯·谚语||波斯谚语（Persian Proverb）' },
   { cat: 'sad', num: 203,
-    poem: '往者不可谏，来者犹可追', cn: 'Past gone, future yours', meaning: '已经过去的事情无法挽回，未来的日子还来得及把握。别把精力耗在“如果当初”上。',
+    poem: '往者不可谏来者犹可追', cn: 'Past gone future yours', meaning: '已经过去的事情无法挽回，未来的日子还来得及把握。别把精力耗在“如果当初”上。',
     source: '中国·儒学||《论语·微子》（春秋）', hidden: true  },
   { cat: 'sad', num: 204,
     poem: 'Vulnerability Is Strength', cn: '脆弱即力量', meaning: '承认难过的人恢复得更快。允许自己像弹簧一样先压缩，才有弹回原状的余地。',
@@ -1644,10 +1659,10 @@ const FORTUNES = [
     poem: 'Art as Therapy', cn: '艺术即疗愈', meaning: '画画、捏泥、剪贴，动手创作能激活大脑的右半球。色彩和形状，是情绪最诚实的出口。',
     source: '美国·艺术治疗||美国艺术治疗协会（AATA）' },
   { cat: 'sad', num: 215,
-    poem: '行到水穷处，坐看云起时', cn: 'Water ends, clouds rise', meaning: '走到水尽头，不妨坐下来看云升起。绝境处也许正是转机，安静里藏着新的可能。',
+    poem: '行到水穷处坐看云起时', cn: 'Water ends clouds rise', meaning: '走到水尽头，不妨坐下来看云升起。绝境处也许正是转机，安静里藏着新的可能。',
     source: '中国·诗学||王维（盛唐）《终南别业》', hidden: true  },
   { cat: 'sad', num: 216,
-    poem: 'Après la pluie, le beau temps', cn: '雨过天晴',     meaning: '暴风雨过后，总是会有好天气，坏情绪也是。',
+    poem: 'Après la pluie le beau temps', cn: '雨过天晴',     meaning: '暴风雨过后，总是会有好天气，坏情绪也是。',
     source: '法国·谚语||法国谚语（French Proverb）' },
   { cat: 'sad', num: 301,
     poem: 'Move Your Body', cn: '动起来', meaning: '低落时散步十分钟，血清素就开始回升。身体动起来，情绪会跟着松动，不必等心情好再动。',
@@ -1656,13 +1671,13 @@ const FORTUNES = [
     poem: 'Write It Out', cn: '写出来', meaning: '连续写十五分钟难过的事，情绪负担会明显减轻。书写让大脑从感受切换到整理模式。',
     source: '美国·心理学||詹姆斯·彭尼贝克（James Pennebaker）' },
   { cat: 'sad', num: 303,
-    poem: '云卷云舒', cn: 'Clouds roll, clouds pass', meaning: '悲伤时，可以只是安静地坐着，看云慢慢飘过。变化是不变的规律，好心情也会随着云飘回来。',
+    poem: '云卷云舒', cn: 'Clouds roll clouds pass', meaning: '悲伤时，可以只是安静地坐着，看云慢慢飘过。变化是不变的规律，好心情也会随着云飘回来。',
     source: '中国·道学||《道德经》（春秋）', hidden: true  },
   { cat: 'sad', num: 304,
-    poem: '上善若水', cn: 'Highest good, like water', meaning: '难过时，想象自己是一滴水。水从不抗拒流动，只是静静地向前走，直到穿过最暗的峡谷。',
+    poem: '上善若水', cn: 'Highest good like water', meaning: '难过时，想象自己是一滴水。水从不抗拒流动，只是静静地向前走，直到穿过最暗的峡谷。',
     source: '中国·道学||《道德经》（春秋）', hidden: true, _deleted: true  },
   { cat: 'sad', num: 305,
-    poem: '岁寒，然后知松柏之后凋也', cn: 'Pine endures in winter', meaning: '等到天气寒冷，才知道松柏是最后凋零的。低谷里熬过的时间，都会变成你扎根的力量。',
+    poem: '岁寒然后知松柏之后凋也', cn: 'Pine endures in winter', meaning: '等到天气寒冷，才知道松柏是最后凋零的。低谷里熬过的时间，都会变成你扎根的力量。',
     source: '中国·儒学||《论语·子罕》（春秋）', hidden: true  },
   { cat: 'angry', num: 301,
     poem: 'Anger Is a Signal', cn: '愤怒是信号', meaning: '愤怒是身体在提示边界受到了触碰。先听懂信号再处理事情，比直接爆发能更有效地保护自己。',
@@ -1677,7 +1692,7 @@ const FORTUNES = [
     poem: 'Walk It Off', cn: '行走消气', meaning: '散步加速肾上腺素代谢，愤怒值会随着步数增加而下降。身体动起来，情绪就会减速。',
     source: '美国·运动心理学||运动情绪调节研究（Exercise Research）' },
   { cat: 'angry', num: 305,
-    poem: "Express, Don't Suppress", cn: '表达而非压抑', meaning: '向值得信任的人表达感受，比闷在心里更能减轻心血管负担。健康的表达本身就是一种保养。',
+    poem: "Express Don't Suppress", cn: '表达而非压抑', meaning: '向值得信任的人表达感受，比闷在心里更能减轻心血管负担。健康的表达本身就是一种保养。',
     source: '美国·健康心理学||情绪表达研究（Emotional Expression）' },
   { cat: 'angry', num: 306,
     poem: 'Boundaries Are Strength', cn: '边界即力量', meaning: '生气常提醒自己被越界的地方。划清界限，本质上是在维护自己未来的平静。',
@@ -1686,7 +1701,7 @@ const FORTUNES = [
     poem: 'Turn Anger into Energy', cn: '化怒为力', meaning: '愤怒带来的高唤醒状态可以转化为行动力。去跑步、写作或搬砖，愤怒的能量就能为你所用。',
     source: '美国·运动心理学||芝加哥大学（University of Chicago）' },
   { cat: 'angry', num: 308,
-    poem: 'Cool Down, Then Speak', cn: '冷静再开口', meaning: '愤怒时大脑供血偏向杏仁核，容易话冲口而出。等皮质醇回落，说出来的话才更接近本意。',
+    poem: 'Cool Down Then Speak', cn: '冷静再开口', meaning: '愤怒时大脑供血偏向杏仁核，容易话冲口而出。等皮质醇回落，说出来的话才更接近本意。',
     source: '人类·神经科学||加州大学洛杉矶分校（UCLA）' },
   { cat: 'angry', num: 309,
     poem: 'Shift the Scene', cn: '换一个场景', meaning: '离开让你愤怒的房间，哪怕只是去拿杯水。物理空间的改变，会强行中断愤怒的神经回路。',
@@ -1704,7 +1719,7 @@ const FORTUNES = [
     poem: '止怒莫若诗', cn: 'Poetry calms anger', meaning: '平息怒气最好的方法，是吟诗或写诗，让冲动的情绪流进字句里，代替拳头和争吵。',
     source: '中国·哲学||《管子》（先秦）', hidden: true  },
   { cat: 'angry', num: 313,
-    poem: '知止而后有定', cn: 'Stop, then stability', meaning: '愤怒起于片刻，若能在最初察觉它，就不会被它推着走。知道什么时候停下，才是力量的开始。',
+    poem: '知止而后有定', cn: 'Stop then stability', meaning: '愤怒起于片刻，若能在最初察觉它，就不会被它推着走。知道什么时候停下，才是力量的开始。',
     source: '中国·儒学||《大学》（先秦）', hidden: true  },
   { cat: 'angry', num: 314,
     poem: 'Ira furor brevis est', cn: '愤怒是短暂的疯狂',     meaning: '愤怒来去匆匆，若不在它最猛烈时做决定，伤害会小很多。',
@@ -1728,7 +1743,7 @@ const FORTUNES = [
     poem: 'Box Breathing', cn: '箱式呼吸', meaning: '吸气四秒、屏息四秒、呼气四秒。三分钟后心率自然回落，压力激素下降。',
     source: '美国·呼吸训练||美国海军海豹突击队（Navy SEALs）' },
   { cat: 'anxious', num: 405,
-    poem: 'Mindfulness, the Pause', cn: '正念暂停', meaning: '焦虑永远指向未来，只有此刻是安全的。通过呼吸将注意力拉回当下，大脑就能停止空转。',
+    poem: 'Mindfulness the Pause', cn: '正念暂停', meaning: '焦虑永远指向未来，只有此刻是安全的。通过呼吸将注意力拉回当下，大脑就能停止空转。',
     source: '美国·认知神经科学||乔·卡巴金（Jon Kabat-Zinn）' },
   { cat: 'anxious', num: 406,
     poem: 'Courage Walks with Fear', cn: '勇气与恐惧同行', meaning: '大胆的人也有焦虑，只是带着它继续前进。心跳加速和紧张兴奋，共享同一条生理通路。',
@@ -1758,7 +1773,7 @@ const FORTUNES = [
     poem: 'Sweat It Out', cn: '流汗排解', meaning: '一次高强度的有氧运动，能快速代谢体内的压力激素。让汗流出来，烦恼就跟着流走了。',
     source: '美国·运动科学||哈佛医学院（Harvard Medical School）' },
   { cat: 'anxious', num: 415,
-    poem: '心无挂碍', cn: 'No attachment, no fear', meaning: '心里没有牵挂和阻碍，也就没有恐惧。把担忧暂时放下，本身就是一种勇敢。',
+    poem: '心无挂碍', cn: 'No attachment no fear', meaning: '心里没有牵挂和阻碍，也就没有恐惧。把担忧暂时放下，本身就是一种勇敢。',
     source: '中国·佛学||《般若波罗蜜多心经》（唐代）', hidden: true  },
   { cat: 'anxious', num: 501,
     poem: 'Ground Your Senses', cn: '回到感官', meaning: '焦虑时找到五样能看到的、四样能摸到的、三样能听到的。感官回到此刻，大脑就没有空去预演未来。',
@@ -1785,7 +1800,7 @@ const FORTUNES = [
     poem: "A Pet's Warmth", cn: '宠物的温暖', meaning: '撸猫狗十分钟，拥抱激素上升，压力激素下降。有时最亲近的连结，来自另一双不同的眼睛。',
     source: '美国·人与动物研究||密苏里大学（University of Missouri）' },
   { cat: 'lonely', num: 507,
-    poem: 'Small Circle, Deep Bonds', cn: '小圈子深连接', meaning: '两三个谈得来的人就足以提供能量。关系的质量比数量更能抵御孤独感。',
+    poem: 'Small Circle Deep Bonds', cn: '小圈子深连接', meaning: '两三个谈得来的人就足以提供能量。关系的质量比数量更能抵御孤独感。',
     source: '美国·心理学研究||罗伊·鲍迈斯特（Roy Baumeister）' },
   { cat: 'lonely', num: 508,
     poem: 'Belonging is Built', cn: '归属靠建造', meaning: '加入一个小组或学习一个爱好，人就会慢慢融入。归属感是用脚步一步步走出来的。',
@@ -1803,7 +1818,7 @@ const FORTUNES = [
     poem: 'Call a Family Member', cn: '给家人打电话', meaning: '熟悉的声音会激活大脑中安全感相关的记忆，哪怕只是闲聊五分钟。血脉的底层连接很难被切断。',
     source: '人类·社会心理学||哈佛大学（Harvard University）' },
   { cat: 'lonely', num: 513,
-    poem: '举头望明月，低头思故乡',     cn: 'Moon gaze, home longing', meaning: '孤独的夜晚，抬头看看月亮。无论你在哪里，月光都会温柔地照着你。这是一种跨越时空的陪伴。',
+    poem: '举头望明月低头思故乡',     cn: 'Moon gaze home longing', meaning: '孤独的夜晚，抬头看看月亮。无论你在哪里，月光都会温柔地照着你。这是一种跨越时空的陪伴。',
     source: '中国·诗学||李白（盛唐）《静夜思》', hidden: true  },
   { cat: 'lonely', num: 514,
     poem: 'No man is an island', cn: '没有人是一座孤岛', meaning: '英国诗人多恩的经典名言。每个人的生命都与他人息息相关，你总会找到那个连接你的港湾。',
@@ -1821,10 +1836,10 @@ const FORTUNES = [
     poem: 'Mindfulness Works', cn: '正念有效', meaning: '每天十分钟正念，几周后杏仁核变小，前额叶增强。大脑的“火警”反应会越来越小。',
     source: '美国·认知神经科学||乔·卡巴金（Jon Kabat-Zinn）' },
   { cat: 'calm', num: 603,
-    poem: 'Slow Down, Repair', cn: '慢下来修复', meaning: '紧张时修复机制停摆，平静时身体才开始修墙。慢一点，是给身体发送修复信号。',
+    poem: 'Slow Down Repair', cn: '慢下来修复', meaning: '紧张时修复机制停摆，平静时身体才开始修墙。慢一点，是给身体发送修复信号。',
     source: '人类·生理学||世界卫生组织（World Health Organization）' },
   { cat: 'calm', num: 604,
-    poem: 'One Minute, One Breath', cn: '一呼一吸', meaning: '缓慢呼气比吸气长两拍，心率会自动下降。身体先平静下来，心就会跟着平稳。',
+    poem: 'One Minute One Breath', cn: '一呼一吸', meaning: '缓慢呼气比吸气长两拍，心率会自动下降。身体先平静下来，心就会跟着平稳。',
     source: '人类·生理学||哈佛大学（Harvard University）' },
   { cat: 'calm', num: 605,
     poem: 'The Present is Peace', cn: '此刻即安宁', meaning: '此刻没有需要追赶的，也没有需要解释的。把心放回眼前，焦虑将没有立足之地。',
@@ -1851,19 +1866,19 @@ const FORTUNES = [
     poem: 'Write a Gratitude Line', cn: '写下一句感恩', meaning: '睡前写下今天发生的一个小美好，大脑会把注意力锚定在正面信息上，帮助你带着暖意入睡。',
     source: '美国·积极心理学||罗伯特·埃蒙斯（Robert Emmons）' },
   { cat: 'calm', num: 613,
-    poem: '知止而后有定', cn: 'Stop, then stability', meaning: '知道要达到的境界，才能有坚定的方向。不随外物沉浮，内心的宁静才是真正的归宿。',
+    poem: '知止而后有定', cn: 'Stop then stability', meaning: '知道要达到的境界，才能有坚定的方向。不随外物沉浮，内心的宁静才是真正的归宿。',
     source: '中国·儒学||《大学》（先秦）', hidden: true  },
   { cat: 'calm', num: 613,
-    poem: '行到水穷处，坐看云起时', cn: 'Water ends, clouds rise', meaning: '走到水的尽头，不妨坐下来看云升起。绝境处也许正是转机，安静里藏着新的可能。',
+    poem: '行到水穷处坐看云起时', cn: 'Water ends clouds rise', meaning: '走到水的尽头，不妨坐下来看云升起。绝境处也许正是转机，安静里藏着新的可能。',
     source: '中国·诗学||王维（盛唐）《终南别业》', hidden: true  },
   { cat: 'calm', num: 614,
-    poem: '静水流深', cn: 'Still water, deep', meaning: '水面最安静的地方，往往藏得最深。真正的力量，总是在最沉静的时候积蓄。',
+    poem: '静水流深', cn: 'Still water deep', meaning: '水面最安静的地方，往往藏得最深。真正的力量，总是在最沉静的时候积蓄。',
     source: '中国·道学||《道德经》（春秋）', hidden: true  },
   { cat: 'calm', num: 614,
-    poem: '心无挂碍', cn: 'No attachment, no fear', meaning: '心里没有牵挂和阻碍，也就没有恐惧。把担忧暂时放下，本身就是一种勇敢。',
+    poem: '心无挂碍', cn: 'No attachment no fear', meaning: '心里没有牵挂和阻碍，也就没有恐惧。把担忧暂时放下，本身就是一种勇敢。',
     source: '中国·佛学||《般若波罗蜜多心经》（唐代）', hidden: true  },
   { cat: 'calm', num: 615,
-    poem: '本来无一物，何处惹尘埃', cn: 'Nothing, where dust lands?', meaning: '烦恼像尘埃，起风时漫天飞舞，风停后自然落地。不必执念，不必清扫，看它落下就好。',
+    poem: '本来无一物何处惹尘埃', cn: 'Nothing where dust lands?', meaning: '烦恼像尘埃，起风时漫天飞舞，风停后自然落地。不必执念，不必清扫，看它落下就好。',
     source: '中国·禅学||《六祖坛经》（唐代）', hidden: true  },
   { cat: 'calm', num: 615,
     poem: '大音希声', cn: 'Greatest sound is silence', meaning: '最高级的声响，反而听不见声音。最平静的状态，不需要语言去解释，静静感受就好。',
@@ -1875,13 +1890,13 @@ const FORTUNES = [
     poem: 'Blue Sky Gazing', cn: '凝视蓝天', meaning: '抬头凝视三十秒蓝天，视线开阔会降低大脑警报。天空那么大，你的烦恼装得下。',
     source: '人类·环境心理学||普林斯顿大学（Princeton University）' },
   { cat: 'happy', num: 703,
-    poem: '一期一会', cn: 'One life, one meeting',     meaning: '此生此世，此刻的相遇只此一次。认真对待眼前人，幸福就藏在不可重复的瞬间。',
+    poem: '一期一会', cn: 'One life one meeting',     meaning: '此生此世，此刻的相遇只此一次。认真对待眼前人，幸福就藏在不可重复的瞬间。',
     source: '日本·茶道||千利休（Sen no Rikyū）' },
   { cat: 'happy', num: 704,
     poem: 'La joie vient de petits choses', cn: '喜悦藏于小事',     meaning: '生活中的微小确幸比大事件更能持续滋养内心，一杯咖啡、一缕阳光就足够。',
     source: '法国·谚语||法国谚语（French Proverb）' },
   { cat: 'sad', num: 703,
-    poem: '七転び八起き', cn: '跌倒七次，起身八次',     meaning: '悲伤和挫折不是终点，每一次站起来都在重建神经回路，身体会记住你恢复的力量。',
+    poem: '七転び八起き', cn: '跌倒七次起身八次',     meaning: '悲伤和挫折不是终点，每一次站起来都在重建神经回路，身体会记住你恢复的力量。',
     source: '日本·谚语||日本谚语（Japanese Proverb）' },
   { cat: 'sad', num: 704,
     poem: 'Und dies wird vorübergehen', cn: '这一切终将过去',     meaning: '再深的悲伤也有保质期，大脑的情绪回路会自行修复，时间是最好的缓冲带。',
@@ -1905,19 +1920,19 @@ const FORTUNES = [
     poem: '一人で歩く道も、やがては誰かと交わる', cn: '独行之路终会与人交汇',     meaning: '孤独是阶段性的，不是永久的。你走过的每一步，都在靠近那个愿意与你同行的人。',
     source: '日本·谚语||日本谚语（Japanese Proverb）' , hidden: true},
   { cat: 'lonely', num: 704,
-    poem: 'Ein Freund ist jemand, der die Melodie in dir kennt und sie dir vorsingt, wenn du sie vergessen hast', cn: '朋友是那个记得你内心旋律的人',     meaning: '真正的连接不在于数量，而在于有人了解你内心的节奏。被理解，是孤独最深处的解药。',
+    poem: 'Ein Freund ist jemand der die Melodie in dir kennt und sie dir vorsingt wenn du sie vergessen hast', cn: '朋友是那个记得你内心旋律的人',     meaning: '真正的连接不在于数量，而在于有人了解你内心的节奏。被理解，是孤独最深处的解药。',
     source: '德国·谚语||德国谚语（German Proverb）', hidden: true  },
   { cat: 'calm', num: 703,
     poem: 'Stille ist die höchste Form der Kraft', cn: '静默是最高形式的力量',     meaning: '安静时大脑进入修复模式，压力激素下降，免疫细胞活跃。沉默不是空虚，是给身体充电。',
     source: '德国·谚语||德国谚语（German Proverb）', hidden: true  },
   { cat: 'calm', num: 704,
-    poem: 'Ruhig Blut, klarer Kopf', cn: '心静则智明',     meaning: '情绪平稳时前额叶皮层最活跃，判断力和创造力都会提升。冷静不只是态度，是大脑的最佳工作状态。',
+    poem: 'Ruhig Blut klarer Kopf', cn: '心静则智明',     meaning: '情绪平稳时前额叶皮层最活跃，判断力和创造力都会提升。冷静不只是态度，是大脑的最佳工作状态。',
     source: '德国·谚语||德国谚语（German Proverb）' },
   { cat: 'calm', num: 705,
     poem: 'در سکوت، خدا حرف میزند', cn: '静默中自有回响',     meaning: '安静不是空白，是内心秩序的重建。在沉默中，身体会找到自己的节奏。',
     source: '波斯·谚语||波斯谚语（Persian Proverb）' },
   { cat: 'happy', num: 705,
-    poem: 'Dum vivimus, vivamus', cn: '活着就要好好活',     meaning: '生命短暂，尽情享受当下。快乐不需要理由，活着本身就是最好的理由。',
+    poem: 'Dum vivimus vivamus', cn: '活着就要好好活',     meaning: '生命短暂，尽情享受当下。快乐不需要理由，活着本身就是最好的理由。',
     source: '古罗马·哲学||伊壁鸠鲁（Epicurus）', hidden: true, _deleted: true  },
   { cat: 'happy', num: 706,
     poem: 'La vida es bella', cn: '生活是美好的',     meaning: '即使身处逆境，也要学会发现美。大脑在感恩时释放多巴胺，让快乐成为日常习惯。',
@@ -1944,10 +1959,10 @@ const FORTUNES = [
     poem: 'الغضب يبدأ بجنون وينتهي بندم', cn: '怒气始于愚者终于悔',     meaning: '愤怒让人做出后悔的决定。忍过九十秒的生理高峰，理性就会回来掌舵。',
     source: '阿拉伯·谚语||阿拉伯谚语（Arabic Proverb）' , hidden: true},
   { cat: 'anxious', num: 706,
-    poem: 'O que há de ser, será', cn: '该来的终会来',     meaning: '焦虑是对未来的恐惧，但大部分担忧从未发生。把注意力拉回此刻，身体会跟着放松。',
+    poem: 'O que há de ser será', cn: '该来的终会来',     meaning: '焦虑是对未来的恐惧，但大部分担忧从未发生。把注意力拉回此刻，身体会跟着放松。',
     source: '葡萄牙·谚语||葡萄牙谚语（Portuguese Proverb）' , hidden: true},
   { cat: 'anxious', num: 707,
-    poem: 'Kavmiko seme, mwen kontan', cn: '少担忧多安心',     meaning: '担忧偷走当下的平静，深呼吸能激活副交感神经，让身体从紧张模式切换到休息模式。',
+    poem: 'Kavmiko seme mwen kontan', cn: '少担忧多安心',     meaning: '担忧偷走当下的平静，深呼吸能激活副交感神经，让身体从紧张模式切换到休息模式。',
     source: '海地·谚语||海地谚语（Haitian Proverb）' },
   { cat: 'anxious', num: 708,
     poem: 'Il meglio è nemico del bene', cn: '追求完美反伤已有',     meaning: '完美主义是焦虑的温床，接受「足够好」能让大脑松一口气，降低皮质醇水平。',
@@ -2139,15 +2154,13 @@ function renderSign(sign) {
   const poemClass = poemIsCn ? 'sign-poem sign-poem-cn' : 'sign-poem english';
   const joinSegs = (segs, useBr = false) => segs.map(seg => `<span class="seg">${seg}</span>`)
     .join(useBr ? '<br>' : (segs.some(sg => /[\x00-\x7F]/.test(sg)) ? ' ' : '\u200B'));  // 中文段用零宽空格连接，提供视觉节点但不渲染空隙
-  // 逗号断行规则：主题词含逗号时，去掉逗号并在逗号处断行（另起一行）
-  // 中文签诗按语义断句（逗号处断行）；英文/法语按子句断行（逗号处断行）
+  // 中文短句（≤10字）不拆分，整体交给 CSS text-wrap:balance 自然换行
   const poemHtml = poemIsCn
-    ? `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.poem), 5, false, true), true)}</span>`
+    ? `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.poem), 10, false, true), true)}</span>`
     : joinSegs(smartSegments(escapeHtml(sign.poem), 9, !poemIsCn, true), true);
-  // cn 行：中文诗的英文翻译不再用 .sub 类（避免字号过小），统一用 .sign-cn-en 类
+  // cn 行：数据层已彻底清除逗号，UI 层不再需要二次处理
   const cnIsAscii = sign.cn && /[\x00-\x7F]/.test(sign.cn);
-  // ASCII 英文翻译：去掉逗号（替换为空格），保持英文单词完整性，不强制断行
-  const cnClean = cnIsAscii ? escapeHtml(sign.cn).replace(/,/g, ' ') : sign.cn;
+  const cnClean = cnIsAscii ? escapeHtml(sign.cn) : sign.cn;
   const cnLine = sign.cn
     ? `<p class="${cnIsAscii ? 'sign-cn-en' : 'sign-cn'}">${cnIsAscii ? cnClean : `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.cn), 20, false, true), true)}</span>`}</p>`
     : '';
@@ -2214,8 +2227,8 @@ function smartSegments(text, maxCn = 9, keepSpace = false, stripComma = false) {
       if (!/[a-zA-Z0-9\u4e00-\u9fff]/.test(t) && segs.length > 0) {
         segs[segs.length - 1] += t;
       } else if (/[\u4e00-\u9fff]/.test(t) && t.length > maxCn && !/[，。！？、；：]/.test(t)) {
-        // 短句（≤ maxCn+2）整体成段，交给 CSS 自然换行，避免孤字单独一行
-        if (t.length <= maxCn + 2) {
+        // 短句（≤ maxCn+5）整体成段，交给 CSS text-wrap:balance 自然换行
+        if (t.length <= maxCn + 5) {
           segs.push(t);
         } else {
           const breakers = ['需要', '就是', '也是', '就能', '才是', '没有', '还有', '我们', '成为'];
