@@ -249,6 +249,31 @@ body::after {
   overflow: visible;
 }
 
+/* 人工审核入口按钮（首页右上角，不参与卡片布局） */
+.review-entry-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 5;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  color: #6C52A8;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(184, 164, 220, 0.5);
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(122, 95, 192, 0.10);
+}
+.review-entry-btn:hover {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 14px rgba(122, 95, 192, 0.22);
+  transform: translateY(-1px);
+}
+
 .title-halo {
   position: absolute;
   top: 50%;
@@ -1490,6 +1515,7 @@ body::after {
     <span class="sparkle s4">✦</span>
       <p class="title-sub">今天过得怎么样？</p>
       <h1 class="title">How's Your Day?</h1>
+      <button class="review-entry-btn" id="review-entry-btn">🔍 人工审核</button>
   </header>
 
   <div class="category-list" id="categories"></div>
@@ -2519,6 +2545,11 @@ function init() {
     renderShowAll();
     return;
   }
+  // 人工审核模式
+  if (checkReviewMode()) {
+    renderReviewMode();
+    return;
+  }
   loadHistory();
   const drawBtn = document.getElementById('draw-btn');
   if (drawBtn) drawBtn.addEventListener('click', drawSign);
@@ -2531,6 +2562,12 @@ function init() {
     drawSign();
   });
 
+  // 人工审核入口按钮
+  const reviewBtn = document.getElementById('review-entry-btn');
+  if (reviewBtn) reviewBtn.addEventListener('click', () => {
+    location.href = location.pathname + '?review=true';
+  });
+
   // 情绪入口：点击推荐对应签文
   const bubbles = document.getElementById('mood-bubbles');
   if (bubbles) {
@@ -2541,6 +2578,240 @@ function init() {
       });
     });
   }
+}
+
+/* ====================================================
+   人工视觉质检台（review 模式）
+   ?review=true 进入：逐张渲染真实卡片，人工判断好坏
+   - 顶部进度条：已检查 XX / 总 XX
+   - 每张卡片：真实预览效果 + 「没问题」/「有问题请隐藏」按钮
+   - 决策存 localStorage，刷新不丢失
+   ==================================================== */
+const REVIEW_KEY = 'sisterSign.review.hidden.v1';
+
+function checkReviewMode() {
+  const params = new URLSearchParams(location.search);
+  return params.get('review') === 'true';
+}
+
+function loadReviewHidden() {
+  try {
+    const saved = localStorage.getItem(REVIEW_KEY);
+    return saved ? JSON.parse(saved) : {};
+  } catch (e) { return {}; }
+}
+
+function saveReviewHidden(map) {
+  try { localStorage.setItem(REVIEW_KEY, JSON.stringify(map)); } catch (e) {}
+}
+
+/* 唯一标识一张卡片 */
+function signKey(sign) {
+  return sign.cat + '/' + sign.num + '/' + sign.poem;
+}
+
+function renderReviewMode() {
+  // 隐藏正常 UI
+  const elements = ['#card', '#mood-bubbles', '#water-ripple', '#back-hint', '#wand', '#wand-label', '#meteor-container', '#categories'];
+  elements.forEach(sel => { const el = document.querySelector(sel); if (el) el.style.display = 'none'; });
+  const header = document.querySelector('.header');
+  if (header) header.style.display = 'none';
+  const meteor = document.querySelector('.meteor-container');
+  if (meteor) meteor.style.display = 'none';
+  const toast = document.getElementById('toast');
+  if (toast) toast.style.display = 'none';
+
+  const hiddenMap = loadReviewHidden();
+  // 预先决定每张卡的「初始是否已隐藏」：已有 hidden:true 标记的卡默认视为有问题
+  FORTUNES.forEach(f => {
+    const k = signKey(f);
+    if (f.hidden && hiddenMap[k] === undefined) hiddenMap[k] = true;
+  });
+  saveReviewHidden(hiddenMap);
+
+  const app = document.querySelector('.app');
+  if (!app) return;
+  app.style.cssText = 'background:#f4f1fa;min-height:100vh;display:block !important;';
+  document.body.style.background = '#f4f1fa';
+  document.body.style.overflow = 'auto';
+  document.title = '人工审核 · 今朝·Good day';
+  app.innerHTML = '';
+
+  // 顶部工具栏
+  const bar = document.createElement('div');
+  bar.id = 'review-bar';
+  bar.style.cssText = 'position:sticky;top:0;z-index:50;background:rgba(244,241,250,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(184,164,220,0.35);padding:12px 16px;';
+  const barInner = document.createElement('div');
+  barInner.style.cssText = 'max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:8px;';
+
+  const barTop = document.createElement('div');
+  barTop.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:8px;';
+  const titleEl = document.createElement('div');
+  titleEl.style.cssText = 'font-size:16px;font-weight:700;color:#4a3f6b;font-family:-apple-system,"PingFang SC",sans-serif;';
+  titleEl.textContent = '人工视觉质检台';
+  const backBtn = document.createElement('button');
+  backBtn.textContent = '← 返回首页';
+  backBtn.style.cssText = 'padding:6px 14px;font-size:13px;font-family:-apple-system,"PingFang SC",sans-serif;color:#6C52A8;background:rgba(255,255,255,0.7);border:1px solid rgba(184,164,220,0.5);border-radius:999px;cursor:pointer;';
+  backBtn.addEventListener('click', () => { location.href = location.pathname; });
+  barTop.appendChild(titleEl);
+  barTop.appendChild(backBtn);
+
+  const progressWrap = document.createElement('div');
+  progressWrap.style.cssText = 'width:100%;';
+  const progressText = document.createElement('div');
+  progressText.style.cssText = 'font-size:13px;color:#7b6ba5;font-family:-apple-system,"PingFang SC",sans-serif;margin-bottom:4px;';
+  progressText.id = 'review-progress-text';
+  const progressTrack = document.createElement('div');
+  progressTrack.style.cssText = 'width:100%;height:8px;background:rgba(184,164,220,0.25);border-radius:999px;overflow:hidden;';
+  const progressFill = document.createElement('div');
+  progressFill.id = 'review-progress-fill';
+  progressFill.style.cssText = 'height:100%;width:0%;background:linear-gradient(90deg,#9b7ede,#6C52A8);border-radius:999px;transition:width 0.35s ease;';
+  progressTrack.appendChild(progressFill);
+  progressWrap.appendChild(progressText);
+  progressWrap.appendChild(progressTrack);
+  barInner.appendChild(barTop);
+  barInner.appendChild(progressWrap);
+
+  // 全部完成提示 + 导出按钮（初始隐藏）
+  const doneBox = document.createElement('div');
+  doneBox.id = 'review-done-box';
+  doneBox.style.cssText = 'display:none;background:rgba(108,82,168,0.10);border:1px solid rgba(108,82,168,0.3);border-radius:12px;padding:10px 14px;text-align:center;';
+  const doneText = document.createElement('div');
+  doneText.style.cssText = 'font-size:13px;color:#6C52A8;font-family:-apple-system,"PingFang SC",sans-serif;margin-bottom:8px;';
+  doneText.id = 'review-done-text';
+  const exportBtn = document.createElement('button');
+  exportBtn.textContent = '📋 复制隐藏清单（发给 AI 生成纯净版）';
+  exportBtn.style.cssText = 'padding:8px 16px;font-size:13px;font-family:-apple-system,"PingFang SC",sans-serif;color:#fff;background:#6C52A8;border:none;border-radius:999px;cursor:pointer;';
+  exportBtn.addEventListener('click', () => {
+    const hiddenList = [];
+    FORTUNES.forEach(f => {
+      const k = signKey(f);
+      if (hiddenMap[k]) hiddenList.push(`[${f.cat}/${f.num}] ${f.poem}`);
+    });
+    const text = '需要隐藏的卡片清单：\n' + (hiddenList.join('\n') || '(无)');
+    navigator.clipboard ? navigator.clipboard.writeText(text).then(() => showToast('清单已复制')).catch(() => {}) : null;
+    // 兜底
+    if (!navigator.clipboard) {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); showToast('清单已复制'); } catch(e) {}
+      document.body.removeChild(ta);
+    }
+  });
+  doneBox.appendChild(doneText);
+  doneBox.appendChild(exportBtn);
+  barInner.appendChild(doneBox);
+  bar.appendChild(barInner);
+  app.appendChild(bar);
+
+  // 卡片区
+  const listWrap = document.createElement('div');
+  listWrap.style.cssText = 'max-width:560px;margin:0 auto;padding:20px 16px 80px;display:flex;flex-direction:column;gap:24px;';
+
+  const total = FORTUNES.length;
+  let processed = 0;
+
+  const updateProgress = () => {
+    processed = 0;
+    FORTUNES.forEach(f => { if (hiddenMap[signKey(f)] !== undefined) processed++; });
+    const pct = Math.round(processed / total * 100);
+    progressText.textContent = `审核进度：已处理 ${processed} / ${total}（剩余 ${total - processed} 张）`;
+    progressFill.style.width = pct + '%';
+    if (processed >= total) {
+      doneBox.style.display = 'block';
+      const hiddenCount = FORTUNES.filter(f => hiddenMap[signKey(f)]).length;
+      doneText.textContent = `🎉 全部 ${total} 张已审核完毕！共标记 ${hiddenCount} 张需要隐藏。点击下方按钮复制清单。`;
+    }
+  };
+
+  const rebuildList = () => {
+    const scrollY = window.scrollY;   // 重建前记录滚动位置
+    listWrap.innerHTML = '';
+    FORTUNES.forEach((fn, idx) => {
+      const k = signKey(fn);
+      const decided = hiddenMap[k] !== undefined;
+      const isHidden = hiddenMap[k] === true;
+      const wrap = document.createElement('div');
+      wrap.id = 'review-card-' + idx;
+      wrap.style.cssText = 'display:flex;flex-direction:column;gap:8px;';
+
+      // 卡片编号条
+      const info = document.createElement('div');
+      info.style.cssText = 'display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#9a8bbf;font-family:-apple-system,"PingFang SC",sans-serif;';
+      const num = document.createElement('span');
+      num.textContent = `#${idx + 1} / ${total}  [${fn.cat}] ${fn.num}`;
+      const status = document.createElement('span');
+      if (decided) {
+        status.textContent = isHidden ? '❌ 已隐藏' : '✅ 已通过';
+        status.style.cssText = 'font-weight:700;color:' + (isHidden ? '#c0392b' : '#27ae60') + ';';
+      } else {
+        status.textContent = '⏳ 待检查';
+        status.style.cssText = 'font-weight:600;color:#9a8a9f;';
+      }
+      info.appendChild(num);
+      info.appendChild(status);
+      wrap.appendChild(info);
+
+      // 真实卡片渲染（复用 renderSign 完整 HTML）
+      const cardHost = document.createElement('div');
+      cardHost.style.cssText = 'position:relative;width:100%;max-width:320px;margin:0 auto;';
+      // 直接放入 renderSign 的 HTML（.sign-face.back 的样式需要宿主提供卡片背景）
+      cardHost.innerHTML = `<div class="sign-face back" style="position:relative;inset:auto;transform:none;animation:none;display:flex;flex-direction:column;height:auto;min-height:480px;">${renderSign(fn)}</div>`;
+      // 审核模式下移除卡片自带的「复制/首页」按钮，避免与审核按钮混淆
+      const innerActions = cardHost.querySelector('.actions');
+      if (innerActions) innerActions.remove();
+      wrap.appendChild(cardHost);
+
+      // 操作按钮
+      const btns = document.createElement('div');
+      btns.style.cssText = 'display:flex;gap:10px;justify-content:center;';
+
+      const okBtn = document.createElement('button');
+      okBtn.textContent = '✓ 这张没问题';
+      okBtn.style.cssText = 'flex:1;max-width:180px;padding:10px 0;font-size:14px;font-family:-apple-system,"PingFang SC",sans-serif;color:#7e60c0;background:#fff;border:1.5px solid rgba(122,95,192,0.35);border-radius:999px;cursor:pointer;transition:all 0.2s;';
+      okBtn.addEventListener('click', () => {
+        if (hiddenMap[k] === false) return;
+        hiddenMap[k] = false;
+        saveReviewHidden(hiddenMap);
+        updateProgress();
+        rebuildList();
+      });
+
+      const badBtn = document.createElement('button');
+      badBtn.textContent = '✕ 这张有问题，请隐藏';
+      badBtn.style.cssText = 'flex:1;max-width:180px;padding:10px 0;font-size:14px;font-family:-apple-system,"PingFang SC",sans-serif;color:#fff;background:#c0392b;border:none;border-radius:999px;cursor:pointer;transition:all 0.2s;';
+      badBtn.addEventListener('click', () => {
+        hiddenMap[k] = true;
+        saveReviewHidden(hiddenMap);
+        updateProgress();
+        rebuildList();
+      });
+
+      // 已决策的卡片视觉反馈
+      if (decided) {
+        cardHost.style.opacity = isHidden ? '0.45' : '1';
+        cardHost.style.filter = isHidden ? 'grayscale(0.7)' : 'none';
+        okBtn.style.background = !isHidden ? '#27ae60' : '#fff';
+        okBtn.style.color = !isHidden ? '#fff' : '#27ae60';
+        okBtn.style.borderColor = !isHidden ? '#27ae60' : 'rgba(122,95,192,0.35)';
+        badBtn.style.background = isHidden ? '#c0392b' : '#fff';
+        badBtn.style.color = isHidden ? '#fff' : '#c0392b';
+        badBtn.style.border = isHidden ? 'none' : '1.5px solid #c0392b';
+      }
+
+      btns.appendChild(okBtn);
+      btns.appendChild(badBtn);
+      wrap.appendChild(btns);
+      listWrap.appendChild(wrap);
+    });
+  };
+
+  rebuildList();
+  updateProgress();
+  app.appendChild(listWrap);
+  // 重建后恢复滚动位置（列表高度不变，直接还原）
+  requestAnimationFrame(() => { window.scrollTo(0, scrollY); });
+  return true;
 }
 
 init();
