@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年8月28日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年8月28日 · 周五</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">Meta推出开源权重模型Muse Glimmer，发力"个人超级智能"</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">扎克伯格发表长篇AI战略文章，提出AI贴近用户、支持日常工作与创造的"个人超级智能"愿景</li>
+        <li data-num="2">同步发布开放权重模型Muse Glimmer，直接对标OpenAI、Anthropic的闭源前沿模型</li>
+        <li data-num="3">在各国监管争论"最强模型是否应严控"之际，Meta重申推进开放权重AI的路线</li>
+      </ul>
+      <div class="source">🔗 来源：breakingai.news</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">谷歌拟122亿美元收购Marvell，AI芯片竞赛升级</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">谷歌与Marvell达成约122亿美元交易，剑指自研/定制AI芯片</li>
+        <li data-num="2">交易折射算力上游整合趋势，云端巨头加速摆脱对第三方供应链的依赖</li>
+        <li data-num="3">被视为AI芯片军备竞赛中"系统设计能力"取代单芯片性能的新信号</li>
+      </ul>
+      <div class="source">🔗 来源：breakingai.news</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">阿里Qwen全球下载量破30亿，超越Google与Meta</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">阿里通义千问（Qwen）系列模型全球累计下载量突破30亿次</li>
+        <li data-num="2">下载规模已超过Google与Meta的同级别开源模型，居全球前列</li>
+        <li data-num="3">中国低成本开源模型加速出海，在全球开发者生态中扩大影响力</li>
+      </ul>
+      <div class="source">🔗 来源：breakingai.news</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">Culture Amp将职场文化智能接入ChatGPT与Claude（MCP）</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">职场文化分析平台Culture Amp通过MCP协议接入ChatGPT与Claude</li>
+        <li data-num="2">把员工敬业度、文化洞察直接嵌入主流AI助手工作流</li>
+        <li data-num="3">标志企业级SaaS正以"模型上下文协议"方式融入大模型生态</li>
+      </ul>
+      <div class="source">🔗 来源：breakingai.news</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">英伟达联手工银/贝莱德等巨头动员超5000亿美元AI基础设施资本</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">英伟达携手Apollo、贝莱德、黑石、布鲁克菲尔德、高盛、KKR，计划动员逾5000亿美元</li>
+        <li data-num="2">英伟达从"卖芯片"延伸至AI基础设施的融资架构层</li>
+        <li data-num="3">算力被当作类似能源、电信的"长期资产类别"而非短周期技术采购</li>
+      </ul>
+      <div class="source">🔗 来源：breakingai.news</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">Oracle 1650亿美元"木星计划"AI数据中心按期推进</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Oracle称规模达1650亿美元的Project Jupiter AI数据中心建设仍在工期轨道上</li>
+        <li data-num="2">超大算力基建延续高景气，北美云厂商资本开支预期持续上修</li>
+        <li data-num="3">算力从GPU向服务器、存储、电力配套全产业链扩散</li>
+      </ul>
+      <div class="source">🔗 来源：breakingai.news</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">英国与乌克兰签署战略AI协议，共研战场技术</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">8月25日英国与乌克兰签署战略AI合作协议，聚焦战场技术应用</li>
+        <li data-num="2">AI军事化成为地缘博弈新前沿，欧洲安全依赖加速重构</li>
+        <li data-num="3">在俄乌冲突延宕背景下，技术合作被视为西方援乌的新维度</li>
+      </ul>
+      <div class="source">🔗 来源：breakingai.news</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">阿联酋上线AI系统实时追踪媒体虚假信息</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">阿联酋开发AI驱动系统，实时追踪并标注媒体虚假信息</li>
+        <li data-num="2">中东国家加快以AI手段介入信息治理与舆论监管</li>
+        <li data-num="3">反映全球对"深度伪造+信息战"治理需求的上升</li>
+      </ul>
+      <div class="source">🔗 来源：breakingai.news</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Elastic完成收购Deductive AI，深化生产事故智能调查</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Elastic宣布完成对Deductive AI的收购，强化生产事件智能调查能力</li>
+        <li data-num="2">AI Agent进一步嵌入运维（SRE）工作流，可自动归因与复盘故障</li>
+        <li data-num="3">企业软件并购继续围绕"把AI做实到生产场景"展开</li>
+      </ul>
+      <div class="source">🔗 来源：breakingai.news</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">迪拜在32个政府实体部署AI生产力系统</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">迪拜在32个政府实体全面上线AI生产力系统</li>
+        <li data-num="2">政府侧AI应用从试点走向规模化部署，提升公共服务效率</li>
+        <li data-num="3">中东智慧城市竞争升温，AI成为政务数字化转型核心抓手</li>
+      </ul>
+      <div class="source">🔗 来源：breakingai.news</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年8月28日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
