@@ -1570,7 +1570,7 @@ const FORTUNES = [
     source: '美国·积极心理学||罗伯特·埃蒙斯（Robert Emmons）' },
   { cat: 'happy', num: 107,
     poem: 'Peak-End Rule', cn: '峰终定律', meaning: '体验评价由峰值和结束时刻决定。给一天画上温柔的句号，比延长快乐更重要。',
-    source: '美国·行为经济学||丹尼尔·卡尼曼（Daniel Kahneman）'  },
+    source: '美国·行为经济学||丹尼尔·卡尼曼（Daniel Kahneman）'  , hidden: true},
   { cat: 'happy', num: 108,
     poem: 'Flow', cn: '心流', meaning: '全神贯注时，大脑会关闭多余的信息通路，焦虑自动静音。专注本身，就是快乐所在。',
     source: '美国·积极心理学||米哈里·契克森米哈赖（Mihaly Csikszentmihalyi）' },
@@ -1708,7 +1708,7 @@ const FORTUNES = [
     source: '中国·儒学||《大学》（先秦）', hidden: true  },
   { cat: 'angry', num: 314,
     poem: 'Ira furor brevis est', cn: '愤怒是短暂的疯狂',     meaning: '愤怒来去匆匆，若不在它最猛烈时做决定，伤害会小很多。',
-    source: '古罗马·诗学||贺拉斯（Horace）' },
+    source: '古罗马·诗学||贺拉斯（Horace）' , hidden: true},
   { cat: 'angry', num: 401,
     poem: 'Pause Before You Act', cn: '行动前暂停', meaning: '愤怒的生理高峰只持续九十秒。撑过这三秒，身体就开始降温。这是比说任何话都管用的倒计时。',
     source: '人类·神经科学||吉尔·博尔特·泰勒（Jill Bolte Taylor）' },
@@ -1768,7 +1768,7 @@ const FORTUNES = [
     source: '美国·认知行为疗法||宾夕法尼亚大学（University of Pennsylvania）' },
   { cat: 'lonely', num: 501,
     poem: 'Lonely Is the Body Crying', cn: '孤独是身体在呼喊', meaning: '孤独是身体发出的“寻找连接”的信号，如同饥饿提醒你吃饭。这是健康且自然的生存本能。',
-    source: '美国·社会神经科学||约翰·卡乔波（John Cacioppo）' },
+    source: '美国·社会神经科学||约翰·卡乔波（John Cacioppo）' , hidden: true},
   { cat: 'lonely', num: 502,
     poem: 'One Small Hello', cn: '一个小问候', meaning: '哪怕只是和快递员或收银员说一句话，孤独感也会下降。微小的连接同样在给心脏供氧。',
     source: '美国·社会心理学||加州大学伯克利分校（UC Berkeley）' },
@@ -1807,7 +1807,7 @@ const FORTUNES = [
     source: '中国·诗学||李白（盛唐）《静夜思》', hidden: true  },
   { cat: 'lonely', num: 514,
     poem: 'No man is an island', cn: '没有人是一座孤岛', meaning: '英国诗人多恩的经典名言。每个人的生命都与他人息息相关，你总会找到那个连接你的港湾。',
-    source: '英国·文学||约翰·多恩（John Donne）' },
+    source: '英国·文学||约翰·多恩（John Donne）' , hidden: true},
   { cat: 'lonely', num: 601,
     poem: 'Join Something Small', cn: '加入小事', meaning: '每周固定参加一个活动，哪怕是线上读书会。重复见面是建立归属感最快的方式。',
     source: '美国·社会学||罗伊·鲍迈斯特（Roy Baumeister）' },
@@ -1888,7 +1888,7 @@ const FORTUNES = [
     source: '德国·谚语||德国谚语（German Proverb）' },
   { cat: 'angry', num: 703,
     poem: 'Der Zorn ist ein kurzer Wahnsinn', cn: '愤怒是短暂的疯狂',     meaning: '愤怒的生理高峰只有九十秒，忍过这一刻，理性就会回来。',
-    source: '德国·谚语||德国谚语（German Proverb）' },
+    source: '德国·谚语||德国谚语（German Proverb）' , hidden: true},
   { cat: 'angry', num: 704,
     poem: '怒りは身を滅ぼす', cn: '怒气毁自身',     meaning: '愤怒时血压飙升、血管收缩，长期积怒会损害心血管。及时释怀，是给身体最好的保护。',
     source: '日本·谚语||日本谚语（Japanese Proverb）' },
@@ -1897,13 +1897,13 @@ const FORTUNES = [
     source: '德国·谚语||德国谚语（German Proverb）' },
   { cat: 'anxious', num: 704,
     poem: '心配事は大抵起こらない', cn: '担心的事大多不会发生', meaning: '大脑为应对威胁预演灾难，但绝大多数忧虑从未实现。别让虚构的未来消耗此刻。',
-    source: '日本·谚语||日本谚语（Japanese Proverb）'  },
+    source: '日本·谚语||日本谚语（Japanese Proverb）'  , hidden: true},
   { cat: 'anxious', num: 705,
     poem: "Qui s'inquiète mal vit", cn: '忧虑者难安',     meaning: '焦虑会偷走当下的氧气，让你在安全的环境中也无法呼吸。学着把注意力从未来拉回此刻。',
     source: '法国·谚语||法国谚语（French Proverb）' },
   { cat: 'lonely', num: 703,
     poem: '一人で歩く道も、やがては誰かと交わる', cn: '独行之路终会与人交汇',     meaning: '孤独是阶段性的，不是永久的。你走过的每一步，都在靠近那个愿意与你同行的人。',
-    source: '日本·谚语||日本谚语（Japanese Proverb）' },
+    source: '日本·谚语||日本谚语（Japanese Proverb）' , hidden: true},
   { cat: 'lonely', num: 704,
     poem: 'Ein Freund ist jemand, der die Melodie in dir kennt und sie dir vorsingt, wenn du sie vergessen hast', cn: '朋友是那个记得你内心旋律的人',     meaning: '真正的连接不在于数量，而在于有人了解你内心的节奏。被理解，是孤独最深处的解药。',
     source: '德国·谚语||德国谚语（German Proverb）', hidden: true  },
@@ -1927,13 +1927,13 @@ const FORTUNES = [
     source: '印度·谚语||印度谚语（Indian Proverb）' },
   { cat: 'sad', num: 706,
     poem: 'Anche la notte più bua ha una fine', cn: '最暗的夜也有尽头',     meaning: '悲伤不会永驻，大脑的杏仁核会随时间自我调节，黎明总会到来。',
-    source: '意大利·谚语||意大利谚语（Italian Proverb）' },
+    source: '意大利·谚语||意大利谚语（Italian Proverb）' , hidden: true},
   { cat: 'sad', num: 707,
     poem: 'Утро вечера мудренее', cn: '早晨比夜晚更清醒',     meaning: '夜晚的悲伤到了清晨往往会减轻，睡眠能重置情绪回路，让大脑重新出发。',
-    source: '俄罗斯·谚语||俄罗斯谚语（Russian Proverb）' },
+    source: '俄罗斯·谚语||俄罗斯谚语（Russian Proverb）' , hidden: true},
   { cat: 'sad', num: 708,
     poem: 'La tristesse dure plus que la joie', cn: '悲伤比快乐更持久',     meaning: '悲伤停留更久，正因如此快乐弥足珍贵。大脑记住快乐瞬间，低谷时调用这些记忆。',
-    source: '法国·谚语||法国谚语（French Proverb）'  },
+    source: '法国·谚语||法国谚语（French Proverb）'  , hidden: true},
   { cat: 'angry', num: 705,
     poem: 'La colera è cattiva consigliera', cn: '愤怒是坏军师',     meaning: '愤怒时前额叶被抑制，决策质量骤降。等愤怒的生理高峰过去再行动，是对自己最好的保护。',
     source: '意大利·谚语||意大利谚语（Italian Proverb）' },
@@ -1942,25 +1942,25 @@ const FORTUNES = [
     source: '俄罗斯·谚语||俄罗斯谚语（Russian Proverb）' },
   { cat: 'angry', num: 707,
     poem: 'الغضب يبدأ بجنون وينتهي بندم', cn: '怒气始于愚者终于悔',     meaning: '愤怒让人做出后悔的决定。忍过九十秒的生理高峰，理性就会回来掌舵。',
-    source: '阿拉伯·谚语||阿拉伯谚语（Arabic Proverb）' },
+    source: '阿拉伯·谚语||阿拉伯谚语（Arabic Proverb）' , hidden: true},
   { cat: 'anxious', num: 706,
     poem: 'O que há de ser, será', cn: '该来的终会来',     meaning: '焦虑是对未来的恐惧，但大部分担忧从未发生。把注意力拉回此刻，身体会跟着放松。',
-    source: '葡萄牙·谚语||葡萄牙谚语（Portuguese Proverb）' },
+    source: '葡萄牙·谚语||葡萄牙谚语（Portuguese Proverb）' , hidden: true},
   { cat: 'anxious', num: 707,
     poem: 'Kavmiko seme, mwen kontan', cn: '少担忧多安心',     meaning: '担忧偷走当下的平静，深呼吸能激活副交感神经，让身体从紧张模式切换到休息模式。',
     source: '海地·谚语||海地谚语（Haitian Proverb）' },
   { cat: 'anxious', num: 708,
     poem: 'Il meglio è nemico del bene', cn: '追求完美反伤已有',     meaning: '完美主义是焦虑的温床，接受「足够好」能让大脑松一口气，降低皮质醇水平。',
-    source: '意大利·谚语||意大利谚语（Italian Proverb）' },
+    source: '意大利·谚语||意大利谚语（Italian Proverb）' , hidden: true},
   { cat: 'lonely', num: 705,
     poem: 'La solitude est la patrie des forts', cn: '孤独是强者的故乡',     meaning: '独处时大脑进入默认模式网络，创造力与自我认知都会提升。孤独不是缺失，是另一种丰盛。',
-    source: '法国·文学||阿尔贝·加缪（Albert Camus）' },
+    source: '法国·文学||阿尔贝·加缪（Albert Camus）' , hidden: true},
   { cat: 'lonely', num: 706,
     poem: 'الواحد لا يستقل', cn: '独行者未必孤单',     meaning: '一个人行走也能走得远，内心丰富的人不会因独处而枯萎。',
     source: '阿拉伯·谚语||阿拉伯谚语（Arabic Proverb）' },
   { cat: 'lonely', num: 707,
     poem: 'Stilstand ist auch eine Bewegung', cn: '静止也是一种运动',     meaning: '在孤独中静下来，身体在默默修复。不急于寻找陪伴，也是一种对自己的善待。',
-    source: '德国·哲学||德国谚语（German Proverb）' },
+    source: '德国·哲学||德国谚语（German Proverb）' , hidden: true},
   { cat: 'calm', num: 706,
     poem: '知足は他にあらず、自分の心にありけれ', cn: '知足在己心',     meaning: '平静不依赖外物，大脑在满足感中释放血清素，让内心安定如水。',
     source: '日本·文学||鸭长明（Kamo no Chōmei）' },
@@ -2146,8 +2146,10 @@ function renderSign(sign) {
     : joinSegs(smartSegments(escapeHtml(sign.poem), 9, !poemIsCn, true), true);
   // cn 行：中文诗的英文翻译不再用 .sub 类（避免字号过小），统一用 .sign-cn-en 类
   const cnIsAscii = sign.cn && /[\x00-\x7F]/.test(sign.cn);
+  // ASCII 英文翻译：去掉逗号（替换为空格），保持英文单词完整性，不强制断行
+  const cnClean = cnIsAscii ? escapeHtml(sign.cn).replace(/,/g, ' ') : sign.cn;
   const cnLine = sign.cn
-    ? `<p class="${cnIsAscii ? 'sign-cn-en' : 'sign-cn'}">${cnIsAscii ? escapeHtml(sign.cn) : `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.cn), 20, false, true), true)}</span>`}</p>`
+    ? `<p class="${cnIsAscii ? 'sign-cn-en' : 'sign-cn'}">${cnIsAscii ? cnClean : `<span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.cn), 20, false, true), true)}</span>`}</p>`
     : '';
   const literalLine = sign.literal
     ? `<p class="sign-literal"><span class="skew-wrap">${joinSegs(smartSegments(escapeHtml(sign.literal), 5))}</span></p>`
@@ -2212,17 +2214,38 @@ function smartSegments(text, maxCn = 9, keepSpace = false, stripComma = false) {
       if (!/[a-zA-Z0-9\u4e00-\u9fff]/.test(t) && segs.length > 0) {
         segs[segs.length - 1] += t;
       } else if (/[\u4e00-\u9fff]/.test(t) && t.length > maxCn && !/[，。！？、；：]/.test(t)) {
-        const breakers = ['需要', '就是', '也是', '就能', '才是', '没有', '还有', '我们', '成为'];
-        let cutAt = -1;
-        for (const b of breakers) {
-          const idx = t.indexOf(b, 4);
-          if (idx > 0 && idx < t.length - 2 && idx <= maxCn) { cutAt = idx; break; }
-        }
-        if (cutAt > 0) {
-          segs.push(t.slice(0, cutAt));
-          segs.push(t.slice(cutAt));
+        // 短句（≤ maxCn+2）整体成段，交给 CSS 自然换行，避免孤字单独一行
+        if (t.length <= maxCn + 2) {
+          segs.push(t);
         } else {
-          for (let i = 0; i < t.length; i += maxCn) segs.push(t.slice(i, i + maxCn));
+          const breakers = ['需要', '就是', '也是', '就能', '才是', '没有', '还有', '我们', '成为'];
+          let cutAt = -1;
+          for (const b of breakers) {
+            const idx = t.indexOf(b, 4);
+            if (idx > 0 && idx < t.length - 2 && idx <= maxCn) { cutAt = idx; break; }
+          }
+          if (cutAt > 0) {
+            segs.push(t.slice(0, cutAt));
+            segs.push(t.slice(cutAt));
+          } else {
+            // 循环切分：避免最后一段只有 1 个字（孤字）
+            let i = 0;
+            while (i < t.length) {
+              let end = Math.min(i + maxCn, t.length);
+              // 若剩余恰好 1 个字，把上一段末尾的 1 个字挪到本段，保证本段 ≥ 2 字
+              if (t.length - i === 1 && segs.length > 0) {
+                const last = segs[segs.length - 1];
+                if (last.length > 1) {
+                  segs[segs.length - 1] = last.slice(0, -1);
+                } else {
+                  segs.pop();
+                }
+                end = i + 1;
+              }
+              segs.push(t.slice(i, end));
+              i = end;
+            }
+          }
         }
       } else {
         // 过短段（1-2字中文）并入前段，避免孤立单字占一行
@@ -2253,7 +2276,9 @@ function smartSegments(text, maxCn = 9, keepSpace = false, stripComma = false) {
     // 软断点：逗号/顿号/冒号 → 断行
     if (/[，、：,]/.test(ch)) {
       if (stripComma) {
-        // 逗号不显示，直接断行
+        // 英文(keepSpace)：逗号 → 空格替代，不强制断行（保持英文句子连贯）
+        // 中文：逗号 → 不显示，直接断行（第二句另起一行）
+        if (keepSpace) { cur += ' '; continue; }
         flush();
         continue;
       }
@@ -2726,8 +2751,9 @@ function renderReviewMode() {
   const listWrap = document.createElement('div');
   listWrap.style.cssText = 'max-width:560px;margin:0 auto;padding:20px 16px 80px;display:flex;flex-direction:column;gap:16px;';
 
-  // 审核列表只包含未删除的卡片
-  const reviewList = FORTUNES.filter(f => !f._deleted);
+  // 审核列表：排除已销毁(_deleted)和已隐藏(hidden:true)的卡片
+  // 隐藏卡片已封存到独立文件夹，不再出现在审核列表
+  const reviewList = FORTUNES.filter(f => !f._deleted && !f.hidden);
   const total = reviewList.length;
   let processed = 0;
   let currentIdx = 0; // 当前展示的卡片在 reviewList 中的下标（跳过已决策的）
