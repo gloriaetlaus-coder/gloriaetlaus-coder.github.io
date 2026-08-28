@@ -1426,29 +1426,34 @@ body::after {
   .title { font-size: 42px; padding: 10px 20px 4px 12px; }
   .title-sub { font-size: 40px; margin-top: 2px; letter-spacing: 5px; padding: 4px 6px 2px 18px; }
   .header { min-height: 50px; padding: 6px 0 2px; margin-bottom: 0; }
-  .app { padding: 6px 16px 6px; }
-  .stage { margin-top: 6px; }
+  .app { padding: 3px 16px 6px; }  /* 顶部 padding 6→3px 缩小约0.13cm */
+  .stage { margin-top: 8px; }  /* 中卡间距 13→8px 缩小约0.13cm */
   .sign-card-outer { max-width: min(92vw, 340px); height: min(82vh, 660px); }
   .sign-cn { font-size: clamp(26px, 8vw, 32px); }  /* 手机端中文主题词放大 */
-  .sign-meaning { font-size: 15px; color: #4A3A65; font-weight: 600; }  /* 手机端释义字号放大 + 颜色加深 */
+  .sign-poem.english { font-size: 28px; }  /* 手机端外文主题词 34→28px 适配窄屏 */
+  .sign-literal { font-size: clamp(22px, 6.5vw, 28px); }  /* 手机端直译增大 */
+  .sign-cn-en { font-size: 28px; }  /* 手机端外文副题增大 */
+  .sign-cn-en.sub { font-size: clamp(20px, 5vw, 26px); }  /* 手机端翻译副题增大 */
+  .sign-meaning { font-size: 15px; color: #4A3A65; font-weight: 700; }  /* 手机端释义字号+字重增大 */
+  .sign-source { font-size: 12px; }  /* 手机端出处 11→12px */
+  .sign-tip { font-size: 13px; }  /* 手机端提示 12→13px */
+  .sign-brand { font-size: 11px; }  /* 手机端品牌 10→11px */
   .btn-ghost { font-size: 15px; }  /* 手机端按钮字号放大到与释义一致 */
-  .stage { margin-top: 13px; }  /* 手机断点：中卡间距≈0.5cm */
 }
 
 @media (max-width: 360px) {
   :root { --font-cn: var(--font-cn-mobile); }
-  .app { padding: 4px 14px 4px; }
+  .app { padding: 3px 14px 4px; }  /* 顶部 padding 4→3px 缩小 */
   .header { min-height: 44px; padding: 4px 0 2px; margin-bottom: 0; }
   .title { font-size: 36px; padding: 8px 20px 4px 12px; }
   .title-sub { font-size: 36px; margin-top: 2px; letter-spacing: 4px; padding: 4px 4px 2px 14px; }
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 12px; padding: 8px 13px; }
-  .stage { margin-top: 6px; }
+  .stage { margin-top: 8px; }  /* 中卡间距 13→8px 缩小约0.13cm */
   .sign-card-outer { max-width: min(94vw, 320px); height: min(84vh, 640px); }
-  .stage { margin-top: 13px; }  /* 360px 断点：中卡间距≈0.5cm */
   .sign-face.back { padding: 18px 14px 16px; }
   .sign-poem.english { font-size: 24px; }
-  .sign-source { font-size: 10px; padding: 0 6px; }
+  .sign-source { font-size: 11px; padding: 0 6px; }  /* 360px 出处 10→11px */
   .sign-meaning { font-size: 15px; padding: 0 10px; line-height: 1.7; }
   .category-list { grid-template-columns: repeat(4, 1fr); font-size: 11px; }
   .chip { font-size: 11px; padding: 10px 2px; }
@@ -1595,13 +1600,13 @@ const FORTUNES = [
     poem: 'Self-Compassion', cn: '善待自己', meaning: '用安慰朋友的方式对自己说话。自我关怀能加速卸下压力，恢复速度远快于自我苛责。',
     source: '美国·临床心理学||克里斯汀·内夫（Kristin Neff）' },
   { cat: 'sad', num: 209,
-    poem: 'Hot Shower Reset', cn: '热水澡重置', meaning: '洗个热水澡能舒张血管，提高催产素水平，缓解身体僵硬。温热感会提醒身体现在可以放松了。',
+    poem: 'Hot Shower Reset', cn: '热水澡重置', meaning: '洗个热水澡能舒张血管，提高拥抱激素（Oxytocin）水平，缓解身体僵硬。温热感会提醒身体现在可以放松了。',
     source: '人类·生理学||世界卫生组织（World Health Organization）' },
   { cat: 'sad', num: 210,
     poem: "Nature's Hug", cn: '自然的拥抱', meaning: '去外面走走，哪怕是看着远处的天空发十分钟呆。换一个场景，会让大脑的“灾难化”自动停止。',
     source: '美国·环境心理学||密歇根大学（University of Michigan）' },
   { cat: 'sad', num: 211,
-    poem: 'Soft Blanket', cn: '柔软的毯子', meaning: '窝在柔软的毯子里，触觉上的包裹感会促进催产素分泌，告诉神经系统现在很安全。',
+    poem: 'Soft Blanket', cn: '柔软的毯子', meaning: '窝在柔软的毯子里，触觉上的包裹感会促进拥抱激素分泌，告诉神经系统现在很安全。',
     source: '人类·生理学||加州大学洛杉矶分校（UCLA）' },
   { cat: 'sad', num: 212,
     poem: 'Warm Drink', cn: '一杯温热', meaning: '手上捧一杯温热的水或茶，温度传递到指尖。身体暖和起来，心理的安全感也会随之升温。',
@@ -1742,7 +1747,7 @@ const FORTUNES = [
     poem: 'One Small Hello', cn: '一个小问候', meaning: '哪怕只是和快递员或收银员说一句话，孤独感也会下降。微小的连接同样在给心脏供氧。',
     source: '美国·社会心理学||加州大学伯克利分校（UC Berkeley）' },
   { cat: 'lonely', num: 503,
-    poem: 'Reach Out First', cn: '先伸出手', meaning: '主动发出一条消息，身体便会分泌催产素。孤独惧怕的是迈出第一步的犹豫。',
+    poem: 'Reach Out First', cn: '先伸出手', meaning: '主动发出一条消息，身体便会分泌拥抱激素。孤独惧怕的是迈出第一步的犹豫。',
     source: '美国·神经经济学||保罗·扎克（Paul Zak）' },
   { cat: 'lonely', num: 504,
     poem: 'Company of Others', cn: '有人陪伴', meaning: '即使在同处一个空间没有深入交流，共同的记忆和同一种笑声也能降低皮质醇水平。',
@@ -1751,7 +1756,7 @@ const FORTUNES = [
     poem: 'Alone is a Charge', cn: '独处是充电', meaning: '独处不等于孤独，把独处当成恢复精力，身体会修得更快。真正的孤独，是没能好好陪伴自己。',
     source: '英国·心理学||安东尼·斯托尔（Anthony Storr）' },
   { cat: 'lonely', num: 506,
-    poem: "A Pet's Warmth", cn: '宠物的温暖', meaning: '撸猫狗十分钟，催产素上升，压力激素下降。有时最亲近的连结，来自另一双不同的眼睛。',
+    poem: "A Pet's Warmth", cn: '宠物的温暖', meaning: '撸猫狗十分钟，拥抱激素上升，压力激素下降。有时最亲近的连结，来自另一双不同的眼睛。',
     source: '美国·人与动物研究||密苏里大学（University of Missouri）' },
   { cat: 'lonely', num: 507,
     poem: 'Small Circle, Deep Bonds', cn: '小圈子深连接', meaning: '两三个谈得来的人就足以提供能量。关系的质量比数量更能抵御孤独感。',
@@ -1760,7 +1765,7 @@ const FORTUNES = [
     poem: 'Belonging is Built', cn: '归属靠建造', meaning: '加入一个小组或学习一个爱好，人就会慢慢融入。归属感是用脚步一步步走出来的。',
     source: '美国·社会心理学||罗伊·鲍迈斯特（Roy Baumeister）' },
   { cat: 'lonely', num: 509,
-    poem: 'Join a Gym Class', cn: '参加健身课', meaning: '在集体运动中，大家为了同一个节奏动起来，大脑会分泌社交性的催产素。和陌生人一起流汗，也是一种连接。',
+    poem: 'Join a Gym Class', cn: '参加健身课', meaning: '在集体运动中，大家为了同一个节奏动起来，大脑会分泌社交性的拥抱激素。和陌生人一起流汗，也是一种连接。',
     source: '人类·社会心理学||密歇根大学（University of Michigan）' },
   { cat: 'lonely', num: 510,
     poem: 'Go to a Cafe', cn: '去咖啡馆坐坐', meaning: '什么都不做，待在有人声的咖啡馆。周围人的存在本身就会降低孤独感，这是最低成本的陪伴。',
@@ -1781,7 +1786,7 @@ const FORTUNES = [
     poem: 'Join Something Small', cn: '加入小事', meaning: '每周固定参加一个活动，哪怕是线上读书会。重复见面是建立归属感最快的方式。',
     source: '美国·社会学||罗伊·鲍迈斯特（Roy Baumeister）' },
   { cat: 'lonely', num: 602,
-    poem: 'Write a Letter', cn: '写一封信', meaning: '想一个很久没联系的人，发一段话出去。主动迈出一步，连接就重新启动，身体会回报催产素。',
+    poem: 'Write a Letter', cn: '写一封信', meaning: '想一个很久没联系的人，发一段话出去。主动迈出一步，连接就重新启动，身体会回报拥抱激素。',
     source: '美国·社会神经科学||斯坦福大学（Stanford University）' },
   { cat: 'calm', num: 601,
     poem: 'Parasympathetic Reset', cn: '副交感重置', meaning: '平静时身体进入修复模式：心率变慢、消化加强、免疫活跃。平静是身体最划算的投资。',
