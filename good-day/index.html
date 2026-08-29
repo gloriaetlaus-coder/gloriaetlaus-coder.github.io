@@ -20,6 +20,9 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#7A5FC0">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -680,7 +683,7 @@ body::after {
 }
 .wand-label:hover { opacity: 0.85; }
 
-/* 第二阶段审核入口按钮区 */
+/* 第二阶段审核按钮区（始终并排显示） */
 .qa-btns-wrap {
   margin: 14px 0 0;
   display: flex;
@@ -725,9 +728,6 @@ body::after {
   transform: translateY(-1px);
 }
 .qa-btn:active, .qa-ok-btn:active { transform: scale(0.95); }
-.qa-btns-wrap.hidden { display: none; }
-.qa-mode-btns { display: none; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; margin: 14px 0 0; }
-.qa-mode-btns.visible { display: flex; }
 
 @keyframes gentleFloat {
   0%, 100% { transform: translateY(0) rotate(0); }
@@ -1592,9 +1592,6 @@ body::after {
         </div>
         <p class="wand-label" id="wand-label">点击魔法棒随机抽一张</p>
         <div class="qa-btns-wrap" id="qa-btns-wrap">
-          <button class="qa-btn" id="qa-btn">有问题❌（0/87）</button>
-        </div>
-        <div class="qa-mode-btns" id="qa-mode-btns">
           <button class="qa-ok-btn" id="qa-ok-btn">没问题✔（下一张）</button>
           <button class="qa-btn" id="qa-bad-btn">有问题❌（下一张）</button>
         </div>
@@ -2684,7 +2681,6 @@ function init() {
     });
   }
 }
-
 /* ====================================================
    人工视觉质检台（review 模式）
    ?review=true 进入：逐张渲染真实卡片，人工判断好坏
@@ -2906,7 +2902,7 @@ function renderReviewMode() {
 
 /* ====================================================
    第二阶段审核（集成在正常预览界面内）
-   - 不跳转独立页面，直接在预览界面内逐张审核
+   - 两个按钮始终并排显示，无需点击入口
    - PC/手机端进度独立（按屏宽区分 localStorage key）
    - 断点续审：刷新不丢失，继续从上次未审的位置
    - 审核模式下保留完整正常 UI（浅紫背景/发光主题词/动效）
@@ -2937,61 +2933,40 @@ const qaState = {
 };
 
 function initQaButtons() {
-  const qaBtn = document.getElementById('qa-btn');
-  const qaBtnsWrap = document.getElementById('qa-btns-wrap');
-  const qaModeBtns = document.getElementById('qa-mode-btns');
   const qaOkBtn = document.getElementById('qa-ok-btn');
   const qaBadBtn = document.getElementById('qa-bad-btn');
+  if (!qaOkBtn || !qaBadBtn) return;
 
-  if (!qaBtn) return;
+  // 绑定两个按钮
+  qaOkBtn.addEventListener('click', () => qaMarkCard(false));
+  qaBadBtn.addEventListener('click', () => qaMarkCard(true));
 
-  // 初始化按钮文字（显示当前进度 / 总数）
-  const qaTotal = FORTUNES.filter(f => !f._deleted && !f.hidden).length;
-  const savedMap = loadQa2Map();
-  const qaProcessed = Object.keys(savedMap).length;
-  qaBtn.textContent = `有问题❌（${qaProcessed}/${qaTotal}）`;
+  // 初始化审核状态
+  qaState.map = loadQa2Map();
+  qaState.reviewList = FORTUNES.filter(f => !f._deleted && !f.hidden);
+  qaState.currentIdx = nextUndecidedQa(0);
 
-  // 入口按钮：点击进入审核模式
-  qaBtn.addEventListener('click', () => {
+  // 如果有未审核的卡片，自动进入审核模式
+  if (qaState.currentIdx >= 0) {
     startQaMode();
-  });
-
-  // 审核模式按钮
-  if (qaOkBtn) {
-    qaOkBtn.addEventListener('click', () => {
-      qaMarkCard(false);
-    });
-  }
-  if (qaBadBtn) {
-    qaBadBtn.addEventListener('click', () => {
-      qaMarkCard(true);
-    });
   }
 }
 
 function startQaMode() {
   qaState.active = true;
-  qaState.map = loadQa2Map();
-  qaState.reviewList = FORTUNES.filter(f => !f._deleted && !f.hidden);
 
-  // 隐藏首页元素（魔法棒/情绪泡泡/wand-label/qa入口按钮）
-  // 但保留卡片本身、背景、流星雨、slogan
+  // 隐藏首页元素（魔法棒/情绪泡泡/wand-label）
+  // 保留卡片本身、背景、流星雨、slogan
   const wand = document.getElementById('wand');
   if (wand) wand.style.display = 'none';
   const wandLabel = document.getElementById('wand-label');
   if (wandLabel) wandLabel.style.display = 'none';
-  const qaBtnsWrap = document.getElementById('qa-btns-wrap');
-  if (qaBtnsWrap) qaBtnsWrap.classList.add('hidden');
   const bubbles = document.getElementById('mood-bubbles');
   if (bubbles) bubbles.classList.add('hidden');
   const waterRipple = document.getElementById('water-ripple');
   if (waterRipple) waterRipple.style.display = 'none';
 
-  // 显示审核模式按钮
-  const qaModeBtns = document.getElementById('qa-mode-btns');
-  if (qaModeBtns) qaModeBtns.classList.add('visible');
-
-  // 确保卡片可见（front 面隐藏，用 back 面展示）
+  // 卡片翻到背面
   const card = document.getElementById('card');
   if (card) card.classList.add('flipped');
 
@@ -3000,7 +2975,6 @@ function startQaMode() {
   // 找到下一张未审核的卡片
   qaState.currentIdx = nextUndecidedQa(0);
   if (qaState.currentIdx < 0) {
-    // 全部已审完
     showQaComplete();
   } else {
     showQaCard();
@@ -3024,36 +2998,28 @@ function showQaCard() {
   const fn = qaState.reviewList[qaState.currentIdx];
   state.currentSign = fn;
 
-  // 用正常 drawSign 的渲染逻辑写入卡片背面
+  // 用正常 renderSign 写入卡片背面
   const back = document.getElementById('face-back');
   if (back) back.innerHTML = renderSign(fn);
 
   const card = document.getElementById('card');
   if (card) card.classList.add('flipped');
 
-  // 绑定卡片内的事件（复制/首页），但首页按钮在审核模式下改为"跳过"
+  // 绑定卡片内事件
   bindQaResultEvents();
-
-  // 更新进度文字
-  updateQaProgress();
 }
 
 function bindQaResultEvents() {
-  // 复制按钮
   const copyBtn = document.getElementById('copy-btn');
   if (copyBtn) copyBtn.onclick = copySign;
-  // 首页按钮在审核模式下改为"跳过"（等同于没问题）
   const againBtn = document.getElementById('again-btn');
   if (againBtn) againBtn.onclick = (e) => {
     e.stopPropagation();
     qaMarkCard(false);
   };
-  // 点击卡片空白处不返回首页（审核模式下禁止）
   const back = document.getElementById('face-back');
   if (back) back.onclick = (e) => {
-    // 点击按钮区域不触发
     if (e.target.closest('.btn-ghost, .actions, a, button')) return;
-    // 审核模式下不返回首页
   };
 }
 
@@ -3065,9 +3031,6 @@ function qaMarkCard(isProblem) {
   qaState.map[k] = isProblem;
   saveQa2Map(qaState.map);
 
-  // 更新入口按钮文字
-  updateQaEntryButton();
-
   // 跳到下一张
   qaState.currentIdx = nextUndecidedQa(qaState.currentIdx + 1);
   if (qaState.currentIdx < 0) {
@@ -3077,41 +3040,12 @@ function qaMarkCard(isProblem) {
   }
 }
 
-function updateQaProgress() {
-  // 更新入口按钮文字
-  updateQaEntryButton();
-}
-
-function updateQaEntryButton() {
-  const qaBtn = document.getElementById('qa-btn');
-  if (!qaBtn) return;
-  const qaTotal = qaState.reviewList.length || FORTUNES.filter(f => !f._deleted && !f.hidden).length;
-  const qaProcessed = Object.keys(qaState.active ? qaState.map : loadQa2Map()).length;
-  // 更新入口按钮和审核模式下"有问题"按钮的文字
-  qaBtn.textContent = `有问题❌（${qaProcessed}/${qaTotal}）`;
-  const qaBadBtn = document.getElementById('qa-bad-btn');
-  if (qaBadBtn) {
-    const remaining = qaTotal - qaProcessed;
-    qaBadBtn.textContent = `有问题❌（下一张）`;
-  }
-  const qaOkBtn = document.getElementById('qa-ok-btn');
-  if (qaOkBtn) {
-    qaOkBtn.textContent = '没问题✔（下一张）';
-  }
-}
-
 function showQaComplete() {
-  // 隐藏审核模式按钮
-  const qaModeBtns = document.getElementById('qa-mode-btns');
-  if (qaModeBtns) qaModeBtns.classList.remove('visible');
-
   // 恢复首页元素
   const wand = document.getElementById('wand');
   if (wand) wand.style.display = '';
   const wandLabel = document.getElementById('wand-label');
   if (wandLabel) wandLabel.style.display = '';
-  const qaBtnsWrap = document.getElementById('qa-btns-wrap');
-  if (qaBtnsWrap) qaBtnsWrap.classList.remove('hidden');
   const bubbles = document.getElementById('mood-bubbles');
   if (bubbles) bubbles.classList.remove('hidden');
   const waterRipple = document.getElementById('water-ripple');
@@ -3121,13 +3055,7 @@ function showQaComplete() {
 
   setMeteorMode('sparse');
 
-  // 更新入口按钮文字
   const qaTotal = qaState.reviewList.length;
-  const qaProcessed = Object.keys(qaState.map).length;
-  const qaBtn = document.getElementById('qa-btn');
-  if (qaBtn) qaBtn.textContent = `有问题❌（${qaProcessed}/${qaTotal}）`;
-
-  // 显示完成提示
   const hiddenCount = qaState.reviewList.filter(f => qaState.map[signKey(f)]).length;
   showToast(`全部 ${qaTotal} 张已审核完毕！共标记 ${hiddenCount} 张需要隐藏`);
 
