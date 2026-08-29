@@ -683,7 +683,7 @@ body::after {
 }
 .wand-label:hover { opacity: 0.85; }
 
-/* 第二阶段审核按钮区（始终并排显示） */
+/* 审核按钮区（始终并排显示） */
 .qa-btns-wrap {
   margin: 14px 0 0;
   display: flex;
@@ -1592,8 +1592,8 @@ body::after {
         </div>
         <p class="wand-label" id="wand-label">点击魔法棒随机抽一张</p>
         <div class="qa-btns-wrap" id="qa-btns-wrap">
-          <button class="qa-ok-btn" id="qa-ok-btn">没问题✔（下一张）</button>
-          <button class="qa-btn" id="qa-bad-btn">有问题❌（下一张）</button>
+          <button class="qa-ok-btn" id="qa-ok-btn">没问题✔</button>
+          <button class="qa-btn" id="qa-bad-btn">有问题❌</button>
         </div>
         <div class="water-ripple" id="water-ripple"></div>
       </div>
@@ -2655,6 +2655,11 @@ function init() {
     renderReviewMode();
     return;
   }
+  // 第二阶段审核模式
+  if (checkQa2Mode()) {
+    renderQa2Mode();
+    return;
+  }
   loadHistory();
   const drawBtn = document.getElementById('draw-btn');
   if (drawBtn) drawBtn.addEventListener('click', drawSign);
@@ -2668,7 +2673,80 @@ function init() {
   });
 
   // 第二阶段审核入口按钮
-  initQaButtons();
+  const qaBadBtn = document.getElementById('qa-bad-btn');
+  const qaOkBtn = document.getElementById('qa-ok-btn');
+  if (qaBadBtn && qaOkBtn) {
+    // 初始化审核状态
+    const qaKey = 'sisterSign.qa2.' + (window.innerWidth < 768 ? 'mobile' : 'desktop');
+    let qaMap = {};
+    try { qaMap = JSON.parse(localStorage.getItem(qaKey) || '{}'); } catch(e) {}
+    const reviewList = FORTUNES.filter(f => !f._deleted && !f.hidden);
+    const qaTotal = reviewList.length;
+    const qaProcessed = Object.keys(qaMap).length;
+    qaBadBtn.textContent = `有问题❌（${qaProcessed}/${qaTotal}）`;
+    qaOkBtn.textContent = '没问题✔（下一张）';
+
+    // 找下一张未审核的卡片
+    const nextUndecided = () => {
+      for (let i = 0; i < reviewList.length; i++) {
+        if (qaMap[signKey(reviewList[i])] === undefined) return reviewList[i];
+      }
+      return null;
+    };
+
+    // 渲染审核卡片（用正常 drawSign 流程）
+    const showQaCard = (fn) => {
+      state.currentSign = fn;
+      const back = document.getElementById('face-back');
+      if (back) back.innerHTML = renderSign(fn);
+      const card = document.getElementById('card');
+      if (card) card.classList.add('flipped');
+      // 绑定卡片内事件
+      const copyBtn = document.getElementById('copy-btn');
+      if (copyBtn) copyBtn.onclick = copySign;
+      const againBtn = document.getElementById('again-btn');
+      if (againBtn) againBtn.onclick = (e) => { e.stopPropagation(); qaNext(false); };
+      // 审核模式下点卡片空白不返回首页
+      if (back) back.onclick = (e) => {
+        if (e.target.closest('.btn-ghost, .actions, a, button')) return;
+      };
+    };
+
+    // 审核下一张
+    const qaNext = (isProblem) => {
+      if (state.currentSign) {
+        const k = signKey(state.currentSign);
+        qaMap[k] = isProblem;
+        try { localStorage.setItem(qaKey, JSON.stringify(qaMap)); } catch(e) {}
+      }
+      // 更新进度
+      const processed = Object.keys(qaMap).length;
+      qaBadBtn.textContent = `有问题❌（${processed}/${qaTotal}）`;
+      // 找下一张
+      const next = nextUndecided();
+      if (next) {
+        showQaCard(next);
+      } else {
+        // 全部审完
+        const card = document.getElementById('card');
+        if (card) card.classList.remove('flipped');
+        const hiddenCount = reviewList.filter(f => qaMap[signKey(f)]).length;
+        showToast(`全部 ${qaTotal} 张已审核完毕！共标记 ${hiddenCount} 张需要隐藏`);
+      }
+    };
+
+    // 没问题按钮
+    qaOkBtn.addEventListener('click', () => qaNext(false));
+    // 有问题按钮
+    qaBadBtn.addEventListener('click', () => qaNext(true));
+
+    // 如果有未审核的卡片，自动展示第一张
+    const firstCard = nextUndecided();
+    if (firstCard) {
+      // 延迟展示，确保 init 完成后再翻牌
+      setTimeout(() => showQaCard(firstCard), 100);
+    }
+  }
 
   // 情绪入口：点击推荐对应签文
   const bubbles = document.getElementById('mood-bubbles');
@@ -2681,6 +2759,7 @@ function init() {
     });
   }
 }
+
 /* ====================================================
    人工视觉质检台（review 模式）
    ?review=true 进入：逐张渲染真实卡片，人工判断好坏
@@ -2901,13 +2980,18 @@ function renderReviewMode() {
 }
 
 /* ====================================================
-   第二阶段审核（集成在正常预览界面内）
-   - 两个按钮始终并排显示，无需点击入口
+   第二阶段审核（qa2 模式）
+   ?qa2=true 进入：逐张渲染卡片，与正常模式视觉完全一致
    - PC/手机端进度独立（按屏宽区分 localStorage key）
    - 断点续审：刷新不丢失，继续从上次未审的位置
-   - 审核模式下保留完整正常 UI（浅紫背景/发光主题词/动效）
+   - 按钮文字实时更新：有问题❌（已处理/总数）
    ==================================================== */
 const QA2_KEY_PREFIX = 'sisterSign.qa2.';
+
+function checkQa2Mode() {
+  const params = new URLSearchParams(location.search);
+  return params.get('qa2') === 'true';
+}
 
 function getQa2StorageKey() {
   return QA2_KEY_PREFIX + (window.innerWidth < 768 ? 'mobile' : 'desktop');
@@ -2924,142 +3008,166 @@ function saveQa2Map(map) {
   try { localStorage.setItem(getQa2StorageKey(), JSON.stringify(map)); } catch (e) {}
 }
 
-// 审核状态
-const qaState = {
-  active: false,
-  reviewList: [],
-  currentIdx: 0,
-  map: {},
-};
+function renderQa2Mode() {
+  // 隐藏正常 UI（保留 header slogan + 背景动效）
+  const elements = ['#card', '#mood-bubbles', '#water-ripple', '#back-hint', '#wand', '#wand-label', '#qa-btn', '#meteor-container', '#categories'];
+  elements.forEach(sel => { const el = document.querySelector(sel); if (el) el.style.display = 'none'; });
+  const toast = document.getElementById('toast');
+  if (toast) toast.style.display = 'none';
 
-function initQaButtons() {
-  const qaOkBtn = document.getElementById('qa-ok-btn');
-  const qaBadBtn = document.getElementById('qa-bad-btn');
-  if (!qaOkBtn || !qaBadBtn) return;
+  const qa2Map = loadQa2Map();
+  const reviewList = FORTUNES.filter(f => !f._deleted && !f.hidden);
+  const total = reviewList.length;
 
-  // 绑定两个按钮
-  qaOkBtn.addEventListener('click', () => qaMarkCard(false));
-  qaBadBtn.addEventListener('click', () => qaMarkCard(true));
+  const app = document.querySelector('.app');
+  if (!app) return;
+  app.style.cssText = 'background:transparent;min-height:auto;display:flex;flex-direction:column;align-items:center;';
+  document.body.style.overflow = 'auto';
+  document.title = '第二阶段审核 · 今朝·Good day';
 
-  // 初始化审核状态
-  qaState.map = loadQa2Map();
-  qaState.reviewList = FORTUNES.filter(f => !f._deleted && !f.hidden);
-  qaState.currentIdx = nextUndecidedQa(0);
+  // 顶部工具栏
+  const bar = document.createElement('div');
+  bar.id = 'qa2-bar';
+  bar.style.cssText = 'position:sticky;top:0;z-index:50;background:rgba(244,241,250,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(184,164,220,0.3);padding:10px 16px;width:100%;box-sizing:border-box;';
+  const barInner = document.createElement('div');
+  barInner.style.cssText = 'max-width:560px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:8px;';
 
-  // 如果有未审核的卡片，自动进入审核模式
-  if (qaState.currentIdx >= 0) {
-    startQaMode();
-  }
-}
+  const barLeft = document.createElement('div');
+  barLeft.style.cssText = 'display:flex;align-items:center;gap:10px;';
+  const titleEl = document.createElement('span');
+  titleEl.style.cssText = 'font-size:14px;font-weight:700;color:#4a3f6b;font-family:-apple-system,"PingFang SC",sans-serif;';
+  titleEl.textContent = '第二阶段审核';
+  const deviceTag = document.createElement('span');
+  deviceTag.style.cssText = 'font-size:11px;color:#9a8bbf;font-family:-apple-system,"PingFang SC",sans-serif;background:rgba(184,164,220,0.15);padding:2px 8px;border-radius:999px;';
+  deviceTag.textContent = window.innerWidth < 768 ? '手机端' : 'PC端';
+  barLeft.appendChild(titleEl);
+  barLeft.appendChild(deviceTag);
 
-function startQaMode() {
-  qaState.active = true;
+  const backBtn = document.createElement('button');
+  backBtn.textContent = '← 返回首页';
+  backBtn.style.cssText = 'padding:5px 14px;font-size:13px;font-family:-apple-system,"PingFang SC",sans-serif;color:#6C52A8;background:rgba(255,255,255,0.7);border:1px solid rgba(184,164,220,0.5);border-radius:999px;cursor:pointer;white-space:nowrap;';
+  backBtn.addEventListener('click', () => { location.href = location.pathname; });
 
-  // 隐藏首页元素（魔法棒/情绪泡泡/wand-label）
-  // 保留卡片本身、背景、流星雨、slogan
-  const wand = document.getElementById('wand');
-  if (wand) wand.style.display = 'none';
-  const wandLabel = document.getElementById('wand-label');
-  if (wandLabel) wandLabel.style.display = 'none';
-  const bubbles = document.getElementById('mood-bubbles');
-  if (bubbles) bubbles.classList.add('hidden');
-  const waterRipple = document.getElementById('water-ripple');
-  if (waterRipple) waterRipple.style.display = 'none';
+  barInner.appendChild(barLeft);
+  barInner.appendChild(backBtn);
+  bar.appendChild(barInner);
 
-  // 卡片翻到背面
-  const card = document.getElementById('card');
-  if (card) card.classList.add('flipped');
+  // 进度条
+  const progressWrap = document.createElement('div');
+  progressWrap.style.cssText = 'max-width:560px;margin:0 auto;padding:6px 16px 4px;';
+  const progressText = document.createElement('div');
+  progressText.style.cssText = 'font-size:12px;color:#7b6ba5;font-family:-apple-system,"PingFang SC",sans-serif;margin-bottom:3px;';
+  progressText.id = 'qa2-progress-text';
+  const progressTrack = document.createElement('div');
+  progressTrack.style.cssText = 'width:100%;height:6px;background:rgba(184,164,220,0.2);border-radius:999px;overflow:hidden;';
+  const progressFill = document.createElement('div');
+  progressFill.id = 'qa2-progress-fill';
+  progressFill.style.cssText = 'height:100%;width:0%;background:linear-gradient(90deg,#9b7ede,#6C52A8);border-radius:999px;transition:width 0.3s ease;';
+  progressTrack.appendChild(progressFill);
+  progressWrap.appendChild(progressText);
+  progressWrap.appendChild(progressTrack);
+  bar.appendChild(progressWrap);
 
-  setMeteorMode('dense');
+  app.innerHTML = '';
+  app.appendChild(bar);
 
-  // 找到下一张未审核的卡片
-  qaState.currentIdx = nextUndecidedQa(0);
-  if (qaState.currentIdx < 0) {
-    showQaComplete();
-  } else {
-    showQaCard();
-  }
-}
+  // 卡片区
+  const listWrap = document.createElement('div');
+  listWrap.id = 'qa2-list';
+  listWrap.style.cssText = 'max-width:560px;margin:0 auto;padding:20px 16px 80px;display:flex;flex-direction:column;align-items:center;gap:16px;';
 
-function nextUndecidedQa(from) {
-  const total = qaState.reviewList.length;
-  for (let i = from; i < total; i++) {
-    if (qaState.map[signKey(qaState.reviewList[i])] === undefined) return i;
-  }
-  return -1;
-}
+  let processed = 0;
+  let currentIdx = 0;
 
-function showQaCard() {
-  if (qaState.currentIdx < 0) {
-    showQaComplete();
-    return;
-  }
-
-  const fn = qaState.reviewList[qaState.currentIdx];
-  state.currentSign = fn;
-
-  // 用正常 renderSign 写入卡片背面
-  const back = document.getElementById('face-back');
-  if (back) back.innerHTML = renderSign(fn);
-
-  const card = document.getElementById('card');
-  if (card) card.classList.add('flipped');
-
-  // 绑定卡片内事件
-  bindQaResultEvents();
-}
-
-function bindQaResultEvents() {
-  const copyBtn = document.getElementById('copy-btn');
-  if (copyBtn) copyBtn.onclick = copySign;
-  const againBtn = document.getElementById('again-btn');
-  if (againBtn) againBtn.onclick = (e) => {
-    e.stopPropagation();
-    qaMarkCard(false);
+  const updateProgress = () => {
+    processed = 0;
+    reviewList.forEach(f => { if (qa2Map[signKey(f)] !== undefined) processed++; });
+    const pct = Math.round(processed / total * 100);
+    progressText.textContent = `已处理 ${processed} / ${total}（剩余 ${total - processed} 张）`;
+    progressFill.style.width = pct + '%';
   };
-  const back = document.getElementById('face-back');
-  if (back) back.onclick = (e) => {
-    if (e.target.closest('.btn-ghost, .actions, a, button')) return;
+
+  const nextUndecided = (from) => {
+    for (let i = from; i < total; i++) {
+      if (qa2Map[signKey(reviewList[i])] === undefined) return i;
+    }
+    return -1;
   };
-}
 
-function qaMarkCard(isProblem) {
-  if (!qaState.active || qaState.currentIdx < 0) return;
+  const showCard = (idx) => {
+    listWrap.innerHTML = '';
+    if (idx < 0) {
+      // 全部审完
+      updateProgress();
+      const doneBox = document.createElement('div');
+      doneBox.style.cssText = 'text-align:center;padding:40px 20px;';
+      const doneText = document.createElement('div');
+      doneText.style.cssText = 'font-size:16px;font-weight:700;color:#6C52A8;font-family:-apple-system,"PingFang SC",sans-serif;margin-bottom:12px;';
+      const hiddenCount = reviewList.filter(f => qa2Map[signKey(f)]).length;
+      doneText.textContent = `🎉 全部 ${total} 张已审核完毕！共标记 ${hiddenCount} 张需要隐藏。`;
+      const backHome = document.createElement('button');
+      backHome.textContent = '← 返回首页';
+      backHome.style.cssText = 'padding:8px 24px;font-size:14px;font-family:-apple-system,"PingFang SC",sans-serif;color:#fff;background:#6C52A8;border:none;border-radius:999px;cursor:pointer;';
+      backHome.addEventListener('click', () => { location.href = location.pathname; });
+      doneBox.appendChild(doneText);
+      doneBox.appendChild(backHome);
+      listWrap.appendChild(doneBox);
+      return;
+    }
 
-  const fn = qaState.reviewList[qaState.currentIdx];
-  const k = signKey(fn);
-  qaState.map[k] = isProblem;
-  saveQa2Map(qaState.map);
+    const fn = reviewList[idx];
+    const k = signKey(fn);
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:12px;';
 
-  // 跳到下一张
-  qaState.currentIdx = nextUndecidedQa(qaState.currentIdx + 1);
-  if (qaState.currentIdx < 0) {
-    showQaComplete();
-  } else {
-    showQaCard();
-  }
-}
+    // 卡片编号
+    const info = document.createElement('div');
+    info.style.cssText = 'font-size:12px;color:#9a8bbf;font-family:-apple-system,"PingFang SC",sans-serif;';
+    info.textContent = `#${idx + 1} / ${total}  [${fn.cat}] ${fn.num}`;
+    wrap.appendChild(info);
 
-function showQaComplete() {
-  // 恢复首页元素
-  const wand = document.getElementById('wand');
-  if (wand) wand.style.display = '';
-  const wandLabel = document.getElementById('wand-label');
-  if (wandLabel) wandLabel.style.display = '';
-  const bubbles = document.getElementById('mood-bubbles');
-  if (bubbles) bubbles.classList.remove('hidden');
-  const waterRipple = document.getElementById('water-ripple');
-  if (waterRipple) waterRipple.style.display = '';
-  const card = document.getElementById('card');
-  if (card) card.classList.remove('flipped');
+    // 真实卡片渲染：与正常模式完全一致的 DOM 结构
+    const cardHost = document.createElement('div');
+    cardHost.style.cssText = 'position:relative;width:100%;max-width:320px;margin:0 auto;';
+    cardHost.innerHTML = `<div class="sign-card-outer" style="position:relative;width:100%;max-width:min(92vw,320px);height:558px;transform-style:preserve-3d;"><div class="sign-face back" style="backface-visibility:visible;transform:none;">${renderSign(fn)}</div></div>`;
+    const innerActions = cardHost.querySelector('.actions');
+    if (innerActions) innerActions.remove();
+    wrap.appendChild(cardHost);
 
-  setMeteorMode('sparse');
+    // 操作按钮
+    const btns = document.createElement('div');
+    btns.style.cssText = 'display:flex;gap:10px;justify-content:center;';
 
-  const qaTotal = qaState.reviewList.length;
-  const hiddenCount = qaState.reviewList.filter(f => qaState.map[signKey(f)]).length;
-  showToast(`全部 ${qaTotal} 张已审核完毕！共标记 ${hiddenCount} 张需要隐藏`);
+    const okBtn = document.createElement('button');
+    okBtn.textContent = '✓ 没问题';
+    okBtn.style.cssText = 'flex:1;max-width:160px;padding:10px 0;font-size:14px;font-family:-apple-system,"PingFang SC",sans-serif;color:#7e60c0;background:#fff;border:1.5px solid rgba(122,95,192,0.35);border-radius:999px;cursor:pointer;';
+    okBtn.addEventListener('click', () => {
+      qa2Map[k] = false;
+      saveQa2Map(qa2Map);
+      updateProgress();
+      showCard(nextUndecided(idx + 1));
+    });
 
-  qaState.active = false;
+    const badBtn = document.createElement('button');
+    badBtn.textContent = '✕ 有问题，隐藏';
+    badBtn.style.cssText = 'flex:1;max-width:160px;padding:10px 0;font-size:14px;font-family:-apple-system,"PingFang SC",sans-serif;color:#fff;background:#c0392b;border:none;border-radius:999px;cursor:pointer;';
+    badBtn.addEventListener('click', () => {
+      qa2Map[k] = true;
+      saveQa2Map(qa2Map);
+      updateProgress();
+      showCard(nextUndecided(idx + 1));
+    });
+
+    btns.appendChild(okBtn);
+    btns.appendChild(badBtn);
+    wrap.appendChild(btns);
+    listWrap.appendChild(wrap);
+  };
+
+  updateProgress();
+  app.appendChild(listWrap);
+  showCard(nextUndecided(0));
+  return true;
 }
 
 init();
