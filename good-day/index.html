@@ -680,6 +680,32 @@ body::after {
 }
 .wand-label:hover { opacity: 0.85; }
 
+/* 第二阶段审核入口按钮 */
+.qa-btn {
+  display: inline-block;
+  margin: 14px 0 0;
+  padding: 6px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  letter-spacing: 0.5px;
+  color: #7e60c0;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(184, 164, 220, 0.4);
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(122, 95, 192, 0.08);
+}
+.qa-btn:hover {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 14px rgba(122, 95, 192, 0.18);
+  transform: translateY(-1px);
+}
+.qa-btn:active { transform: scale(0.95); }
+
 @keyframes gentleFloat {
   0%, 100% { transform: translateY(0) rotate(0); }
   50%      { transform: translateY(-8px) rotate(2deg); }
@@ -1523,7 +1549,6 @@ body::after {
     <span class="sparkle s4">✦</span>
       <p class="title-sub">今天过得怎么样？</p>
       <h1 class="title">How's Your Day?</h1>
-      <button class="review-entry-btn" id="review-entry-btn">🔍 人工审核</button>
   </header>
 
   <div class="category-list" id="categories"></div>
@@ -1543,6 +1568,7 @@ body::after {
           <span class="icon">🪄</span>
         </div>
         <p class="wand-label" id="wand-label">点击魔法棒随机抽一张</p>
+        <button class="qa-btn" id="qa-btn">有问题❌（0/87）</button>
         <div class="water-ripple" id="water-ripple"></div>
       </div>
       <div class="sign-face back" id="face-back"></div>
@@ -2598,9 +2624,14 @@ function init() {
     renderShowAll();
     return;
   }
-  // 人工审核模式
+  // 人工审核模式（旧版，保留兼容）
   if (checkReviewMode()) {
     renderReviewMode();
+    return;
+  }
+  // 第二阶段审核模式
+  if (checkQa2Mode()) {
+    renderQa2Mode();
     return;
   }
   loadHistory();
@@ -2615,11 +2646,20 @@ function init() {
     drawSign();
   });
 
-  // 人工审核入口按钮：正常预览模式与审核模式均显示
-  const reviewBtn = document.getElementById('review-entry-btn');
-  if (reviewBtn) {
-    reviewBtn.addEventListener('click', () => {
-      location.href = location.pathname + '?review=true';
+  // 第二阶段审核入口按钮
+  const qaBtn = document.getElementById('qa-btn');
+  if (qaBtn) {
+    // 初始化按钮文字（显示当前进度 / 总数）
+    const qaTotal = FORTUNES.filter(f => !f._deleted && !f.hidden).length;
+    const qaKey = 'sisterSign.qa2.' + (window.innerWidth < 768 ? 'mobile' : 'desktop');
+    let qaProcessed = 0;
+    try {
+      const saved = JSON.parse(localStorage.getItem(qaKey) || '{}');
+      qaProcessed = Object.keys(saved).length;
+    } catch(e) {}
+    qaBtn.textContent = `有问题❌（${qaProcessed}/${qaTotal})`;
+    qaBtn.addEventListener('click', () => {
+      location.href = location.pathname + '?qa2=true';
     });
   }
 
@@ -2846,6 +2886,197 @@ function renderReviewMode() {
     wrap.appendChild(btns);
     listWrap.appendChild(wrap);
     // 页面顶部固定不动，无需滚动（单卡视图本身很矮）
+  };
+
+  updateProgress();
+  app.appendChild(listWrap);
+  showCard(nextUndecided(0));
+  return true;
+}
+
+/* ====================================================
+   第二阶段审核（qa2 模式）
+   ?qa2=true 进入：逐张渲染卡片，与正常模式视觉完全一致
+   - PC/手机端进度独立（按屏宽区分 localStorage key）
+   - 断点续审：刷新不丢失，继续从上次未审的位置
+   - 按钮文字实时更新：有问题❌（已处理/总数）
+   ==================================================== */
+const QA2_KEY_PREFIX = 'sisterSign.qa2.';
+
+function checkQa2Mode() {
+  const params = new URLSearchParams(location.search);
+  return params.get('qa2') === 'true';
+}
+
+function getQa2StorageKey() {
+  return QA2_KEY_PREFIX + (window.innerWidth < 768 ? 'mobile' : 'desktop');
+}
+
+function loadQa2Map() {
+  try {
+    const saved = localStorage.getItem(getQa2StorageKey());
+    return saved ? JSON.parse(saved) : {};
+  } catch (e) { return {}; }
+}
+
+function saveQa2Map(map) {
+  try { localStorage.setItem(getQa2StorageKey(), JSON.stringify(map)); } catch (e) {}
+}
+
+function renderQa2Mode() {
+  // 隐藏正常 UI（保留 header slogan + 背景动效）
+  const elements = ['#card', '#mood-bubbles', '#water-ripple', '#back-hint', '#wand', '#wand-label', '#qa-btn', '#meteor-container', '#categories'];
+  elements.forEach(sel => { const el = document.querySelector(sel); if (el) el.style.display = 'none'; });
+  const toast = document.getElementById('toast');
+  if (toast) toast.style.display = 'none';
+
+  const qa2Map = loadQa2Map();
+  const reviewList = FORTUNES.filter(f => !f._deleted && !f.hidden);
+  const total = reviewList.length;
+
+  const app = document.querySelector('.app');
+  if (!app) return;
+  app.style.cssText = 'background:transparent;min-height:auto;display:flex;flex-direction:column;align-items:center;';
+  document.body.style.overflow = 'auto';
+  document.title = '第二阶段审核 · 今朝·Good day';
+
+  // 顶部工具栏
+  const bar = document.createElement('div');
+  bar.id = 'qa2-bar';
+  bar.style.cssText = 'position:sticky;top:0;z-index:50;background:rgba(244,241,250,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(184,164,220,0.3);padding:10px 16px;width:100%;box-sizing:border-box;';
+  const barInner = document.createElement('div');
+  barInner.style.cssText = 'max-width:560px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:8px;';
+
+  const barLeft = document.createElement('div');
+  barLeft.style.cssText = 'display:flex;align-items:center;gap:10px;';
+  const titleEl = document.createElement('span');
+  titleEl.style.cssText = 'font-size:14px;font-weight:700;color:#4a3f6b;font-family:-apple-system,"PingFang SC",sans-serif;';
+  titleEl.textContent = '第二阶段审核';
+  const deviceTag = document.createElement('span');
+  deviceTag.style.cssText = 'font-size:11px;color:#9a8bbf;font-family:-apple-system,"PingFang SC",sans-serif;background:rgba(184,164,220,0.15);padding:2px 8px;border-radius:999px;';
+  deviceTag.textContent = window.innerWidth < 768 ? '手机端' : 'PC端';
+  barLeft.appendChild(titleEl);
+  barLeft.appendChild(deviceTag);
+
+  const backBtn = document.createElement('button');
+  backBtn.textContent = '← 返回首页';
+  backBtn.style.cssText = 'padding:5px 14px;font-size:13px;font-family:-apple-system,"PingFang SC",sans-serif;color:#6C52A8;background:rgba(255,255,255,0.7);border:1px solid rgba(184,164,220,0.5);border-radius:999px;cursor:pointer;white-space:nowrap;';
+  backBtn.addEventListener('click', () => { location.href = location.pathname; });
+
+  barInner.appendChild(barLeft);
+  barInner.appendChild(backBtn);
+  bar.appendChild(barInner);
+
+  // 进度条
+  const progressWrap = document.createElement('div');
+  progressWrap.style.cssText = 'max-width:560px;margin:0 auto;padding:6px 16px 4px;';
+  const progressText = document.createElement('div');
+  progressText.style.cssText = 'font-size:12px;color:#7b6ba5;font-family:-apple-system,"PingFang SC",sans-serif;margin-bottom:3px;';
+  progressText.id = 'qa2-progress-text';
+  const progressTrack = document.createElement('div');
+  progressTrack.style.cssText = 'width:100%;height:6px;background:rgba(184,164,220,0.2);border-radius:999px;overflow:hidden;';
+  const progressFill = document.createElement('div');
+  progressFill.id = 'qa2-progress-fill';
+  progressFill.style.cssText = 'height:100%;width:0%;background:linear-gradient(90deg,#9b7ede,#6C52A8);border-radius:999px;transition:width 0.3s ease;';
+  progressTrack.appendChild(progressFill);
+  progressWrap.appendChild(progressText);
+  progressWrap.appendChild(progressTrack);
+  bar.appendChild(progressWrap);
+
+  app.innerHTML = '';
+  app.appendChild(bar);
+
+  // 卡片区
+  const listWrap = document.createElement('div');
+  listWrap.id = 'qa2-list';
+  listWrap.style.cssText = 'max-width:560px;margin:0 auto;padding:20px 16px 80px;display:flex;flex-direction:column;align-items:center;gap:16px;';
+
+  let processed = 0;
+  let currentIdx = 0;
+
+  const updateProgress = () => {
+    processed = 0;
+    reviewList.forEach(f => { if (qa2Map[signKey(f)] !== undefined) processed++; });
+    const pct = Math.round(processed / total * 100);
+    progressText.textContent = `已处理 ${processed} / ${total}（剩余 ${total - processed} 张）`;
+    progressFill.style.width = pct + '%';
+  };
+
+  const nextUndecided = (from) => {
+    for (let i = from; i < total; i++) {
+      if (qa2Map[signKey(reviewList[i])] === undefined) return i;
+    }
+    return -1;
+  };
+
+  const showCard = (idx) => {
+    listWrap.innerHTML = '';
+    if (idx < 0) {
+      // 全部审完
+      updateProgress();
+      const doneBox = document.createElement('div');
+      doneBox.style.cssText = 'text-align:center;padding:40px 20px;';
+      const doneText = document.createElement('div');
+      doneText.style.cssText = 'font-size:16px;font-weight:700;color:#6C52A8;font-family:-apple-system,"PingFang SC",sans-serif;margin-bottom:12px;';
+      const hiddenCount = reviewList.filter(f => qa2Map[signKey(f)]).length;
+      doneText.textContent = `🎉 全部 ${total} 张已审核完毕！共标记 ${hiddenCount} 张需要隐藏。`;
+      const backHome = document.createElement('button');
+      backHome.textContent = '← 返回首页';
+      backHome.style.cssText = 'padding:8px 24px;font-size:14px;font-family:-apple-system,"PingFang SC",sans-serif;color:#fff;background:#6C52A8;border:none;border-radius:999px;cursor:pointer;';
+      backHome.addEventListener('click', () => { location.href = location.pathname; });
+      doneBox.appendChild(doneText);
+      doneBox.appendChild(backHome);
+      listWrap.appendChild(doneBox);
+      return;
+    }
+
+    const fn = reviewList[idx];
+    const k = signKey(fn);
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:12px;';
+
+    // 卡片编号
+    const info = document.createElement('div');
+    info.style.cssText = 'font-size:12px;color:#9a8bbf;font-family:-apple-system,"PingFang SC",sans-serif;';
+    info.textContent = `#${idx + 1} / ${total}  [${fn.cat}] ${fn.num}`;
+    wrap.appendChild(info);
+
+    // 真实卡片渲染：与正常模式完全一致的 DOM 结构
+    const cardHost = document.createElement('div');
+    cardHost.style.cssText = 'position:relative;width:100%;max-width:320px;margin:0 auto;';
+    cardHost.innerHTML = `<div class="sign-card-outer" style="position:relative;width:100%;max-width:min(92vw,320px);height:558px;transform-style:preserve-3d;"><div class="sign-face back" style="backface-visibility:visible;transform:none;">${renderSign(fn)}</div></div>`;
+    const innerActions = cardHost.querySelector('.actions');
+    if (innerActions) innerActions.remove();
+    wrap.appendChild(cardHost);
+
+    // 操作按钮
+    const btns = document.createElement('div');
+    btns.style.cssText = 'display:flex;gap:10px;justify-content:center;';
+
+    const okBtn = document.createElement('button');
+    okBtn.textContent = '✓ 没问题';
+    okBtn.style.cssText = 'flex:1;max-width:160px;padding:10px 0;font-size:14px;font-family:-apple-system,"PingFang SC",sans-serif;color:#7e60c0;background:#fff;border:1.5px solid rgba(122,95,192,0.35);border-radius:999px;cursor:pointer;';
+    okBtn.addEventListener('click', () => {
+      qa2Map[k] = false;
+      saveQa2Map(qa2Map);
+      updateProgress();
+      showCard(nextUndecided(idx + 1));
+    });
+
+    const badBtn = document.createElement('button');
+    badBtn.textContent = '✕ 有问题，隐藏';
+    badBtn.style.cssText = 'flex:1;max-width:160px;padding:10px 0;font-size:14px;font-family:-apple-system,"PingFang SC",sans-serif;color:#fff;background:#c0392b;border:none;border-radius:999px;cursor:pointer;';
+    badBtn.addEventListener('click', () => {
+      qa2Map[k] = true;
+      saveQa2Map(qa2Map);
+      updateProgress();
+      showCard(nextUndecided(idx + 1));
+    });
+
+    btns.appendChild(okBtn);
+    btns.appendChild(badBtn);
+    wrap.appendChild(btns);
+    listWrap.appendChild(wrap);
   };
 
   updateProgress();
