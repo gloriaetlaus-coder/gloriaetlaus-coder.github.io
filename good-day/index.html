@@ -683,51 +683,31 @@ body::after {
 }
 .wand-label:hover { opacity: 0.85; }
 
-/* 审核按钮区（始终并排显示） */
-.qa-btns-wrap {
-  margin: 14px 0 0;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.qa-btn, .qa-ok-btn {
+/* 第二阶段审核入口按钮 */
+.qa-btn {
   display: inline-block;
+  margin: 14px 0 0;
   padding: 6px 18px;
   font-size: 12px;
   font-weight: 700;
   font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   letter-spacing: 0.5px;
+  color: #7e60c0;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(184, 164, 220, 0.4);
   border-radius: 999px;
   cursor: pointer;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   transition: all 0.25s ease;
-}
-.qa-btn {
-  color: #7e60c0;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(184, 164, 220, 0.4);
   box-shadow: 0 2px 8px rgba(122, 95, 192, 0.08);
-}
-.qa-ok-btn {
-  color: #fff;
-  background: rgba(126, 96, 192, 0.75);
-  border: 1px solid rgba(108, 82, 168, 0.5);
-  box-shadow: 0 2px 8px rgba(108, 82, 168, 0.12);
 }
 .qa-btn:hover {
   background: rgba(255, 255, 255, 0.85);
   box-shadow: 0 2px 14px rgba(122, 95, 192, 0.18);
   transform: translateY(-1px);
 }
-.qa-ok-btn:hover {
-  background: rgba(108, 82, 168, 0.9);
-  box-shadow: 0 2px 14px rgba(108, 82, 168, 0.25);
-  transform: translateY(-1px);
-}
-.qa-btn:active, .qa-ok-btn:active { transform: scale(0.95); }
+.qa-btn:active { transform: scale(0.95); }
 
 @keyframes gentleFloat {
   0%, 100% { transform: translateY(0) rotate(0); }
@@ -1591,10 +1571,6 @@ body::after {
           <span class="icon">🪄</span>
         </div>
         <p class="wand-label" id="wand-label">点击魔法棒随机抽一张</p>
-        <div class="qa-btns-wrap" id="qa-btns-wrap">
-          <button class="qa-ok-btn" id="qa-ok-btn">没问题✔</button>
-          <button class="qa-btn" id="qa-bad-btn">有问题❌</button>
-        </div>
         <div class="water-ripple" id="water-ripple"></div>
       </div>
       <div class="sign-face back" id="face-back"></div>
@@ -1604,6 +1580,12 @@ body::after {
 </div>
 
 <div class="toast" id="toast">已复制文字</div>
+
+<div id="qa-bar" style="position:fixed;bottom:0;left:0;right:0;z-index:999;background:#fff;border-top:2px solid #7e60c0;padding:10px 16px;display:flex;gap:12px;align-items:center;justify-content:center;">
+  <span id="qa-progress" style="font-size:14px;font-weight:700;color:#333;font-family:sans-serif;white-space:nowrap;">0/87</span>
+  <button id="qa-ok-btn" style="padding:10px 24px;font-size:14px;font-weight:700;color:#fff;background:#6C52A8;border:none;border-radius:8px;cursor:pointer;">没问题✔</button>
+  <button id="qa-bad-btn" style="padding:10px 24px;font-size:14px;font-weight:700;color:#fff;background:#c0392b;border:none;border-radius:8px;cursor:pointer;">有问题❌</button>
+</div>
 
 <script>
 /* ====================================================
@@ -2672,81 +2654,72 @@ function init() {
     drawSign();
   });
 
-  // 第二阶段审核入口按钮
-  const qaBadBtn = document.getElementById('qa-bad-btn');
-  const qaOkBtn = document.getElementById('qa-ok-btn');
-  if (qaBadBtn && qaOkBtn) {
-    // 初始化审核状态
+  // 第二阶段审核按钮（独立底部固定栏，不影响卡片）
+  (function() {
+    const qaOkBtn = document.getElementById('qa-ok-btn');
+    const qaBadBtn = document.getElementById('qa-bad-btn');
+    const qaProgress = document.getElementById('qa-progress');
+    if (!qaOkBtn || !qaBadBtn) return;
+
     const qaKey = 'sisterSign.qa2.' + (window.innerWidth < 768 ? 'mobile' : 'desktop');
     let qaMap = {};
     try { qaMap = JSON.parse(localStorage.getItem(qaKey) || '{}'); } catch(e) {}
     const reviewList = FORTUNES.filter(f => !f._deleted && !f.hidden);
     const qaTotal = reviewList.length;
-    const qaProcessed = Object.keys(qaMap).length;
-    qaBadBtn.textContent = `有问题❌（${qaProcessed}/${qaTotal}）`;
-    qaOkBtn.textContent = '没问题✔（下一张）';
 
-    // 找下一张未审核的卡片
-    const nextUndecided = () => {
+    function findNext() {
       for (let i = 0; i < reviewList.length; i++) {
         if (qaMap[signKey(reviewList[i])] === undefined) return reviewList[i];
       }
       return null;
-    };
+    }
 
-    // 渲染审核卡片（用正常 drawSign 流程）
-    const showQaCard = (fn) => {
+    function updateProgress() {
+      const done = Object.keys(qaMap).length;
+      qaProgress.textContent = done + '/' + qaTotal;
+    }
+
+    function showCard(fn) {
       state.currentSign = fn;
       const back = document.getElementById('face-back');
       if (back) back.innerHTML = renderSign(fn);
       const card = document.getElementById('card');
       if (card) card.classList.add('flipped');
-      // 绑定卡片内事件
       const copyBtn = document.getElementById('copy-btn');
       if (copyBtn) copyBtn.onclick = copySign;
       const againBtn = document.getElementById('again-btn');
-      if (againBtn) againBtn.onclick = (e) => { e.stopPropagation(); qaNext(false); };
-      // 审核模式下点卡片空白不返回首页
-      if (back) back.onclick = (e) => {
+      if (againBtn) againBtn.onclick = function(e) { e.stopPropagation(); nextCard(false); };
+      if (back) back.onclick = function(e) {
         if (e.target.closest('.btn-ghost, .actions, a, button')) return;
       };
-    };
+    }
 
-    // 审核下一张
-    const qaNext = (isProblem) => {
+    function nextCard(isProblem) {
       if (state.currentSign) {
-        const k = signKey(state.currentSign);
-        qaMap[k] = isProblem;
+        qaMap[signKey(state.currentSign)] = isProblem;
         try { localStorage.setItem(qaKey, JSON.stringify(qaMap)); } catch(e) {}
       }
-      // 更新进度
-      const processed = Object.keys(qaMap).length;
-      qaBadBtn.textContent = `有问题❌（${processed}/${qaTotal}）`;
-      // 找下一张
-      const next = nextUndecided();
+      updateProgress();
+      var next = findNext();
       if (next) {
-        showQaCard(next);
+        showCard(next);
       } else {
-        // 全部审完
-        const card = document.getElementById('card');
+        var card = document.getElementById('card');
         if (card) card.classList.remove('flipped');
-        const hiddenCount = reviewList.filter(f => qaMap[signKey(f)]).length;
-        showToast(`全部 ${qaTotal} 张已审核完毕！共标记 ${hiddenCount} 张需要隐藏`);
+        var hiddenCount = reviewList.filter(function(f) { return qaMap[signKey(f)]; }).length;
+        showToast('全部 ' + qaTotal + ' 张已审核完毕！共标记 ' + hiddenCount + ' 张需要隐藏');
       }
-    };
-
-    // 没问题按钮
-    qaOkBtn.addEventListener('click', () => qaNext(false));
-    // 有问题按钮
-    qaBadBtn.addEventListener('click', () => qaNext(true));
-
-    // 如果有未审核的卡片，自动展示第一张
-    const firstCard = nextUndecided();
-    if (firstCard) {
-      // 延迟展示，确保 init 完成后再翻牌
-      setTimeout(() => showQaCard(firstCard), 100);
     }
-  }
+
+    qaOkBtn.onclick = function() { nextCard(false); };
+    qaBadBtn.onclick = function() { nextCard(true); };
+
+    updateProgress();
+    var first = findNext();
+    if (first) {
+      setTimeout(function() { showCard(first); }, 200);
+    }
+  })();
 
   // 情绪入口：点击推荐对应签文
   const bubbles = document.getElementById('mood-bubbles');
