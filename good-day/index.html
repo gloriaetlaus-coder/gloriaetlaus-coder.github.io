@@ -1581,12 +1581,6 @@ body::after {
 
 <div class="toast" id="toast">已复制文字</div>
 
-<div id="qa-bar" style="position:fixed;bottom:0;left:0;right:0;z-index:999;background:#fff;border-top:2px solid #7e60c0;padding:10px 16px;display:flex;gap:12px;align-items:center;justify-content:center;">
-  <span id="qa-progress" style="font-size:14px;font-weight:700;color:#333;font-family:sans-serif;white-space:nowrap;">0/87</span>
-  <button id="qa-ok-btn" style="padding:10px 24px;font-size:14px;font-weight:700;color:#fff;background:#6C52A8;border:none;border-radius:8px;cursor:pointer;">没问题✔</button>
-  <button id="qa-bad-btn" style="padding:10px 24px;font-size:14px;font-weight:700;color:#fff;background:#c0392b;border:none;border-radius:8px;cursor:pointer;">有问题❌</button>
-</div>
-
 <script>
 /* ====================================================
    签文 — 积极正能量 + 心理学白话科普
@@ -2654,73 +2648,6 @@ function init() {
     drawSign();
   });
 
-  // 第二阶段审核按钮（独立底部固定栏，不影响卡片）
-  (function() {
-    const qaOkBtn = document.getElementById('qa-ok-btn');
-    const qaBadBtn = document.getElementById('qa-bad-btn');
-    const qaProgress = document.getElementById('qa-progress');
-    if (!qaOkBtn || !qaBadBtn) return;
-
-    const qaKey = 'sisterSign.qa2.' + (window.innerWidth < 768 ? 'mobile' : 'desktop');
-    let qaMap = {};
-    try { qaMap = JSON.parse(localStorage.getItem(qaKey) || '{}'); } catch(e) {}
-    const reviewList = FORTUNES.filter(f => !f._deleted && !f.hidden);
-    const qaTotal = reviewList.length;
-
-    function findNext() {
-      for (let i = 0; i < reviewList.length; i++) {
-        if (qaMap[signKey(reviewList[i])] === undefined) return reviewList[i];
-      }
-      return null;
-    }
-
-    function updateProgress() {
-      const done = Object.keys(qaMap).length;
-      qaProgress.textContent = done + '/' + qaTotal;
-    }
-
-    function showCard(fn) {
-      state.currentSign = fn;
-      const back = document.getElementById('face-back');
-      if (back) back.innerHTML = renderSign(fn);
-      const card = document.getElementById('card');
-      if (card) card.classList.add('flipped');
-      const copyBtn = document.getElementById('copy-btn');
-      if (copyBtn) copyBtn.onclick = copySign;
-      const againBtn = document.getElementById('again-btn');
-      if (againBtn) againBtn.onclick = function(e) { e.stopPropagation(); nextCard(false); };
-      if (back) back.onclick = function(e) {
-        if (e.target.closest('.btn-ghost, .actions, a, button')) return;
-      };
-    }
-
-    function nextCard(isProblem) {
-      if (state.currentSign) {
-        qaMap[signKey(state.currentSign)] = isProblem;
-        try { localStorage.setItem(qaKey, JSON.stringify(qaMap)); } catch(e) {}
-      }
-      updateProgress();
-      var next = findNext();
-      if (next) {
-        showCard(next);
-      } else {
-        var card = document.getElementById('card');
-        if (card) card.classList.remove('flipped');
-        var hiddenCount = reviewList.filter(function(f) { return qaMap[signKey(f)]; }).length;
-        showToast('全部 ' + qaTotal + ' 张已审核完毕！共标记 ' + hiddenCount + ' 张需要隐藏');
-      }
-    }
-
-    qaOkBtn.onclick = function() { nextCard(false); };
-    qaBadBtn.onclick = function() { nextCard(true); };
-
-    updateProgress();
-    var first = findNext();
-    if (first) {
-      setTimeout(function() { showCard(first); }, 200);
-    }
-  })();
-
   // 情绪入口：点击推荐对应签文
   const bubbles = document.getElementById('mood-bubbles');
   if (bubbles) {
@@ -2982,13 +2909,16 @@ function saveQa2Map(map) {
 }
 
 function renderQa2Mode() {
+  // 强制清空 localStorage 审核进度，每次从第1张开始
+  localStorage.removeItem(getQa2StorageKey());
+
   // 隐藏正常 UI（保留 header slogan + 背景动效）
   const elements = ['#card', '#mood-bubbles', '#water-ripple', '#back-hint', '#wand', '#wand-label', '#qa-btn', '#meteor-container', '#categories'];
   elements.forEach(sel => { const el = document.querySelector(sel); if (el) el.style.display = 'none'; });
   const toast = document.getElementById('toast');
   if (toast) toast.style.display = 'none';
 
-  const qa2Map = loadQa2Map();
+  const qa2Map = {};
   const reviewList = FORTUNES.filter(f => !f._deleted && !f.hidden);
   const total = reviewList.length;
 
