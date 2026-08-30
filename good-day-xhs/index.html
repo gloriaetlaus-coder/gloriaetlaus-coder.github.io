@@ -228,11 +228,11 @@ body::after {
 }
 
 .app {
-  padding-top: env(safe-area-inset-top);
+  /* body 已加 padding-top: env(safe-area-inset-top)，.app 不再加，避免双重叠加 */
   position: relative;
   max-width: 480px;
   margin: 0 auto;
-  padding: 10px 22px 8px;
+  padding: 0 22px 8px;
   z-index: 1;
   /* 不设 min-height — 让内容自然撑开，从顶端开始，避免 dvh/vh 包含地址栏区域导致下推偏移 */
   display: flex;
@@ -1486,7 +1486,7 @@ body::after {
   .title-sub { font-size: 40px; margin-top: 2px; letter-spacing: 5px; padding: 4px 6px 2px 18px; }
   .header { min-height: 50px; padding: 6px 0 2px; margin-bottom: 0; }
   .app {
-  padding: max(env(safe-area-inset-top), 3px) 16px 6px; }  /* 安全区+顶部padding合并，防状态栏遮挡 */
+  padding: 0 16px 6px; }  /* body 已加 safe-area，.app 只留水平+底部 padding */
   .stage { margin-top: 8px; }  /* 中卡间距 13→8px 缩小约0.13cm */
   .sign-card-outer { max-width: min(92vw, 340px); height: min(78svh, 620px); }  /* svh=小视口高度，78%确保header+卡片+按钮一屏装下 */
   .sign-cn { font-size: clamp(26px, 8vw, 32px); }  /* 手机端中文主题词放大 */
@@ -1504,7 +1504,7 @@ body::after {
 @media (max-width: 360px) {
   :root { --font-cn: var(--font-cn-mobile); }
   .app {
-  padding: max(env(safe-area-inset-top), 3px) 14px 4px; }  /* 安全区+顶部padding合并，防状态栏遮挡 */
+  padding: 0 14px 4px; }  /* body 已加 safe-area，.app 只留水平+底部 padding */
   .header { min-height: 44px; padding: 4px 0 2px; margin-bottom: 0; }
   .title { font-size: 36px; padding: 8px 20px 4px 12px; }
   .title-sub { font-size: 36px; margin-top: 2px; letter-spacing: 4px; padding: 4px 4px 2px 14px; }
