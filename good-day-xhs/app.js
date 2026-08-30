@@ -634,10 +634,6 @@ function renderSign(sign) {
         ${sign.source ? `<p class="sign-source">${sourceHtml}</p>` : ''}
       </div>
     </div>
-    <div class="actions">
-      <button class="btn-ghost" id="copy-btn">📋 复制</button>
-      <button class="btn-ghost solid" id="again-btn">🏠 首页</button>
-    </div>
   `;
 }
 
@@ -842,21 +838,12 @@ function hideHome() {
 }
 
 function bindResultEvents() {
-  const copyBtn     = document.getElementById('copy-btn');
-  const againBtn    = document.getElementById('again-btn');
-  if (copyBtn) copyBtn.onclick = copySign;
-  if (againBtn) againBtn.onclick = (e) => {
-    e.stopPropagation();
-    if (state.qa2Mode) return;  // 审核模式禁止返回首页
-    resetCard();
-  };
-  // 点击签文空白处 → 返回首页（绑在 back 面上，事件更可靠）
+  // 小红书版：去除复制/返回首页按钮，点击卡片背面即可返回
   const back = document.getElementById('face-back');
   if (back) {
-    back.onclick = (e) => {
-      // 点击按钮区域不触发返回
-      if (e.target.closest('.btn-ghost, .actions, a, button')) return;
-      if (state.qa2Mode) return;  // 审核模式禁止返回首页
+    back.onclick = function(e) {
+      if (e.target.closest('a, button')) return;
+      if (state.qa2Mode) return;
       resetCard();
     };
   }
