@@ -1,0 +1,28 @@
+{
+  "lastProcessedTime": "2026-08-30T16:27:40.249Z",
+  "lastMergeTime": "2026-08-30T16:27:40.253Z",
+  "lastLogDate": "",
+  "dailyLogSessions": {
+    "ses_0244dd05cffeKd4PZTSyD04NLN": {
+      "lastTextMessageId": "msg_fdbb22fb5002dkavZfvU3lDwY7",
+      "updatedAt": "2026-08-07T10:08:35.747Z"
+    },
+    "ses_023fb4e71ffenJ79etS1VS2YcL": {
+      "lastTextMessageId": "msg_fdc1335070014kbelIOmKulSyv",
+      "updatedAt": "2026-08-07T11:53:36.928Z"
+    },
+    "ses_01fe02ae4ffe1LkXK64Vapg5s2": {
+      "lastTextMessageId": "msg_ff46b976b001lng1TRaUce6RFj",
+      "updatedAt": "2026-08-12T05:21:59.478Z"
+    },
+    "ses_019cfafcfffe6OuCmV2nimkR38": {
+      "lastTextMessageId": "msg_fe637cdc9001uz4c71ZGk0NEKt",
+      "updatedAt": "2026-08-09T11:10:44.627Z"
+    },
+    "ses_fe8d25d8effehmwIJ5tOt3Umg2": {
+      "lastTextMessageId": "msg_04e565f22001ugqtfnwEt8K9vB",
+      "updatedAt": "2026-08-29T16:23:56.111Z"
+    }
+  },
+  "wasEnabled": true
+}
