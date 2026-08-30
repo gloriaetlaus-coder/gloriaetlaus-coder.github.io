@@ -92,8 +92,7 @@ html, body {
   background:
     radial-gradient(circle at 50% 0%, rgba(184, 164, 220, 0.18) 0%, transparent 50%),
     linear-gradient(165deg, var(--bg-1) 0%, var(--bg-2) 55%, var(--bg-3) 100%);
-  min-height: 100vh;
-  min-height: 100svh;  /* svh=小视口(地址栏可见时)，确保内容不超出可见区域 */
+  /* 不设 min-height — 让内容自然撑开，避免小红书WebView中svh/vh值异常导致4屏空白 */
   overflow-x: hidden;
   scroll-behavior: auto;  /* 禁止 smooth scroll，防止移动端地址栏收起时自动滚动 */
   scroll-padding-top: 0;
@@ -1486,7 +1485,7 @@ body::after {
   .app {
   padding: 0 16px 6px; }  /* body 已加 safe-area，.app 只留水平+底部 padding */
   .stage { margin-top: 8px; }  /* 中卡间距 13→8px 缩小约0.13cm */
-  .sign-card-outer { max-width: min(92vw, 340px); height: min(78svh, 620px); }  /* svh=小视口高度，78%确保header+卡片+按钮一屏装下 */
+  .sign-card-outer { max-width: min(92vw, 340px); height: 560px; }  /* 固定px高度，避免svh在小红书WebView中异常 */
   .sign-cn { font-size: clamp(26px, 8vw, 32px); }  /* 手机端中文主题词放大 */
   .sign-poem.english { font-size: 28px; }  /* 手机端外文主题词 34→28px 适配窄屏 */
   .sign-literal { font-size: clamp(22px, 6.5vw, 28px); }  /* 手机端直译增大 */
@@ -1509,7 +1508,7 @@ body::after {
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 16px; padding: 8px 13px; }  /* 手机端情绪按钮字号 12→16px(1.3倍)，只改字号 */
   .stage { margin-top: 8px; }  /* 中卡间距 13→8px 缩小约0.13cm */
-  .sign-card-outer { max-width: min(94vw, 320px); height: min(80svh, 600px); }  /* svh=小视口高度，360px窄屏 */
+  .sign-card-outer { max-width: min(94vw, 320px); height: 540px; }  /* 固定px高度，360px窄屏 */
   .sign-face.back { padding: 18px 14px 16px; }
   .sign-poem.english { font-size: 24px; }
   .sign-source { font-size: 11px; padding: 0 6px; }  /* 360px 出处 10→11px */
@@ -1572,7 +1571,7 @@ body::after {
       </div>
       <div class="sign-face back" id="face-back"></div>
     </div>
-     <p class="sign-back-hint" id="back-hint" style="display:none;">再次点击卡片返回主页</p>
+     <p class="sign-back-hint" id="back-hint">再次点击卡片返回主页</p>
   </div>
 </div>
 
