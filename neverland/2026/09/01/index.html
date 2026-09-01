@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月1日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月1日 · 周二</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">OpenAI 自研推理芯片 Jalapeño 首秀，能效超越英伟达 GB300</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">OpenAI 与博通合作开发的 Jalapeño 在基准测试中每瓦吞吐量为英伟达 GB300 的 1.5–1.9 倍，端到端延迟低 1.7–3.6 倍</li>
+        <li data-num="2">芯片功耗仅 700W，采用台积电 N3P 工艺；OpenAI 用自研 AI 参与设计，从立项到流片仅 9 个月</li>
+        <li data-num="3">计划 2026 年底小规模部署、2027 年扩产，标志头部 AI 公司自研算力竞赛正式开启</li>
+      </ul>
+      <div class="source">🔗 来源：IT之家 / 今日头条 / OpenAI 官方博客</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">英伟达 Vera Rubin 平台全面投产，Groq 3 LPX 推理芯片量产</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Vera Rubin NVL72 在真实智能体负载下每兆瓦吞吐最高达上代 GB300 的 30 倍，每 Token 成本最高降 35 倍</li>
+        <li data-num="2">专用推理加速器 Groq 3 LPX 单机架集成 256 颗芯片，Gemma 4 31B 测试达每秒 3400 个 Token</li>
+        <li data-num="3">芯片设计转向“针对智能体循环”而非批量吞吐，SpaceXAI 已规模化部署首款 Vera CPU</li>
+      </ul>
+      <div class="source">🔗 来源：今日头条 / AIToolsRecap / Hot Chips 2026</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">Anthropic 冲刺 IPO，Claude Code 使用率登顶开发者工具</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Anthropic 据报筹备 IPO，估值或达 2 万亿美元，有望抢先 OpenAI 登陆资本市场</li>
+        <li data-num="2">JetBrains 报告显示 Claude Code 半年使用率翻倍至 39%，超过 GitHub Copilot 登顶第一</li>
+        <li data-num="3">约 90% 专业开发者每周至少使用一次 AI 编程 Agent，68% 每天使用，AI 编程渗透加速</li>
+      </ul>
+      <div class="source">🔗 来源：今日头条 / JetBrains Research</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美联储 9 月议息临近，市场重新定价加息可能</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美联储主席沃什在 Jackson Hole 重申 2% 通胀目标并暗示金融条件不紧，期货定价 9 月加息概率升至约 66%</li>
+        <li data-num="2">9 月 16 日 FOMC 为年内“点阵图+经济预测”关键会议，市场关注通胀是否见顶及至 2029 年利率路径</li>
+        <li data-num="3">9 月历来为美股最弱月份，标普 500 接近历史高位但约 60% 成分股低于 200 日均线，广度偏窄</li>
+      </ul>
+      <div class="source">🔗 来源：DayTraders / finobird / financecalendar</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">戴尔 AI 订单暴增，上调全年营收与 AI 服务器目标</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">戴尔上季度新增 AI 订单 244 亿美元，确认 AI 服务器收入 161 亿美元</li>
+        <li data-num="2">将 2027 财年营收指引中值上调至 1670 亿美元，AI 服务器收入目标提至 600 亿美元</li>
+        <li data-num="3">2026 年股价已累涨约 260%，但期权隐含财报后或现 11% 波动，市场关注 AI 变现持续性</li>
+      </ul>
+      <div class="source">🔗 来源：finobird</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">加密市场遭美联储鹰派冲击，单日杠杆清算约 4.88 亿美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">沃什 8 月 28 日鹰派言论后 XRP 跌至 1.36 美元，24 小时内触发约 4.88 亿美元杠杆清算（其中 3.6 亿为 XRP）</li>
+        <li data-num="2">比特币在 8 万美元附近遇阻，较 2025 年 10 月峰值回撤约 37%</li>
+        <li data-num="3">监管层面，前 SEC/CFTC 官员推动将 90 万亿美元离岸永续合约市场“上岸”纳入监管</li>
+      </ul>
+      <div class="source">🔗 来源：finobird</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">俄乌和谈仍陷停滞，美 CIA 局长访俄提议三方峰会</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">克宫发言人佩斯科夫 8 月 30 日称和平谈判处于“深度暂停”，目前没有新方案，尚不具备重启条件</li>
+        <li data-num="2">美国中情局局长拉特克利夫 8 月 25 日突访莫斯科，向俄方提议举行美俄乌三方峰会以推动停火</li>
+        <li data-num="3">乌总统办主任布达诺夫称双方或于 9 月重启谈判，但俄乌表态温差明显，俄方坚持先在俄美框架解决核心矛盾</li>
+      </ul>
+      <div class="source">🔗 来源：新华网 / 央视网 / 今日头条</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">上合组织峰会 9 月 1 日在比什凯克召开，迎成立 25 周年</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">上海合作组织峰会 9 月 1 日在吉尔吉斯斯坦比什凯克举行，系该组织成立 25 周年</li>
+        <li data-num="2">普京将借峰会展开系列双边会晤，俄方称日程“非常繁忙”</li>
+        <li data-num="3">峰会背景为俄乌谈判停滞与全球地缘重组，多边机制协调作用受关注</li>
+      </ul>
+      <div class="source">🔗 来源：卫星通讯社 / 央视网</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">英伟达 129 亿美元收购开源 AI 平台 Hugging Face</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">8 月 28 日英伟达同意以 129 亿美元收购被称为“AI 界 GitHub”的开源平台 Hugging Face</li>
+        <li data-num="2">Hugging Face 汇聚 1300 万开发者、300 多万个公开模型，英伟达意在买下生态入口</li>
+        <li data-num="3">这是 AI 圈最大规模“渠道收购”之一，反映算力巨头从卖芯片向控生态延伸</li>
+      </ul>
+      <div class="source">🔗 来源：搜狐</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">SpaceX 600 亿美元收购 AI 编程初创 Cursor</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">马斯克旗下 SpaceX 完成对 AI 编程工具 Cursor 的 600 亿美元收购，8 月 14 日生效</li>
+        <li data-num="2">Cursor 团队将接入 SpaceX 全球最大 GPU 集群，降低模型训练与运营成本</li>
+        <li data-num="3">交易使 Cursor 创始人跻身亿万富豪，SpaceX 借机大举切入企业软件与 AI 编程市场</li>
+      </ul>
+      <div class="source">🔗 来源：abc.az / 财新</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月1日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
