@@ -798,7 +798,7 @@ function drawSign(mood) {
     back.innerHTML = renderSign(sign);
     card.classList.add('flipped');
 
-    // 显示卡片外的返回提示
+    // 显示卡片外的返回提示（翻转后才出现，无fadeUp延迟，不跳闪）
     const hint = document.getElementById('back-hint');
     if (hint) hint.classList.add('visible');
 
@@ -817,7 +817,7 @@ function resetCard() {
   const card = document.getElementById('card');
   card.classList.remove('flipped');
   state.currentSign = null;
-  // 隐藏卡片外的返回提示
+  // 隐藏卡片外的返回提示（翻回首页时隐藏）
   const hint = document.getElementById('back-hint');
   if (hint) hint.classList.remove('visible');
   showHome();
