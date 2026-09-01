@@ -92,7 +92,7 @@ html, body {
   background:
     radial-gradient(circle at 50% 0%, rgba(184, 164, 220, 0.18) 0%, transparent 50%),
     linear-gradient(165deg, var(--bg-1) 0%, var(--bg-2) 55%, var(--bg-3) 100%);
-  /* 不设 min-height — 让内容自然撑开，避免小红书WebView中svh/vh值异常导致4屏空白 */
+  min-height: 100vh;  /* 确保内容不超出可见区域 */
   overflow-x: hidden;
   scroll-behavior: auto;  /* 禁止 smooth scroll，防止移动端地址栏收起时自动滚动 */
   scroll-padding-top: 0;
@@ -233,7 +233,6 @@ body::after {
   margin: 0 auto;
   padding: 0 22px 8px;
   z-index: 1;
-  /* 不设 min-height — 让内容自然撑开，从顶端开始，避免 dvh/vh 包含地址栏区域导致下推偏移 */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1147,8 +1146,9 @@ body::after {
 }
 
 /* 卡片外部提示：再次点击卡片返回主页（在卡片下方，不在卡片内）
-   样式与首页 .wand-label 完全一致（字体/字号/斜体/渐变/动效）
-   margin-top 约19px = 1cm间隙上半，使hint处于间隙正中间 */
+   字体/字号/斜体与首页 .wand-label 完全一致
+   纯银色，无渐变无发光，清晰可读
+   仅保留轻微float漂浮 */
 .sign-back-hint {
   margin: 19px 0 0;
   font-size: 16px;
@@ -1161,32 +1161,13 @@ body::after {
   user-select: none;
   -webkit-user-select: none;
   white-space: nowrap;
-  background: linear-gradient(135deg,
-    #B8A4DC 0%,
-    #9B82D4 25%,
-    #7A5FC0 50%,
-    #9B82D4 75%,
-    #B8A4DC 100%);
-  background-size: 250% 250%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: title-float 4.5s ease-in-out infinite,
-             title-shimmer 6s linear infinite,
-             title-breathe 4.5s ease-in-out infinite;
-  filter:
-    drop-shadow(0 0 6px rgba(155, 126, 222, 0.85))
-    drop-shadow(0 0 14px rgba(140, 110, 200, 0.55));
+  color: #9C86D0;
+  animation: hint-float 4.5s ease-in-out infinite;
   display: none;
   flex-shrink: 0;
 }
 .sign-back-hint.visible {
   display: block;
-  opacity: 1;
-  animation: fadeUp 0.5s 0.7s forwards,
-             title-float 4.5s ease-in-out infinite,
-             title-shimmer 6s linear infinite,
-             title-breathe 4.5s ease-in-out infinite;
 }
 
 @keyframes hint-float {
@@ -1485,7 +1466,7 @@ body::after {
   .app {
   padding: 0 16px 6px; }  /* body 已加 safe-area，.app 只留水平+底部 padding */
   .stage { margin-top: 8px; }  /* 中卡间距 13→8px 缩小约0.13cm */
-  .sign-card-outer { max-width: min(92vw, 340px); height: 560px; }  /* 固定px高度，避免svh在小红书WebView中异常 */
+  .sign-card-outer { max-width: min(92vw, 340px); height: 620px; }  /* 恢复原始高度，避免svh异常用固定px */
   .sign-cn { font-size: clamp(26px, 8vw, 32px); }  /* 手机端中文主题词放大 */
   .sign-poem.english { font-size: 28px; }  /* 手机端外文主题词 34→28px 适配窄屏 */
   .sign-literal { font-size: clamp(22px, 6.5vw, 28px); }  /* 手机端直译增大 */
@@ -1508,7 +1489,7 @@ body::after {
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 16px; padding: 8px 13px; }  /* 手机端情绪按钮字号 12→16px(1.3倍)，只改字号 */
   .stage { margin-top: 8px; }  /* 中卡间距 13→8px 缩小约0.13cm */
-  .sign-card-outer { max-width: min(94vw, 320px); height: 540px; }  /* 固定px高度，360px窄屏 */
+  .sign-card-outer { max-width: min(94vw, 320px); height: 600px; }  /* 恢复原始高度，360px窄屏 */
   .sign-face.back { padding: 18px 14px 16px; }
   .sign-poem.english { font-size: 24px; }
   .sign-source { font-size: 11px; padding: 0 6px; }  /* 360px 出处 10→11px */
@@ -1574,9 +1555,6 @@ body::after {
      <p class="sign-back-hint" id="back-hint">再次点击卡片返回主页</p>
   </div>
 </div>
-
-<div class="toast" id="toast">已复制文字</div>
-
 
 <script src="./app.js"></script>
 </body>
