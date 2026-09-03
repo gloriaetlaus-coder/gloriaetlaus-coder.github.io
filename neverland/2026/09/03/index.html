@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月3日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月3日 · 周四</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">Anthropic发布Claude Fable 5.1,Mythos 5.1同台亮相</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">新一代旗舰在编程、科研等多项基准测试中超越前代及GPT-5.6 Sol,长周期Agent任务能力大幅增强</li>
+        <li data-num="2">使用成本显著下调:缓存读取价格降低75%,典型任务成本降约25%,高Agent化任务最高降45%</li>
+        <li data-num="3">Mythos 5.1仅向网络安全与生命科学机构开放,曾用NASA雷达数据重绘金星地形,展现大模型独立科研潜力</li>
+      </ul>
+      <div class="source">🔗 来源：DIGITIMES</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">戴尔财报炸裂:AI服务器订单创纪录,股价大涨15%</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">财季营收470亿美元、同比增58%,其中AI服务器营收164亿美元、同比翻倍</li>
+        <li data-num="2">当季AI服务器订单达创纪录的609亿美元,季末积压订单高达950亿美元</li>
+        <li data-num="3">全年营收指引由1670亿上调至1920亿美元,为连续第五个季度上调</li>
+      </ul>
+      <div class="source">🔗 来源：财联社</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">苹果正式换帅:特努斯接替库克出任CEO</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">硬件工程负责人约翰·特努斯9月1日接任CEO,人工智能被列为首要任务,新版Siri AI本月全面上线</li>
+        <li data-num="2">履新首日苹果股价逆势上涨2.6%,全员信预告下周一场"非同凡响"的发布会</li>
+        <li data-num="3">同日推出搭载首款2nm芯片M6的Mac mini与四芯粒M5 Ultra驱动的Mac Studio</li>
+      </ul>
+      <div class="source">🔗 来源：财联社</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美伊战火重燃:油价破91美元,美债收益率创20个月新高</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美军空袭伊朗推高油价,WTI升至91美元上方,布伦特报95.63美元/桶</li>
+        <li data-num="2">10年期美债收益率逼近4.8%,创2025年1月以来最高,日债收益率升至1996年以来高位</li>
+        <li data-num="3">CME FedWatch显示美联储9月加息概率升至68%,全球成长股普遍承压</li>
+      </ul>
+      <div class="source">🔗 来源：新浪财经</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美股止跌反弹,黄金站上4400美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">三大指数结束三连跌:道指涨0.56%报53062点,标普涨0.46%,纳指涨0.45%</li>
+        <li data-num="2">避险与加息预期博弈,现货金涨1.4%报4389美元/盎司,COMEX金报4434美元</li>
+        <li data-num="3">特朗普称对伊朗新一轮打击"不会持续太久",市场情绪暂获喘息</li>
+      </ul>
+      <div class="source">🔗 来源：中新经纬</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">美伊冲突重大升级:美军6.5小时打击,伊朗导弹报复多国美军基地</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美军中央司令部对伊朗革命卫队目标发动约6.5小时打击,覆盖防空、雷达与通信设施</li>
+        <li data-num="2">伊朗向约旦、巴林、科威特及伊拉克境内美军目标发射导弹与无人机,并击落一架MQ-9</li>
+        <li data-num="3">联合国秘书长古特雷斯呼吁立即停火;伊朗指美军空袭婚礼现场致5死68伤、构成"战争罪"</li>
+      </ul>
+      <div class="source">🔗 来源：环球时报</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">俄乌冲突外溢:泽连斯基警告俄领空"事实上已关闭"</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">泽连斯基向航空公司和保险业警告:无人机作战正令俄罗斯领空越来越不安全</li>
+        <li data-num="2">普京称乌方近40天袭击造成俄约100艘船舶受损,损失约相当于俄GDP的1%</li>
+        <li data-num="3">欧盟就德国莱比锡机场无人机袭击未遂事件召见俄大使,马克龙警告混合攻击"不能没有回应"</li>
+      </ul>
+      <div class="source">🔗 来源：腾讯新闻</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">英伟达拟近140亿美元收购Hugging Face</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">彭博社:谈判已进入深入阶段,交易规模约129亿美元另加10亿美元员工留任激励,最快本周达成</li>
+        <li data-num="2">Hugging Face被誉为"AI界的GitHub",托管超300万个开源模型,估值三年增长近3倍</li>
+        <li data-num="3">若成交,将是黄仁勋为扩大AI应用生态迄今规模最大的一笔收购</li>
+      </ul>
+      <div class="source">🔗 来源：彭博社</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">GoPro以2.85亿美元"卖身"光模块公司Starman</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">GoPro股东获每股1.14美元现金、溢价约30%,9200万美元债务被全额清偿,原股东保留合并后约10%股份</li>
+        <li data-num="2">合并后公司转向AI基础设施光收发器、国防、机器人与航空航天市场,关键制造拟回流美国</li>
+        <li data-num="3">受并购消息与网红股东加持,GoPro股价两日累计暴涨逾80%</li>
+      </ul>
+      <div class="source">🔗 来源：华尔街见闻</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Meta同意最高180亿美元和解美国各州青少年沉迷诉讼</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Meta与全美多州达成和解,将在10年内支付最高180亿美元,但不承认过错</li>
+        <li data-num="2">诉讼指控Facebook、Instagram的算法推荐令青少年上瘾并损害心理健康</li>
+        <li data-num="3">这是美国科技行业迄今规模最大的州级和解案之一,缓解了Meta长期法律压力</li>
+      </ul>
+      <div class="source">🔗 来源：Silicon UK</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月3日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
