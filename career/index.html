@@ -89,51 +89,74 @@
       gap:18px;
     }
 
-    /* ===== 名字：流光掠过 + 呼吸微光 + 轻漂浮 ===== */
+    /* ===== 名字：纯白 + 强呼吸白光 + 柔光带扫过 + 轻漂浮 ===== */
     .hero .hero-name{
       position:relative;
       font-family:"CorpSrcWinSong","Songti SC",serif;
-      font-size:48px;
+      font-size:72px;
       font-weight:800;
       letter-spacing:0.12em;
       white-space:nowrap;
-      background:linear-gradient(110deg,
-        #D9D2E9 0%,
-        #F7F3FC 22%,
-        #FFFFFF 38%,
-        #E9E1F5 55%,
-        #F2ECF9 70%,
-        #FFFFFF 85%,
-        #D9D2E9 100%);
-      background-size:220% 100%;
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
+      color:#FFFFFF;
       animation:
-        name-glide 7s ease-in-out infinite,
         name-glow 5s ease-in-out infinite,
         name-drift 9s ease-in-out infinite;
     }
-    .hero-name span{ display:inline-block; padding:0 1px; }
-    .hero-name span + span{ margin-left:-0.02em; }
 
-    /* 流光：亮带只在文字笔画内部滑动，柔和渐变、无硬边 */
-    @keyframes name-glide {
-      0%   { background-position: 110% 0; }
-      100% { background-position: -110% 0; }
+    /* 扫光：在最初版光标扫过基础上，两端拉长渐变淡化+柔化模糊，不再是长方形 */
+    .hero-name::after{
+      content:"";
+      position:absolute;
+      inset:-10px -40px;
+      background:linear-gradient(120deg,
+        transparent 0%,
+        rgba(255,255,255,0.10) 20%,
+        rgba(255,255,255,0.55) 40%,
+        rgba(255,255,255,0.95) 50%,
+        rgba(255,255,255,0.55) 60%,
+        rgba(255,255,255,0.10) 80%,
+        transparent 100%);
+      filter:blur(7px);
+      mix-blend-mode:screen;
+      opacity:0;
+      pointer-events:none;
+      transform:translateX(-40%);
+      animation:nameShine 6.5s ease-in-out infinite;
     }
 
-    /* 呼吸微光：紫色柔光晕轻轻起伏，峰值刻意压低，不结白块 */
+    /* 呼吸光晕：纯白光，强度增强，轻轻起伏 */
     @keyframes name-glow {
       0%, 100% {
-        filter:
-          drop-shadow(0 0 6px  rgba(178, 160, 216, 0.28))
-          drop-shadow(0 0 14px rgba(160, 140, 210, 0.18));
+        text-shadow:
+          0 0 14px rgba(255,255,255,0.35),
+          0 0 34px rgba(255,255,255,0.22);
       }
       50% {
-        filter:
-          drop-shadow(0 0 9px  rgba(178, 160, 216, 0.42))
-          drop-shadow(0 0 22px rgba(160, 140, 210, 0.26));
+        text-shadow:
+          0 0 24px rgba(255,255,255,0.60),
+          0 0 56px rgba(255,255,255,0.38);
+      }
+    }
+
+    /* 扫光节奏：与最初版一致，从左掠到右 */
+    @keyframes nameShine{
+      0%{
+        opacity:0;
+        transform:translateX(-40%);
+      }
+      10%{
+        opacity:0;
+      }
+      30%{
+        opacity:1;
+      }
+      60%{
+        opacity:0;
+        transform:translateX(40%);
+      }
+      100%{
+        opacity:0;
+        transform:translateX(40%);
       }
     }
 
@@ -491,13 +514,13 @@
 
     @media (max-width:768px){
       .hero-top-row{ flex-direction:column; align-items:center; gap:8px; }
-      .hero .hero-name{ font-size:42px; }
+      .hero .hero-name{ font-size:63px; }
       .hero-subtitle-en{ letter-spacing:0.14em; font-size:14px; }
       .divider{ width:90%; }
     }
 
     @media (max-width:360px){
-      .hero .hero-name{ font-size:36px; }
+      .hero .hero-name{ font-size:54px; }
     }
   </style>
 </head>
