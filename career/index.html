@@ -320,6 +320,14 @@
       display:flex;
       justify-content:center;
     }
+    /* 横线视觉间距校准：横线与上下可见内容的视觉间距各约1cm且上下对称
+       （按1440宽Retina屏像素级实测校准，补偿相邻元素margin折叠、
+       段落半行距、hero/lower容器的padding影响） */
+    .hero > .divider-wrap{ margin-top:41.8px; margin-bottom:4.1px; }
+    main.content > .divider-wrap{ margin-top:1.8px; margin-bottom:36.1px; }
+    .lower > .divider-wrap:nth-child(1){ margin-top:-60.9px; margin-bottom:37.6px; }
+    .lower > .divider-wrap:nth-child(3){ margin-top:-4.7px; margin-bottom:36.8px; }
+    .lower > .divider-wrap:nth-child(5){ margin-top:-4.7px; margin-bottom:36.8px; }
     .divider{
       position:relative;
       width:80%;
