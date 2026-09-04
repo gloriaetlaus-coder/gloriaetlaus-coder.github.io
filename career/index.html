@@ -89,56 +89,58 @@
       gap:18px;
     }
 
-    /* ===== 名字：呼吸 + 漂浮 + shimmer 三重动效（对齐 Good day 顶部 slogan）===== */
+    /* ===== 名字：流光掠过 + 呼吸微光 + 轻漂浮 ===== */
     .hero .hero-name{
       position:relative;
       font-family:"CorpSrcWinSong","Songti SC",serif;
       font-size:48px;
       font-weight:800;
-      font-style:italic;
       letter-spacing:0.12em;
       white-space:nowrap;
-      background:linear-gradient(135deg,
-        #FFFFFF 0%,
-        #F4EEFC 25%,
-        #E4DAF2 50%,
-        #F4EEFC 75%,
-        #FFFFFF 100%);
-      background-size:250% 250%;
+      background:linear-gradient(110deg,
+        #D9D2E9 0%,
+        #F7F3FC 22%,
+        #FFFFFF 38%,
+        #E9E1F5 55%,
+        #F2ECF9 70%,
+        #FFFFFF 85%,
+        #D9D2E9 100%);
+      background-size:220% 100%;
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
       background-clip:text;
       animation:
-        title-sub-float 4.5s ease-in-out infinite,
-        title-shimmer 6s linear infinite,
-        title-breathe 4.5s ease-in-out infinite;
+        name-glide 7s ease-in-out infinite,
+        name-glow 5s ease-in-out infinite,
+        name-drift 9s ease-in-out infinite;
     }
     .hero-name span{ display:inline-block; padding:0 1px; }
     .hero-name span + span{ margin-left:-0.02em; }
 
-    @keyframes title-sub-float {
-      0%, 100% { transform: skewX(-16deg) translateY(0); }
-      50%      { transform: skewX(-16deg) translateY(-7px); }
+    /* 流光：亮带只在文字笔画内部滑动，柔和渐变、无硬边 */
+    @keyframes name-glide {
+      0%   { background-position: 110% 0; }
+      100% { background-position: -110% 0; }
     }
 
-    @keyframes title-shimmer {
-      0%   { background-position: 0% 50%; }
-      100% { background-position: 250% 50%; }
-    }
-
-    @keyframes title-breathe {
+    /* 呼吸微光：紫色柔光晕轻轻起伏，峰值刻意压低，不结白块 */
+    @keyframes name-glow {
       0%, 100% {
         filter:
-          drop-shadow(0 0 10px rgba(160, 140, 210, 0.50))
-          drop-shadow(0 0 22px rgba(180, 165, 220, 0.35))
-          drop-shadow(0 0 40px rgba(212, 197, 232, 0.20));
+          drop-shadow(0 0 6px  rgba(178, 160, 216, 0.28))
+          drop-shadow(0 0 14px rgba(160, 140, 210, 0.18));
       }
       50% {
         filter:
-          drop-shadow(0 0 18px rgba(160, 140, 210, 0.75))
-          drop-shadow(0 0 36px rgba(180, 165, 220, 0.55))
-          drop-shadow(0 0 60px rgba(212, 197, 232, 0.35));
+          drop-shadow(0 0 9px  rgba(178, 160, 216, 0.42))
+          drop-shadow(0 0 22px rgba(160, 140, 210, 0.26));
       }
+    }
+
+    /* 轻漂浮 */
+    @keyframes name-drift {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-5px); }
     }
 
     .hero-subtitle-en{
@@ -437,6 +439,56 @@
         radial-gradient(circle at 100% 0%, rgba(255,255,255,0.22), rgba(0,0,0,0.6));
     }
 
+    /* ===== 微信二维码弹层（仅新增，不改动按钮任何原有样式）===== */
+    .contact-item.wechat{
+      position:relative;
+    }
+    .qr-pop{
+      position:absolute;
+      bottom:calc(100% + 14px);
+      left:50%;
+      transform:translate(-50%, 6px) scale(0.96);
+      padding:12px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.96);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.35),
+        0 18px 50px rgba(0,0,0,0.60);
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transition:opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+      z-index:50;
+    }
+    .qr-pop::after{
+      content:"";
+      position:absolute;
+      top:100%;
+      left:50%;
+      transform:translateX(-50%);
+      border:8px solid transparent;
+      border-top-color:rgba(255,255,255,0.96);
+    }
+    .qr-pop img{
+      display:block;
+      width:168px;
+      height:168px;
+      border-radius:10px;
+    }
+    .qr-pop .qr-tip{
+      margin-top:8px;
+      font-size:12px;
+      color:#6b5b8e;
+      letter-spacing:0.06em;
+      text-align:center;
+    }
+    .contact-item.wechat:hover .qr-pop,
+    .contact-item.wechat.open .qr-pop{
+      opacity:1;
+      visibility:visible;
+      transform:translate(-50%, 0) scale(1);
+    }
+
     @media (max-width:768px){
       .hero-top-row{ flex-direction:column; align-items:center; gap:8px; }
       .hero .hero-name{ font-size:42px; }
@@ -573,7 +625,12 @@
         <h2 class="timeline-title sms-stack d1">联系方式</h2>
         <div class="contact-list">
           <div class="contact-item sms-stack d2">📱 电话：17621058773</div>
-          <div class="contact-item sms-stack d3">💬 微信：17621058773</div>
+          <div class="contact-item sms-stack d3 wechat" id="wechat-btn" role="button" tabindex="0" aria-label="微信：17621058773，悬停或点击显示二维码">💬 微信：17621058773
+            <div class="qr-pop" role="tooltip">
+              <img src="wechat-qr.jpeg" alt="微信二维码">
+              <div class="qr-tip">微信扫码加我</div>
+            </div>
+          </div>
           <div class="contact-item sms-stack d4">
             ✉️ 邮箱：
             <a href="mailto:17621058773@163.com" style="color:#ffffff;text-decoration:none;">17621058773@163.com</a>
@@ -582,5 +639,23 @@
       </div>
     </section>
   </div>
+
+  <script>
+    // 微信二维码：点击按钮切换显示，点击其他区域关闭（悬停显示由纯 CSS 实现）
+    (function(){
+      var btn = document.getElementById('wechat-btn');
+      if(!btn) return;
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        btn.classList.toggle('open');
+      });
+      document.addEventListener('click', function(e){
+        if(!btn.contains(e.target)) btn.classList.remove('open');
+      });
+      btn.addEventListener('keydown', function(e){
+        if(e.key === 'Escape') btn.classList.remove('open');
+      });
+    })();
+  </script>
 </body>
 </html>
