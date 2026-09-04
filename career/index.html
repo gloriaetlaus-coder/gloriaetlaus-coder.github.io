@@ -102,25 +102,25 @@
         name-glow 5s ease-in-out infinite,
         name-drift 9s ease-in-out infinite;
     }
-    /* 视觉间距校准：'艳'左旁'丰'横画顶格，补 0.06em 使三字墨迹间隙一致 */
-    .hero-name span:nth-child(3){ margin-left:0.06em; }
 
-    /* 扫光：纯白平行四边形光带，四边渐变模糊，匀速从左掠到右 */
+    /* 扫光：光标扫过轨迹不变，仅光带改为统一亮度的平行四边形，四边柔和模糊 */
     .hero-name::after{
       content:"";
       position:absolute;
-      inset:-12px -30px;
-      background:linear-gradient(105deg,
+      inset:-10px -40px;
+      background:linear-gradient(120deg,
         transparent 0%,
-        rgba(255,255,255,0.92) 10%,
-        rgba(255,255,255,0.92) 90%,
+        rgba(255,255,255,0.85) 8%,
+        rgba(255,255,255,0.92) 20%,
+        rgba(255,255,255,0.92) 80%,
+        rgba(255,255,255,0.85) 92%,
         transparent 100%);
-      filter:blur(6px);
+      filter:blur(7px);
       mix-blend-mode:screen;
       opacity:0;
       pointer-events:none;
-      transform:translateX(-130%);
-      animation:nameShine 3.2s ease-in-out infinite;
+      transform:translateX(-40%);
+      animation:nameShine 6.5s ease-in-out infinite;
     }
 
     /* 呼吸光晕：纯白光，强度增强，轻轻起伏 */
@@ -137,23 +137,25 @@
       }
     }
 
-    /* 扫光节奏：匀速掠过，无中途明暗起伏，全程统一亮度 */
+    /* 扫光节奏：与最初版一致，从左掠到右 */
     @keyframes nameShine{
       0%{
         opacity:0;
-        transform:translateX(-130%);
+        transform:translateX(-40%);
       }
-      15%{
-        opacity:1;
-        transform:translateX(-110%);
+      10%{
+        opacity:0;
       }
-      85%{
+      30%{
         opacity:1;
-        transform:translateX(110%);
+      }
+      60%{
+        opacity:0;
+        transform:translateX(40%);
       }
       100%{
         opacity:0;
-        transform:translateX(130%);
+        transform:translateX(40%);
       }
     }
 
