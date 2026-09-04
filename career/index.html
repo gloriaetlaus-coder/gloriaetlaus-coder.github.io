@@ -89,81 +89,55 @@
       gap:18px;
     }
 
-    /* ===== 名字：漂浮 + 柔光滑过 ===== */
-    .hero-name{
+    /* ===== 名字：呼吸 + 漂浮 + shimmer 三重动效（对齐 Good day 顶部 slogan）===== */
+    .hero .hero-name{
       position:relative;
-      font-size:60px;
+      font-family:"CorpSrcWinSong","Songti SC",serif;
+      font-size:48px;
       font-weight:800;
+      font-style:italic;
       letter-spacing:0.12em;
-      color:#ffffff;
       white-space:nowrap;
-      text-shadow:
-        0 0 18px rgba(255,255,255,0.20),
-        0 14px 44px rgba(0,0,0,0.9);
+      background:linear-gradient(135deg,
+        #FFFFFF 0%,
+        #F4EEFC 25%,
+        #E4DAF2 50%,
+        #F4EEFC 75%,
+        #FFFFFF 100%);
+      background-size:250% 250%;
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
       animation:
-        nameFloat 7s ease-in-out infinite;
+        title-sub-float 4.5s ease-in-out infinite,
+        title-shimmer 6s linear infinite,
+        title-breathe 4.5s ease-in-out infinite;
     }
     .hero-name span{ display:inline-block; padding:0 1px; }
     .hero-name span + span{ margin-left:-0.02em; }
 
-    /* 在文字上方叠一层柔和光带，滑过去 */
-    .hero-name::after{
-      content:"";
-      position:absolute;
-      inset:-10px -40px;
-      background:
-        linear-gradient(120deg,
-          transparent 0%,
-          rgba(255,255,255,0.30) 35%,
-          rgba(255,255,255,0.85) 50%,
-          rgba(255,255,255,0.30) 65%,
-          transparent 100%);
-      mix-blend-mode:screen;
-      opacity:0;
-      pointer-events:none;
-      transform:translateX(-40%);
-      animation:nameShine 6.5s ease-in-out infinite;
+    @keyframes title-sub-float {
+      0%, 100% { transform: skewX(-16deg) translateY(0); }
+      50%      { transform: skewX(-16deg) translateY(-7px); }
     }
 
-    @keyframes nameFloat{
-      0%{
-        transform:translateY(0);
-        text-shadow:
-          0 0 18px rgba(255,255,255,0.18),
-          0 14px 44px rgba(0,0,0,0.9);
-      }
-      50%{
-        transform:translateY(-6px);
-        text-shadow:
-          0 0 28px rgba(255,255,255,0.28),
-          0 18px 54px rgba(0,0,0,0.92);
-      }
-      100%{
-        transform:translateY(0);
-        text-shadow:
-          0 0 18px rgba(255,255,255,0.18),
-          0 14px 44px rgba(0,0,0,0.9);
-      }
+    @keyframes title-shimmer {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 250% 50%; }
     }
 
-    @keyframes nameShine{
-      0%{
-        opacity:0;
-        transform:translateX(-40%);
+    @keyframes title-breathe {
+      0%, 100% {
+        filter:
+          drop-shadow(0 0 10px rgba(160, 140, 210, 0.50))
+          drop-shadow(0 0 22px rgba(180, 165, 220, 0.35))
+          drop-shadow(0 0 40px rgba(212, 197, 232, 0.20));
       }
-      10%{
-        opacity:0.0;
-      }
-      30%{
-        opacity:0.9;
-      }
-      60%{
-        opacity:0.0;
-        transform:translateX(40%);
-      }
-      100%{
-        opacity:0;
-        transform:translateX(40%);
+      50% {
+        filter:
+          drop-shadow(0 0 18px rgba(160, 140, 210, 0.75))
+          drop-shadow(0 0 36px rgba(180, 165, 220, 0.55))
+          drop-shadow(0 0 60px rgba(212, 197, 232, 0.35));
       }
     }
 
@@ -465,9 +439,13 @@
 
     @media (max-width:768px){
       .hero-top-row{ flex-direction:column; align-items:center; gap:8px; }
-      .hero-name{ font-size:44px; }
+      .hero .hero-name{ font-size:42px; }
       .hero-subtitle-en{ letter-spacing:0.14em; font-size:14px; }
       .divider{ width:90%; }
+    }
+
+    @media (max-width:360px){
+      .hero .hero-name{ font-size:36px; }
     }
   </style>
 </head>
