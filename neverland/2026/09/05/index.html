@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月5日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月5日 · 周六</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>9</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">英伟达129.3亿美元收购Hugging Face,创史上第二大收购</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">双方9月2日签署最终协议,对价约119亿美元现金+最高10亿美元股权激励,预计2027年上半年完成交割</li>
+        <li data-num="2">平台拥有超1800万开发者、300万个模型、50万个数据集,超20万家企业使用,被称为"AI界的GitHub"</li>
+        <li data-num="3">黄仁勋承诺写入SEC文件:平台保持开放中立,不强制绑定英伟达算力,支持多云多芯片</li>
+      </ul>
+      <div class="source">🔗 来源：路透社/澎湃新闻</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">OpenAI发布GPT-6 Astra,网络安全能力达"关键"级</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">官方称模型以约10万块GPU训练,性能大幅提升</li>
+        <li data-num="2">网络安全能力首次达到公司内部"关键"级别,可自主识别未知软件漏洞并开发利用方式</li>
+        <li data-num="3">出于安全考量,最强功能暂不全面开放</li>
+      </ul>
+      <div class="source">🔗 来源：华尔街见闻/财联社</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">谷歌发布Gemini 3.8 Flash及网络安全专用版Flash Cyber</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Gemini 3.8 Flash定价与前代持平,主打高性价比推理</li>
+        <li data-num="2">新增Flash Cyber版本专注漏洞检测与攻防</li>
+        <li data-num="3">该版本仅面向政府及关键基础设施运营商,通过Fairwind计划提供</li>
+      </ul>
+      <div class="source">🔗 来源：Google DeepMind/Daily Tech Reader</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美联储沃勒转鸽,9月加息预期降温,美股全线大涨</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">沃勒称若通胀延续放缓,倾向9月维持利率3.50%-3.75%不变,加息概率从63%降至约50%</li>
+        <li data-num="2">美股三大指数齐涨:道指涨1.18%报53686点,纳指涨1.4%,标普500创近一个月最大涨幅</li>
+        <li data-num="3">特斯拉涨5.42%、SpaceX涨6.42%,英伟达收购案提振科技股情绪</li>
+      </ul>
+      <div class="source">🔗 来源：财联社/中新经纬</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">避险资产集体走强:黄金逼近4500美元,比特币突破8.1万美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">现货黄金涨逾2%报4478美元/盎司,逼近4500美元关口</li>
+        <li data-num="2">比特币强势突破81000美元,创5月以来新高,币圈概念股齐涨</li>
+        <li data-num="3">日本央行加息预期升温,日元两日涨近3%,美元指数跌破99</li>
+      </ul>
+      <div class="source">🔗 来源：华尔街见闻/中新经纬</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">美伊对峙再升级:特朗普威胁打击伊朗核设施,霍尔木兹海峡仍封锁</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">特朗普称美国可能很快打击伊朗"镐山"核设施,以总理称推翻伊朗政权"触手可及"</li>
+        <li data-num="2">伊朗官员称未经伊方同意霍尔木兹海峡不会开放,伊方已袭击科威特、阿联酋境内美军基地</li>
+        <li data-num="3">美军袭击被指造成伊朗一场婚礼5死约50伤,美副总统万斯称正在调查</li>
+      </ul>
+      <div class="source">🔗 来源：央视网/新华社</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">俄乌和谈现新动向:美方将分别在莫斯科和基辅举行会谈</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">泽连斯基证实美方已确认将在莫斯科和基辅分别会谈,基辅场次预计近日举行</li>
+        <li data-num="2">普京称解决冲突的可能性依然存在,关键在于冲突当事双方</li>
+        <li data-num="3">特朗普表示将要求欧洲偿还美国援乌巨额资金</li>
+      </ul>
+      <div class="source">🔗 来源：央视网</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">大众批准"未来计划2030":车型数量减半,全球再裁约5万人</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">大众监事会9月3日批准全面重组转型方案,到2035年车型数量将减少约50%</li>
+        <li data-num="2">此前提出的全球再削减约5万个岗位的计划获确认</li>
+        <li data-num="3">旨在应对电动化转型与全球竞争加剧带来的成本压力</li>
+      </ul>
+      <div class="source">🔗 来源：央视网</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">梅卡曼德港交所上市,成港股具身智能"眼脑手"第一股</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">梅卡曼德机器人9月1日登陆港交所主板,专注3D视觉+AI+机器人</li>
+        <li data-num="2">基础发行规模3亿美元,行使超额配售权后最大达3.45亿美元</li>
+        <li data-num="3">被视为具身智能赛道商业化与资本化的标志性事件</li>
+      </ul>
+      <div class="source">🔗 来源：创业家/新浪财经</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月5日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
