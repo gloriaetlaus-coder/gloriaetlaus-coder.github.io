@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月6日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月6日 · 周日</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">英伟达拟以约129亿美元收购开源AI平台Hugging Face</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">英伟达宣布以约129.3亿美元收购全球最大AI开源社区Hugging Face，交易预计2027年上半年完成</li>
+        <li data-num="2">Hugging Face拥有超1800万开发者、300万个模型与50万个数据集，是开源AI生态核心枢纽</li>
+        <li data-num="3">继自研芯片后又一笔重磅并购，显示算力巨头向模型与开发生态全栈整合</li>
+      </ul>
+      <div class="source">🔗 来源：artificialintelligence-news.com</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">ChatGPT广告业务上线200天突破10亿美元年化营收</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">OpenAI旗下ChatGPT广告业务上线仅200天即达到10亿美元年化营收（run rate）</li>
+        <li data-num="2">标志大模型厂商在订阅之外开辟新变现路径，商业化明显提速</li>
+        <li data-num="3">AI应用端变现能力获验证，提振资本市场对AI软件板块信心</li>
+      </ul>
+      <div class="source">🔗 来源：artificialintelligence-news.com</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">支付巨头Stripe收购AI模型路由平台OpenRouter</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Stripe同意收购AI模型路由平台OpenRouter，强化AI时代的支付与模型分发能力</li>
+        <li data-num="2">OpenRouter聚合多家大模型API，可按成本/速度/质量自动选路</li>
+        <li data-num="3">反映金融科技巨头正向下游AI基础设施延伸，争夺智能体经济入口</li>
+      </ul>
+      <div class="source">🔗 来源：artificialintelligence-news.com</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美联储理事放鸽，9月加息预期骤降，美股三大指数集体大涨</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美联储理事沃勒暗示若通胀延续降温将支持9月维持利率不变，加息概率由63%降至约50%</li>
+        <li data-num="2">道指涨1.18%、标普涨1.06%、纳指涨1.40%，科技股领涨，特斯拉涨超5%</li>
+        <li data-num="3">美债收益率回落、美元走弱，黄金白银同步拉升，市场聚焦9月11日CPI</li>
+      </ul>
+      <div class="source">🔗 来源：新浪财经</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美国7月贸易逆差升至886亿美元，创逾一年新高</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美国7月贸易逆差环比大幅扩大至886亿美元，为一年多来最高水平</li>
+        <li data-num="2">显示进口走强与内需韧性，叠加关税与供应链扰动影响</li>
+        <li data-num="3">数据公布恰逢美联储议息前关键窗口，加剧政策博弈与资产波动</li>
+      </ul>
+      <div class="source">🔗 来源：腾讯网</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">普京下令暂停打击基辅三天，美特使访俄乌推动停火谈判</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">普京下令自9月5日午夜起连续三日暂停对基辅的打击，配合美方谈判</li>
+        <li data-num="2">美国总统特使威特科夫、库什纳抵莫斯科，并将于周日赴基辅递交“结束战争”方案</li>
+        <li data-num="3">泽连斯基回应称同期暂停对莫斯科空袭，双方重启停滞的和平接触</li>
+      </ul>
+      <div class="source">🔗 来源：塔斯社(TASS)</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">以军夺取黎巴嫩南部山脊，伊朗警告将强力回应</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">以色列军队攻占黎巴嫩南部Ali Taher山脊，称其为伊朗与真主党地下指挥据点</li>
+        <li data-num="2">伊朗警告若遭以方进攻将“强力回应”，美防长延长中东约5万部队部署</li>
+        <li data-num="3">加沙人道危机持续恶化，WHO警告水质恶化致腹泻激增，冬季临近风险上升</li>
+      </ul>
+      <div class="source">🔗 来源：Haaretz</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">企业AI初创Wonderful完成5.5亿美元C轮，估值翻倍至50亿</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">以色列-荷兰企业AI初创Wonderful完成5.5亿美元C轮，估值达50亿美元，半年前仅20亿</li>
+        <li data-num="2">Insight Partners领投，Salesforce首次参投，累计融资超8亿美元</li>
+        <li data-num="3">从客服Agent转型“AI操作系统”，为企业编排智能体与工作流，避免厂商锁定</li>
+      </ul>
+      <div class="source">🔗 来源：36氪</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">AI训练数据公司AfterQuery估值飙至32亿美元，成YC最快独角兽</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">AfterQuery新一轮估值达32亿美元，5个月前A轮仅3亿美元，超10倍增长</li>
+        <li data-num="2">被YC称为史上从成立到独角兽最快的初创，客户含英伟达</li>
+        <li data-num="3">处Scale AI、Mercor同赛道，专注专家级高质量训练数据，受益推理质量竞争</li>
+      </ul>
+      <div class="source">🔗 来源：Forbes</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">数据平台Databricks新一轮融资估值达1880亿美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Databricks宣布由Coatue领投的新一轮融资，公司估值升至约1880亿美元</li>
+        <li data-num="2">据称本轮募资约30亿美元，延续AI数据基础设施高估值的资本热潮</li>
+        <li data-num="3">反映企业级AI与数据平台赛道吸金能力强劲，头部公司估值持续膨胀</li>
+      </ul>
+      <div class="source">🔗 来源：mezha.net</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月6日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
