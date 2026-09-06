@@ -106,20 +106,20 @@
     /* 视觉间距校准：'艳'左旁'丰'横画顶格，单独右移 0.2cm 平衡墨迹间隙 */
     .hero-name span:nth-child(3){ margin-left:0.2cm; }
 
-    /* 扫光：雾状弥散光芒，两端薄且接近透明，只有中间光束清晰，看不出形状 */
+    /* 扫光：清晰的平行四边形光带，四边平直锐利不弥散，两端薄薄渐变透明，中间最亮最清晰 */
     .hero-name::after{
       content:"";
       position:absolute;
       inset:-10px -40px;
       background:linear-gradient(120deg,
         transparent 0%,
-        rgba(255,255,255,0.10) 20%,
-        rgba(255,255,255,0.55) 40%,
+        rgba(255,255,255,0.15) 10%,
+        rgba(255,255,255,0.85) 30%,
         rgba(255,255,255,0.95) 50%,
-        rgba(255,255,255,0.55) 60%,
-        rgba(255,255,255,0.10) 80%,
+        rgba(255,255,255,0.85) 70%,
+        rgba(255,255,255,0.15) 90%,
         transparent 100%);
-      filter:blur(7px);
+      filter:blur(1.5px);
       mix-blend-mode:screen;
       opacity:0;
       pointer-events:none;
