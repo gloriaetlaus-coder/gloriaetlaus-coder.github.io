@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月7日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月7日 · 周日</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">英伟达129亿美元收购Hugging Face，AI开源生态格局重塑</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">英伟达以约129.3亿美元（含119亿现金+10亿员工激励）收购全球最大开源AI平台Hugging Face，为英伟达史上最大收购之一</li>
+        <li data-num="2">Hugging Face拥有1800万开发者、300万开源模型，收购后英伟达形成从芯片到模型分发的全栈闭环</li>
+        <li data-num="3">黄仁勋承诺平台保持中立开放，不强制绑定英伟达算力，交易预计2027上半年完成</li>
+      </ul>
+      <div class="source">🔗 来源：Euronews / 环球网</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">OpenAI Astra模型首破「关键」网络安全阈值，AI安全里程碑</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">OpenAI新模型Astra在ExploitBench基准测试中获满分，自主发现两个真实零日漏洞，首次触发「关键」安全等级</li>
+        <li data-num="2">Astra在FrontierMath Tier 4得分98%、ARC-AGI-3得分99.9%，推理能力实现跨越式升级</li>
+        <li data-num="3">安全分类迫使模型在更大范围发布前增加额外防护措施，包括思维链监控机制</li>
+      </ul>
+      <div class="source">🔗 来源：Quadra Digital / AI NewsCycle</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">Anthropic冲刺2万亿美元估值IPO，或成史上最大规模IPO</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Anthropic计划10月中旬启动IPO路演，目标估值2万亿美元，募资超1000亿美元，超越SpaceX纪录</li>
+        <li data-num="2">公司年化收入运行率已超650亿美元，二季度营收115亿，调整后营业利润首次转正</li>
+        <li data-num="3">招股书预计9月底公开，将首次披露完整财务数据，市场对估值合理性存在分歧</li>
+      </ul>
+      <div class="source">🔗 来源：TechQuire / 新浪财经</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">全球债市史诗级抛售：日债收益率破3%创30年新高</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">日本10年期国债收益率突破3%，为30年来首次；30年期飙升至4.18%创历史纪录</li>
+        <li data-num="2">美国10年期美债收益率突破4.8%，30年期触及5.29%；英国30年期收益率升至1998年来最高</li>
+        <li data-num="3">全球央行集体释放鹰派信号，市场放弃「年底降息」幻想，AI融资潮与主权债务供给共振推高利率</li>
+      </ul>
+      <div class="source">🔗 来源：新浪新闻 / Hedgwatch</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">9月FOMC会议成全球市场分水岭，美联储加息预期升温</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美联储主席沃什在杰克逊霍尔释放鹰派信号，市场定价9月16日加息概率约65%</li>
+        <li data-num="2">日本央行同周议息，预期加息，10年期日债收益率逼近3%——美联储与日央行同周议息或引发双重波动</li>
+        <li data-num="3">非农就业数据和CPI数据将是加息定价的最后验证，结果将决定全球风险资产方向</li>
+      </ul>
+      <div class="source">🔗 来源：Wall Street Ledger / InvestorStack</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">美伊冲突再度升级：霍尔木兹海峡爆发「油轮战」</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美军9月5日击沉3艘伊朗油轮，伊朗以导弹打击霍尔木兹海峡油轮及美军关联船只作为报复</li>
+        <li data-num="2">布伦特原油飙升至96.28美元/桶，霍尔木兹海峡日均通航船只仅13艘（战前约百余艘）</li>
+        <li data-num="3">美军已累计改道92艘商船、击毁3艘、登检2艘，双方陷入「高频次低烈度」灰色冲突阶段</li>
+      </ul>
+      <div class="source">🔗 来源：Al Jazeera / 央视新闻 / The Star</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">普京会见美特使讨论俄乌三日停火，和平曙光初现</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">普京9月5日在克里姆林宫会见特朗普特使威特科夫及库什纳，会谈超3小时讨论停火细节</li>
+        <li data-num="2">俄方承诺9月5日起三天内不对基辅空袭，乌方承诺至9月7日停止对莫斯科打击</li>
+        <li data-num="3">美方代表拟访基辅继续推进谈判，但分析认为核心立场未变，和平仍遥远</li>
+      </ul>
+      <div class="source">🔗 来源：腾讯新闻 / 央视新闻</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">沙特巴基斯坦土耳其签署《麦加联合防务协议》</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">三国8月7日签署互防协议，特朗普政府支持此举以减少美国在中东的军事投入</li>
+        <li data-num="2">协议被视为美国从中东「减负」战略的关键一步，允许盟友承担更大安全责任</li>
+        <li data-num="3">但伊朗持续搅局能力仍在，Muslim国家间内部差异可能影响联盟合作</li>
+      </ul>
+      <div class="source">🔗 来源：ZeroFox Intelligence</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">AfterQuery成YC史上最快独角兽，5个月估值达32亿美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">AfterQuery为AI实验室提供专家级训练数据，5个月内估值从3亿美元飙升至32亿美元</li>
+        <li data-num="2">Y Combinator称其为历史上最快达到独角兽地位的初创公司，年化收入已达数亿美元</li>
+        <li data-num="3">反映AI数据标注与高质量人类专家判断数据的巨大市场需求</li>
+      </ul>
+      <div class="source">🔗 来源：Quadra Digital</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Tim Cook卸任苹果CEO，9月9日秋季发布会成关键节点</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">库克正式辞去苹果CEO，任期内股价涨幅超2000%，标志着一个时代的终结</li>
+        <li data-num="2">9月9日苹果秋季发布会将推出新产品，市场关注AI功能能否提振硬件需求</li>
+        <li data-num="3">股价在库克离职消息后小幅下跌，市场反应相对温和</li>
+      </ul>
+      <div class="source">🔗 来源：Hedgwatch</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月7日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
