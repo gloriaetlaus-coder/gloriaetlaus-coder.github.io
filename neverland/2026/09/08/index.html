@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月8日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月8日 · 周二</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">英伟达129亿美元收购Hugging Face，豪赌开源AI生态</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">交易总额约129.3亿美元，为英伟达史上第二大收购，预计2027年上半年完成交割</li>
+        <li data-num="2">黄仁勋承诺平台保持开放中立：不强制使用英伟达算力，继续支持多云、多芯片与开源权重模型</li>
+        <li data-num="3">在大客户纷纷自研芯片的背景下，英伟达借此卡位开发者生态，从卖芯片向掌控AI软件分发层延伸</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters / Euronews</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">OpenAI正式发布GPT-6 Astra，首个在10万块GPU上训练的模型</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">被视作OpenAI迄今最强旗舰模型，实现从「给答案」到「完成任务」的跨越，可自主操控软件完成编程、建模等复杂流程</li>
+        <li data-num="2">上下文窗口达105万token，高阶数学与抽象推理测试接近满分（FrontierMath Tier 4达98%）</li>
+        <li data-num="3">因具备「关键级」网络安全能力，OpenAI设置严格访问管控，正逐步向企业与付费用户开放</li>
+      </ul>
+      <div class="source">🔗 来源：OpenAI / 华尔街见闻</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">谷歌发布Gemini 3.8 Flash及网络安全专用模型</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Gemini 3.8 Flash定位长程软件工程与自主智能体任务的效率型模型，主打高性价比</li>
+        <li data-num="2">同步推出Gemini 3.8 Flash Cyber，专攻漏洞检测与自动化补丁修复</li>
+        <li data-num="3">定价极具竞争力：输入每百万token仅0.75美元、输出3.75美元</li>
+      </ul>
+      <div class="source">🔗 来源：headsupai.io</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美国8月非农大超预期，美联储9月加息押注升温</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">8月新增非农就业16.2万人，接近市场预期（5.6万）的三倍，6-7月数据合计上修5.5万，失业率持稳4.1%</li>
+        <li data-num="2">CME FedWatch显示9月15-16日会议加息25基点概率升至约58%-60%，UBS、花旗、麦格理纷纷上调预测</li>
+        <li data-num="3">美股上周五全线收跌（道指-0.51%、标普-0.38%），本周CPI/PPI将成加息路径关键验证</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters / CNBC</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">特朗普公开施压美联储：利率应降至0.5%~1%</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">特朗普称利率应处于1%甚至0.5%，并指「加息无法稳住债市」，与市场加息预期针锋相对</li>
+        <li data-num="2">美联储主席沃什立场鹰派，理事沃勒称8月通胀将「极大影响」9月决议：核心CPI环比超0.3%即倾向加息</li>
+        <li data-num="3">政治干预加大政策不确定性，美债长端收益率维持数周高位，财政部回购与紧缩路径的矛盾凸显</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters / 华尔街见闻</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">金价失守4400美元，油价因地缘风险走强</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">强劲非农扫除加息障碍，现货黄金上周五跌逾1%，周一进一步跌破4400美元/盎司</li>
+        <li data-num="2">美伊在霍尔木兹海峡再交火、乌克兰袭击俄炼油厂，美原油升至约92美元/桶，地缘溢价飙升</li>
+        <li data-num="3">市场焦点转向周四PPI与周五CPI，数据将决定9月加息是否「板上钉钉」</li>
+      </ul>
+      <div class="source">🔗 来源：新浪财经 / 汇通财经</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">美伊冲突周末再升级：互袭油轮军舰，伊朗威胁美能源设施</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美军周六袭击3艘伊朗油轮（含哈尔克岛附近一艘），此前伊朗革命卫队攻击美军舰，海峡日均通航量降至5月以来最低</li>
+        <li data-num="2">伊朗最高安全官员宣布将在海湾设立新「禁区」并推出新航道，议长警告美国油气生产链「分散、易达且暴露」</li>
+        <li data-num="3">6月临时停火破裂后战事复燃，双方无外交突破迹象，承载全球约1/5油气贸易的航道持续受扰</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters / The Hindu</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">普京与特朗普特使会谈超3小时，俄乌能源设施互袭持续</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">普京会见特朗普特使时长超3小时，会后表态「今天的局势并不简单」</li>
+        <li data-num="2">俄乌冲突延宕超四年，双方持续打击对方能源与基础设施目标，泽连斯基警告航司避开俄领空</li>
+        <li data-num="3">联合国秘书长古特雷斯在上合组织峰会呼吁俄乌「全面立即停火」，和谈前景仍反复不定</li>
+      </ul>
+      <div class="source">🔗 来源：华尔街见闻 / 中国日报</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Anthropic IPO推迟至10月中旬，「史上最大IPO」再等等</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">招股书公布从最快下周推迟至9月下旬，路演最早10月中旬启动，目标11月美国中期选举前完成挂牌</li>
+        <li data-num="2">部分投资者估值预期高达2万亿美元，若实现将超越SpaceX（1.77万亿美元）成为史上最大IPO</li>
+        <li data-num="3">公司正敲定150亿美元循环信贷额度作为上市准备，摩根士丹利、高盛、摩根大通、花旗联合承销</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Lululemon下调全年业绩指引，股价单日暴跌17%</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Lululemon下调全年业绩预期，上周五股价急挫17.4%，创多年罕见单日跌幅</li>
+        <li data-num="2">运动休闲需求放缓叠加竞争加剧，公司对下半年销售与盈利前景转趋保守</li>
+        <li data-num="3">同期Adobe因更换CEO下跌6.7%，美股消费与软件龙头业绩信号明显分化</li>
+      </ul>
+      <div class="source">🔗 来源：新浪财经 / CNBC</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月8日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
