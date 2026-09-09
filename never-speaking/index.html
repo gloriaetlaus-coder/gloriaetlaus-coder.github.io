@@ -21,9 +21,9 @@
     background: var(--bg);
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
     color: var(--en-text);
-    padding: 32px 20px 56px;
+    padding: 24px 0 28px;
   }
-  .wrap { max-width: 920px; margin: 0 auto; }
+  .wrap { max-width: 2000px; margin: 0 auto; padding: 0 28px; }
   .layout { display: flex; align-items: flex-start; gap: 16px; }
   .main { flex: 1; min-width: 0; }
 
@@ -67,30 +67,30 @@
     margin-bottom: 14px;
   }
   .speech-chip {
-    background: var(--card); border: 2px solid transparent; border-radius: 16px;
-    padding: 14px 10px; cursor: pointer; font-family: inherit; text-align: center;
+    background: var(--card); border: 2px solid transparent; border-radius: 14px;
+    padding: 10px 8px; cursor: pointer; font-family: inherit; text-align: center;
     transition: border-color 0.2s, background 0.2s;
   }
   .speech-chip .s-icon {
-    font-size: 24px; line-height: 1; margin-bottom: 7px;
+    font-size: 19px; line-height: 1; margin-bottom: 5px;
   }
-  .speech-chip .s-title { font-size: 12px; font-weight: 700; color: var(--en-text); line-height: 1.4; }
-  .speech-chip .s-year { font-size: 10.5px; color: var(--cn-text); margin-top: 3px; }
+  .speech-chip .s-title { font-size: 11.5px; font-weight: 700; color: var(--en-text); line-height: 1.35; }
+  .speech-chip .s-year { font-size: 10px; color: var(--cn-text); margin-top: 2px; }
   .speech-chip.active { border-color: var(--accent); background: #FFFFFF; }
 
   /* 单篇内容 */
   .speech-view {
-    background: var(--card); border-radius: 22px; padding: 24px 28px 20px;
+    background: var(--card); border-radius: 20px; padding: 20px 24px 18px;
   }
-  .sv-head h2 { font-size: 17px; font-weight: 700; line-height: 1.5; }
+  .sv-head h2 { font-size: 16px; font-weight: 700; line-height: 1.45; }
   .sv-head h2 .en-title { font-family: Georgia, serif; }
-  .sv-head h2 .sub { font-size: 13px; color: var(--cn-text); font-weight: 500; }
-  .links-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 13px; }
-  .links-label { font-size: 12.5px; font-weight: 600; color: var(--cn-text); white-space: nowrap; }
+  .sv-head h2 .sub { font-size: 12.5px; color: var(--cn-text); font-weight: 500; }
+  .links-row { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: 10px; }
+  .links-label { font-size: 12px; font-weight: 600; color: var(--cn-text); white-space: nowrap; }
   .media-link {
-    display: inline-flex; align-items: center; gap: 7px;
-    font-size: 13px; color: var(--accent-deep); text-decoration: none;
-    background: #FFFFFF; border-radius: 999px; padding: 6px 14px;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12.5px; color: var(--accent-deep); text-decoration: none;
+    background: #FFFFFF; border-radius: 999px; padding: 5px 12px;
     transition: background 0.2s, color 0.2s;
   }
   .media-link:hover { background: var(--accent); color: #fff; }
@@ -99,73 +99,29 @@
     border-radius: 50%; width: 18px; height: 18px;
     display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  .src-note { font-size: 12px; color: var(--cn-text); margin-top: 11px; line-height: 1.7; }
-  .src-note em { font-family: Georgia, serif; font-style: normal; }
-
-  .quotes { margin-top: 16px; }
+  .quotes { margin-top: 12px; }
   .quote-card {
-    background: #FFFFFF; border-radius: 18px; padding: 20px 22px 18px;
-    margin-bottom: 12px; position: relative;
+    background: #FFFFFF; border-radius: 14px; padding: 14px 18px 13px;
+    margin-bottom: 9px; position: relative;
   }
   .quote-card:last-child { margin-bottom: 0; }
   .num {
-    position: absolute; top: 14px; right: 18px;
-    font-family: Georgia, serif; font-size: 13px; color: var(--num); letter-spacing: 1px;
+    position: absolute; top: 13px; right: 16px;
+    font-family: Georgia, serif; font-size: 12px; color: var(--num); letter-spacing: 1px;
   }
   .en {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 17px; line-height: 1.65; color: var(--en-text);
-    padding-right: 34px;
+    font-size: 15px; line-height: 1.55; color: var(--en-text);
+    padding-right: 30px;
   }
   .cn {
-    margin-top: 10px; padding-left: 12px; border-left: 3px solid var(--tint);
-    font-size: 14px; line-height: 1.75; color: var(--cn-text);
-  }
-  .sv-head h2 { font-size: 17px; font-weight: 700; line-height: 1.5; }
-  .sv-head h2 .en-title { font-family: Georgia, serif; }
-  .sv-head h2 .sub { font-size: 13px; color: var(--accent); font-weight: 500; }
-  .links-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 13px; }
-  .links-label { font-size: 12.5px; font-weight: 600; color: var(--accent-deep); white-space: nowrap; }
-  .media-link {
-    display: inline-flex; align-items: center; gap: 7px;
-    font-size: 13px; color: var(--accent-deep); text-decoration: none;
-    background: var(--tint); border-radius: 999px; padding: 6px 14px;
-    transition: background 0.2s, color 0.2s;
-  }
-  .media-link:hover { background: var(--accent); color: #fff; }
-  .play-icon {
-    font-size: 10px; color: #fff; background: var(--accent);
-    border-radius: 50%; width: 18px; height: 18px;
-    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
-  }
-  .src-note { font-size: 12px; color: var(--accent); margin-top: 11px; line-height: 1.7; }
-  .src-note em { font-family: Georgia, serif; font-style: normal; }
-
-  .quotes { margin-top: 16px; }
-  .quote-card {
-    background: #FBF9FF; border-radius: 18px; padding: 20px 22px 18px;
-    margin-bottom: 12px; position: relative;
-  }
-  .quote-card:last-child { margin-bottom: 0; }
-  .num {
-    position: absolute; top: 14px; right: 18px;
-    font-family: Georgia, serif; font-size: 13px; color: var(--num); letter-spacing: 1px;
-  }
-  .en {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 17px; line-height: 1.65; color: var(--en-text);
-    padding-right: 34px;
-  }
-  .cn {
-    margin-top: 10px; padding-left: 12px; border-left: 3px solid var(--tint);
-    font-size: 14px; line-height: 1.75; color: var(--cn-text);
+    margin-top: 7px; padding-left: 12px; border-left: 3px solid var(--tint);
+    font-size: 13.5px; line-height: 1.6; color: var(--cn-text);
   }
 
   /* 显示模式 */
   body.mode-en .cn { display: none; }
   body.mode-cn .en { display: none; }
-
-  footer { text-align: center; font-size: 12px; color: var(--cn-text); margin-top: 20px; line-height: 1.8; }
 
   @media (max-width: 700px) {
     body { padding: 22px 12px 40px; }
@@ -215,41 +171,6 @@
       <div class="speech-view" id="speechView"></div>
     </div>
   </div>
-  </div>
-
-  <div class="layout">
-    <!-- 人物 Tab（左侧竖排） -->
-    <div class="person-tabs" id="personTabs">
-      <button class="person-tab active" data-person="eileen">
-        <span class="p-avatar">EG</span>
-        <span>
-          <span class="p-name">谷爱凌</span>
-          <span class="p-sub" style="display:block">Eileen Gu</span>
-        </span>
-      </button>
-      <button class="person-tab" data-person="musk">
-        <span class="p-avatar">EM</span>
-        <span>
-          <span class="p-name">埃隆·马斯克</span>
-          <span class="p-sub" style="display:block">Elon Musk</span>
-        </span>
-      </button>
-    </div>
-
-    <div class="main">
-      <!-- 篇章 icon 网格 -->
-      <div class="speech-grid" id="speechGrid"></div>
-
-      <!-- 单篇内容 -->
-      <div class="speech-view" id="speechView"></div>
-    </div>
-  </div>
-
-  <footer>
-    英文原文逐字核对自各来源中英对照全文 · 视频与文字来源分开标注于每篇头部<br>
-    Never英语跟练 · 谷爱凌 &amp; 马斯克
-  </footer>
-
 </div>
 
 <script>
@@ -265,7 +186,6 @@ var DATA = {
         title: 'Women in Sports',
         subtitle: '12岁演讲 · 2016',
         video: { bv: 'BV1uW421A7yL', label: 'B站 · 中英双字幕' },
-        src: '文字来源：维克多英语整理的中英对照全文 · 视频来源：Bilibili 原声演讲（与文字为同一篇演讲）',
         quotes: [
           { en: "Left. Right. Left. Right again. Getting lost in the rhythm of my turns was one of my favorite parts of skiing. Feeling the soft, powdery snow beneath my skis, I feel like I'm capable of anything.",
             cn: "向左转。向右转。向左转。再向右转。我最喜欢滑雪的一点便是沉溺于自己旋转的节奏中。触摸滑板下那柔软又细腻的白雪，让我觉得自己无所不能。" },
@@ -283,7 +203,6 @@ var DATA = {
         title: 'Harvard World Development Forum',
         subtitle: '开幕式演讲 · 2024',
         video: { bv: 'BV1BD42157tx', label: 'B站 · 中文字幕' },
-        src: '文字来源：学为贵择校整理的中英对照全文 · 视频来源：Bilibili 原声演讲（与文字为同一篇演讲）',
         quotes: [
           { en: "\"After all, we're only young. What could we possibly do?\" My response to this quandary is simple. We must recognize our youth not as a hindrance, but as a strength.",
             cn: "「毕竟，我们年纪轻轻，能成什么事呢？」面对这个困境，我的回答很简单：我们必须认识到，青春年少不是障碍，而是一种力量。" },
@@ -299,7 +218,6 @@ var DATA = {
         title: 'I Admit It. I\u2019m in Love With Fear',
         subtitle: '《纽约时报》署名文章 · 2022',
         video: { bv: 'BV1uW421A7yL', label: 'B站 · 谷爱凌英文演讲原声（12岁演讲）' },
-        src: '文字来源：谷爱凌在《纽约时报》发表的署名文章《我承认，我爱上了恐惧》· 视频来源：Bilibili 演讲原声（文章为书面写作、无朗读视频，此处链接为作者本人的英文演讲原声，供跟读参考）',
         quotes: [
           { en: "\"Fear\" is really an umbrella term for three distinct sensations: excitement, uncertainty, and pressure. I've learned that the nuanced indicators of each of these feelings can be instrumental to success when recognized and positively leveraged, and harbingers of injury when ignored.",
             cn: "「恐惧」实际上概括了三种不同的感受：兴奋、不确定性和压力。我已经明白，如果意识到并积极利用这些感受中的微妙信号，会对成功有帮助；如果忽视它们，往往就是受伤的先兆。" },
@@ -326,7 +244,6 @@ var DATA = {
         title: 'USC Commencement',
         subtitle: '创建公司的五大法则 · 2014',
         video: { bv: 'BV1DP4y157Y5', label: 'B站 · 中英字幕' },
-        src: '文字来源：英语东整理的中英对照（经核聚英语逐句交叉验证）· 视频来源：Bilibili 原声演讲（与文字为同一篇演讲）',
         quotes: [
           { en: "I think the first is, depending on how well you wanna do and particularly if you're starting a company, you need to work super-hard. So what does super-hard mean? Well, when my brother and I was starting our first company, instead of getting an apartment we just rented a small office and we slept on the couch. And we showered at the YMCA, and we had just one computer. So the website was up during the day, and I was coding at night, seven days a week, all the time. Work hard, like every waking hour.",
             cn: "第一，取决于你想做得多好，尤其如果要创办一家公司，你需要超级努力地工作。什么叫超级努力？我和哥哥创办第一家公司时，没租公寓，只租了间小办公室，睡在沙发上，在基督教青年会洗澡，只有一台电脑。网站白天运行，我晚上写代码，一周七天，从不间断。努力工作，把每个清醒的小时都用上。" },
@@ -346,7 +263,6 @@ var DATA = {
         subtitle: 'Think Big & Dream Even Bigger · 2012',
         icon: '🚀',
         video: { bv: 'BV1Tv411L7Pz', label: 'B站 · 原声演讲' },
-        src: '来源：B站专栏「听演讲学英语」整理的英文原文 · 视频来源：Bilibili 原声演讲（与文字为同一篇演讲）',
         quotes: [
           { en: "I read a quote from Arthur C. Clarke which said that \"A sufficiently advanced technology is indistinguishable from magic.\" And that's really true.",
             cn: "我读到亚瑟·克拉克的一句话：「任何足够先进的技术都与魔法无异。」这千真万确。" },
@@ -364,7 +280,6 @@ var DATA = {
         subtitle: '视频连线发言 · 2026',
         icon: '🌍',
         video: { bv: 'BV1JUtj6QENd', label: 'B站 · 双语音+文稿' },
-        src: '来源：网易「财经会议圈」发布的中英全文对照 · 视频来源：Bilibili（与文字为同一篇发言）',
         quotes: [
           { en: "You have to have an environment that's relatively free of regulation, meaning that new things must be default legal as opposed to default illegal.",
             cn: "你必须拥有一个监管相对较少的环境，这意味着新事物必须「默认合法」，而不是「默认非法」。" },
@@ -429,7 +344,6 @@ function renderSpeechView() {
       '<h2><span class="en-title">' + s.title + '</span> <span class="sub">· ' + s.subtitle + '</span></h2>' +
       '<div class="links-row"><span class="links-label">原声视频</span>' +
       '<a class="media-link" href="https://www.bilibili.com/video/' + s.video.bv + '/" target="_blank" rel="noopener"><span class="play-icon">▶</span> ' + s.video.label + '</a></div>' +
-      '<p class="src-note">' + s.src + '</p>' +
       '</div>' +
       '<div class="quotes">' + quotesHtml + '</div>';
 }
