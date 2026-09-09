@@ -6,21 +6,22 @@
 <title>Never英语跟练 · 谷爱凌 & 马斯克</title>
 <style>
   :root {
-    --bg: #F6F3FB;
-    --card: #FFFFFF;
-    --en-text: #383051;
-    --cn-text: #7566A5;
-    --accent: #9C86D0;
-    --accent-deep: #7B66B5;
-    --tint: #EDE7F9;
-    --num: #D9CFF0;
+    --bg: #FFFFFF;
+    --card: #F5F5F7;
+    --en-text: #1D1D1F;
+    --cn-text: #6E6E73;
+    --accent: #0071E3;
+    --accent-deep: #0066CC;
+    --tint: #E8E8ED;
+    --num: #B0B0B5;
+    --border: #D2D2D7;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     background: var(--bg);
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
     color: var(--en-text);
-    padding: 28px 16px 48px;
+    padding: 32px 20px 56px;
   }
   .wrap { max-width: 920px; margin: 0 auto; }
   .layout { display: flex; align-items: flex-start; gap: 16px; }
@@ -29,17 +30,15 @@
   .top { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
   .brand { font-size: 15px; letter-spacing: 2px; color: var(--accent); font-weight: 600; }
   .mode-switch {
-    display: inline-flex; background: var(--card); border-radius: 999px; padding: 4px;
-    box-shadow: 0 4px 14px rgba(123, 102, 181, 0.12);
-    margin-bottom: 16px;
+    display: flex; background: var(--card); border-radius: 12px; padding: 3px;
+    margin-bottom: 12px;
   }
-  .mode-switch-wrap { display: flex; justify-content: center; }
   .mode-switch button {
     border: none; background: transparent; color: var(--cn-text);
-    font-size: 13px; padding: 7px 14px; border-radius: 999px; cursor: pointer;
+    font-size: 13px; padding: 8px 16px; border-radius: 9px; cursor: pointer;
     font-family: inherit; transition: background 0.2s, color 0.2s;
   }
-  .mode-switch button.active { background: var(--accent); color: #FFFFFF; font-weight: 600; }
+  .mode-switch button.active { background: #FFFFFF; color: var(--en-text); font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
 
   /* 人物 Tab（左侧竖排） */
   .person-tabs {
@@ -50,17 +49,16 @@
     display: flex; align-items: center; justify-content: flex-start; gap: 10px;
     background: var(--card); border: 2px solid transparent; border-radius: 18px;
     padding: 13px 16px; cursor: pointer; font-family: inherit;
-    box-shadow: 0 6px 18px rgba(123, 102, 181, 0.08);
     transition: border-color 0.2s, background 0.2s;
   }
   .person-tab .p-avatar {
-    width: 34px; height: 34px; border-radius: 50%; background: var(--tint);
-    color: var(--accent-deep); display: flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; border-radius: 50%; background: #FFFFFF;
+    color: var(--en-text); display: flex; align-items: center; justify-content: center;
     font-family: Georgia, serif; font-weight: 700; font-size: 13px; flex-shrink: 0;
   }
   .person-tab .p-name { font-size: 15px; font-weight: 700; color: var(--en-text); }
   .person-tab .p-sub { font-size: 11.5px; color: var(--cn-text); margin-top: 2px; }
-  .person-tab.active { border-color: var(--accent); background: #FBF9FE; }
+  .person-tab.active { border-color: var(--accent); background: #FFFFFF; }
   .person-tab.active .p-avatar { background: var(--accent); color: #fff; }
 
   /* 篇章 icon 网格 */
@@ -71,7 +69,6 @@
   .speech-chip {
     background: var(--card); border: 2px solid transparent; border-radius: 16px;
     padding: 14px 10px; cursor: pointer; font-family: inherit; text-align: center;
-    box-shadow: 0 6px 18px rgba(123, 102, 181, 0.08);
     transition: border-color 0.2s, background 0.2s;
   }
   .speech-chip .s-icon {
@@ -79,12 +76,50 @@
   }
   .speech-chip .s-title { font-size: 12px; font-weight: 700; color: var(--en-text); line-height: 1.4; }
   .speech-chip .s-year { font-size: 10.5px; color: var(--cn-text); margin-top: 3px; }
-  .speech-chip.active { border-color: var(--accent); background: #FBF9FF; }
+  .speech-chip.active { border-color: var(--accent); background: #FFFFFF; }
 
   /* 单篇内容 */
   .speech-view {
     background: var(--card); border-radius: 22px; padding: 24px 28px 20px;
-    box-shadow: 0 8px 26px rgba(123, 102, 181, 0.10);
+  }
+  .sv-head h2 { font-size: 17px; font-weight: 700; line-height: 1.5; }
+  .sv-head h2 .en-title { font-family: Georgia, serif; }
+  .sv-head h2 .sub { font-size: 13px; color: var(--cn-text); font-weight: 500; }
+  .links-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 13px; }
+  .links-label { font-size: 12.5px; font-weight: 600; color: var(--cn-text); white-space: nowrap; }
+  .media-link {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; color: var(--accent-deep); text-decoration: none;
+    background: #FFFFFF; border-radius: 999px; padding: 6px 14px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .media-link:hover { background: var(--accent); color: #fff; }
+  .play-icon {
+    font-size: 10px; color: #fff; background: var(--accent);
+    border-radius: 50%; width: 18px; height: 18px;
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .src-note { font-size: 12px; color: var(--cn-text); margin-top: 11px; line-height: 1.7; }
+  .src-note em { font-family: Georgia, serif; font-style: normal; }
+
+  .quotes { margin-top: 16px; }
+  .quote-card {
+    background: #FFFFFF; border-radius: 18px; padding: 20px 22px 18px;
+    margin-bottom: 12px; position: relative;
+  }
+  .quote-card:last-child { margin-bottom: 0; }
+  .num {
+    position: absolute; top: 14px; right: 18px;
+    font-family: Georgia, serif; font-size: 13px; color: var(--num); letter-spacing: 1px;
+  }
+  .en {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px; line-height: 1.65; color: var(--en-text);
+    padding-right: 34px;
+  }
+  .cn {
+    margin-top: 10px; padding-left: 12px; border-left: 3px solid var(--tint);
+    font-size: 14px; line-height: 1.75; color: var(--cn-text);
   }
   .sv-head h2 { font-size: 17px; font-weight: 700; line-height: 1.5; }
   .sv-head h2 .en-title { font-family: Georgia, serif; }
@@ -130,13 +165,14 @@
   body.mode-en .cn { display: none; }
   body.mode-cn .en { display: none; }
 
-  footer { text-align: center; font-size: 12px; color: var(--accent); margin-top: 20px; line-height: 1.8; }
+  footer { text-align: center; font-size: 12px; color: var(--cn-text); margin-top: 20px; line-height: 1.8; }
 
   @media (max-width: 700px) {
     body { padding: 22px 12px 40px; }
     .layout { flex-direction: column; }
-    .person-tabs { width: 100%; flex-direction: row; }
-    .person-tab { justify-content: center; }
+    .person-tabs { width: 100%; flex-direction: row; flex-wrap: wrap; }
+    .person-tabs .mode-switch { width: 100%; }
+    .person-tab { flex: 1; justify-content: center; }
     .speech-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .sv-head { padding: 20px 20px 18px; }
     .quote-card { padding: 18px 18px 16px; }
@@ -148,11 +184,37 @@
 <body>
 <div class="wrap">
 
-  <div class="mode-switch-wrap">
-    <div class="mode-switch" id="modeSwitch">
-      <button data-mode="both" class="active">双语对照</button>
-      <button data-mode="en">只看英文</button>
+  <div class="layout">
+    <!-- 左侧栏：模式切换 + 人物 Tab -->
+    <div class="person-tabs" id="personTabs">
+      <div class="mode-switch" id="modeSwitch">
+        <button data-mode="both" class="active">双语对照</button>
+        <button data-mode="en">只看英文</button>
+      </div>
+      <button class="person-tab active" data-person="eileen">
+        <span class="p-avatar">EG</span>
+        <span>
+          <span class="p-name">谷爱凌</span>
+          <span class="p-sub" style="display:block">Eileen Gu</span>
+        </span>
+      </button>
+      <button class="person-tab" data-person="musk">
+        <span class="p-avatar">EM</span>
+        <span>
+          <span class="p-name">埃隆·马斯克</span>
+          <span class="p-sub" style="display:block">Elon Musk</span>
+        </span>
+      </button>
     </div>
+
+    <div class="main">
+      <!-- 篇章 icon 网格 -->
+      <div class="speech-grid" id="speechGrid"></div>
+
+      <!-- 单篇内容 -->
+      <div class="speech-view" id="speechView"></div>
+    </div>
+  </div>
   </div>
 
   <div class="layout">
