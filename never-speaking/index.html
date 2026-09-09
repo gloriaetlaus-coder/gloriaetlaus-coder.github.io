@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Never英语跟练 · 谷爱凌 & 马斯克</title>
+<style>
+  :root {
+    --bg: #F6F3FB;
+    --card: #FFFFFF;
+    --en-text: #383051;
+    --cn-text: #7566A5;
+    --accent: #9C86D0;
+    --accent-deep: #7B66B5;
+    --tint: #EDE7F9;
+    --num: #D9CFF0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--en-text);
+    padding: 28px 16px 48px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  .layout { display: flex; align-items: flex-start; gap: 16px; }
+  .main { flex: 1; min-width: 0; }
+
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+  .brand { font-size: 15px; letter-spacing: 2px; color: var(--accent); font-weight: 600; }
+  .mode-switch {
+    display: inline-flex; background: var(--card); border-radius: 999px; padding: 4px;
+    box-shadow: 0 4px 14px rgba(123, 102, 181, 0.12);
+    margin: 0 auto 16px;
+  }
+  .mode-switch button {
+    border: none; background: transparent; color: var(--cn-text);
+    font-size: 13px; padding: 7px 14px; border-radius: 999px; cursor: pointer;
+    font-family: inherit; transition: background 0.2s, color 0.2s;
+  }
+  .mode-switch button.active { background: var(--accent); color: #FFFFFF; font-weight: 600; }
+
+  /* 人物 Tab（左侧竖排） */
+  .person-tabs {
+    display: flex; flex-direction: column; gap: 10px;
+    width: 190px; flex-shrink: 0;
+  }
+  .person-tab {
+    display: flex; align-items: center; justify-content: flex-start; gap: 10px;
+    background: var(--card); border: 2px solid transparent; border-radius: 18px;
+    padding: 13px 16px; cursor: pointer; font-family: inherit;
+    box-shadow: 0 6px 18px rgba(123, 102, 181, 0.08);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .person-tab .p-avatar {
+    width: 34px; height: 34px; border-radius: 50%; background: var(--tint);
+    color: var(--accent-deep); display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, serif; font-weight: 700; font-size: 13px; flex-shrink: 0;
+  }
+  .person-tab .p-name { font-size: 15px; font-weight: 700; color: var(--en-text); }
+  .person-tab .p-sub { font-size: 11.5px; color: var(--cn-text); margin-top: 2px; }
+  .person-tab.active { border-color: var(--accent); background: #FBF9FE; }
+  .person-tab.active .p-avatar { background: var(--accent); color: #fff; }
+
+  /* 篇章 icon 网格 */
+  .speech-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    margin-bottom: 14px;
+  }
+  .speech-chip {
+    background: var(--card); border: 2px solid transparent; border-radius: 16px;
+    padding: 14px 10px; cursor: pointer; font-family: inherit; text-align: center;
+    box-shadow: 0 6px 18px rgba(123, 102, 181, 0.08);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .speech-chip .s-icon {
+    font-size: 24px; line-height: 1; margin-bottom: 7px;
+  }
+  .speech-chip .s-title { font-size: 12px; font-weight: 700; color: var(--en-text); line-height: 1.4; }
+  .speech-chip .s-year { font-size: 10.5px; color: var(--cn-text); margin-top: 3px; }
+  .speech-chip.active { border-color: var(--accent); background: #FBF9FF; }
+
+  /* 单篇内容 */
+  .speech-view {
+    background: var(--card); border-radius: 22px; padding: 24px 28px 20px;
+    box-shadow: 0 8px 26px rgba(123, 102, 181, 0.10);
+  }
+  .sv-head h2 { font-size: 17px; font-weight: 700; line-height: 1.5; }
+  .sv-head h2 .en-title { font-family: Georgia, serif; }
+  .sv-head h2 .sub { font-size: 13px; color: var(--accent); font-weight: 500; }
+  .links-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 13px; }
+  .links-label { font-size: 12.5px; font-weight: 600; color: var(--accent-deep); white-space: nowrap; }
+  .media-link {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; color: var(--accent-deep); text-decoration: none;
+    background: var(--tint); border-radius: 999px; padding: 6px 14px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .media-link:hover { background: var(--accent); color: #fff; }
+  .play-icon {
+    font-size: 10px; color: #fff; background: var(--accent);
+    border-radius: 50%; width: 18px; height: 18px;
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .src-note { font-size: 12px; color: var(--accent); margin-top: 11px; line-height: 1.7; }
+  .src-note em { font-family: Georgia, serif; font-style: normal; }
+
+  .quotes { margin-top: 16px; }
+  .quote-card {
+    background: #FBF9FF; border-radius: 18px; padding: 20px 22px 18px;
+    margin-bottom: 12px; position: relative;
+  }
+  .quote-card:last-child { margin-bottom: 0; }
+  .num {
+    position: absolute; top: 14px; right: 18px;
+    font-family: Georgia, serif; font-size: 13px; color: var(--num); letter-spacing: 1px;
+  }
+  .en {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px; line-height: 1.65; color: var(--en-text);
+    padding-right: 34px;
+  }
+  .cn {
+    margin-top: 10px; padding-left: 12px; border-left: 3px solid var(--tint);
+    font-size: 14px; line-height: 1.75; color: var(--cn-text);
+  }
+
+  /* 显示模式 */
+  body.mode-en .cn { display: none; }
+  body.mode-cn .en { display: none; }
+
+  footer { text-align: center; font-size: 12px; color: var(--accent); margin-top: 20px; line-height: 1.8; }
+
+  @media (max-width: 700px) {
+    body { padding: 22px 12px 40px; }
+    .layout { flex-direction: column; }
+    .person-tabs { width: 100%; flex-direction: row; }
+    .person-tab { justify-content: center; }
+    .speech-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .sv-head { padding: 20px 20px 18px; }
+    .quote-card { padding: 18px 18px 16px; }
+    .en { font-size: 15.5px; }
+    .cn { font-size: 13.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="mode-switch" id="modeSwitch">
+    <button data-mode="both" class="active">双语对照</button>
+    <button data-mode="en">只看英文</button>
+  </div>
+
+  <div class="layout">
+    <!-- 人物 Tab（左侧竖排） -->
+    <div class="person-tabs" id="personTabs">
+      <button class="person-tab active" data-person="eileen">
+        <span class="p-avatar">EG</span>
+        <span>
+          <span class="p-name">谷爱凌</span>
+          <span class="p-sub" style="display:block">Eileen Gu</span>
+        </span>
+      </button>
+      <button class="person-tab" data-person="musk">
+        <span class="p-avatar">EM</span>
+        <span>
+          <span class="p-name">埃隆·马斯克</span>
+          <span class="p-sub" style="display:block">Elon Musk</span>
+        </span>
+      </button>
+    </div>
+
+    <div class="main">
+      <!-- 篇章 icon 网格 -->
+      <div class="speech-grid" id="speechGrid"></div>
+
+      <!-- 单篇内容 -->
+      <div class="speech-view" id="speechView"></div>
+    </div>
+  </div>
+
+  <footer>
+    英文原文逐字核对自各来源中英对照全文 · 视频与文字来源分开标注于每篇头部<br>
+    Never英语跟练 · 谷爱凌 &amp; 马斯克
+  </footer>
+
+</div>
+
+<script>
+var DATA = {
+  eileen: {
+    name: '谷爱凌',
+    enName: 'Eileen Gu',
+    who: '自由式滑雪奥运冠军 · 斯坦福大学在读',
+    speeches: [
+      {
+        id: 'e1',
+        icon: '⛷️',
+        title: 'Women in Sports',
+        subtitle: '12岁演讲 · 2016',
+        video: { bv: 'BV1uW421A7yL', label: 'B站 · 中英双字幕' },
+        src: '文字来源：维克多英语整理的中英对照全文 · 视频来源：Bilibili 原声演讲（与文字为同一篇演讲）',
+        quotes: [
+          { en: "Left. Right. Left. Right again. Getting lost in the rhythm of my turns was one of my favorite parts of skiing. Feeling the soft, powdery snow beneath my skis, I feel like I'm capable of anything.",
+            cn: "向左转。向右转。向左转。再向右转。我最喜欢滑雪的一点便是沉溺于自己旋转的节奏中。触摸滑板下那柔软又细腻的白雪，让我觉得自己无所不能。" },
+          { en: "At that point, I was the only girl on my team. I was put down at first; nobody wanted to ride the chairlift with me. But as time passed, I was slowly accepted, and made some of my closest friends. However, this entire process took three whole years.",
+            cn: "那时，我是队里唯一的女孩。一开始我被冷落，没人愿意和我一起坐升降椅。渐渐地我被接纳了，还交到了几个最好的朋友。但这整个过程用了整整三年。" },
+          { en: "Life is going to be a bumpy road for all of us, and building resiliency early on is important. My experiences have made me more tenacious and have taught me to meet my setbacks in life with open arms.",
+            cn: "对我们所有人来说，生活的道路都将是崎岖不平的，及早培养韧性很重要。我的经历让我更加坚韧，也教会我张开双臂迎接人生中的挫折。" },
+          { en: "I encourage you all to step out of your comfort zone to show the boys that girls are just as powerful as they are.",
+            cn: "我鼓励大家都走出自己的舒适区，向男孩们证明，女孩和他们一样强大。" }
+        ]
+      },
+      {
+        id: 'w2',
+        icon: '🎓',
+        title: 'Harvard World Development Forum',
+        subtitle: '开幕式演讲 · 2024',
+        video: { bv: 'BV1BD42157tx', label: 'B站 · 中文字幕' },
+        src: '文字来源：学为贵择校整理的中英对照全文 · 视频来源：Bilibili 原声演讲（与文字为同一篇演讲）',
+        quotes: [
+          { en: "\"After all, we're only young. What could we possibly do?\" My response to this quandary is simple. We must recognize our youth not as a hindrance, but as a strength.",
+            cn: "「毕竟，我们年纪轻轻，能成什么事呢？」面对这个困境，我的回答很简单：我们必须认识到，青春年少不是障碍，而是一种力量。" },
+          { en: "To be curious is to be humble, and to be humble is to be willing to be wrong.",
+            cn: "求知需要谦逊，而谦逊意味着愿意犯错。" },
+          { en: "Skiing has taught me to appreciate the value of resilience when it comes to modifying my approach after my original ideas were disproven. And I have been wrong. A lot.",
+            cn: "滑雪教会我欣赏坚韧的价值——当最初的判断被现实否定后，学会调整方式。我犯过错误，犯过很多。" }
+        ]
+      },
+      {
+        id: 'w3',
+        icon: '❄️',
+        title: 'I Admit It. I\u2019m in Love With Fear',
+        subtitle: '《纽约时报》署名文章 · 2022',
+        video: { bv: 'BV1uW421A7yL', label: 'B站 · 谷爱凌英文演讲原声（12岁演讲）' },
+        src: '文字来源：谷爱凌在《纽约时报》发表的署名文章《我承认，我爱上了恐惧》· 视频来源：Bilibili 演讲原声（文章为书面写作、无朗读视频，此处链接为作者本人的英文演讲原声，供跟读参考）',
+        quotes: [
+          { en: "\"Fear\" is really an umbrella term for three distinct sensations: excitement, uncertainty, and pressure. I've learned that the nuanced indicators of each of these feelings can be instrumental to success when recognized and positively leveraged, and harbingers of injury when ignored.",
+            cn: "「恐惧」实际上概括了三种不同的感受：兴奋、不确定性和压力。我已经明白，如果意识到并积极利用这些感受中的微妙信号，会对成功有帮助；如果忽视它们，往往就是受伤的先兆。" },
+          { en: "In the split second following my visualization, the knot in my chest flutters and spreads — those famous butterflies reaching their final stage of metamorphosis. Excitement, the child of adrenaline, my true love and addiction.",
+            cn: "想象结束后的一刹那，堵在我胸口的疙瘩终于扑腾着舒展开来——就像化茧成蝶那著名的蜕变终章。随着肾上腺素而来的兴奋，就是我真正热爱和沉迷的东西。" },
+          { en: "Instead of ignoring fear, we build unique relationships with it by developing a profound sense of self-awareness and making deliberate risk assessments.",
+            cn: "我们不是忽视恐惧，而是通过深刻的自我意识和深思熟虑的风险评估，与恐惧建立起独特的关系。" },
+          { en: "As I enter my early adulthood, I'm proud of the work I've done to cope with pressure by bolstering my self-esteem and minimizing my need for external validation. I focus on gratitude, perspective, and on the joy this sport brings me, regardless of whether I'm alone or in front of a worldwide TV audience.",
+            cn: "刚刚步入成年，我很自豪自己已经学会应对压力——办法是增强自尊，减少对外界认可的依赖。无论独自一人，还是面对全世界的电视观众，我都专注于感恩、眼界，以及这项运动带给我的快乐。" },
+          { en: "Though my views of myself and the world are constantly evolving, one thing is for certain: no matter how much time passes, I'll always be a hopeless romantic when it comes to fear.",
+            cn: "虽说我对自己和这个世界的看法总在变化，但有一件事是确定的：无论时间过去多久，在恐惧面前，我永远是一个无可救药的浪漫主义者。" }
+        ]
+      }
+    ]
+  },
+  musk: {
+    name: '埃隆·马斯克',
+    enName: 'Elon Musk',
+    who: '特斯拉 · SpaceX · xAI 创始人',
+    speeches: [
+      {
+        id: 'm1',
+        icon: '🏆',
+        title: 'USC Commencement',
+        subtitle: '创建公司的五大法则 · 2014',
+        video: { bv: 'BV1DP4y157Y5', label: 'B站 · 中英字幕' },
+        src: '文字来源：英语东整理的中英对照（经核聚英语逐句交叉验证）· 视频来源：Bilibili 原声演讲（与文字为同一篇演讲）',
+        quotes: [
+          { en: "I think the first is, depending on how well you wanna do and particularly if you're starting a company, you need to work super-hard. So what does super-hard mean? Well, when my brother and I was starting our first company, instead of getting an apartment we just rented a small office and we slept on the couch. And we showered at the YMCA, and we had just one computer. So the website was up during the day, and I was coding at night, seven days a week, all the time. Work hard, like every waking hour.",
+            cn: "第一，取决于你想做得多好，尤其如果要创办一家公司，你需要超级努力地工作。什么叫超级努力？我和哥哥创办第一家公司时，没租公寓，只租了间小办公室，睡在沙发上，在基督教青年会洗澡，只有一台电脑。网站白天运行，我晚上写代码，一周七天，从不间断。努力工作，把每个清醒的小时都用上。" },
+          { en: "If you're entering anything where there's an existing marketplace against large entrenched competitors, then your product or service needs to be much better than theirs. It can't be a little bit better... It's gotta be a lot better.",
+            cn: "如果你要进入一个已有强大对手的市场，你的产品或服务必须比他们好得多。不能只好一点点，一定要好很多。" },
+          { en: "The most important thing is to attract great people. All the company is, is a group of people that have gathered together to create a product or service. Depending upon how talented and hardworking that group is, and degree to which they are focused cohesively in a good direction, that will determine the success of the company.",
+            cn: "最重要的是吸引优秀的人。公司说到底就是一群聚在一起创造产品或服务的人。这群人多有才华、多勤奋、能否朝着好的方向凝心聚力，决定了公司的成败。" },
+          { en: "Focus on signal over noise. A lot of companies get confused. They spend money on things that don't actually make the product better. At Tesla we've never spent any money on advertising. We put all of the money into R&D and manufacturing and design, to try to make the car as good as possible.",
+            cn: "专注于信号而非噪音。很多公司搞混了，把钱花在不能让产品更好的东西上。在特斯拉，我们从没在广告上花过一分钱，我们把所有钱投入研发、制造和设计，尽力把车做到最好。" },
+          { en: "Now is the time to take risk. As you get older your obligations increase. And once you have a family you start taking risks not just for yourself but for your family as well. It gets much harder to do things that might not work out. So now is the time to do that before you have those obligations. So I would encourage you to take risks now. Do something bold. You won't regret it.",
+            cn: "现在是冒险的时候。随着年龄增长，你的责任越来越多。一旦有了家庭，你冒险就不只是为自己，而是为家人。那些可能不成功的事，做起来会难得多。所以趁现在还没有这些负担，去冒险吧。做一些大胆的事，你不会后悔的。" }
+        ]
+      },
+      {
+        id: 'm2',
+        title: 'Caltech Commencement',
+        subtitle: 'Think Big & Dream Even Bigger · 2012',
+        icon: '🚀',
+        video: { bv: 'BV1Tv411L7Pz', label: 'B站 · 原声演讲' },
+        src: '来源：B站专栏「听演讲学英语」整理的英文原文 · 视频来源：Bilibili 原声演讲（与文字为同一篇演讲）',
+        quotes: [
+          { en: "I read a quote from Arthur C. Clarke which said that \"A sufficiently advanced technology is indistinguishable from magic.\" And that's really true.",
+            cn: "我读到亚瑟·克拉克的一句话：「任何足够先进的技术都与魔法无异。」这千真万确。" },
+          { en: "The thing about a rocket is, the passing grade is 100%. And you don't get to actually test the rocket in the real environment that it is going to be in.",
+            cn: "火箭的及格线是100分，而且你无法在它将要运行的真实环境中提前测试它。" },
+          { en: "We were able to, eventually with the fourth flight in 2008, reach orbit. That was also with the last bit of money that we had. Thank goodness that happened. I think the saying is 'fourth time is the charm.'",
+            cn: "2008年我们终于用第四次发射进入轨道，用的还是我们最后的积蓄。谢天谢地它成功了。俗话说「第四次终成」。" },
+          { en: "You guys are the magicians of the 21st century. Don't let anything hold you back. Imagination is the limit. Go out there and create some magic.",
+            cn: "你们是21世纪的魔法师。不要让任何东西束缚你。想象力没有极限。走出去，创造一些魔法吧。" }
+        ]
+      },
+      {
+        id: 'm3',
+        title: 'G20 Innovation Ministerial',
+        subtitle: '视频连线发言 · 2026',
+        icon: '🌍',
+        video: { bv: 'BV1JUtj6QENd', label: 'B站 · 双语音+文稿' },
+        src: '来源：网易「财经会议圈」发布的中英全文对照 · 视频来源：Bilibili（与文字为同一篇发言）',
+        quotes: [
+          { en: "You have to have an environment that's relatively free of regulation, meaning that new things must be default legal as opposed to default illegal.",
+            cn: "你必须拥有一个监管相对较少的环境，这意味着新事物必须「默认合法」，而不是「默认非法」。" },
+          { en: "I think AI will probably increase the global economy by 20% to 30% — that's my rough estimate — meaning on the order of $20 to $30 trillion per year. AI will be able to do anything digital, anything that does not require shaping of atoms by hand, probably by the end of next year.",
+            cn: "我认为 AI 大概会把全球经济总量提升 20% 到 30%——这是我的粗略估计——也就是每年大约增加 20 到 30 万亿美元。AI 将能够处理任何数字化的事情，任何不需要动手改变原子形态的事情，大概到明年年底就能实现。" },
+          { en: "It starts off very slowly, but then grows at an explosive rate. If you say 10 years from now, I would say there will be well over a billion humanoid robots. And the productivity per robot will be probably five times that of a human — this is one I'd be willing to put serious money betting on — that there will be at least a billion robots in 10 years, and that those robots will be at least five times the output of a human, meaning the billion humanoid robots will be more productive than all humans combined.",
+            cn: "它开始时非常缓慢，但随后会以爆炸性的速度增长。如果看十年以后，我说将远超过十亿台人形机器人。而且每台机器人的生产力，很可能是人类的五倍——这是我愿意押重注的预测——十年内至少会有十亿台机器人，每台的产出至少是人类的五倍。也就是说，十亿台人形机器人的生产力，将超过所有人类的总和。" },
+          { en: "The usefulness of a humanoid robot, a general-purpose robot, is going to be roughly the AI software — how good is the AI software — times how good is the AI chip in the robot times how good is the electromechanical dexterity, especially of the hands. Now, all three of those things are improving exponentially, and the usefulness of the robot is those three things multiplied by each other.",
+            cn: "人形机器人（通用机器人）的实用性，大致等于：AI 软件有多出色，乘以机器人中 AI 芯片有多出色，再乘以机电灵巧度（尤其是手）有多出色。这三者都在指数级改善，而机器人的实用性，就是这三者相乘的结果。" }
+        ]
+      }
+    ]
+  }
+};
+
+var person = 'eileen';
+var speechIdx = 0;
+
+var personTabs = document.getElementById('personTabs');
+var speechGrid = document.getElementById('speechGrid');
+var speechView = document.getElementById('speechView');
+var modeSwitch = document.getElementById('modeSwitch');
+var modeButtons = modeSwitch.querySelectorAll('button');
+var saved = null;
+try { saved = localStorage.getItem('never-mode'); } catch (e) {}
+
+function applyMode(mode) {
+  document.body.classList.remove('mode-en', 'mode-cn');
+  if (mode === 'en') document.body.classList.add('mode-en');
+  if (mode === 'cn') document.body.classList.add('mode-cn');
+  modeButtons.forEach(function (b) { b.classList.toggle('active', b.dataset.mode === mode); });
+  try { localStorage.setItem('never-mode', mode); } catch (e) {}
+}
+
+modeButtons.forEach(function (b) {
+  b.addEventListener('click', function () { applyMode(b.dataset.mode); });
+});
+
+function renderSpeechGrid() {
+  var data = DATA[person];
+  speechGrid.innerHTML = '';
+  data.speeches.forEach(function (s, i) {
+    var btn = document.createElement('button');
+    btn.className = 'speech-chip' + (i === speechIdx ? ' active' : '');
+    btn.innerHTML = '<span class="icon">' + (s.icon || '🎙️') + '</span><span class="s-title">' + s.title + '</span><span class="s-year">' + s.subtitle + '</span>';
+    btn.addEventListener('click', function () { speechIdx = i; renderSpeechGrid(); renderSpeechView(); });
+    speechGrid.appendChild(btn);
+  });
+}
+
+function renderSpeechView() {
+  var data = DATA[person];
+  var s = data.speeches[speechIdx];
+  var quotesHtml = '';
+  s.quotes.forEach(function (q, i) {
+    quotesHtml += '<div class="quote-card"><span class="num">' + String(i + 1).padStart(2, '0') + '</span>' +
+      '<p class="en">' + q.en + '</p>' +
+      '<p class="cn">' + q.cn + '</p></div>';
+  });
+  speechView.innerHTML =
+    '<div class="sv-head">' +
+      '<h2><span class="en-title">' + s.title + '</span> <span class="sub">· ' + s.subtitle + '</span></h2>' +
+      '<div class="links-row"><span class="links-label">原声视频</span>' +
+      '<a class="media-link" href="https://www.bilibili.com/video/' + s.video.bv + '/" target="_blank" rel="noopener"><span class="play-icon">▶</span> ' + s.video.label + '</a></div>' +
+      '<p class="src-note">' + s.src + '</p>' +
+      '</div>' +
+      '<div class="quotes">' + quotesHtml + '</div>';
+}
+
+personTabs.querySelectorAll('.person-tab').forEach(function (tab) {
+  tab.addEventListener('click', function () {
+    person = tab.dataset.person;
+    speechIdx = 0;
+    personTabs.querySelectorAll('.person-tab').forEach(function (t) { t.classList.toggle('active', t === tab); });
+    renderSpeechGrid();
+    renderSpeechView();
+  });
+});
+
+if (saved === 'en' || saved === 'cn' || saved === 'both') applyMode(saved === 'cn' ? 'both' : saved);
+renderSpeechGrid();
+renderSpeechView();
+</script>
+</body>
+</html>
