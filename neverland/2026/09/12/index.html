@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月12日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月12日 · 周六</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">四款前沿模型72小时连发,AI竞争转向"专业化+降价"</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">9月1-3日,Anthropic 的 Claude Fable 5.1、谷歌 Gemini 3.8 Flash、Meta Muse Spark 1.3、OpenAI GPT-6 Astra 接连发布,一周内榜单被彻底重排</li>
+        <li data-num="2">Gemini 3.8 Flash 输入价仅 0.75 美元/百万 tokens,约为另外两家旗舰的 1/13,却在长程软件工程与金融、法律 Agent 场景反超 Claude Opus 5</li>
+        <li data-num="3">Anthropic 将缓存读取价格下调 75%,Meta 开源权重版输入价低至 0.10 美元,模型选型从"选一家"变成"编排多模型"</li>
+      </ul>
+      <div class="source">🔗 来源：南华早报 / The CODEW / Zinbiel Tech Blog</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">OpenAI 宣称 AI 攻克千禧难题,学界质疑"证据不足"</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">OpenAI 宣布其内部模型解开纳维-斯托克斯方程,该难题属七大千禧年数学问题之一,单项奖金 100 万美元</li>
+        <li data-num="2">纽约大学教授 Buckmaster 公开反驳,称他与 Anthropic 员工用一年多时间借助模型仅取得阶段性结果,并未完成全解</li>
+        <li data-num="3">同期 GPT-6 Astra 被曝在测试中自主发现两个零日漏洞,并成为 OpenAI 首个触及"关键"网络安全能力等级的模型</li>
+      </ul>
+      <div class="source">🔗 来源：The AI Daily Brief / The CODEW</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">欧盟 AI 法案进入执法期,30余家 AI 公司被立案调查</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">自 8 月 2 日起,通用人工智能(GPAI)义务与透明度要求正式可执行,生成内容标识对旧系统保留至 12 月 2 日过渡期</li>
+        <li data-num="2">欧盟已对 30 多家 AI 企业启动安全与版权合规调查,美国则在 G20 推动放松监管,欧美治理路径明显分叉</li>
+        <li data-num="3">配套风险浮现:研究显示恶意 Python 字节码可绕过技能扫描工具 CVE-2026-84809,SKILL 扫描通过不等于安装安全</li>
+      </ul>
+      <div class="source">🔗 来源：The CODEW / Zinbiel Tech Blog</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美联储 9 月议息临近:加息概率 60%-65%,8月CPI成最后变量</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">FOMC 将于 9 月 15-16 日开会并公布点阵图,当前联邦基金利率维持 3.50%-3.75%,今年已连续 5 次会议按兵不动</li>
+        <li data-num="2">市场对 25 个基点加息的定价从 9 月 2 日的 63% 一度回落至约 50%,因理事沃勒称若通胀改善将支持按兵不动,但主席沃什偏鹰、7 月已有 3 位委员投票主张加息</li>
+        <li data-num="3">路透调查中约 70% 经济学家预计 9 月按兵不动,但预计全年维持不变的比例已从 80% 降至 56%;10 年期美债收益率逼近 5%</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters / Wall Street Times / Market Insider</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">全球央行政策分化:欧央行按兵不动,日央行倾向正常化</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">欧洲央行 9 月 10 日公布决议,主要再融资利率维持 2.4% 附近,欧元区 8 月 HICP 同比升 2.2% 但核心通胀仍达 2.8%</li>
+        <li data-num="2">日本央行 9 月 18 日议息,可能继续推进货币政策正常化;澳洲联储 9 月 29 日决议接近"掷硬币",加息概率 45%-57%</li>
+        <li data-num="3">美欧经济温差明显:美国二季度 GDP 增速 2.8%,欧元区仅 1.2%,德国制造业 PMI 连续数月低于荣枯线</li>
+      </ul>
+      <div class="source">🔗 来源：CaixaBank Research / 真灼财经 / Stockwirex</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">伊朗与海湾六国将首次举行部长级会谈,商讨恢复霍尔木兹通航</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">伊朗与海合会(GCC)六国外长定于 9 月 14 日在阿曼萨拉拉会面,这是开战以来双方最高层级接触,由阿曼斡旋</li>
+        <li data-num="2">伊朗与阿曼已就临时通航方案达成初步共识:入湾船舶走伊朗领水,出湾船舶走阿曼领水,但伊朗坚持船舶须获其许可</li>
+        <li data-num="3">斡旋方目标是把 GCC 拉入谈判以施压美国解除海上封锁;也门胡塞武装则加大对曼德海峡的攻势,红海风险同步上升</li>
+      </ul>
+      <div class="source">🔗 来源：Financial Times / 中央日报 / 韩联社</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">美国称已松动伊朗对海峡的掌控,但战争远未结束</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美方数据显示伊朗石油出口已从春季的 185 万桶/日降至 8 月的约 25.5 万桶/日,非伊油出口回升至 1080 万桶/日,约为战前七成</li>
+        <li data-num="2">但战争已耗资超 375 亿美元、18 名美军阵亡,美国缺乏退出战略,伊朗也无妥协迹象,CSIS 判断"难有明确胜者"</li>
+        <li data-num="3">布伦特原油一度重回 100 美元上方,柴油价格创历史纪录,汽油高价或延续至 11 月中期选举</li>
+      </ul>
+      <div class="source">🔗 来源：Associated Press / Bakersfield Californian</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">GE航空 117.5 亿美元收购 CPP,破解发动机产能瓶颈</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">GE Aerospace 9 月 8 日宣布从华平投资与伯克希尔伙伴手中收购精密铸件商 Consolidated Precision Products,含 70 亿美元现金加新债融资</li>
+        <li data-num="2">按 2027 年预估 EBITDA 计,不计协同为 26 倍、计入协同约 18 倍,属典型"产能稀缺性溢价",交易预计 2027 年下半年交割</li>
+        <li data-num="3">标的总部位于克利夫兰,拥有 20 多座工厂、约 6600 名高技能冶金工人,与 GE 合作已超 15 年,意在重夺关键制造主权</li>
+      </ul>
+      <div class="source">🔗 来源：Financier Worldwide / Reuters</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">100 美元油价催生能源并购潮,资金涌向管道与在产井</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Tamarack Valley 与 Headwater 9 月 8 日宣布 100 亿美元全股票合并,打造唯一纯 Clearwater 生产商,并将勘探业务分拆为 Tributary Exploration</li>
+        <li data-num="2">Diversified Energy 9 月 2 日敲定约 18 亿美元收购 Birch Permian,为 25 年来最大手笔,产量与调整后 EBITDA 预计分别提升 35% 和 55%</li>
+        <li data-num="3">Williams 完成 55 亿美元收购 Momentum Midstream;四笔交易合计约 200 亿美元,几乎无一是"找油",而是买已投产的现金流资产</li>
+      </ul>
+      <div class="source">🔗 来源：Nasdaq / Company Releases</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">电力与金融板块整合加速:全球最大电力公司呼之欲出</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">NextEra Energy 与 Dominion Energy 股东 9 月 3 日批准合并,交易股权价值约 668 亿美元,合并后将成为全球市值最大电力公司,Dominion 股东每股换 0.8138 股 NEE</li>
+        <li data-num="2">银行整合同步推进:EverBank 与 WaFd 达成 39 亿美元反向合并,合并后资产约 750 亿美元;Chime 以 5.9 亿美元收购 Stride Bank 把银行牌照收回自持</li>
+        <li data-num="3">其他值得关注:Vertiv 14.5 亿美元收购微电网公司 Utility Innovation,PVH 等消费与工业标的亦有交易落地</li>
+      </ul>
+      <div class="source">🔗 来源：Stocktwits / NeoDrop / edgar.tools</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月12日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
