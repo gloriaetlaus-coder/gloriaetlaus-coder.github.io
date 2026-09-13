@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月13日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月13日 · 周日</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">四大AI实验室72小时内密集发布旗舰模型，集体转向“自主干活”</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Anthropic 9月1日发布 Claude Fable 5.1 与 Mythos 5.1，缓存读取价格直降75%，重度Agent负载成本最多降45%；谷歌9月2日推出三代六周内的第三次迭代 Gemini 3.8 Flash；Meta 同日发布 Muse Spark 1.3，工具调用减少约20%、Token 消耗减少25%</li>
+        <li data-num="2">OpenAI 9月3日发布 GPT-6 Astra，FrontierMath Tier 4 得分97.6%、ARC-AGI-3 从7.8%跃升至99.9%，并成为首个触及“Critical”网络安全阈值的自家模型，最强攻击能力被锁进 Daybreak 白名单计划</li>
+        <li data-num="3">行业共识从“对话谁更好”转为“能否交付可核查的成品”：模型可无人值守操作电脑数十分钟，推理速度被OpenAI标准化为“极速/快速/标准”三档独立商品</li>
+      </ul>
+      <div class="source">🔗 来源：Silicon Report / 荷兰初创 / LinkedIn PM Status</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">英伟达129亿美元收购 Hugging Face，AI基础设施层大整合</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">交易于9月2日签署，金额129亿美元，英伟达拿下全球最大开源模型社区，该平台服务超1800万开发者、托管300万个模型和50万个数据集</li>
+        <li data-num="2">英伟达承诺继续保持平台开放，但此举被视为AI“基础设施层”的重大收编，开源生态的独立性引发讨论</li>
+        <li data-num="3">同期英伟达与澳大利亚合作规划到2027年建成最高2吉瓦的“AI工厂”；并与Palantir在自身供应链部署主权AI堆栈（Nemotron + Foundry/AIP）</li>
+      </ul>
+      <div class="source">🔗 来源：David & Goliath AI Index / AI Tech Model</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">OpenAI 上线 Data Agent，ChatGPT 直连企业数据仓库</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">9月10日在 ChatGPT Work 中推出 Data agent，可连接 BigQuery、Snowflake、Databricks、Redshift、MongoDB 等已授权数据仓库</li>
+        <li data-num="2">用户用自然语言提问即可生成可分享的仪表盘，无需手写SQL；行、列、表级权限继续强制生效，Agent 不替代底层数据权限体系</li>
+        <li data-num="3">Gartner 预计今年全球AI支出将达2.59万亿美元，其中超1万亿投入软件、服务、网络安全与模型</li>
+      </ul>
+      <div class="source">🔗 来源：AI Tech Model / Silicon Report</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美联储9月议息在即：油价破107美元、PPI超预期，加息概率升至72%</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">9月10日美股连续第四个交易日下跌：道指跌0.60%至52064点，标普500跌0.58%至7591点，纳指跌0.65%至26081点</li>
+        <li data-num="2">布伦特原油突破107美元/桶、WTI站上102美元，美国柴油价格自2022年以来首次破5美元/加仑；油价自7月初美伊停火破裂以来累计上涨近40%</li>
+        <li data-num="3">美国8月PPI环比+0.4%、同比+5.4%高于预期；30年期美债收益率升至5.365%，创2007年以来最高，10年期达4.954%，市场对9月16日加息的定价升至72%</li>
+      </ul>
+      <div class="source">🔗 来源：The Nation View</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">AI财报冰火两重天：博通AI芯片营收暴增221%股价仍跌，Snowflake单日涨25%</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">博通三季度AI半导体营收167亿美元、同比增长221%，总营收296亿美元增长86%，并将2027财年AI芯片收入指引上调至约1150亿美元</li>
+        <li data-num="2">但因四季度总营收指引略低于华尔街预期，博通股价仍下挫约5%，显示AI赛道“及格线”已被抬得极高</li>
+        <li data-num="3">Snowflake因年度营收指引强劲单日暴涨25.17%，带动ServiceNow、Salesforce、Adobe 等软件股集体走高，资金在AI硬件与软件之间快速轮动</li>
+      </ul>
+      <div class="source">🔗 来源：The Economic Times / Kingsview Wealth</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">金砖峰会在新德里开幕，习近平时隔7年首访印度并与莫迪双边会晤</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">第18届金砖峰会9月12-13日在印度新德里 Bharat Mandapam 举行，11个成员国代表约全球49.5%人口、40% GDP；主题为“为韧性、创新、合作与可持续而建”</li>
+        <li data-num="2">习近平9月12日抵达，为2019年以来首次访印；莫迪强调“分歧不应变成争端”，边界和平是双边关系持续发展的前提，双方重申寻求公平合理、相互可接受的边界解决方案</li>
+        <li data-num="3">普京、伊朗总统佩泽什基安、南非总统拉马福萨等出席；峰会聚焦扩大本币结算、降低对美元依赖、供应链韧性与全球治理机构改革，印度外交部明确表示“目前没有推出金砖共同货币的提案”</li>
+      </ul>
+      <div class="source">🔗 来源：中国日报 / Times of India / The Hindu</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">中东战事推高全球能源与通胀风险，欧盟被迫再度加息</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美以对伊朗军事行动持续冲击霍尔木兹海峡航运——该通道承担全球约五分之一的石油运输，市场担忧供应中断风险</li>
+        <li data-num="2">能源成本飙升外溢至运输、制造与消费品，加剧各国央行通胀压力；欧洲央行实施对伊战争爆发以来的第二次加息</li>
+        <li data-num="3">分析人士指出，只要伊朗冲突延续，通胀压力将更深地固化进经济结构，迫使美联储等央行维持甚至收紧政策</li>
+      </ul>
+      <div class="source">🔗 来源：The Hindu / Entrepreneur India / The Nation View</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">美国初创一周吸金超100亿美元，四家公司同时突破10亿美元大关</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">马斯克旗下隧道公司 The Boring Company 完成30亿美元D轮，估值230亿美元；AI编程公司 Cognition 完成20亿美元E轮，估值480亿美元（较5月翻倍）</li>
+        <li data-num="2">车队管理平台 Motive 融资13亿美元；可复用火箭公司 Stoke Space 完成10亿美元E轮，估值100亿美元，Nova Block 2 计划2027年初首飞</li>
+        <li data-num="3">同周还有 Suniva 8.35亿美元B轮、Mach Industries 追加6亿美元C轮（估值37亿美元）、法律AI公司 Harvey 5.5亿美元融资（累计超15.5亿美元）</li>
+      </ul>
+      <div class="source">🔗 来源：Blab Tech / Today's Startup News</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Mistral AI 完成30亿欧元D轮，创欧洲科技公司全股权融资纪录</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">法国AI公司 Mistral 由三星电子领投，估值超210亿欧元，公司称这是欧洲科技企业史上最大规模的全股权融资轮</li>
+        <li data-num="2">本轮新投资方包括 Advent、BlackRock 旗下基金与卢森堡大公国；EQT/Scaleup Europe Fund、PSG Equity 为联合领投</li>
+        <li data-num="3">资金用于建设“主权AI”基础设施，呼应欧洲科技界对加大本土AI与能源基建公共投资的呼吁</li>
+      </ul>
+      <div class="source">🔗 来源：GENZ TECH / Today's Startup News</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">印度创投周报：Pixxel 1亿美元C轮刷新航天融资纪录，Zepto 与 NSE 冲刺IPO</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">班加罗尔卫星公司 Pixxel 完成1亿美元C轮，由淡马锡与 Seraphim Space 联合领投，成为印度航天科技史上最大融资，累计融资1.95亿美元</li>
+        <li data-num="2">9月4-10日印度初创共融资2.586亿美元，Nua 5000万美元、Swish 2400万美元、QNu Labs 2100万美元紧随其后；当周录得1起并购、2起科技IPO</li>
+        <li data-num="3">一级市场持续火热：快商务公司 Zepto、印度国家证券交易所 NSE 等排队上市，9月IPO管道目标规模约4500亿卢比；Anthropic、Oura、Stripe 等被视为年底前潜在IPO候选</li>
+      </ul>
+      <div class="source">🔗 来源：Sahyadri Startups / IPO Central / Finance Review Daily</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月13日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
