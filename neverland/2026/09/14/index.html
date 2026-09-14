@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月14日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月14日 · 周一</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>12</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">三大AI巨头罕见齐声呼吁放缓模型开发速度</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Anthropic CEO达里奥·阿莫德伊率先宣布引入独立第三方安全评估，敦促行业放慢最先进模型开发</li>
+        <li data-num="2">OpenAI CEO奥特曼公开支持，称今年不适合IPO，仍有大量安全工作待完成</li>
+        <li data-num="3">马斯克亦表认同，但特朗普淡化担忧称'谁赢得AI谁就赢得未来'</li>
+      </ul>
+      <div class="source">🔗 来源：华尔街见闻 / 金十数据</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">OpenAI称内部模型破解千禧年大奖难题</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">OpenAI宣布解决纳维-斯托克斯方程存在性与光滑性问题，该难题悬而未决约90年</li>
+        <li data-num="2">证明由内部模型产生，能力显著强于GPT-6 Astra，并生成Lean形式化验证</li>
+        <li data-num="3">OpenAI表示不打算为该结果申领千禧年大奖</li>
+      </ul>
+      <div class="source">🔗 来源：界面新闻 / 今日头条</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">DeepSeek发布V4.1-Flash模型，API成本大幅下调</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">采用新型Causal-Encoder-Decoder结构，552B参数，支持100万token上下文窗口</li>
+        <li data-num="2">KV缓存内存降至前代1/4，HBM与SSD需求分别降至1/4和1/8</li>
+        <li data-num="3">9月14日起V4-Pro API请求将全部路由至V4.1-Flash，推动AI应用加速落地</li>
+      </ul>
+      <div class="source">🔗 来源：中财网 / HeadsUpAI</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美国8月核心CPI超预期，美联储本周加息概率升至九成</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">8月未季调CPI月率0.4%创今年6月以来新高，核心CPI月率0.3%高于预期</li>
+        <li data-num="2">交易员预计本周美联储加息概率升至90%，投行纷纷上调利率预期</li>
+        <li data-num="3">10年期美债收益率逼近5%关键水平，美联邦预算赤字前11个月达1.97万亿美元</li>
+      </ul>
+      <div class="source">🔗 来源：华尔街见闻 / 金十数据</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">沙特输油管道中断，全球油价飙涨突破100美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">沙特在无人机袭击后关闭关键输油管道，全球石油供应恐损失4%</li>
+        <li data-num="2">布伦特原油涨2.8%至107.55美元，WTI跌破100美元后反弹</li>
+        <li data-num="3">伊朗与海湾国家原定霍尔木兹海峡安全会议被推迟，中东航运通道危机持续</li>
+      </ul>
+      <div class="source">🔗 来源：凤凰财经 / 新浪财经</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">智谱完成50亿美元融资，港股AI板块持续受关注</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">智谱完成约20亿美元股份配售及约30亿美元可转债发行，零息+溢价转股结构</li>
+        <li data-num="2">募集资金主要用于下一代GLM研发、算力基础设施建设及业务拓展</li>
+        <li data-num="3">IDC数据：2026年Q2全球服务器市场收入达1663亿美元，同比增长52%</li>
+      </ul>
+      <div class="source">🔗 来源：新华财经 / 新浪财经</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">美伊冲突升级：双方互相打击石油设施与军事基地</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美军摧毁5艘伊朗油轮，伊朗反击攻击10艘船只及约旦美军基地</li>
+        <li data-num="2">IAEA将伊朗核问题提交联合国安理会，伊朗自2月起拒绝核查人员进入核设施</li>
+        <li data-num="3">胡塞武装占领红海港口城市摩卡，威胁曼德海峡航运安全</li>
+      </ul>
+      <div class="source">🔗 来源：RFE/RL / DefenceReport</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">俄乌战争持续：俄军空袭造成平民伤亡，泽连斯基赴加拿大求援</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">俄军无人机与导弹袭击基辅、敖德萨等多地，造成至少9人死亡</li>
+        <li data-num="2">泽连斯基访问加拿大寻求防空支持，提议在迈阿密G20与普京会面</li>
+        <li data-num="3">英国国防长官称已有超50万俄军在乌克兰阵亡，战争进入第五年</li>
+      </ul>
+      <div class="source">🔗 来源：Courthouse News / RFE/RL</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">金砖国家领导人第十八次会晤在新德里举行</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">习近平提出深化金砖合作五项倡议，包括AI开源普惠和智能制造合作</li>
+        <li data-num="2">强调'大金砖'要有大作为，维护产业链供应链稳定畅通</li>
+        <li data-num="3">欢迎金砖各国积极参与世界人工智能合作组织</li>
+      </ul>
+      <div class="source">🔗 来源：华尔街见闻 / 网易新闻</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">英伟达129亿美元收购Hugging Face，布局开源AI生态</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">9月3日宣布，交易估值129.3亿美元，包含119亿投资人对价+10亿员工留存</li>
+        <li data-num="2">Hugging Face将保持开源开放，开发者可继续自由选择模型、芯片和云平台</li>
+        <li data-num="3">英伟达借此获得开源AI模型和数据集平台及开发者分发渠道</li>
+      </ul>
+      <div class="source">🔗 来源：Pioneer Global / NeoDrop</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Meta收购成立仅8个月的瑞典AI初创Stilla.ai</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Stilla成立于2024年，仅500万美元种子轮即被Meta收编，团队并入AI商务部门</li>
+        <li data-num="2">Stilla主打多智能体协作系统，已与3000+企业工具打通集成</li>
+        <li data-num="3">Meta意在强化WhatsApp和Instagram上的AI商务代理能力，当日股价涨6.2%</li>
+      </ul>
+      <div class="source">🔗 来源：钛媒体 / Value Add VC</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Bending Spoons以13.6亿美元收购Miro，估值较高峰暴跌90%</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">全现金交易企业价值13.55亿美元，Miro年经常性收入6亿美元</li>
+        <li data-num="2">Miro 2022年1月估值175亿美元，此次收购估值仅为2.3倍销售额</li>
+        <li data-num="3">Bending Spoons上周刚完成12.85亿美元收购Airtable，连续大举并购</li>
+      </ul>
+      <div class="source">🔗 来源：MarketBrief</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月14日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
