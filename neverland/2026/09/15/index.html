@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月15日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月15日 · 周二</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>12</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">OpenAI 发布 GPT-6 Astra：迄今对齐度最高的模型，强化计算机操作与网络安全</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">GPT-6 Astra 于 9 月 3 日发布，在 FrontierMath Tier 4 达 98%、ARC-AGI-3 达 99.9%，被 OpenAI 称为迄今对齐度最高的模型</li>
+        <li data-num="2">定价每百万输入 tokens 10 美元、输出 50 美元，100 万 token 上下文，性能较 GPT-5.6 Sol 提升 70% token 效率</li>
+        <li data-num="3">进入 Preparedness Framework「关键级」网络安全能力，相关敏感功能仅向受信任访问计划用户开放</li>
+      </ul>
+      <div class="source">🔗 来源：Stanford Tech Review / CNBC</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">英伟达 129 亿美元收购 Hugging Face：开源 AI 生态格局重塑</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">英伟达以 129.3 亿美元完成对全球最大 AI 开源社区 Hugging Face 的收购，一举改写开源模型分发生态格局</li>
+        <li data-num="2">同期 Stripe 收购 OpenRouter，两起交易均凸显模型分发与路由平台的战略价值，开发者面临基础设施锁定风险</li>
+        <li data-num="3">英伟达还向 Safe Superintelligence 投入 50 亿美元战略投资，并正就收购 AI 推理芯片公司洽谈，进一步巩固 AI 算力主导地位</li>
+      </ul>
+      <div class="source">🔗 来源：Joto AI / Finance Review Daily</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">DeepSeek V4.1-Flash 上线：每百万 tokens 仅 0.003 美元，价格屠夫登场</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">DeepSeek 9 月 10 日发布 V4.1-Flash，5520 亿参数 MoE 架构，原生视觉支持，100 万 token 上下文</li>
+        <li data-num="2">非高峰时段缓存输入仅 0.003 美元/百万 tokens，较 GPT-6 Astra 便宜逾 3000 倍，但硬件部署要求相应更高</li>
+        <li data-num="3">DeepSeek 同时筹备上海科创板 IPO，目标估值约 500 亿元人民币（约 750 亿美元），由中信证券牵头</li>
+      </ul>
+      <div class="source">🔗 来源：HeadsUpAI / Quadradigitalsolutions</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美联储加息预期升温：美债收益率逼近 5%，全球债券抛售持续</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">8 月美国 PPI 同比上涨 5.4% 超预期，市场对 9 月美联储加息押注概率突破 70%；10 年期美债收益率升至 4.94%</li>
+        <li data-num="2">全球债券遭遇广泛抛售：日本 10 年期国债收益率创 1996 年来新高，德国、法国国债收益率均达十余年高点</li>
+        <li data-num="3">AI 相关企业大规模发债争夺资本，推动全球资本向美债看齐，推升整体融资成本</li>
+      </ul>
+      <div class="source">🔗 来源：Wind 万得 / BSG Financial Solutions</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">布伦特原油突破 100 美元/桶：红海霍尔木兹冲突持续推高能源价格</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">胡塞武装攻击沙特石油设施并封锁红海曼德海峡，国际油价单日飙升逾 8%，布伦特原油逼近 110 美元</li>
+        <li data-num="2">美国制裁伊朗油轮、扩大对伊航空制裁；伊朗宣布在霍尔木兹设立「限制区」，航运风险溢价大幅上升</li>
+        <li data-num="3">Capital Economics 预计油价维持 100 美元附近，高盛警告若冲突加剧可能触及 120 美元</li>
+      </ul>
+      <div class="source">🔗 来源：10 Things News / Saxo</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">全球 AI 基础设施投资狂飙：四大云厂商 2026 年资本支出将超 9000 亿美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">英伟达数据中心业务 Q3 营收 297 亿美元，同比暴涨 221%；Broadcom AI 半导体收入达 167 亿美元，占总营收 56%</li>
+        <li data-num="2">四大云厂商 2026 年 AI 资本支出合计将达 9070 亿美元，2027 年突破 1.2 万亿美元，微软计划将数据中心容量扩大两倍至 38GW</li>
+        <li data-num="3">苹果新 CEO John Ternus 接手首周即面临「AI 追赶」核心挑战，iPhone 18 Pro 的 A20 Pro 芯片神经网络引擎翻倍至 32 核</li>
+      </ul>
+      <div class="source">🔗 来源：KGI Singapore / Stanford Tech Review</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">中美贸易博弈再升级：特朗普加码制裁，北京反制，双方各划红线</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美方宣布对伊朗史上最大规模二级制裁，覆盖航空、油轮及第三国交易实体，剑指中国、印度、土耳其贸易伙伴</li>
+        <li data-num="2">中美双方在二十国集团峰会前各自宣布贸易限制措施，但均未触碰 2025 年 10 月停火协议红线，意在维持博弈而不破局</li>
+        <li data-num="3">中国商务部透露双方正就 300 亿美元对等降税框架进行磋商，商务部：将争取早日落地</li>
+      </ul>
+      <div class="source">🔗 来源：ZeroFox / 中国经济网</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">上合组织峰会力挺伊朗：中俄为首阵营形成外交缓冲</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">上海合作组织峰会发表比什凯克宣言，明确谴责对伊朗领土的军事打击为「违反国际法」，伊朗获得中俄阵营外交背书</li>
+        <li data-num="2">SCO 机制成立 25 年来影响力持续扩大，在俄乌战争与美伊冲突双重压力下成为多极外交博弈核心平台</li>
+        <li data-num="3">与此同时，欧盟贸易执法官员访华，寻求在北京与布鲁塞尔贸易战升级前达成和解协议</li>
+      </ul>
+      <div class="source">🔗 来源：Chin@Strategy / 中国经济网</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">美德法等 12 国联合制裁以色列定居者：英法召回大使，中东外交危机升级</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">英国、法国等 12 国宣布对约旦河西岸以色列定居点实施贸易制裁，以色列随即关闭英国驻东耶路撒冷总领事馆</li>
+        <li data-num="2">联合国报告显示以色列定居者暴力活动升至「历史最高水平」，巴勒斯坦 60 平民在马萨费尔亚塔被强制驱逐</li>
+        <li data-num="3">特朗普政府未公开反对制裁措施，美以关系出现罕见裂缝，中东格局持续震荡</li>
+      </ul>
+      <div class="source">🔗 来源：10 Things News / GlobalPost</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">英伟达/AMD/Intel 三大 AI 芯片公司密集发布：AI 算力军备竞赛白热化</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">英伟达发布 Blackwell Ultra B300；AMD 推出 MI350X GPU；Intel Gaudi 3 全面上市，三巨头同日交锋刷新算力竞争标杆</li>
+        <li data-num="2">苹果发布首款折叠屏 iPhone Duo；Meta 推出 Muse Spark 1.3，主动协作与幻觉率双降；Anthropic 发布 Claude Fable 5.1 和 Claude Mythos 5.1</li>
+        <li data-num="3">AI 编码独角兽 Cognition（Devin 开发者）估值 480 亿美元，4 个月内翻倍；AI 法律工具 Harvey 融资 5.5 亿美元，估值 155 亿美元</li>
+      </ul>
+      <div class="source">🔗 来源：StartupPedia / Finance Review Daily</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">全球风投 8 月爆发：420 亿美元涌入，7 家公司单轮融资超 10 亿美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">8 月全球风险投资同比增长 122%，Databricks 以 50 亿美元融资领跑，估值 1900 亿美元；Crusoe 融资 30 亿美元，Fluidstack 融资 15 亿美元</li>
+        <li data-num="2">英伟达以 50 亿美元战略入股 Safe Superintelligence（Ilya Sutskever 创立），后者估值达 320 亿美元，但至今无商业产品</li>
+        <li data-num="3">SpaceTech 成新风口：2026 年迄今融资 203 亿美元，Anduril 单轮 50 亿美元，估值达 470 亿美元</li>
+      </ul>
+      <div class="source">🔗 来源：Finance Review Daily / Startup Genome</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">WhatsApp 跨境转账应用 Félix 融资 2 亿美元：拉美金融科技热潮持续</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">基于 WhatsApp 的拉美跨境汇款应用 Félix 完成 2 亿美元 C 轮，a16z 与 General Catalyst 联合领投，将拓展整个拉丁美洲市场</li>
+        <li data-num="2">AI 法律科技 GC AI 完成 6000 万美元 B 轮，估值 5.55 亿美元，为 2000 多家企业法务部门提供服务</li>
+        <li data-num="3">Hugging Face 推出 399 美元开源 AI 机器人 Microduck，集成行走、物体操控与轮滑技能，向消费级机器人领域扩张</li>
+      </ul>
+      <div class="source">🔗 来源：Finance Review Daily / StartupPedia</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月15日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
