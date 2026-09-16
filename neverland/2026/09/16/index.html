@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月16日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月16日 · 周三</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">AI 四巨头罕见联署呼吁「放缓开发」，芯片股遭血洗，特朗普斥为「阴谋」</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Anthropic CEO Amodei 发表 3800 字长文呼吁降低前沿 AI 开发速度，Sam Altman、马斯克、DeepMind 的 Hassabis 先后声援，被市场称为「罕见统一信号」</li>
+        <li data-num="2">费城半导体指数单日暴跌 5.86%（7 月 1 日以来最大跌幅）：英伟达跌 3.36%、美光与 AMD 跌超 4%、康宁跌逾 13%，SK 海力士、Marvell 跌超 7%</li>
+        <li data-num="3">特朗普公开抨击该主张，致电黄仁勋称 AI 危险论是「骗局」，并称中国是唯一受益方；资金从芯片股转向微软、谷歌、Meta 等超大规模云厂商</li>
+      </ul>
+      <div class="source">🔗 来源：WSJ / Reuters / 华尔街见闻</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">Anthropic 冲刺人类史上最大 IPO：英伟达拟以百亿美元任基石投资者</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Anthropic 拟募资至多 1000 亿美元、目标估值约 2 万亿美元，若成行将远超沙特阿美 2019 年 256 亿美元的纪录；S-1 或于 9 月下旬提交</li>
+        <li data-num="2">知情人士称英伟达正考虑投资最多 100 亿美元；此前 2025 年 11 月已承诺投资百亿，并绑定 300 亿美元微软 Azure 算力采购</li>
+        <li data-num="3">公司年化收入（run rate）已从 2025 年底约 90 亿美元飙升至 7 月底逾 650 亿美元，上市目标赶在 11 月中期选举前完成</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters / Economic Times / 腾讯新闻</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">苹果 Siri AI 拖了两年终落地：iOS 27 上线，AI 开始接管 iPhone</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">iOS 27 正式推送，Siri 完成底层重构并接入生成式 AI 能力，可在系统级跨 App 执行任务，苹果补齐最大短板</li>
+        <li data-num="2">与此同时 Anthropic 抢攻专业金融场景：Claude 接入贝莱德、嘉信理财工具，帮助投顾服务更多客户</li>
+        <li data-num="3">AI 数据隐私担忧升温，英伟达、Palantir 等企业限制 Anthropic 模型使用，微软借机抢客；网安与软件股成 AI 抛售中的避风港（CrowdStrike 涨 13.9%）</li>
+      </ul>
+      <div class="source">🔗 来源：华尔街见闻 / 陆家嘴财经早餐</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美联储三年来首次加息在即：沃什「扣扳机」，10 年期美债收益率盘中破 5%</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">FOMC 于 9 月 16 日（美东时间 14:00）公布决议，市场定价约 90% 概率加息 25bp 至 3.75%–4.00%，为 2023 年 7 月以来首次加息、沃什任内首次</li>
+        <li data-num="2">8 月 CPI 同比 3.4%、核心超预期，PCE 近 12 个月 3.7%、近 6 个月年化 4.1%，均远高于 2% 目标；特朗普仍公开要求降息</li>
+        <li data-num="3">10 年期美债收益率近三年来首次盘中升破 5.0%（连升六日），美元指数四连涨；Natixis 警告若四季度物价回落，本次可能「一次就结束」</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters / 新浪财经 / Streamline Feed</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">中东断供推油价站上 105 美元，美国柴油价格创历史纪录</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">沙特东西向输油管道（日输 400–500 万桶、约合全球供应 4%）遭袭停运，延布港库存仅够维持出口 5–7 天，市场担忧或需数周才修复</li>
+        <li data-num="2">布伦特原油一度涨超 4% 至约 106–107 美元/桶，WTI 突破 104 美元；美国柴油零售均价史上首次突破 6.2 美元/加仑</li>
+        <li data-num="3">传导链条清晰：油价↑→通胀预期↑→美联储更鹰→美债收益率↑→高估值科技股估值承压，市场对 11 月中期选举前的汽油价格高度敏感</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters / CGTN / 今日头条</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">存储与数据中心巨头抢滩 IPO：铠侠拟赴美发行 ADR 募资百亿美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">NAND 闪存巨头铠侠正考虑赴美发行美国存托凭证（ADR）募资至少 100 亿美元，已接触美银、高盛、摩根大通，上市或于明年进行</li>
+        <li data-num="2">澳大利亚 AI 数据中心运营商 Firmus 寻求在澳 IPO 募资至多 50 亿美元，目标 10 月底挂牌，按上限定价将是澳洲史上最大 IPO</li>
+        <li data-num="3">韩国市场方面，9 月 4 日至 11 日外资净卖出 3.24 万亿韩元韩股，其中三星电子、SK 海力士分别被净卖出约 1.96 万亿韩元</li>
+      </ul>
+      <div class="source">🔗 来源：陆家嘴财经早餐 / 腾讯新闻</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">霍尔木兹会谈突遭推迟：胡塞袭沙特，海峡单日仅 4 艘商船通行</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">原定周一在阿曼萨拉拉举行的伊朗—海湾国家会谈被无限期推迟，伊朗称系沙特提出异议；沙特要求修改草案，担忧措辞形成「新现状」</li>
+        <li data-num="2">胡塞武装对沙特哈米斯穆沙伊特空军基地发射数十枚导弹与无人机，此前已攻占红海沿岸摩卡港及丕林岛，扼守曼德海峡</li>
+        <li data-num="3">Kpler 数据显示周一仅 4 艘商品船通过霍尔木兹（战前日均约 125 艘）；伊朗公布 77 艘「违规」船舶清单，威胁罚款、扣船</li>
+      </ul>
+      <div class="source">🔗 来源：Al Jazeera / Reuters / CNN</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">俄乌「能源停火」博弈：特朗普称已达成，泽连斯基存疑、拉夫罗夫守北约红线</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">特朗普在 Truth Social 宣布俄乌已同意互不打击能源目标，称全球柴油涨价主因是俄乌战争而非伊朗；泽连斯基回应「不相信俄方会守约」，要求伙伴国提供可靠、长期的保障</li>
+        <li data-num="2">克宫称该提议是「非常好的想法」，但强调还需保障海运安全并解除对俄制裁；佩斯科夫称乌方 15 日凌晨仍袭击了俄能源设施</li>
+        <li data-num="3">拉夫罗夫 15 日表示俄愿寻求「合理妥协」、从未拒绝谈判，但核心目标不变——阻止北约出现在俄边境；泽连斯基计划 9 月 21–23 日在纽约会晤特朗普</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters / Kyiv Post / 央视新闻</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">AI 定价战开打：中国低价模型冲击前沿实验室商业模式</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">月之暗面 Kimi K3、阿里 Qwen、DeepSeek 系列以远低于美国的成本提供接近前沿的能力，正持续压低 GPT/Claude 级别模型的定价空间</li>
+        <li data-num="2">市场担忧 AI 资本开支与定价双双承压，叠加「放缓开发」呼声，成为本轮 AI 概念股急跌的基本面注脚</li>
+        <li data-num="3">美国与中国政府预计将在本月双边磋商中举行 AI 安全对话；《环球时报》社评批评 Anthropic 长文是「冷战剧本」，意在遏制中国技术发展</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters / AOL</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">超级 IPO 潮推动美国 IPO 市场创纪录：前 8 月募资 1370 亿美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">据 Dealogic，截至 8 月美国（不含 SPAC）IPO 募资额已达创纪录的 1370 亿美元，SpaceX 6 月上市后 Anthropic 接力，全年有望刷新历史</li>
+        <li data-num="2">Anthropic 5 月完成 650 亿美元私募融资、投后估值 9650 亿美元，若 IPO 达 2 万亿估值意味着不到半年估值再翻近一倍</li>
+        <li data-num="3">AI 超级 IPO 同时成为公开市场对「前沿实验室高估值 + 巨额资本需求」承受力的关键压力测试</li>
+      </ul>
+      <div class="source">🔗 来源：Investing.com / Economic Times</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月16日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
