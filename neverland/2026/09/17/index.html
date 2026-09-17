@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月17日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月17日 · 周四</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>9</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">NVIDIA押注「物理AI」：全球Robotaxi市场预计2035年达4000亿美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">NVIDIA披露全球Robotaxi公司正基于其全栈开放平台构建，市场预计2035年规模达4000亿美元、超600万辆商用车运营。</li>
+        <li data-num="2">自动驾驶车队已在最繁忙复杂的街道载客，规模化部署需要海量算力用于训练、仿真和车载推理。</li>
+        <li data-num="3">NVIDIA将「物理AI」定义为该领域的首个商业突破口，强调开放全栈方案可缩短运营商开发周期、降低每英里成本。</li>
+      </ul>
+      <div class="source">🔗 来源：aistart.ai</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">Meta「Muse」AI智能体应用跃居美国应用榜第2，消费级AI助手竞争白热化</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Meta全新AI智能体应用Muse快速攀升至美国应用榜第2位，定位可购物、管理邮件、规划行程的个人助理。</li>
+        <li data-num="2">其早期增长速度虽慢于Meta AI与Threads，但显示用户对「智能体助理」需求强劲。</li>
+        <li data-num="3">发布加剧与OpenAI、谷歌等的消费级AI助手之争，分发渠道与用户信任的重要性不亚于模型能力本身。</li>
+      </ul>
+      <div class="source">🔗 来源：aistart.ai</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">IBM宣布2026为「量子优势」元年，Majorana 1拓扑量子芯片落地</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">IBM公开表示2026年是量子计算机首次在有意义问题上超越经典计算机的首年。</li>
+        <li data-num="2">Microsoft的Majorana 1芯片作为关键硬件，是首个基于拓扑量子比特的量子芯片，使脆弱量子比特更 inherent 稳定并支持纠错。</li>
+        <li data-num="3">量子-AI混合应用商用还需3至5年，首批受益领域为药物发现、材料科学、组合优化与部分加密问题。</li>
+      </ul>
+      <div class="source">🔗 来源：The AI Journal</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">贝莱德：AI基建、能源转型、养老金为2026三大长期投资主题</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">贝莱德在投资策略交流中指出，AI重塑产业、能源转型催生新资本需求、人口结构变化推动养老金融升级。</li>
+        <li data-num="2">美国AI基础设施投资规模与建设速度创历史新高，投入强度可对标中国新能源基建阶段性投入，成为拉动GDP重要动力。</li>
+        <li data-num="3">贝莱德对AI产业长期「谨慎乐观」，建议以亚太债券、美国MBS、AI基建私募债权等分散配置，兼顾成长与稳健收益。</li>
+      </ul>
+      <div class="source">🔗 来源：中国金融新闻网</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">机构看多海外算力链：北美四大云厂商2026资本开支有望达6950–7250亿美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">彭博数据显示，北美四大云厂商2026年资本开支规模有望达6950亿至7250亿美元，全年指引仍可能上修。</li>
+        <li data-num="2">算力景气正从GPU向服务器、CPU、存储、网络、电源、液冷、机柜及数据中心电力配套全面扩散。</li>
+        <li data-num="3">机构判断现阶段担忧「算力系统性过剩」为时尚早，海外算力链仍是业绩兑现最扎实、可见度最高的方向。</li>
+      </ul>
+      <div class="source">🔗 来源：中国经济网</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">全球地缘格局进入「极混乱」重组期，关键矿产、航道与太空成新前沿</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">分析指出国际体系正从「多极化」走向更复杂的「地缘流动性」，传统大国与中小国家边界持续模糊。</li>
+        <li data-num="2">红海、霍尔木兹等战略通道成为政治施压武器，控制全球贸易「瓶颈」成为21世纪最有效影响力手段之一。</li>
+        <li data-num="3">深海、极地、外空与网络被列为地缘博弈新前沿，关键矿产(锂、钴、稀土)争夺推动供应链「去中国化」尝试。</li>
+      </ul>
+      <div class="source">🔗 来源：中国日报网</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">全球治理倡议与联合国改革：多极化加速、单边主义加剧治理困境</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">《国际形势黄皮书(2026)》指出世界多极化轮廓初步浮现，美国放弃支撑西方主导国际秩序，多边主义遭遇危机。</li>
+        <li data-num="2">联合国于成立80周年之际启动大规模效能改革，中国提出全球治理倡议为改革提供参考与动力。</li>
+        <li data-num="3">全球AI治理持续推进，联合国、G20、金砖等推动建立框架；中美AI差距缩小，博弈进入深水区。</li>
+      </ul>
+      <div class="source">🔗 来源：中国网</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">月之暗面(Moonshot AI)秘密提交香港IPO，或成亚洲最大上市之一</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">中国AI巨头Moonshot AI已秘密提交香港IPO申请，有望成为该地区规模最大的公开上市之一。</li>
+        <li data-num="2">随着公开市场融资渠道打开，资本正加速涌入基础模型开发商。</li>
+        <li data-num="3">此举标志中国大模型公司国际化融资迈出关键一步，也反映全球AI投资热度持续升温。</li>
+      </ul>
+      <div class="source">🔗 来源：Product Report AI</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Mistral AI完成30亿欧元D轮，估值超240亿美元，三星电子领投</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">法国AI领军企业Mistral AI完成30亿欧元(约33亿美元)D轮融资，估值突破240亿美元。</li>
+        <li data-num="2">资金将用于前沿AI研究、算力基础设施扩张与欧洲数据中心建设。</li>
+        <li data-num="3">欧洲在「技术主权」框架下持续加码，试图在AI竞赛中摆脱对美依赖、建立自主能力。</li>
+      </ul>
+      <div class="source">🔗 来源：Product Report AI</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月17日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
