@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月19日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月19日 · 周六</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">华为发布Atlas 960超节点，中国AI芯片加速迭代</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">华为9月17日在上海发布Atlas 960 SuperPoD算力集群，较上代Atlas 950大幅升级AI训练与推理能力</li>
+        <li data-num="2">预告Ascend 970（2028）、Ascend 980（2029）两代芯片，持续缩小与国际先进算力差距</li>
+        <li data-num="3">发布时点紧邻中美元首9月24日华盛顿会晤，凸显中美AI算力竞争白热化</li>
+      </ul>
+      <div class="source">🔗 来源：thecsrjournal.in / 华为</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">OpenAI、Anthropic、谷歌密集发布新模型，ASIC放量重塑算力格局</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">9月初OpenAI发布GPT-6 Astra、Anthropic推出Claude Fable 5.1/Mythos 5.1、谷歌发布Gemini 3.8 Flash</li>
+        <li data-num="2">博通财报确认定制ASIC进入规模化部署，谷歌、Meta、OpenAI等客户推进多代XPU项目</li>
+        <li data-num="3">AI芯片市场正形成GPU与定制ASIC并行发展格局，推理成本与能耗成为竞争焦点</li>
+      </ul>
+      <div class="source">🔗 来源：财联社 / Broadcom</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">国内首个国产GPU+类脑芯片异构混合推理系统发布</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">移动云联合中国电科南湖院、灵汐科技、清华、北大等发布国产GPU+类脑芯片异构混合推理系统</li>
+        <li data-num="2">首创Transformer模型注意力与FFN分离推理，类脑芯片发挥存算一体优势突破'内存墙'</li>
+        <li data-num="3">在DeepSeek V4 Flash上验证：推理能效提升1倍以上、业务运营成本降低40%以上</li>
+      </ul>
+      <div class="source">🔗 来源：光明网</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美联储时隔三年多重启加息，利率区间升至3.75%-4.00%</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">9月16日美联储加息25个基点至3.75%-4.00%，为2023年7月以来首次加息，12票全票通过</li>
+        <li data-num="2">点阵图显示18位官员中16位预计年内至少再加息一次，2026/2027年底利率中值均上修至4.1%</li>
+        <li data-num="3">主因：8月CPI同比3.4%抬头、核心通胀顽固、能源价格走高与就业走强，通胀仍未回归2%目标</li>
+      </ul>
+      <div class="source">🔗 来源：Federal Reserve / 经济日报</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">加息落地引发'紧缩交易'：美债收益率破5%、美元破100、黄金跌2%</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美股三大指数集体收跌，道指跌1.21%创6月中旬新低，标普跌0.45%，纳指几乎收平</li>
+        <li data-num="2">10年期美债收益率升破5%（2007年来高位），美元指数涨至100.3，黄金跌约2%</li>
+        <li data-num="3">特朗普随即敦促美联储'快速降息至1%或更低'，与美联储抗通胀立场形成鲜明对立</li>
+      </ul>
+      <div class="source">🔗 来源：markets.com / 新浪财经</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">北约东翼'灰色摩擦'频发，俄与欧洲紧张骤升</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">丹麦召见俄大使：俄护卫舰向在俄舰附近拍摄的丹麦军用直升机发射照明弹</li>
+        <li data-num="2">立陶宛一架不明无人机进入领空被北约战斗机击毁；波兰边境列车遭俄无人机撞击，外交专列险些遇袭</li>
+        <li data-num="3">北约内部讨论是否将混合袭击累积触发第5条集体防御，但欧洲目前倾向'保持冷静、继续援乌'</li>
+      </ul>
+      <div class="source">🔗 来源：POLITICO / 新浪新闻</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">特朗普施压北约盟友增军费，欧洲加速防务自主</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">特朗普持续施压北约成员承担更大防务份额，至少8个北约国家研究减少对美武器与技术依赖</li>
+        <li data-num="2">美在欧驻军超8.1万人，五角大楼评估裁减约2.5万人，欧洲或需接管更多安全责任</li>
+        <li data-num="3">欧洲各国大幅增加弹药、无人机、防空与军工产能投资，北约称正经历'冷战以来最深刻转型'</li>
+      </ul>
+      <div class="source">🔗 来源：Brussels Morning / Reuters</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">美国初创一周融资超百亿美元，四家公司单轮破10亿</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">9月5-11日11笔披露融资约108亿美元，Boring Company获30亿美元（阿联酋领投，估值230亿）</li>
+        <li data-num="2">AI编程公司Cognition获20亿美元（估值480亿）；Motive获13亿、可回收火箭Stoke Space获10亿</li>
+        <li data-num="3">资本从纯软件转向隧道、火箭、AI推理芯片等'硬科技'与实体基础设施</li>
+      </ul>
+      <div class="source">🔗 来源：Catenaa / Crunchbase</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Nvidia约129亿美元收购Hugging Face，史上最大并购</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">9月3日Nvidia确认以约129亿美元收购开源AI开发者平台Hugging Face，为其史上最大收购</li>
+        <li data-num="2">Hugging Face托管超300万模型、100万应用、50万数据集，覆盖1800万开发者</li>
+        <li data-num="3">收购标志Nvidia从芯片向上层开发者工具与开源基础设施延伸，强化AI生态闭环</li>
+      </ul>
+      <div class="source">🔗 来源：Today's Startup News</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">法国Mistral AI完成30亿欧元融资，推进'主权AI'</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Mistral AI完成30亿欧元Series D，估值超210亿欧元，为欧洲年内最大融资之一</li>
+        <li data-num="2">投资方包括三星、英伟达、ASML、a16z、General Catalyst、黑石管理及卢森堡政府等</li>
+        <li data-num="3">资金将投向前沿AI研发、算力基础设施与欧洲数据中心，强化独立于美国实验室的'主权AI'</li>
+      </ul>
+      <div class="source">🔗 来源：TechStartups</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月19日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
