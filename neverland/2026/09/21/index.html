@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月21日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月21日 · 周一</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">高通与亚马逊达成最高600亿美元AI芯片协议</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">高通授予亚马逊在合作期内采购最高600亿美元AI数据中心芯片及产品的权利，并发行约40亿美元认股权证</li>
+        <li data-num="2">双方将合作开发面向AI推理的定制芯片，以及高达1.6Tbps的下一代光互连技术</li>
+        <li data-num="3">标志高通加速从手机向AI基础设施扩张，正面挑战英伟达GPU主导地位</li>
+      </ul>
+      <div class="source">🔗 来源：路透社</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">英伟达35亿美元入股联发科，布局AI芯片生态</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">英伟达通过可转债向联发科投资35亿美元，助其进军定制AI芯片市场</li>
+        <li data-num="2">联发科将接入英伟达NVLink Fusion生态，定制芯片可直连英伟达数据中心基础设施</li>
+        <li data-num="3">联发科股价大涨10%、年内累涨近200%，数据中心ASIC业务预计2026年营收20亿美元</li>
+      </ul>
+      <div class="source">🔗 来源：新浪财经</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">三星领投荷兰AI芯片初创Euclyd 2.3亿美元融资</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">荷兰AI芯片初创Euclyd完成2亿欧元（约2.3亿美元）A轮，三星与多家机构共同领投</li>
+        <li data-num="2">公司研发非GPU架构的AI推理专用芯片系统，主打处理器与内存协同设计以降低能耗</li>
+        <li data-num="3">反映资本对“英伟达替代方案”高度追捧，OpenAI、谷歌、Meta等均在自研AI芯片</li>
+      </ul>
+      <div class="source">🔗 来源：环球网</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美联储三年多来首次加息25个基点</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">9月16日FOMC全票通过加息25个基点，联邦基金利率升至3.75%-4.00%，为2023年7月以来首次</li>
+        <li data-num="2">主因通胀高企（8月CPI同比3.4%）及能源价格上涨；点阵图显示年内或再加息一次</li>
+        <li data-num="3">决议后美股走低、10年期美债收益率重回5%上方、美元指数升破100，市场关注“加多久”</li>
+      </ul>
+      <div class="source">🔗 来源：新华社</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">银行团筹组220亿美元芯片贷款支持Crux AI</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">由10家银行组成的财团提供220亿美元贷款，支持黑石与Alphabet新设云计算企业Crux AI</li>
+        <li data-num="2">资金用于购买谷歌自研TPU芯片，并以芯片价值及客户合同作为担保</li>
+        <li data-num="3">凸显围绕AI昂贵处理器的融资竞赛升温，高盛、法巴、巴克莱等参与银团</li>
+      </ul>
+      <div class="source">🔗 来源：环球市场播报</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">联合国秘书长呼吁中东与乌克兰紧张局势降级</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">古特雷斯在联大高级别周前呼吁中东紧张局势降级为“第一、二、三优先”</li>
+        <li data-num="2">要求全面恢复霍尔木兹与曼德海峡航行自由，落实加沙和平计划并停止约旦河西岸吞并</li>
+        <li data-num="3">敦促乌克兰立即停火，作为迈向公正、持久、全面和平的第一步</li>
+      </ul>
+      <div class="source">🔗 来源：环球时报</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">俄乌美三方会谈或于10月重启</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">俄方表示愿在“可预见的将来“举行新一轮俄美乌三方会谈，阿联酋愿再次主办</li>
+        <li data-num="2">乌方称新一轮谈判或于10月初举行，议题含黑海航运、减少对关键基础设施互袭</li>
+        <li data-num="3">泽连斯基拟9月21-23日访美与特朗普讨论海上及能源停火，并为三方会谈做准备</li>
+      </ul>
+      <div class="source">🔗 来源：新华社</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">英伟达129亿美元收购Hugging Face</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">英伟达9月3日宣布以129.3亿美元收购开源AI平台Hugging Face，系其史上最大并购</li>
+        <li data-num="2">交易含119亿美元给投资者及最高10亿美元员工股权保留计划，尚需获批</li>
+        <li data-num="3">黄仁勋称平台将保持开放，意在掌握开发者分发渠道、巩固AI生态主导权</li>
+      </ul>
+      <div class="source">🔗 来源：Stocktwits</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Grab 15亿美元收购金融科技平台Atome</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">东南亚超级应用Grab以14.9亿美元收购数字金融平台Atome 60%股权</li>
+        <li data-num="2">交易含2.6亿美元注资及两年后收购剩余40%的期权（估值区间20-45亿美元）</li>
+        <li data-num="3">Grab完全以现金储备支付，预计2028年金融业务调整后EBITDA达5亿美元</li>
+      </ul>
+      <div class="source">🔗 来源：ECMSource</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Bending Spoons 13.6亿美元收购协作平台Miro</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">意大利软件集团Bending Spoons以13.55亿美元全现金收购协作平台Miro</li>
+        <li data-num="2">Miro曾于2021年估值175亿美元，现估值较峰值缩水约92%，反映SaaS估值重置</li>
+        <li data-num="3">Miro年经常性收入约6亿美元、服务25万+组织，部分股东将再投资2.95亿美元</li>
+      </ul>
+      <div class="source">🔗 来源：TechCrunch</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月21日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
