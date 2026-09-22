@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月22日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月22日 · 周二</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">Anthropic签署澳大利亚首个数据中心租赁协议，2.16GW园区用于Claude推理</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Anthropic在昆士兰Western Downs Digital Park签下首份澳大利亚数据中心租约，园区总规划容量2.16GW，总投资约319亿澳元</li>
+        <li data-num="2">该设施主要用于AI推理（处理Claude用户查询）而非模型训练，计划2027年投入运营，采用可再生能源和闭环空气冷却</li>
+        <li data-num="3">CEO阿莫迪此前呼吁AI行业放缓前沿模型能力提升，但推理算力需求仍在快速增长，显示'AI减速≠算力减速'</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters / 搜狐科技</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">美国参议院否决CLARITY加密法案，比特币跌破76000美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">参议院以49-50票否决程序性动议，远低于60票门槛，加密监管立法今年基本无望通过</li>
+        <li data-num="2">民主党以伦理条款太弱为由集体反对，3名共和党议员倒戈，法案从82%通过概率暴跌至7%</li>
+        <li data-num="3">比特币跌至约76000美元，XRP暴跌10%，CoinBase跌10%，监管灰色地带持续</li>
+      </ul>
+      <div class="source">🔗 来源：CoinDesk / 南卡公共电台</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美联储三年多来首次加息25个基点，点阵图暗示年内还将加息</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">FOMC全票通过将联邦基金利率上调至3.75%-4%，为2023年7月以来首次加息</li>
+        <li data-num="2">主席沃什称通胀太高且持续太久，18名官员中12人预计年内再加息一次，2026年底利率中值上调至4.1%</li>
+        <li data-num="3">道指大跌1.21%创6月中旬新低，10年期美债收益率重回5%以上，美元指数升破100</li>
+      </ul>
+      <div class="source">🔗 来源：美联储官网 / 新华社</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">沙特石油管道遇袭关闭，国际油价突破100美元/桶</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">胡塞武装精确打击沙特东西输油管道（日均输送全球4-5%石油），迫使沙特预防性关闭这条霍尔木兹海峡替代路线</li>
+        <li data-num="2">胡塞同时夺取红海曼德海峡关键岛屿，控制全球能源航运要道，沙特原油供应降至30年最低</li>
+        <li data-num="3">布伦特原油突破100美元/桶，加剧全球通胀压力，推高各国借贷成本</li>
+      </ul>
+      <div class="source">🔗 来源：Reuters / news.com.au</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">特朗普签署《格雷厄姆制裁俄伊法案》，授权对俄能源买家征100%关税</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">法案以已故参议员格雷厄姆命名，授权对俄罗斯官员、银行及影子船队实施制裁，并延长伊朗制裁5年</li>
+        <li data-num="2">允许对俄石油天然气前五大进口国征收最高100%关税，俄方称将使乌克兰和平努力更复杂</li>
+        <li data-num="3">乌克兰表示感谢，俄罗斯梅德韦杰夫称应以'直接军事威慑'回应，中国商务部反对单边次级制裁</li>
+      </ul>
+      <div class="source">🔗 来源：新华网 / 环球时报</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">冯德莱恩盟情咨文：对华贸易逆差达'临界点'，将动用一切工具再平衡</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">欧盟对华货物贸易逆差每天10亿欧元，冯德莱恩称'第二次中国冲击已经到来'，导致欧洲去工业化</li>
+        <li data-num="2">欧盟将成立新的欧洲关键原材料公司，减少对华80%以上关键矿产和90%稀土的依赖</li>
+        <li data-num="3">10月为对话 deadline，但德法态度分歧明显，德国车企在华利益巨大，27国未达成一致</li>
+      </ul>
+      <div class="source">🔗 来源：Politico / 环球时报</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">特朗普封禁CNN、MSNBC、Politico进入白宫， citing'假新闻'</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">特朗普在Truth Social宣布立即禁止三家媒体进入白宫，称其传播'假新闻'</li>
+        <li data-num="2">此举引发新闻自由争议，被批评为对媒体的行政打压</li>
+        <li data-num="3">同期联邦法官否决肯尼迪中心董事会恢复特朗普冠名的努力</li>
+      </ul>
+      <div class="source">🔗 来源：China Economic Net</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">AI驱动垂直化创业趋势：Vertical AI超越通用AI成为投资热点</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">投资集中在面向特定行业的AI工具（法律、保险、制造等），买家要求贴合工作流和数据规则</li>
+        <li data-num="2">融资向更少公司集中，大额融资流向AI、金融科技、基础设施类公司，早期团队需更强证据</li>
+        <li data-num="3">收入优先模式回归：自举、付费试点、客户资助开发成为可信路径，信任成为产品功能</li>
+      </ul>
+      <div class="source">🔗 来源：HubSpot / Mean CEO</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">美国批准向沙特出售48架F-35隐身战斗机</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美国国务院批准潜在价值数百亿美元的48架F-35及配套设备出售方案</li>
+        <li data-num="2">此举在中东战争持续背景下引发地区军力平衡担忧</li>
+        <li data-num="3">交易仍需国会审议，部分议员可能以人权和也门冲突为由提出异议</li>
+      </ul>
+      <div class="source">🔗 来源：US State Department / en.ce.cn</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">大众汽车宣布裁员5万人的大规模重组计划，应对中国竞争</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">大众在与中国电动车激烈竞争下启动全面重组，额外裁减5万个工作岗位</li>
+        <li data-num="2">反映欧洲传统车企在电动化转型中的结构性困境，能源成本高企加剧压力</li>
+        <li data-num="3">中国电动车在欧洲市场份额已从4.2%升至15%，性价比优势明显</li>
+      </ul>
+      <div class="source">🔗 来源：Epoch Times / 今日头条</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月22日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
