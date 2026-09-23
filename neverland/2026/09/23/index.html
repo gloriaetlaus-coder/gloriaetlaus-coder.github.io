@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月23日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月23日 · 周三</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>11</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">智谱完成约50亿美元融资，GLM-5.3-FlashX同步上线</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">智谱宣布完成约50亿美元融资（20亿股份配售+30亿可转债），为今年国内大模型领域最大单笔融资</li>
+        <li data-num="2">资金将投向下一代GLM基础模型、完全自训练体系与算力基础设施，探索递归式自我改进</li>
+        <li data-num="3">同期上线轻量级模型GLM-5.3-FlashX，主打低延迟高并发，适配端侧与Agent应用</li>
+      </ul>
+      <div class="source">🔗 来源：中财网</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">清华系Naive AI获4亿美元融资，将发布开源大模型</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">由清华副教授戴继锋创立的Naive AI在7个月内完成三轮融资共4亿美元，估值达14.2亿美元</li>
+        <li data-num="2">投资方包括腾讯、IDG资本、MPCi及红杉中国（HSG），释放对国产模型路线的信心</li>
+        <li data-num="3">采用'中训练+后训练'低成本路线，本月将发布可免费下载与微调的开源大模型</li>
+      </ul>
+      <div class="source">🔗 来源：TechPillow</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">联合国AI科学小组警告：AI失控风险正在加剧</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">联合国'人工智能问题独立国际科学小组'发布首份专题简报，指出现有安全防火墙'正在瓦解'</li>
+        <li data-num="2">报告呼吁随AI智能体发展加快更新治理护栏与可控机制</li>
+        <li data-num="3">秘书长古特雷斯同期将AI列为人类面临的'四大权力考验'之一</li>
+      </ul>
+      <div class="source">🔗 来源：联合国官网</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美联储自2023年来首次加息，利率升至3.75%-4%</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美联储9月16日一致投票加息25个基点，将联邦基金利率区间上调至3.75%-4.00%</li>
+        <li data-num="2">新主席Warsh称通胀'过高太久'，点阵图暗示年内或再加息一次</li>
+        <li data-num="3">特朗普呼吁降息至1%以下，但美联储顶住政治压力坚持抗通胀立场</li>
+      </ul>
+      <div class="source">🔗 来源：Channel News Asia / 中国经济网</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">日本央行加息至1.25%，创31年新高</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">日本央行9月18日将政策利率上调25个基点至1.25%，为31年来最高水平</li>
+        <li data-num="2">继美联储之后主要央行同步收紧，全球宽松周期进一步逆转</li>
+        <li data-num="3">美元触及七周高点，大宗商品与原油价格承压回落</li>
+      </ul>
+      <div class="source">🔗 来源：CIVL / AP</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美股加息后强势反弹，纳指单日涨1.69%</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">在油价回落、美债收益率走低提振下，美股9月17日全线反弹</li>
+        <li data-num="2">纳指大涨1.69%领涨，科技与半导体板块带动大盘走高</li>
+        <li data-num="3">市场预计10月再加息概率升至53%，但企业盈利韧性支撑风险偏好</li>
+      </ul>
+      <div class="source">🔗 来源：CryptoBriefing / Reuters</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">联合国大会第81届一般性辩论开幕，聚焦重建信任</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">第81届联大一般性辩论于9月22-28日在纽约举行，主题为'重建信任，管理变革'</li>
+        <li data-num="2">秘书长古特雷斯警告世界面临战争与和平、不平等、气候、AI'四大权力考验'，'裂缝已成峡谷'</li>
+        <li data-num="3">近130位国家元首和政府首脑出席，议题涵盖气候、发展、和平与安全</li>
+      </ul>
+      <div class="source">🔗 来源：联合国官网</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">也门战事加剧，超12.8万人流离失所</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">联合国难民署警告，自8月1日以来也门敌对行动已致逾12.8万人流离失所</li>
+        <li data-num="2">粮食与庇护所是最紧迫需求，流离失所点针对妇女与儿童的保护风险上升</li>
+        <li data-num="3">联合国谴责胡塞武装持续跨境袭击沙特，地区局势进一步恶化</li>
+      </ul>
+      <div class="source">🔗 来源：联合国难民署 / 联合国</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">全球打击诈骗峰会启动'影暴行动'特别工作组</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">国际刑警组织数据显示，2024-2025年与诈骗相关通报激增55%</li>
+        <li data-num="2">峰会由英国支持、22个成员国及欧洲刑警组织参与，启动'影暴行动'特别工作组</li>
+        <li data-num="3">发布第二版《全球金融诈骗威胁评估报告》，重点关注AI在诈骗中的作用</li>
+      </ul>
+      <div class="source">🔗 来源：联合国官网</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Cohere与Aleph Alpha合并，组建200亿美元AI巨头</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">两家欧洲AI公司Cohere与Aleph Alpha合并，打造估值约200亿美元的AI巨头</li>
+        <li data-num="2">交易背后是130亿欧元的算力押注，强化欧洲主权AI能力</li>
+        <li data-num="3">反映基础模型公司通过整合应对资本与算力成本压力</li>
+      </ul>
+      <div class="source">🔗 来源：TechStartups</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Grab 14.9亿美元收购Atome 60%股权，进军数字信贷</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">东南亚超级应用Grab拟以14.9亿美元现金收购Atome Financial 60%股权</li>
+        <li data-num="2">交易预计2027年Q3完成，剩余40%将按公式后续收购</li>
+        <li data-num="3">Grab意在获取消费信贷密度而非自建，强化数字金融服务版图</li>
+      </ul>
+      <div class="source">🔗 来源：VentureCapitalTracker</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月23日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
