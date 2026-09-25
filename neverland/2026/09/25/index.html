@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月25日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月25日 · 周五</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>13</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">OpenAI 发布 GPT-6 Astra：新一代推理旗舰模型</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Astra 为 OpenAI 迄今最强大模型，主打 System-2 深度推理，可自主多步决策</li>
+        <li data-num="2">法律专用版本 Astra for Law 索引超 2.3 亿条美国法律来源，专业推理媲美资深律师</li>
+        <li data-num="3">OpenAI 将其网络安全能力评级为"Critical"，并启动受信任访问计划 Daybreak</li>
+      </ul>
+      <div class="source">🔗 来源：xicom.biz</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">Mistral AI 完成 30 亿欧元融资：欧洲最大私募记录</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">三星电子领投，估值突破 210 亿欧元，为欧洲科技公司史上规模最大私募股权融资</li>
+        <li data-num="2">融资将用于扩展主权 AI 基础设施及国际化市场推广，剑指欧洲 AI 自主</li>
+        <li data-num="3">自公司成立仅三年即达此规模，显示欧洲 AI 生态加速成熟</li>
+      </ul>
+      <div class="source">🔗 来源：klraitechlab.com</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">Figure Helix 2.5 机器人：进入陌生家庭自主整理</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Figure 在湾区 30 户家庭部署 Helix 2.5，验证单一大模型可在无预训练条件下完成整理房间、叠毛巾等任务</li>
+        <li data-num="2">突破传统机器人对陌生环境的高度依赖，指向具身 AI 泛化的重要里程碑</li>
+        <li data-num="3">英伟达 Isaac Sim 同步展示自然语言直接控制机器人，无需手动编码</li>
+      </ul>
+      <div class="source">🔗 来源：andrewhansen.au</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">加州 AI 透明度法案扩大执行范围</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">SB 1000 废除百万用户门槛，覆盖范围显著扩大，覆盖提供商须嵌入来源数据</li>
+        <li data-num="2">英国同步推进工作场所监控 AI 监管咨询，美欧监管框架竞争加速</li>
+        <li data-num="3">全球 AI 治理从规则制定进入主动执法阶段，合规成本上升</li>
+      </ul>
+      <div class="source">🔗 来源：klraitechlab.com</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">布伦特原油突破 100 美元：中东局势持续推涨</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">胡塞武装扩大控制红海要地，沙特东西输油管道遭袭，全球约 4% 石油供应受影响</li>
+        <li data-num="2">美伊冲突持续升级，美军击沉伊朗油轮，霍尔木兹海峡通行量创历史新低</li>
+        <li data-num="3">油价飙升加剧通胀压力，全球央行紧缩周期延续，全球股债波动加剧</li>
+      </ul>
+      <div class="source">🔗 来源：krungsri.com / market.news</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美联储 9 月加息：鹰派信号强于市场预期</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美联储 9 月 16 日加息，为 2023 年以来首次，主席沃什释放强硬信号</li>
+        <li data-num="2">美债 10 年期收益率突破 4.75%，全球债券市场经历 2008 年以来最大抛售之一</li>
+        <li data-num="3">股市高位震荡，标普 500 年内涨幅收窄，新兴市场估值吸引力相对回升</li>
+      </ul>
+      <div class="source">🔗 来源：rbcgam.com / aldrenor.com</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">比特币强势反弹：8 月涨幅 25.4%</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">比特币升至 78,865 美元，索拉纳涨 42.2%，以太坊涨 32.9%，但仍为负收益</li>
+        <li data-num="2">加密反弹受益于美元回落预期，但监管不确定性抑制上行空间</li>
+        <li data-num="3">机构对加密资产配置策略趋于审慎，监管博弈持续</li>
+      </ul>
+      <div class="source">🔗 来源：systematicedge.com</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">习近平抵美进行国事访问：中美关系关键节点</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">习近平于 9 月 23–25 日对美进行国事访问，被外交界视为年度最重要双边会晤</li>
+        <li data-num="2">中美或在 LNG 供应、人工智能合作等领域达成框架协议</li>
+        <li data-num="3">与此同时美伊纽约非正式接触，两国关系出现微妙松动信号</li>
+      </ul>
+      <div class="source">🔗 来源：faf.ae / geopoliticalmining.com</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">霍尔木兹危机：伊朗提出 7 天开放路径</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">伊朗首次提出条件性 7 天重开霍尔木兹方案，但美军同时威胁对伊"彻底毁灭"</li>
+        <li data-num="2">当前通行量跌至每日 10 艘以下，为历史最低，石油供应风险急剧上升</li>
+        <li data-num="3">沙特重启东西管道每日增加约 150 万桶出口，局部缓解供应压力</li>
+      </ul>
+      <div class="source">🔗 来源：faf.ae / washingtontimes.com</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">特朗普签署俄伊制裁法案，扩大次级关税权力</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">法案授权对主要俄油进口国征收最高 100% 关税，目标剑指伊朗影子油轮舰队</li>
+        <li data-num="2">中国与俄罗斯在联合国安理会否决恢复对伊制裁监控机制，制裁执行面临阻力</li>
+        <li data-num="3">法案获得两党广泛支持，但实施力度将决定对俄伊能源收入实际影响</li>
+      </ul>
+      <div class="source">🔗 来源：mackinderforum.org</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Positron AI 融资 8.75 亿美元：AI 芯片新势力崛起</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Positron AI 估值约 50 亿美元，显示 AI 专用芯片需求持续火爆</li>
+        <li data-num="2">英伟达 Rubin 平台能效提升 2.1 倍，推理成本大幅下降，芯片竞争加剧</li>
+        <li data-num="3">AI 芯片赛道多元化格局初现，传统算力垄断格局面临挑战</li>
+      </ul>
+      <div class="source">🔗 来源：inveledger.com</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">沙特 Tabby 融资 2.33 亿美元，估值 65 亿美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">专注中东先买后付市场的金融科技公司完成 F 轮融资，蓝池资本领投</li>
+        <li data-num="2">扩张沙特及阿联酋核心市场，并延伸金融服务产品线</li>
+        <li data-num="3">估值达 65 亿美元，显示中东 fintech 市场持续获全球资本青睐</li>
+      </ul>
+      <div class="source">🔗 来源：inveledger.com</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Meta 收购瑞典 AI 创业公司 Stilla.ai</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Meta 收购专注商业 AI 交互的 Stilla.ai，此前该公司仅融资 500 万美元 pre-seed</li>
+        <li data-num="2">交易再次印证大型平台通过并购快速补强垂直 AI 能力的战略</li>
+        <li data-num="3">AI 初创被并购退出窗口持续，对早期投资者具备参考价值</li>
+      </ul>
+      <div class="source">🔗 来源：inveledger.com</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月25日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
