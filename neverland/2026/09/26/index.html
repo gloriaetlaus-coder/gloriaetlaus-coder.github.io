@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Neverland 每日简报 | 2026年9月26日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEVERLAND 每日简报</div>
+    <div class="date">2026年9月26日 · 周六</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">DeepSeek V4 开源：万亿参数 MoE 模型，训练成本仅 520 万美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">DeepSeek 发布 V4，采用万亿参数混合专家(MoE)架构，以 Apache 2.0 协议完全开源</li>
+        <li data-num="2">训练成本约 520 万美元，性能比肩美国顶级模型，凸显极高成本效率</li>
+        <li data-num="3">据称将完全基于华为芯片运行，加速中国 AI 算力自主可控进程</li>
+      </ul>
+      <div class="source">🔗 来源：AI Daily Brief</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">OpenAI 内部就 IPO 时间表产生分歧，CFO 质疑 2026 年可行性</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">CEO 奥特曼力推 2026 年 Q4 上市，目标估值高达 1 万亿美元，欲超越 Anthropic</li>
+        <li data-num="2">CFO Sarah Friar 担忧公司未准备好公开上市，未来五年云服务器支出或超 6000 亿美元</li>
+        <li data-num="3">多位高管近期离职或岗位调整，加剧 IPO 前景不确定性</li>
+      </ul>
+      <div class="source">🔗 来源：AI Daily Brief</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">微软推出自研 AI 模型 MAI 系列，剑指前沿能力</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">微软发布 MAI-Transcribe-1、MAI-Voice-1、MAI-Image-2 三款自研模型，由 Mustafa Suleyman 超级智能团队主导</li>
+        <li data-num="2">MAI-Transcribe 支持 25 种语言，速度较 Azure 现有方案快 2.5 倍</li>
+        <li data-num="3">微软目标 2027 年达到前沿 AI 能力，三款模型定价均低于现有竞争对手</li>
+      </ul>
+      <div class="source">🔗 来源：AI Newsletter</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">全球资本“东流”，中国资产迎历史性重估</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">截至 5 月末境外机构持有银行间市场债券 3.21 万亿元，为去年 4 月以来首次增持</li>
+        <li data-num="2">高盛、贝莱德等外资机构密集发声，认可中国资产安全溢价与 AI 全产业链竞争力</li>
+        <li data-num="3">人民币逆势走强，A 股/港股估值处于低位，成为分散风险理想标的</li>
+      </ul>
+      <div class="source">🔗 来源：中国经济网</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">避险资产迎“2020 年代重塑”：央行购金与债券收益回升</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">新兴市场央行以多年来最快速度增持黄金，对冲货币、制裁与地缘政治风险</li>
+        <li data-num="2">政府债券在多年近零利率后提供更高收益，资金回流固定收益</li>
+        <li data-num="3">货币基金、国债 ETF 等工具普及，保守策略重新具备吸引力</li>
+      </ul>
+      <div class="source">🔗 来源：FinQio</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">慕尼黑安全会议报告警告：世界进入“wrecking-ball politics”时代</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">2026 慕安会报告指出全球秩序承压、联盟松动、地缘裂痕加深</li>
+        <li data-num="2">报告称美国正从战后国际秩序的缔造者变为其转型的主要推手</li>
+        <li data-num="3">欧洲对美国安全承诺感知为“不稳定”，在 reassurance、conditionality 与 coercion 间摇摆</li>
+      </ul>
+      <div class="source">🔗 来源：中国日报网</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">关键矿产与战略通道成地缘博弈新焦点</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">锂、钴、镍及稀土等关键矿产成为清洁能源与 AI 产业动力源，西方图谋供应链“去中国化”</li>
+        <li data-num="2">美国试图强取巴拿马运河控制权、盯上格陵兰岛与达尔文港，通道争夺战打响</li>
+        <li data-num="3">深海、极地、外空、网络等新疆域成为各国必争必保的战略前沿</li>
+      </ul>
+      <div class="source">🔗 来源：求是网 / 中国网</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">日本经产省发布《Startup M&A 指南》，鼓励初创以并购为成长路径</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">METI 系统梳理初创卖方与大型企业买方的关键要点，加速 M&A 作为成长手段</li>
+        <li data-num="2">背景：东京证券交易所改革成长市场，IPO 之外 M&A 空间巨大</li>
+        <li data-num="3">旨在促进大企业与初创开放创新，创造新产业</li>
+      </ul>
+      <div class="source">🔗 来源：METI（日本经济产业省）</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Visa 以 10 亿美元收购巴西支付基础设施创企 Pismo</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Visa 以 10 亿美元现金收购 São Paulo 的支付基础设施初创 Pismo</li>
+        <li data-num="2">Pismo 年处理近 500 亿次 API 调用、400 亿美元交易量，客户含 Citi、Nubank 等</li>
+        <li data-num="3">为今年迄今最大金融科技 M&A 交易之一</li>
+      </ul>
+      <div class="source">🔗 来源：30N Ventures</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Snap 裁员约 1000 人，首次明确以 AI 效率提升为由</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Snapchat 母公司 Snap 裁员约 1000 人(16%)，取消数百个空缺岗位，目标年省 5 亿美元</li>
+        <li data-num="2">CEO Spiegel 称剩余员工将借助 AI 工具减少重复工作、提升效率</li>
+        <li data-num="3">继 Amazon、Meta、Block 后，又一家以 AI 驱动生产力为由重组的科技巨头</li>
+      </ul>
+      <div class="source">🔗 来源：AI Daily Brief</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Neverland 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年9月26日 · <a href="https://gloriaetlaus-coder.github.io/neverland/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
