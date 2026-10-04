@@ -19,19 +19,21 @@
   }
   .container { width: 100%; max-width: 100%; }
 
-  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
-  .card.finance .card-header  { border-left: 4px solid #10b981; }
-  .card.politics .card-header { border-left: 4px solid #ef4444; }
-  .card.business .card-header { border-left: 4px solid #a855f7; }
+  .card.ai .cat-tag       { background: #eef2ff; color: #4338ca; border-color: #c7d2fe; }
+  .card.finance .cat-tag  { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
+  .card.politics .cat-tag { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+  .card.business .cat-tag { background: #faf5ff; color: #7c3aed; border-color: #ddd6fe; }
 
   .category { margin-bottom: 20px; }
-  .category-label {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.82rem; font-weight: 700; color: #4b5563;
-    text-transform: uppercase; letter-spacing: 2px;
-    margin-bottom: 10px; padding: 0 4px;
+  .cat-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.78rem; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px;
+    border: 1px solid;
+    flex-shrink: 0; margin-top: 2px;
+    white-space: nowrap;
   }
-  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .cat-tag .ico { font-size: 0.92rem; line-height: 1; }
   .card {
     background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
     padding: 16px 22px; margin-bottom: 10px; width: 100%;
@@ -80,10 +82,10 @@
 <body>
 <div class="container">
   <div class="category">
-    <div class="category-label">🤖 科技/AI</div>
 
     <div class="card ai">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🤖</span>科技 AI</span>
         <div class="card-title">OpenAI 发布 GPT-6 Astra 与「Dots」常驻智能体（DevDay 2026）</div>
         <div class="source">🔗 来源：AINewsCycle / HeadsupAI</div>
       </div>
@@ -95,6 +97,7 @@
     </div>
     <div class="card ai">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🤖</span>科技 AI</span>
         <div class="card-title">Google 发布 Gemini 4 Argon：百万 token 上下文、主打长程编码与网络防御</div>
         <div class="source">🔗 来源：AI Daily Dev / The Daily Star</div>
       </div>
@@ -106,6 +109,7 @@
     </div>
     <div class="card ai">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🤖</span>科技 AI</span>
         <div class="card-title">NVIDIA 推出 Open Agent Safety Platform 智能体安全平台</div>
         <div class="source">🔗 来源：NVIDIA / The Daily Star</div>
       </div>
@@ -118,10 +122,10 @@
   </div>
 
   <div class="category">
-    <div class="category-label">💹 财经/投资</div>
 
     <div class="card finance">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">💹</span>财经 投资</span>
         <div class="card-title">美股收涨，纳指盘中创历史新高；非农疲软令加息预期降温</div>
         <div class="source">🔗 来源：今日头条(中新经纬) / 新浪财经</div>
       </div>
@@ -133,6 +137,7 @@
     </div>
     <div class="card finance">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">💹</span>财经 投资</span>
         <div class="card-title">G7 释放 1 亿桶战略石油储备以稳定能源市场</div>
         <div class="source">🔗 来源：华尔街见闻 / 腾讯新闻</div>
       </div>
@@ -145,10 +150,10 @@
   </div>
 
   <div class="category">
-    <div class="category-label">🌐 国际/政治</div>
 
     <div class="card politics">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🌐</span>国际 政治</span>
         <div class="card-title">俄乌战事升级：俄袭基辅桥梁致交通瘫痪，乌方远程打击俄能源设施报复</div>
         <div class="source">🔗 来源：CTV News / 央视新闻 / Al Jazeera</div>
       </div>
@@ -160,6 +165,7 @@
     </div>
     <div class="card politics">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🌐</span>国际 政治</span>
         <div class="card-title">美印土埃四国提出停火方案，普京明确拒绝</div>
         <div class="source">🔗 来源：新浪新闻 / 欧洲真理报</div>
       </div>
@@ -171,6 +177,7 @@
     </div>
     <div class="card politics">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🌐</span>国际 政治</span>
         <div class="card-title">中东紧张：霍尔木兹海峡油轮遇袭，联合国警告粮食危机</div>
         <div class="source">🔗 来源：凤凰网 / 联合国妇女署</div>
       </div>
@@ -183,10 +190,10 @@
   </div>
 
   <div class="category">
-    <div class="category-label">🚀 商业/创业</div>
 
     <div class="card business">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🚀</span>商业 创业</span>
         <div class="card-title">AMD 82 亿美元收购 World Labs，李飞飞出任首席科学家</div>
         <div class="source">🔗 来源：AI Daily Dev / Wilson Sonsini</div>
       </div>
@@ -198,6 +205,7 @@
     </div>
     <div class="card business">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🚀</span>商业 创业</span>
         <div class="card-title">OpenAI 寻求 300 亿美元 bridge 轮，估值冲 1.4 万亿美元</div>
         <div class="source">🔗 来源：WorldProgramming / Bloomberg</div>
       </div>
