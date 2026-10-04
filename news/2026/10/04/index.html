@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 News 每日简报 | 2026年10月4日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  }
+  .header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+  .header .title {
+    font-size: 1.4rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .header .date { font-size: 0.92rem; color: #6b7280; letter-spacing: 1px; }
+  .header .badge {
+    display: inline-block; margin-top: 14px; padding: 5px 18px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.78rem; color: #4338ca; font-weight: 500;
+  }
+  .summary-bar {
+    text-align: center; padding: 14px;
+    background: #fff; border: 1px solid #e5e9f2; border-radius: 12px;
+    margin-bottom: 26px; font-size: 0.95rem; color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-bar span { color: #4338ca; font-weight: 700; }
+  .category { margin-bottom: 22px; }
+  .category-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 700; color: #4b5563;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
+    padding: 22px; margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+
+  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
+  .card.finance .card-header  { border-left: 4px solid #10b981; }
+  .card.politics .card-header { border-left: 4px solid #ef4444; }
+  .card.business .card-header { border-left: 4px solid #a855f7; }
+
+  .card-header { padding-left: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; }
+  .points { list-style: none; margin: 0 0 16px 0; padding-left: 14px; }
+  .points li {
+    display: flex; gap: 10px; margin-bottom: 10px;
+    font-size: 0.92rem; color: #374151; line-height: 1.6;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #6b7280; background: #f9fafb;
+    padding: 5px 12px; border-radius: 8px; border: 1px solid #f3f4f6;
+  }
+  .footer {
+    text-align: center; padding: 28px; color: #9ca3af;
+    font-size: 0.78rem; line-height: 1.6;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .header { padding: 28px 18px; }
+    .header .title { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .card-title { font-size: 1rem; }
+    .points li { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🌍</div>
+    <div class="title">NEWS 每日简报</div>
+    <div class="date">2026年10月4日 · 周日</div>
+    <div class="badge">📡 过去24小时重要资讯</div>
+  </div>
+
+  <div class="summary-bar">
+    📊 今日共收录 <span>10</span> 条重要资讯，涵盖 科技/AI / 财经/投资 / 国际/政治 / 商业/创业
+  </div>
+
+  <div class="category">
+    <div class="category-label">🤖 科技/AI</div>
+
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">谷歌发布 Gemini 4 Argon：100万输出token，重夺基准榜首</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">DeepMind推出旗舰模型Gemini 4 Argon，单次输出上限从6.4万跃升至100万token，主攻长程编程、法律/金融知识与网络防御</li>
+        <li data-num="2">基准测试全面领先GPT-6.1 Sol与Claude Opus 5.5（DeepSWE 77.9%、LVBench 91.7%、AutomationBench第1）</li>
+        <li data-num="3">已向Google AI Ultra会员与付费API开放，并附带Fairwind网络防御预览，定价与Sonnet 5.5同档</li>
+      </ul>
+      <div class="source">🔗 来源：ai-daily.dev / VentureBeat</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">云端AI加速器ASIC出货2027年首超GPU，英伟达独大格局松动</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">DIGITIMES预测2027年高阶云端AI加速器出货达2595万颗，其中ASIC约1526万颗（年增110.9%），首度在出货量上超越GPU</li>
+        <li data-num="2">谷歌TPU v8出货估达801万颗（年增134%）市占30.9%，与英伟达差距缩至4.2个百分点；亚马逊Trainium、华为昇腾同步放量</li>
+        <li data-num="3">推理占AI工作负载六七成，云厂商自研ASIC在成本与功耗上优势凸显，市场从“英伟达独大”迈向“双强竞争”</li>
+      </ul>
+      <div class="source">🔗 来源：DIGITIMES / 半导体行业观察</div>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <div class="card-title">谷歌发射首颗TPU算力卫星，试验太空数据中心可行性</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Project Suncatcher原型卫星搭乘SpaceX Transporter-18升空，搭载自研TPU验证轨道机器学习计算集群</li>
+        <li data-num="2">目标在轨测试发射振动、剧烈热循环与辐射环境下的芯片可靠性，为激光互联的太空数据中心积累遥测</li>
+        <li data-num="3">近地轨道太阳能密度可达地面8倍，但星间激光互联、真空散热与硬件更换经济性仍是商业化壁垒</li>
+      </ul>
+      <div class="source">🔗 来源：atlasnote.ai / Google</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">💹 财经/投资</div>
+
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">10月4日欧美股市集体大涨，美元重挫、油价跳涨</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">欧股法国涨超4%、德国涨超3%；美股三大指数均涨近3%，中概纳斯达克金龙指数涨超5%</li>
+        <li data-num="2">美元指数跌1.50%至110.06，受OPEC+减产预期升温与美元走弱推动，WTI涨3.46%至86.52美元、布伦特涨3.31%至91.80美元</li>
+        <li data-num="3">黄金涨1.67%至1730.5美元/盎司；市场情绪转暖但中东局势与通胀仍悬而未决</li>
+      </ul>
+      <div class="source">🔗 来源：财联社（CLS）</div>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <div class="card-title">美国9月非农仅增2.9万，劳动力市场降温，标普盘中创新高</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">9月新增就业骤降至2.9万，失业率上行，印证劳动力市场需求走弱</li>
+        <li data-num="2">疲软数据缓解通胀与货币政策压力，美股收高，标普500盘中刷新历史高位，纳指涨约1%</li>
+        <li data-num="3">10年期美债收益率仍守在5.27%上方，G7拟释放约1亿桶战略油储以稳定能源市场</li>
+      </ul>
+      <div class="source">🔗 来源：TipRanks / 东方财富</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🌐 国际/政治</div>
+
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">美伊冲突升级：美国向中东部署第三艘航母，防长称“绝不”让伊朗拥核</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美国正向中东增派第三个航母打击群及近万名士兵，“罗斯福”号亦在赶赴途中，最快10月底 region内部署三艘航母</li>
+        <li data-num="2">防长Hegseth称特朗普保留一切军事选项，美方掌控霍尔木兹海峡，并指伊朗正试图重建受损的核能力</li>
+        <li data-num="3">伊朗被指在联合国将铀浓缩至60%、IAEA核查受阻；沙特-胡塞冲突外溢，利雅得附近Aramco设施起火</li>
+      </ul>
+      <div class="source">🔗 来源：The Jerusalem Post / 东方财富</div>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <div class="card-title">俄罗斯警告北约：若封锁加里宁格勒将动用核武器</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">俄方在外交照会中警告，若北约试图切断其飞地加里宁格勒，将动用“包括核武器在内的全部力量”，并打击成员国决策中心</li>
+        <li data-num="2">北约秘书长Rutte回应称北约是防御性联盟，俄方应停止核威胁</li>
+        <li data-num="3">与此同时俄乌转向能源与交通基础设施互袭，基辅桥梁、变电站与俄Samara/Volgograd炼油设施接连遇袭</li>
+      </ul>
+      <div class="source">🔗 来源：Just Security / Al Jazeera</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-label">🚀 商业/创业</div>
+
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">数据中心运营商Firmus Grid将赴澳IPO，募资超50亿美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Firmus Grid定价每股11澳元，拟10月23日登陆澳洲市场，募资至少50亿美元，或成澳洲史上最大IPO之一</li>
+        <li data-num="2">8月获Jane Street、黑石、英伟达等合计20亿美元投资承诺，4月曾由Coatue领投融资5.05亿美元</li>
+        <li data-num="3">公司2019年以比特币挖矿起家，现受益亚太AI基建需求，在澳洲与新加坡布局多个数据中心项目</li>
+      </ul>
+      <div class="source">🔗 来源：新浪财经</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">AMD 82亿美元收购李飞飞World Labs，发力空间智能</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">AMD以全股票交易收购World Labs（估值约82亿美元），为继500亿收购Xilinx后第二大并购</li>
+        <li data-num="2">李飞飞出任AMD执行副总裁兼首席科学家，直接向Lisa Su汇报，团队保留前沿模型研究</li>
+        <li data-num="3">World Labs的空间智能模型可从文本/图像/视频生成并模拟交互式3D世界，补强AMD“模型+芯片”垂直整合</li>
+      </ul>
+      <div class="source">🔗 来源：DIGITIMES / AMD</div>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <div class="card-title">Anthropic拟11月中旬IPO，估值或达9000亿美元</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Anthropic目标11月中旬上市，或成史上最大IPO；私募估值从2月3800亿飙至5月最高9000亿美元</li>
+        <li data-num="2">营收运行率三个月内从90亿增至超300亿，80%来自企业客户，正完成500亿美元Pre-IPO轮</li>
+        <li data-num="3">高盛、摩根大通、摩根士丹利牵头承销；早于OpenAI上市，抢占公开市场的先发与战略优势</li>
+      </ul>
+      <div class="source">🔗 来源：DIGITIMES / PPM Equity</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    News 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+    由 QClaw Agent 驱动 · 2026年10月4日 · <a href="https://gloriaetlaus-coder.github.io/news/">查看历史档案 →</a>
+  </div>
+</div>
+</body>
+</html>
