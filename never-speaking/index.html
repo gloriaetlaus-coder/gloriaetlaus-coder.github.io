@@ -233,9 +233,15 @@ var DAYS = {
 
 var now = new Date();
 var today = now.getDate();
-var day = today;
+var DAY_KEY = 'merged-day-v1';
+var SPEECH_KEY = 'merged-speech-v1';
+var savedDay = parseInt(localStorage.getItem(DAY_KEY) || '', 10);
+var day = (savedDay>=1 && savedDay<=31 && DAYS[savedDay]) ? savedDay : today;
 var catFilter = null;
 var activeSpeech = {};
+try { activeSpeech = JSON.parse(localStorage.getItem(SPEECH_KEY) || '{}'); } catch(e){}
+function persistDay(){ try{ localStorage.setItem(DAY_KEY, String(day)); }catch(e){} }
+function persistSpeech(){ try{ localStorage.setItem(SPEECH_KEY, JSON.stringify(activeSpeech)); }catch(e){} }
 
 var modeSwitch = document.getElementById('modeSwitch');
 var dateRail = document.getElementById('dateRail');
@@ -299,7 +305,7 @@ function renderDateRail(){
       b.className = 'date-chip' + (dd===day?' active':'');
       b.textContent = dd;
       if(DAYS[dd]){ var dot = document.createElement('span'); dot.className='dot'; b.appendChild(dot); }
-      b.addEventListener('click', function(){ day = dd; renderDateRail(); renderCatFilter(); renderContent(); window.scrollTo(0,0); });
+      b.addEventListener('click', function(){ day = dd; persistDay(); renderDateRail(); renderCatFilter(); renderContent(); window.scrollTo(0,0); });
       dateRail.appendChild(b);
       if(dd===day) activeChip = b;
     })(d);
@@ -318,7 +324,7 @@ function stepDay(dir){
   while(true){
     d += dir;
     if(d < 1 || d > max) break;
-    if(DAYS[d]){ day = d; renderDateRail(); renderCatFilter(); renderContent(); return; }
+    if(DAYS[d]){ day = d; persistDay(); renderDateRail(); renderCatFilter(); renderContent(); return; }
   }
 }
 
@@ -465,7 +471,7 @@ function renderSpecialDay(){
 
   catFilterEl.querySelectorAll('.speech-tab').forEach(function(btn){
     btn.addEventListener('click', function(){
-      activeSpeech[day] = +btn.dataset.idx;
+      activeSpeech[day] = +btn.dataset.idx; persistSpeech();
       renderContent();
     });
   });
