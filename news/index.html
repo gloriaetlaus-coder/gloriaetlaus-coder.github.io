@@ -14,30 +14,55 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* 顶栏 */
+  /* 顶栏(只保留品牌名) */
   .topbar {
-    height: 54px; display: flex; align-items: center; justify-content: space-between;
+    height: 54px; display: flex; align-items: center;
     padding: 0 22px; background: #ffffff; border-bottom: 1px solid #d2d2d7;
     position: sticky; top: 0; z-index: 10;
   }
-  .brand { font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.2px; }
-  .brand .dot-logo { width: 9px; height: 9px; border-radius: 50%; background: #ff3b30; box-shadow: 14px 0 0 #ffcc00, 28px 0 0 #34c759; }
-  .nav a { font-size: 13px; color: #0071e3; text-decoration: none; margin-left: 18px; white-space: nowrap; }
-  .nav a:hover { text-decoration: underline; }
+  .brand { font-weight: 700; font-size: 16px; letter-spacing: -0.2px; }
 
   /* 主体两栏 */
   .main { display: flex; height: calc(100vh - 54px); }
 
-  /* 左侧日历 */
+  /* 左侧栏: 头部信息 + 日历 */
   .cal {
-    width: 340px; flex-shrink: 0; background: #ffffff; border-right: 1px solid #d2d2d7;
-    padding: 22px 20px; overflow-y: auto;
+    width: 360px; flex-shrink: 0; background: #ffffff; border-right: 1px solid #d2d2d7;
+    padding: 18px 18px 22px; overflow-y: auto;
+    display: flex; flex-direction: column;
   }
-  .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-  .cal-title { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+
+  /* 顶部信息块(原来是独立 headline, 现在合并到日历上方) */
+  .sidebar-hero {
+    text-align: center; padding: 14px 14px 18px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border: 1px solid #e5e9f2; border-radius: 14px;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 4px rgba(99, 102, 241, 0.05);
+  }
+  .sidebar-hero .logo { font-size: 1.8rem; margin-bottom: 4px; }
+  .sidebar-hero .title {
+    font-size: 1.15rem; font-weight: 800; color: #4338ca;
+    letter-spacing: 1.5px; margin-bottom: 8px;
+  }
+  .sidebar-hero .badge {
+    display: inline-block; padding: 4px 14px;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 20px; font-size: 0.72rem; color: #4338ca; font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .sidebar-hero .footer-text {
+    font-size: 0.72rem; color: #8e8e93; line-height: 1.6;
+  }
+  .sidebar-hero .footer-text a { color: #0071e3; text-decoration: none; }
+  .sidebar-hero .footer-text a:hover { text-decoration: underline; }
+
+  /* 日历控件 */
+  .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .cal-title { font-size: 16px; font-weight: 700; letter-spacing: -0.3px; }
   .nav-btn {
-    width: 32px; height: 32px; border: none; background: #f5f5f7; border-radius: 50%;
-    cursor: pointer; font-size: 15px; color: #1d1d1f; display: flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border: none; background: #f5f5f7; border-radius: 50%;
+    cursor: pointer; font-size: 14px; color: #1d1d1f; display: flex; align-items: center; justify-content: center;
     transition: background 0.15s;
   }
   .nav-btn:hover { background: #e8e8ed; }
@@ -59,17 +84,10 @@
   .cell.selected .num { background: #0071e3; color: #ffffff; font-weight: 600; }
   .dot { width: 4px; height: 4px; border-radius: 50%; background: #0071e3; margin-top: 3px; }
   .cell.today .dot, .cell.selected .dot { background: #ffffff; }
-
-  .cal-hint { margin-top: 18px; font-size: 12px; color: #8e8e93; line-height: 1.6; text-align: center; }
+  .cal-hint { margin-top: 14px; font-size: 12px; color: #8e8e93; line-height: 1.6; text-align: center; }
 
   /* 右侧阅读区 */
   .reader { flex: 1; display: flex; flex-direction: column; background: #f5f5f7; min-width: 0; }
-  .reader-bar {
-    height: 44px; display: flex; align-items: center; justify-content: space-between;
-    padding: 0 20px; background: #fafafa; border-bottom: 1px solid #e5e5ea; font-size: 13px; color: #6e6e73;
-  }
-  .reader-bar a { color: #0071e3; text-decoration: none; }
-  .reader-bar a:hover { text-decoration: underline; }
   iframe { flex: 1; width: 100%; border: none; background: #f5f5f7; }
 
   .empty {
@@ -83,26 +101,28 @@
     .main { flex-direction: column; height: auto; }
     .cal { width: 100%; border-right: none; border-bottom: 1px solid #d2d2d7; max-height: 56vh; }
     .reader { height: 78vh; }
-    .nav { display: none; }
   }
 </style>
 </head>
 <body>
 
   <div class="topbar">
-    <div class="brand"><span class="dot-logo"></span> News · 每日简报</div>
-    <nav class="nav">
-      <a href="https://gloriaetlaus-coder.github.io/good-day-mvp/" target="_blank" rel="noopener">今朝</a>
-      <a href="https://gloriaetlaus-coder.github.io/growth/" target="_blank" rel="noopener">Growth</a>
-      <a href="https://gloriaetlaus-coder.github.io/never-speaking/" target="_blank" rel="noopener">练英语</a>
-      <a href="https://gloriaetlaus-coder.github.io/jobkit/job_board.html" target="_blank" rel="noopener">Jobkit</a>
-      <a href="https://gloriaetlaus-coder.github.io/career/" target="_blank" rel="noopener">简历</a>
-    </nav>
+    <div class="brand">News · 每日简报</div>
   </div>
 
   <div class="main">
-    <!-- 左侧日历 -->
+    <!-- 左侧栏: 头部信息 + 日历 -->
     <aside class="cal">
+      <div class="sidebar-hero">
+        <div class="logo">🌍</div>
+        <div class="title">NEWS 每日简报</div>
+        <div class="badge">📡 过去24小时重要资讯</div>
+        <div class="footer-text">
+          News 资讯工作台 · 每日自动抓取海外资讯并翻译推送<br>
+          由 QClaw Agent 驱动 · <a href="https://gloriaetlaus-coder.github.io/news/">查看历史档案 →</a>
+        </div>
+      </div>
+
       <div class="cal-head">
         <button class="nav-btn" type="button" onclick="prev()" aria-label="上个月">‹</button>
         <div class="cal-title" id="cal-title">—</div>
@@ -117,10 +137,6 @@
 
     <!-- 右侧阅读 -->
     <section class="reader">
-      <div class="reader-bar">
-        <span id="reader-date">选择左侧日期</span>
-        <a id="reader-ext" href="#" target="_blank" rel="noopener" style="display:none;">↗ 新窗口打开</a>
-      </div>
       <iframe id="frame" title="简报内容" style="display:none;"></iframe>
       <div class="empty" id="empty">
         <div class="big">🗓️</div>
@@ -133,8 +149,8 @@
   var DATES_URL = './dates.json';
   var BASE = 'https://gloriaetlaus-coder.github.io/news/';
   var dates = new Set();
-  var view = { y: 0, m: 0 };   // m: 0-11
-  var selected = null;         // 'YYYY-MM-DD'
+  var view = { y: 0, m: 0 };
+  var selected = null;
   var frame = document.getElementById('frame');
   var WEEK = ['周日','周一','周二','周三','周四','周五','周六'];
 
@@ -211,19 +227,15 @@
   function load(key) {
     var p = key.split('-');
     var dt = new Date(+p[0], +p[1] - 1, +p[2]);
-    document.getElementById('reader-date').textContent = p[0] + '年' + (+p[1]) + '月' + (+p[2]) + '日 ' + WEEK[dt.getDay()];
-    var ext = document.getElementById('reader-ext');
-    ext.href = BASE + p[0] + '/' + p[1] + '/' + p[2] + '/';
-    ext.style.display = 'inline';
     document.getElementById('empty').style.display = 'none';
     frame.style.display = 'block';
-    if (frame.getAttribute('src') !== ext.href) frame.setAttribute('src', ext.href);
+    var url = BASE + p[0] + '/' + p[1] + '/' + p[2] + '/';
+    if (frame.getAttribute('src') !== url) frame.setAttribute('src', url);
   }
 
   function showEmpty() {
     frame.style.display = 'none';
     document.getElementById('empty').style.display = 'flex';
-    document.getElementById('reader-ext').style.display = 'none';
   }
 
   function prev() { view.m--; if (view.m < 0) { view.m = 11; view.y--; } render(); }
