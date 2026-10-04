@@ -83,6 +83,11 @@
   }
   body.rail-collapsed .stage { left: 0; }
 
+  #home {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffd9e3 0%, #ffe7c8 38%, #fff3cd 62%, #cfe1ff 100%);
+  }
+
   #frame {
     display: none;
     width: 100%; height: 100%;
@@ -111,7 +116,8 @@
   }
   .card {
     display: block;
-    background: #f5f5f7;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     border-radius: 18px;
     padding: 28px 24px 24px;
     text-decoration: none;
@@ -217,43 +223,30 @@
         <main>
           <div class="grid">
 
-            <a class="card" href="https://gloriaetlaus-coder.github.io/career/">
+            <a class="card" href="https://gloriaetlaus-coder.github.io/good-day-mvp/">
               <span class="icon">
                 <svg viewBox="0 0 40 40" fill="none">
-                  <rect x="5" y="13" width="30" height="19" rx="3" stroke="#0071E3" stroke-width="2.2"/>
-                  <path d="M14 13V10.5C14 9.1 15.1 8 16.5 8H23.5C24.9 8 26 9.1 26 10.5V13" stroke="#0071E3" stroke-width="2.2"/>
-                  <path d="M5 21.5H35" stroke="#0071E3" stroke-width="2.2"/>
-                  <path d="M17 13V18M23 13V18" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M8 32L27 13" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M25 8L26.5 12.5L31 14L26.5 15.5L25 20L23.5 15.5L19 14L23.5 12.5Z" stroke="#0071E3" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M31 21L31.9 23.6L34.5 24.5L31.9 25.4L31 28L30.1 25.4L27.5 24.5L30.1 23.6Z" stroke="#0071E3" stroke-width="1.8" stroke-linejoin="round"/>
                 </svg>
               </span>
-              <div class="name">工作简介</div>
-              <div class="desc">个人简历网站</div>
+              <div class="name">小工具</div>
+              <div class="desc">今朝 · Good day</div>
               <div class="arrow">查看 &#8250;</div>
             </a>
 
-            <a class="card" href="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">
+            <a class="card" href="https://gloriaetlaus-coder.github.io/growth/">
               <span class="icon">
                 <svg viewBox="0 0 40 40" fill="none">
-                  <rect x="5" y="7" width="30" height="26" rx="3" stroke="#0071E3" stroke-width="2.2"/>
-                  <path d="M5 14H35" stroke="#0071E3" stroke-width="2.2"/>
-                  <rect x="10" y="18" width="7" height="10" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
-                  <rect x="21" y="18" width="9" height="5" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M20 33V14" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M20 15C20 15 12 14 11 6C19 6 20 15 20 15Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                  <path d="M20 20C20 20 28 19 29 11C21 11 20 20 20 20Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                  <path d="M8 33H32" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
                 </svg>
               </span>
-              <div class="name">Job Kit</div>
-              <div class="desc">求职看板</div>
-              <div class="arrow">查看 &#8250;</div>
-            </a>
-
-            <a class="card" href="https://gloriaetlaus-coder.github.io/never-speaking/">
-              <span class="icon">
-                <svg viewBox="0 0 40 40" fill="none">
-                  <path d="M6 12C6 9.2 8.2 7 11 7H23C25.8 7 28 9.2 28 12V18C28 20.8 25.8 23 23 23H16L9 29V23H6V12Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                  <path d="M31 13C33.2 13.8 35 15.9 35 18.5V30H31.5L26 34.5V30H24" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                </svg>
-              </span>
-              <div class="name">练英语</div>
-              <div class="desc">英语跟练</div>
+              <div class="name">Growth</div>
+              <div class="desc">生长轨迹</div>
               <div class="arrow">查看 &#8250;</div>
             </a>
 
@@ -273,30 +266,43 @@
               </div>
             </div>
 
-            <a class="card" href="https://gloriaetlaus-coder.github.io/growth/">
+            <a class="card" href="https://gloriaetlaus-coder.github.io/never-speaking/">
               <span class="icon">
                 <svg viewBox="0 0 40 40" fill="none">
-                  <path d="M20 33V14" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-                  <path d="M20 15C20 15 12 14 11 6C19 6 20 15 20 15Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                  <path d="M20 20C20 20 28 19 29 11C21 11 20 20 20 20Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                  <path d="M8 33H32" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M6 12C6 9.2 8.2 7 11 7H23C25.8 7 28 9.2 28 12V18C28 20.8 25.8 23 23 23H16L9 29V23H6V12Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                  <path d="M31 13C33.2 13.8 35 15.9 35 18.5V30H31.5L26 34.5V30H24" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
                 </svg>
               </span>
-              <div class="name">Growth</div>
-              <div class="desc">生长轨迹</div>
+              <div class="name">练英语</div>
+              <div class="desc">英语跟练</div>
               <div class="arrow">查看 &#8250;</div>
             </a>
 
-            <a class="card" href="https://gloriaetlaus-coder.github.io/good-day-mvp/">
+            <a class="card" href="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">
               <span class="icon">
                 <svg viewBox="0 0 40 40" fill="none">
-                  <path d="M8 32L27 13" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-                  <path d="M25 8L26.5 12.5L31 14L26.5 15.5L25 20L23.5 15.5L19 14L23.5 12.5Z" stroke="#0071E3" stroke-width="2" stroke-linejoin="round"/>
-                  <path d="M31 21L31.9 23.6L34.5 24.5L31.9 25.4L31 28L30.1 25.4L27.5 24.5L30.1 23.6Z" stroke="#0071E3" stroke-width="1.8" stroke-linejoin="round"/>
+                  <rect x="5" y="7" width="30" height="26" rx="3" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M5 14H35" stroke="#0071E3" stroke-width="2.2"/>
+                  <rect x="10" y="18" width="7" height="10" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
+                  <rect x="21" y="18" width="9" height="5" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
                 </svg>
               </span>
-              <div class="name">小工具</div>
-              <div class="desc">今朝 · Good day</div>
+              <div class="name">Job Kit</div>
+              <div class="desc">求职看板</div>
+              <div class="arrow">查看 &#8250;</div>
+            </a>
+
+            <a class="card" href="https://gloriaetlaus-coder.github.io/career/">
+              <span class="icon">
+                <svg viewBox="0 0 40 40" fill="none">
+                  <rect x="5" y="13" width="30" height="19" rx="3" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M14 13V10.5C14 9.1 15.1 8 16.5 8H23.5C24.9 8 26 9.1 26 10.5V13" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M5 21.5H35" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M17 13V18M23 13V18" stroke="#0071E3" stroke-width="2.2"/>
+                </svg>
+              </span>
+              <div class="name">工作简介</div>
+              <div class="desc">个人简历网站</div>
               <div class="arrow">查看 &#8250;</div>
             </a>
 
