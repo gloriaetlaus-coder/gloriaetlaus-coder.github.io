@@ -38,6 +38,7 @@
     transition: transform 0.15s ease;
   }
   .card:hover { transform: translateY(-2px); text-decoration: none; }
+  .card-main { display: block; text-decoration: none; color: inherit; }
   .card .icon { width: 40px; height: 40px; }
   .card .icon svg { width: 40px; height: 40px; display: block; }
   .card .name { margin-top: 18px; font-size: 20px; font-weight: 600; }
@@ -150,19 +151,21 @@
           <div class="arrow">查看 &#8250;</div>
         </a>
 
-        <a class="card" href="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">
-          <span class="icon">
-            <svg viewBox="0 0 40 40" fill="none">
-              <path d="M8 10V28H20V10H8Z M20 14L31 12V27H20" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-              <path d="M12 15H16M12 19H16" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <div class="name">简报</div>
-          <div class="desc">每日简报 · 最新 9月26日</div>
+        <div class="card">
+          <a class="card-main" href="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">
+            <span class="icon">
+              <svg viewBox="0 0 40 40" fill="none">
+                <path d="M8 10V28H20V10H8Z M20 14L31 12V27H20" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                <path d="M12 15H16M12 19H16" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <div class="name">简报</div>
+            <div class="desc">每日简报 · 最新 9月26日</div>
+          </a>
           <div class="brief-row">
             <button type="button" onclick="openSheet()">全部 28 期 &#8250;</button>
           </div>
-        </a>
+        </div>
 
         <a class="card" href="https://gloriaetlaus-coder.github.io/growth/">
           <span class="icon">
