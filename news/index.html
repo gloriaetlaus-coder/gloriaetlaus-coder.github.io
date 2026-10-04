@@ -14,16 +14,8 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* 顶栏(只保留品牌名) */
-  .topbar {
-    height: 54px; display: flex; align-items: center;
-    padding: 0 22px; background: #ffffff; border-bottom: 1px solid #d2d2d7;
-    position: sticky; top: 0; z-index: 10;
-  }
-  .brand { font-weight: 700; font-size: 16px; letter-spacing: -0.2px; }
-
   /* 主体两栏 */
-  .main { display: flex; height: calc(100vh - 54px); }
+  .main { display: flex; height: 100vh; }
 
   /* 左侧栏: 头部信息 + 日历 */
   .cal {
@@ -105,10 +97,6 @@
 </style>
 </head>
 <body>
-
-  <div class="topbar">
-    <div class="brand">News · 每日简报</div>
-  </div>
 
   <div class="main">
     <!-- 左侧栏: 头部信息 + 日历 -->
