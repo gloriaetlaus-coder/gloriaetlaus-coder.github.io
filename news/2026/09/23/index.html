@@ -14,71 +14,90 @@
     background: #f5f7fb;
     color: #1f2937;
     min-height: 100vh;
-    padding: 20px 24px;
+    padding: 12px 14px;
     -webkit-font-smoothing: antialiased;
   }
-  .container { width: 100%; max-width: 100%; }
-
-  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
-  .card.finance .card-header  { border-left: 4px solid #10b981; }
-  .card.politics .card-header { border-left: 4px solid #ef4444; }
-  .card.business .card-header { border-left: 4px solid #a855f7; }
-
-  .category { margin-bottom: 24px; }
-  .category-label {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.82rem; font-weight: 700; color: #4b5563;
-    text-transform: uppercase; letter-spacing: 2px;
-    margin-bottom: 14px; padding: 0 4px;
+  .container {
+    width: 100%; max-width: 100%;
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 12px;
   }
-  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+
+  .category.ai        { background: #e0f2fe; border: 1px solid #bae6fd; }
+  .category.finance   { background: #d1fae5; border: 1px solid #a7f3d0; }
+  .category.politics  { background: #ffe4e6; border: 1px solid #fecdd3; }
+  .category.business  { background: #ede9fe; border: 1px solid #ddd6fe; }
+  .card.ai .cat-tag       { background: #ffffff; color: #1e40af; border-color: #93c5fd; }
+  .card.finance .cat-tag  { background: #ffffff; color: #065f46; border-color: #6ee7b7; }
+  .card.politics .cat-tag { background: #ffffff; color: #991b1b; border-color: #fca5a5; }
+  .card.business .cat-tag { background: #ffffff; color: #5b21b6; border-color: #c4b5fd; }
+
+  .category {
+    border-radius: 14px;
+    padding: 12px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .cat-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.78rem; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px;
+    border: 1px solid;
+    flex-shrink: 0; margin-top: 2px;
+    white-space: nowrap;
+  }
+  .cat-tag .ico { font-size: 0.92rem; line-height: 1; }
   .card {
-    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
-    padding: 24px 28px; margin-bottom: 14px; width: 100%;
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 12px;
+    padding: 16px 22px; width: 100%;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     transition: box-shadow 0.2s, transform 0.2s;
   }
   .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
   .card-header {
     display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 14px; padding-left: 14px; margin-bottom: 16px;
+    gap: 14px; padding-left: 12px; margin-bottom: 10px;
   }
-  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; flex: 1; min-width: 0; }
+  .card-title {
+    font-size: 1rem; font-weight: 700; color: #111827;
+    line-height: 1.5; flex: 1; min-width: 0;
+    text-wrap: balance;
+  }
   .card-header .source {
-    flex-shrink: 0; margin-top: 2px;
+    flex-shrink: 0; margin-top: 1px;
     display: inline-flex; align-items: center; gap: 6px;
-    font-size: 0.78rem; color: #6b7280; background: #f9fafb;
-    padding: 4px 10px; border-radius: 8px; border: 1px solid #f3f4f6;
+    font-size: 0.76rem; color: #6b7280; background: #f9fafb;
+    padding: 3px 9px; border-radius: 8px; border: 1px solid #f3f4f6;
     white-space: nowrap;
   }
-  .points { list-style: none; margin: 0 0 8px 0; padding-left: 14px; }
+  .points { list-style: none; margin: 0; padding-left: 12px; }
   .points li {
-    display: flex; gap: 10px; margin-bottom: 10px;
-    font-size: 0.92rem; color: #374151; line-height: 1.6;
+    display: flex; gap: 8px; margin-bottom: 5px;
+    font-size: 0.9rem; color: #374151; line-height: 1.5;
+    text-wrap: pretty;
   }
   .points li:last-child { margin-bottom: 0; }
   .points li::before {
     content: attr(data-num);
-    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    min-width: 20px; height: 20px; background: #f3f4f6; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    font-size: 0.7rem; color: #6b7280; font-weight: 600;
     flex-shrink: 0; margin-top: 2px;
   }
   @media (max-width: 480px) {
-    body { padding: 12px; }
-    .card { padding: 18px; }
-    .card-title { font-size: 1rem; }
-    .points li { font-size: 0.88rem; }
+    body { padding: 10px; }
+    .card { padding: 14px; }
+    .card-title { font-size: 0.96rem; }
+    .points li { font-size: 0.86rem; }
   }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="category">
-    <div class="category-label">🤖 科技/AI</div>
 
     <div class="card ai">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🤖</span>科技 AI</span>
         <div class="card-title">智谱完成约50亿美元融资，GLM-5.3-FlashX同步上线</div>
         <div class="source">🔗 来源：中财网</div>
       </div>
@@ -90,6 +109,7 @@
     </div>
     <div class="card ai">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🤖</span>科技 AI</span>
         <div class="card-title">清华系Naive AI获4亿美元融资，将发布开源大模型</div>
         <div class="source">🔗 来源：TechPillow</div>
       </div>
@@ -101,6 +121,7 @@
     </div>
     <div class="card ai">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🤖</span>科技 AI</span>
         <div class="card-title">联合国AI科学小组警告：AI失控风险正在加剧</div>
         <div class="source">🔗 来源：联合国官网</div>
       </div>
@@ -113,10 +134,10 @@
   </div>
 
   <div class="category">
-    <div class="category-label">💹 财经/投资</div>
 
     <div class="card finance">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">💹</span>财经 投资</span>
         <div class="card-title">美联储自2023年来首次加息，利率升至3.75%-4%</div>
         <div class="source">🔗 来源：Channel News Asia / 中国经济网</div>
       </div>
@@ -128,6 +149,7 @@
     </div>
     <div class="card finance">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">💹</span>财经 投资</span>
         <div class="card-title">日本央行加息至1.25%，创31年新高</div>
         <div class="source">🔗 来源：CIVL / AP</div>
       </div>
@@ -139,6 +161,7 @@
     </div>
     <div class="card finance">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">💹</span>财经 投资</span>
         <div class="card-title">美股加息后强势反弹，纳指单日涨1.69%</div>
         <div class="source">🔗 来源：CryptoBriefing / Reuters</div>
       </div>
@@ -151,10 +174,10 @@
   </div>
 
   <div class="category">
-    <div class="category-label">🌐 国际/政治</div>
 
     <div class="card politics">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🌐</span>国际 政治</span>
         <div class="card-title">联合国大会第81届一般性辩论开幕，聚焦重建信任</div>
         <div class="source">🔗 来源：联合国官网</div>
       </div>
@@ -166,6 +189,7 @@
     </div>
     <div class="card politics">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🌐</span>国际 政治</span>
         <div class="card-title">也门战事加剧，超12.8万人流离失所</div>
         <div class="source">🔗 来源：联合国难民署 / 联合国</div>
       </div>
@@ -177,6 +201,7 @@
     </div>
     <div class="card politics">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🌐</span>国际 政治</span>
         <div class="card-title">全球打击诈骗峰会启动'影暴行动'特别工作组</div>
         <div class="source">🔗 来源：联合国官网</div>
       </div>
@@ -189,10 +214,10 @@
   </div>
 
   <div class="category">
-    <div class="category-label">🚀 商业/创业</div>
 
     <div class="card business">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🚀</span>商业 创业</span>
         <div class="card-title">Cohere与Aleph Alpha合并，组建200亿美元AI巨头</div>
         <div class="source">🔗 来源：TechStartups</div>
       </div>
@@ -204,6 +229,7 @@
     </div>
     <div class="card business">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🚀</span>商业 创业</span>
         <div class="card-title">Grab 14.9亿美元收购Atome 60%股权，进军数字信贷</div>
         <div class="source">🔗 来源：VentureCapitalTracker</div>
       </div>
