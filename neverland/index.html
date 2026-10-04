@@ -117,15 +117,11 @@
     flex-wrap: wrap;
     column-gap: 16px;
     row-gap: 6px;
-    background: linear-gradient(110deg, #8e8e93 0%, #aeaeb2 24%, #e8e8ed 40%, #ffffff 50%, #e8e8ed 60%, #aeaeb2 76%, #8e8e93 100%);
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmer 12s linear infinite, floaty 6s ease-in-out infinite alternate;
+    color: #ffffff;
+    animation: silverpulse 5s ease-in-out infinite alternate, floaty 6s ease-in-out infinite alternate;
   }
-  h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; color: transparent; -webkit-text-fill-color: transparent; }
-  .tagline { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; color: transparent; -webkit-text-fill-color: transparent; }
+  h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
+  .tagline { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
 
   main { padding-bottom: 64px; width: 100%; }
   .grid {
@@ -134,7 +130,11 @@
     gap: 16px;
   }
   .card {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     background: rgba(255, 255, 255, 0.55);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
@@ -149,12 +149,11 @@
     animation: floaty 3.6s ease-in-out infinite alternate, glow 3.2s ease-in-out infinite alternate;
   }
   .card:hover { animation: none; transform: translateY(-6px); text-decoration: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 12px 28px rgba(0, 0, 0, 0.1); }
-  .card-main { display: block; text-decoration: none; color: inherit; }
+  .card-main { display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; color: inherit; width: 100%; }
   .card .icon { width: 40px; height: 40px; }
   .card .icon svg { width: 40px; height: 40px; display: block; }
   .card .name { margin-top: 18px; font-size: 20px; font-weight: 600; }
   .card .desc { margin-top: 6px; font-size: 14px; color: #6e6e73; line-height: 1.5; }
-  .card .arrow { margin-top: 16px; font-size: 14px; color: var(--accent, #0071e3); font-weight: 500; }
 
   /* 每个模块自己的浅梦幻色 */
   .grid > *:nth-child(1) { --accent: #ed8cb8; --glow: rgba(237, 140, 184, 0.5); }
@@ -165,7 +164,7 @@
   .grid > *:nth-child(6) { --accent: #55b8c7; --glow: rgba(85, 184, 199, 0.5); animation-delay: 2.5s, 2s; }
   .grid .icon svg [stroke] { stroke: var(--accent); }
 
-  .brief-row { margin-top: 14px; padding-top: 14px; border-top: 1px solid #d2d2d7; }
+  .brief-row { margin-top: 14px; padding-top: 14px; border-top: 1px solid #d2d2d7; width: 100%; text-align: center; }
   .brief-row button {
     background: none; border: none; padding: 0; cursor: pointer;
     font-family: inherit; font-size: 14px; color: var(--accent, #0071e3); font-weight: 500;
@@ -218,6 +217,10 @@
   @keyframes shimmer {
     from { background-position: 200% 0; }
     to { background-position: -100% 0; }
+  }
+  @keyframes silverpulse {
+    from { text-shadow: 0 1px 4px rgba(120, 85, 70, 0.22), 0 0 8px rgba(255, 255, 255, 0); }
+    to { text-shadow: 0 1px 4px rgba(120, 85, 70, 0.22), 0 0 26px rgba(255, 255, 255, 0.9), 0 0 60px rgba(200, 224, 255, 0.55); }
   }
 
   /* ===== 手机端 ===== */
@@ -279,7 +282,6 @@
               </span>
               <div class="name">小工具</div>
               <div class="desc">今朝 · Good day</div>
-              <div class="arrow">查看 &#8250;</div>
             </a>
 
             <a class="card" href="https://gloriaetlaus-coder.github.io/growth/">
@@ -293,7 +295,6 @@
               </span>
               <div class="name">Growth</div>
               <div class="desc">生长轨迹</div>
-              <div class="arrow">查看 &#8250;</div>
             </a>
 
             <div class="card">
@@ -321,7 +322,6 @@
               </span>
               <div class="name">练英语</div>
               <div class="desc">英语跟练</div>
-              <div class="arrow">查看 &#8250;</div>
             </a>
 
             <a class="card" href="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">
@@ -335,7 +335,6 @@
               </span>
               <div class="name">Job Kit</div>
               <div class="desc">求职看板</div>
-              <div class="arrow">查看 &#8250;</div>
             </a>
 
             <a class="card" href="https://gloriaetlaus-coder.github.io/career/">
@@ -349,7 +348,6 @@
               </span>
               <div class="name">工作简介</div>
               <div class="desc">个人简历网站</div>
-              <div class="arrow">查看 &#8250;</div>
             </a>
 
           </div>
