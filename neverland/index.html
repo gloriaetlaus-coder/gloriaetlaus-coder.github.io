@@ -31,11 +31,12 @@
   .rail-title {
     display: block;
     padding: 18px 12px 14px;
-    font-size: 15px; font-weight: 700; color: #1d1d1f;
+    font-size: 14px; font-weight: 700; color: #1d1d1f;
     text-decoration: none; cursor: pointer;
     letter-spacing: -0.2px;
+    white-space: nowrap;
   }
-  .rail-title:hover { color: #0071e3; }
+  .rail-title:hover { color: #d4af37; }
 
   .rail-item {
     display: block;
@@ -46,8 +47,8 @@
     text-decoration: none; cursor: pointer;
     white-space: nowrap;
   }
-  .rail-item:hover { background: #e8e8ed; }
-  .rail-item.active { background: #ffffff; color: #0071e3; font-weight: 600; }
+  .rail-item:hover { background: #e8e8ed; color: #d4af37; }
+  .rail-item.active { background: #ffffff; color: #d4af37; font-weight: 600; }
 
   .rail-collapse {
     margin-top: auto;
@@ -92,8 +93,14 @@
   /* ===== homepage ===== */
   .wrap { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 32px; }
   header { padding-top: 64px; padding-bottom: 40px; }
-  h1 { font-size: 44px; font-weight: 700; letter-spacing: -0.5px; }
-  .subtitle { margin-top: 10px; font-size: 17px; color: #6e6e73; }
+  h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
+  .headline-bar {
+    width: 44px; height: 2px;
+    background: #d4af37;
+    border-radius: 1px;
+    margin-top: 18px;
+  }
+  .subtitle { margin-top: 12px; font-size: 16px; color: #6e6e73; letter-spacing: 0.5px; }
 
   main { padding-bottom: 64px; width: 100%; }
   .grid {
@@ -109,9 +116,9 @@
     text-decoration: none;
     color: #1d1d1f;
     cursor: pointer;
-    transition: transform 0.15s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .card:hover { transform: translateY(-2px); text-decoration: none; }
+  .card:hover { transform: translateY(-2px); text-decoration: none; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06); }
   .card-main { display: block; text-decoration: none; color: inherit; }
   .card .icon { width: 40px; height: 40px; }
   .card .icon svg { width: 40px; height: 40px; display: block; }
@@ -182,13 +189,13 @@
 
   <!-- 左侧吸附栏 -->
   <nav class="rail" id="rail">
-    <a class="rail-title" onclick="showHome()">Neverland</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/good-day-mvp/">&#129668; Good day</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/career/">&#128188; career</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">&#128203; jobkit</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/never-speaking/">&#128172; english</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">&#128240; brief</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/growth/">&#127793; growth</a>
+    <a class="rail-title" onclick="showHome()">&#10024; Neverland</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/good-day-mvp/">&#129668; Good Day</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/growth/">&#127793; Growth</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">&#128240; News</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/never-speaking/">&#128172; English</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">&#128203; Jobkit</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/career/">&#128188; Resume</a>
     <button class="rail-collapse" type="button" onclick="collapseRail()">折叠 &#187;</button>
   </nav>
   <button class="rail-open" type="button" onclick="expandRail()" aria-label="展开导航栏">&#187;</button>
@@ -200,7 +207,8 @@
       <div class="wrap">
         <header>
           <h1>Neverland</h1>
-          <p class="subtitle">我做过的东西，都在这里</p>
+          <div class="headline-bar"></div>
+          <p class="subtitle">Thinking Creating Changing</p>
         </header>
 
         <main>
@@ -229,7 +237,7 @@
                   <rect x="21" y="18" width="9" height="5" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
                 </svg>
               </span>
-              <div class="name">Job kit</div>
+              <div class="name">Job Kit</div>
               <div class="desc">求职看板</div>
               <div class="arrow">查看 &#8250;</div>
             </a>
@@ -271,7 +279,7 @@
                   <path d="M8 33H32" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
                 </svg>
               </span>
-              <div class="name">growth</div>
+              <div class="name">Growth</div>
               <div class="desc">生长轨迹</div>
               <div class="arrow">查看 &#8250;</div>
             </a>
