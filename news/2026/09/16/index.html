@@ -14,71 +14,90 @@
     background: #f5f7fb;
     color: #1f2937;
     min-height: 100vh;
-    padding: 20px 24px;
+    padding: 12px 14px;
     -webkit-font-smoothing: antialiased;
   }
-  .container { width: 100%; max-width: 100%; }
-
-  .card.ai .card-header       { border-left: 4px solid #4f8ef7; }
-  .card.finance .card-header  { border-left: 4px solid #10b981; }
-  .card.politics .card-header { border-left: 4px solid #ef4444; }
-  .card.business .card-header { border-left: 4px solid #a855f7; }
-
-  .category { margin-bottom: 24px; }
-  .category-label {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.82rem; font-weight: 700; color: #4b5563;
-    text-transform: uppercase; letter-spacing: 2px;
-    margin-bottom: 14px; padding: 0 4px;
+  .container {
+    width: 100%; max-width: 100%;
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 12px;
   }
-  .category-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f2; }
+
+  .category.ai        { background: #e0f2fe; border: 1px solid #bae6fd; }
+  .category.finance   { background: #d1fae5; border: 1px solid #a7f3d0; }
+  .category.politics  { background: #ffe4e6; border: 1px solid #fecdd3; }
+  .category.business  { background: #ede9fe; border: 1px solid #ddd6fe; }
+  .card.ai .cat-tag       { background: #ffffff; color: #1e40af; border-color: #93c5fd; }
+  .card.finance .cat-tag  { background: #ffffff; color: #065f46; border-color: #6ee7b7; }
+  .card.politics .cat-tag { background: #ffffff; color: #991b1b; border-color: #fca5a5; }
+  .card.business .cat-tag { background: #ffffff; color: #5b21b6; border-color: #c4b5fd; }
+
+  .category {
+    border-radius: 14px;
+    padding: 12px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .cat-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.78rem; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px;
+    border: 1px solid;
+    flex-shrink: 0; margin-top: 2px;
+    white-space: nowrap;
+  }
+  .cat-tag .ico { font-size: 0.92rem; line-height: 1; }
   .card {
-    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 14px;
-    padding: 24px 28px; margin-bottom: 14px; width: 100%;
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 12px;
+    padding: 16px 22px; width: 100%;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     transition: box-shadow 0.2s, transform 0.2s;
   }
   .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
   .card-header {
     display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 14px; padding-left: 14px; margin-bottom: 16px;
+    gap: 14px; padding-left: 12px; margin-bottom: 10px;
   }
-  .card-title { font-size: 1.08rem; font-weight: 700; color: #111827; line-height: 1.55; flex: 1; min-width: 0; }
+  .card-title {
+    font-size: 1rem; font-weight: 700; color: #111827;
+    line-height: 1.5; flex: 1; min-width: 0;
+    text-wrap: balance;
+  }
   .card-header .source {
-    flex-shrink: 0; margin-top: 2px;
+    flex-shrink: 0; margin-top: 1px;
     display: inline-flex; align-items: center; gap: 6px;
-    font-size: 0.78rem; color: #6b7280; background: #f9fafb;
-    padding: 4px 10px; border-radius: 8px; border: 1px solid #f3f4f6;
+    font-size: 0.76rem; color: #6b7280; background: #f9fafb;
+    padding: 3px 9px; border-radius: 8px; border: 1px solid #f3f4f6;
     white-space: nowrap;
   }
-  .points { list-style: none; margin: 0 0 8px 0; padding-left: 14px; }
+  .points { list-style: none; margin: 0; padding-left: 12px; }
   .points li {
-    display: flex; gap: 10px; margin-bottom: 10px;
-    font-size: 0.92rem; color: #374151; line-height: 1.6;
+    display: flex; gap: 8px; margin-bottom: 5px;
+    font-size: 0.9rem; color: #374151; line-height: 1.5;
+    text-wrap: pretty;
   }
   .points li:last-child { margin-bottom: 0; }
   .points li::before {
     content: attr(data-num);
-    min-width: 22px; height: 22px; background: #f3f4f6; border-radius: 50%;
+    min-width: 20px; height: 20px; background: #f3f4f6; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.72rem; color: #6b7280; font-weight: 600;
+    font-size: 0.7rem; color: #6b7280; font-weight: 600;
     flex-shrink: 0; margin-top: 2px;
   }
   @media (max-width: 480px) {
-    body { padding: 12px; }
-    .card { padding: 18px; }
-    .card-title { font-size: 1rem; }
-    .points li { font-size: 0.88rem; }
+    body { padding: 10px; }
+    .card { padding: 14px; }
+    .card-title { font-size: 0.96rem; }
+    .points li { font-size: 0.86rem; }
   }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="category">
-    <div class="category-label">🤖 科技/AI</div>
 
     <div class="card ai">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🤖</span>科技 AI</span>
         <div class="card-title">AI 四巨头罕见联署呼吁「放缓开发」，芯片股遭血洗，特朗普斥为「阴谋」</div>
         <div class="source">🔗 来源：WSJ / Reuters / 华尔街见闻</div>
       </div>
@@ -90,6 +109,7 @@
     </div>
     <div class="card ai">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🤖</span>科技 AI</span>
         <div class="card-title">Anthropic 冲刺人类史上最大 IPO：英伟达拟以百亿美元任基石投资者</div>
         <div class="source">🔗 来源：Reuters / Economic Times / 腾讯新闻</div>
       </div>
@@ -101,6 +121,7 @@
     </div>
     <div class="card ai">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🤖</span>科技 AI</span>
         <div class="card-title">苹果 Siri AI 拖了两年终落地：iOS 27 上线，AI 开始接管 iPhone</div>
         <div class="source">🔗 来源：华尔街见闻 / 陆家嘴财经早餐</div>
       </div>
@@ -113,10 +134,10 @@
   </div>
 
   <div class="category">
-    <div class="category-label">💹 财经/投资</div>
 
     <div class="card finance">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">💹</span>财经 投资</span>
         <div class="card-title">美联储三年来首次加息在即：沃什「扣扳机」，10 年期美债收益率盘中破 5%</div>
         <div class="source">🔗 来源：Reuters / 新浪财经 / Streamline Feed</div>
       </div>
@@ -128,6 +149,7 @@
     </div>
     <div class="card finance">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">💹</span>财经 投资</span>
         <div class="card-title">中东断供推油价站上 105 美元，美国柴油价格创历史纪录</div>
         <div class="source">🔗 来源：Reuters / CGTN / 今日头条</div>
       </div>
@@ -139,6 +161,7 @@
     </div>
     <div class="card finance">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">💹</span>财经 投资</span>
         <div class="card-title">存储与数据中心巨头抢滩 IPO：铠侠拟赴美发行 ADR 募资百亿美元</div>
         <div class="source">🔗 来源：陆家嘴财经早餐 / 腾讯新闻</div>
       </div>
@@ -151,10 +174,10 @@
   </div>
 
   <div class="category">
-    <div class="category-label">🌐 国际/政治</div>
 
     <div class="card politics">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🌐</span>国际 政治</span>
         <div class="card-title">霍尔木兹会谈突遭推迟：胡塞袭沙特，海峡单日仅 4 艘商船通行</div>
         <div class="source">🔗 来源：Al Jazeera / Reuters / CNN</div>
       </div>
@@ -166,6 +189,7 @@
     </div>
     <div class="card politics">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🌐</span>国际 政治</span>
         <div class="card-title">俄乌「能源停火」博弈：特朗普称已达成，泽连斯基存疑、拉夫罗夫守北约红线</div>
         <div class="source">🔗 来源：Reuters / Kyiv Post / 央视新闻</div>
       </div>
@@ -178,10 +202,10 @@
   </div>
 
   <div class="category">
-    <div class="category-label">🚀 商业/创业</div>
 
     <div class="card business">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🚀</span>商业 创业</span>
         <div class="card-title">AI 定价战开打：中国低价模型冲击前沿实验室商业模式</div>
         <div class="source">🔗 来源：Reuters / AOL</div>
       </div>
@@ -193,6 +217,7 @@
     </div>
     <div class="card business">
       <div class="card-header">
+        <span class="cat-tag"><span class="ico">🚀</span>商业 创业</span>
         <div class="card-title">超级 IPO 潮推动美国 IPO 市场创纪录：前 8 月募资 1370 亿美元</div>
         <div class="source">🔗 来源：Investing.com / Economic Times</div>
       </div>
