@@ -53,6 +53,7 @@
     font-family: inherit; font-size: 16px; color: #6e6e73; line-height: 1;
     padding: 10px 9px; border-radius: 9px;
     flex-shrink: 0;
+    transform: translateY(-2px);
   }
   .rail-fold:hover { color: #d4af37; background: rgba(255, 255, 255, 0.55); }
 
@@ -118,7 +119,15 @@
     row-gap: 6px;
   }
   h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
-  .tagline { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; color: #6e6e73; }
+  .tagline {
+    font-size: 48px; font-weight: 700; letter-spacing: -0.5px;
+    background: linear-gradient(110deg, #c9a227 0%, #d4af37 26%, #fff3c4 42%, #ffffff 50%, #fff3c4 58%, #d4af37 74%, #c9a227 100%);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 5s linear infinite;
+  }
 
   main { padding-bottom: 64px; width: 100%; }
   .grid {
@@ -208,6 +217,10 @@
     to { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 46px var(--glow, rgba(255, 255, 255, 0.4)); }
   }
   @keyframes leafsway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg); } }
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -100% 0; }
+  }
 
   /* ===== 手机端 ===== */
   @media (max-width: 768px) {
