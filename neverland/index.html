@@ -93,14 +93,15 @@
   /* ===== homepage ===== */
   .wrap { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 32px; }
   header { padding-top: 64px; padding-bottom: 40px; }
-  h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
-  .headline-bar {
-    width: 44px; height: 2px;
-    background: #d4af37;
-    border-radius: 1px;
-    margin-top: 18px;
+  .headline {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    column-gap: 16px;
+    row-gap: 6px;
   }
-  .subtitle { margin-top: 12px; font-size: 16px; color: #6e6e73; letter-spacing: 0.5px; }
+  h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
+  .tagline { font-size: 16px; color: #6e6e73; letter-spacing: 0.5px; }
 
   main { padding-bottom: 64px; width: 100%; }
   .grid {
@@ -206,9 +207,10 @@
     <div id="home">
       <div class="wrap">
         <header>
-          <h1>Neverland</h1>
-          <div class="headline-bar"></div>
-          <p class="subtitle">Thinking Creating Changing</p>
+          <div class="headline">
+            <h1>Neverland</h1>
+            <span class="tagline">&middot; Thinking Creating Changing</span>
+          </div>
         </header>
 
         <main>
