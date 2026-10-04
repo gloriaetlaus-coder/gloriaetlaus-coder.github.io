@@ -42,11 +42,15 @@
 
   /* 折叠状态 */
   .main.collapsed .cal {
-    width: 40px; padding: 10px 6px;
+    width: 36px; padding: 10px 4px;
+    border-right: none;
+    overflow: hidden;
+    background: transparent;
   }
   .main.collapsed .cal > *:not(.collapse-btn) { display: none; }
   .main.collapsed .collapse-btn {
     position: static; margin: 0 auto;
+    border-color: #d2d2d7;
   }
 
   /* 顶部信息块(原来是独立 headline, 现在合并到日历上方) */
