@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Neverland</title>
 <style>
+  :root { --rail-w: 113px; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
   body {
@@ -12,12 +13,84 @@
     background: #ffffff;
     color: #1d1d1f;
     -webkit-font-smoothing: antialiased;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
-  .wrap { width: 100%; max-width: 980px; padding: 0 32px; }
 
+  /* ===== 左侧吸附栏 ===== */
+  .rail {
+    position: fixed; top: 0; bottom: 0; left: 0;
+    width: var(--rail-w);
+    background: #f5f5f7;
+    border-right: 1px solid #d2d2d7;
+    display: flex; flex-direction: column;
+    z-index: 5;
+    transition: transform 0.2s ease;
+    overflow: hidden;
+  }
+  body.rail-collapsed .rail { transform: translateX(-100%); }
+
+  .rail-title {
+    display: block;
+    padding: 18px 12px 14px;
+    font-size: 15px; font-weight: 700; color: #1d1d1f;
+    text-decoration: none; cursor: pointer;
+    letter-spacing: -0.2px;
+  }
+  .rail-title:hover { color: #0071e3; }
+
+  .rail-item {
+    display: block;
+    margin: 2px 8px;
+    padding: 9px 10px;
+    border-radius: 9px;
+    font-size: 13px; color: #1d1d1f;
+    text-decoration: none; cursor: pointer;
+    white-space: nowrap;
+  }
+  .rail-item:hover { background: #e8e8ed; }
+  .rail-item.active { background: #ffffff; color: #0071e3; font-weight: 600; }
+
+  .rail-collapse {
+    margin-top: auto;
+    margin-left: 8px; margin-right: 8px; margin-bottom: 14px;
+    padding: 8px 10px;
+    border: none; border-radius: 9px;
+    background: none; cursor: pointer;
+    font-family: inherit; font-size: 13px; color: #6e6e73;
+    text-align: left;
+  }
+  .rail-collapse:hover { background: #e8e8ed; }
+
+  /* 折叠后的展开按钮 */
+  .rail-open {
+    display: none;
+    position: fixed; top: 14px; left: 14px;
+    width: 38px; height: 38px;
+    border: 1px solid #d2d2d7; border-radius: 50%;
+    background: #ffffff; cursor: pointer;
+    font-size: 16px; color: #1d1d1f; line-height: 1;
+    z-index: 6;
+  }
+  .rail-open:hover { border-color: #0071e3; color: #0071e3; }
+  body.rail-collapsed .rail-open { display: block; }
+
+  /* ===== 右侧内容区 ===== */
+  .stage {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    left: var(--rail-w);
+    overflow-y: auto;
+    transition: left 0.2s ease;
+  }
+  body.rail-collapsed .stage { left: 0; }
+
+  #frame {
+    display: none;
+    width: 100%; height: 100%;
+    border: none;
+    background: #ffffff;
+  }
+
+  /* ===== homepage ===== */
+  .wrap { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 32px; }
   header { padding-top: 64px; padding-bottom: 40px; }
   h1 { font-size: 44px; font-weight: 700; letter-spacing: -0.5px; }
   .subtitle { margin-top: 10px; font-size: 17px; color: #6e6e73; }
@@ -35,6 +108,7 @@
     padding: 28px 24px 24px;
     text-decoration: none;
     color: #1d1d1f;
+    cursor: pointer;
     transition: transform 0.15s ease;
   }
   .card:hover { transform: translateY(-2px); text-decoration: none; }
@@ -45,14 +119,13 @@
   .card .desc { margin-top: 6px; font-size: 14px; color: #6e6e73; line-height: 1.5; }
   .card .arrow { margin-top: 16px; font-size: 14px; color: #0071e3; font-weight: 500; }
 
-  /* 简报卡片：主体进最新一期，底部入口看全部期次 */
   .brief-row { margin-top: 14px; padding-top: 14px; border-top: 1px solid #d2d2d7; }
   .brief-row button {
     background: none; border: none; padding: 0; cursor: pointer;
     font-family: inherit; font-size: 14px; color: #0071e3; font-weight: 500;
   }
 
-  /* 期次弹层 */
+  /* ===== 期次弹层 ===== */
   .overlay {
     display: none;
     position: fixed; inset: 0;
@@ -85,10 +158,14 @@
     display: flex; align-items: center; justify-content: center;
     background: #f5f5f7; border-radius: 10px;
     font-size: 14px; color: #1d1d1f; text-decoration: none;
+    cursor: pointer;
   }
   .day:hover { background: #0071e3; color: #ffffff; }
 
+  /* ===== 手机端 ===== */
   @media (max-width: 768px) {
+    .stage { left: 0; }
+    body:not(.rail-collapsed) .rail { box-shadow: 0 0 28px rgba(0, 0, 0, 0.18); }
     header { padding-top: 44px; padding-bottom: 28px; }
     h1 { font-size: 34px; }
     .grid { grid-template-columns: repeat(2, 1fr); }
@@ -102,100 +179,122 @@
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>Neverland</h1>
-      <p class="subtitle">我做过的东西，都在这里</p>
-    </header>
 
-    <main>
-      <div class="grid">
+  <!-- 左侧吸附栏 -->
+  <nav class="rail" id="rail">
+    <a class="rail-title" onclick="showHome()">Neverland</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/good-day-mvp/">&#129668; Good day</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/career/">&#128188; career</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">&#128203; jobkit</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/never-speaking/">&#128172; english</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">&#128240; brief</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/growth/">&#127793; growth</a>
+    <button class="rail-collapse" type="button" onclick="collapseRail()">折叠 &#187;</button>
+  </nav>
+  <button class="rail-open" type="button" onclick="expandRail()" aria-label="展开导航栏">&#187;</button>
 
-        <a class="card" href="https://gloriaetlaus-coder.github.io/career/">
-          <span class="icon">
-            <svg viewBox="0 0 40 40" fill="none">
-              <rect x="5" y="13" width="30" height="19" rx="3" stroke="#0071E3" stroke-width="2.2"/>
-              <path d="M14 13V10.5C14 9.1 15.1 8 16.5 8H23.5C24.9 8 26 9.1 26 10.5V13" stroke="#0071E3" stroke-width="2.2"/>
-              <path d="M5 21.5H35" stroke="#0071E3" stroke-width="2.2"/>
-              <path d="M17 13V18M23 13V18" stroke="#0071E3" stroke-width="2.2"/>
-            </svg>
-          </span>
-          <div class="name">工作简介</div>
-          <div class="desc">个人简历网站</div>
-          <div class="arrow">查看 &#8250;</div>
-        </a>
+  <!-- 右侧内容区 -->
+  <div class="stage" id="stage">
 
-        <a class="card" href="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">
-          <span class="icon">
-            <svg viewBox="0 0 40 40" fill="none">
-              <rect x="5" y="7" width="30" height="26" rx="3" stroke="#0071E3" stroke-width="2.2"/>
-              <path d="M5 14H35" stroke="#0071E3" stroke-width="2.2"/>
-              <rect x="10" y="18" width="7" height="10" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
-              <rect x="21" y="18" width="9" height="5" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
-            </svg>
-          </span>
-          <div class="name">Job kit</div>
-          <div class="desc">求职看板</div>
-          <div class="arrow">查看 &#8250;</div>
-        </a>
+    <div id="home">
+      <div class="wrap">
+        <header>
+          <h1>Neverland</h1>
+          <p class="subtitle">我做过的东西，都在这里</p>
+        </header>
 
-        <a class="card" href="https://gloriaetlaus-coder.github.io/never-speaking/">
-          <span class="icon">
-            <svg viewBox="0 0 40 40" fill="none">
-              <path d="M6 12C6 9.2 8.2 7 11 7H23C25.8 7 28 9.2 28 12V18C28 20.8 25.8 23 23 23H16L9 29V23H6V12Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-              <path d="M31 13C33.2 13.8 35 15.9 35 18.5V30H31.5L26 34.5V30H24" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <div class="name">练英语</div>
-          <div class="desc">英语跟练</div>
-          <div class="arrow">查看 &#8250;</div>
-        </a>
+        <main>
+          <div class="grid">
 
-        <div class="card">
-          <a class="card-main" href="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">
-            <span class="icon">
-              <svg viewBox="0 0 40 40" fill="none">
-                <path d="M8 10V28H20V10H8Z M20 14L31 12V27H20" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                <path d="M12 15H16M12 19H16" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-              </svg>
-            </span>
-            <div class="name">简报</div>
-            <div class="desc">每日简报 · 最新 9月26日</div>
-          </a>
-          <div class="brief-row">
-            <button type="button" onclick="openSheet()">全部 28 期 &#8250;</button>
+            <a class="card" href="https://gloriaetlaus-coder.github.io/career/">
+              <span class="icon">
+                <svg viewBox="0 0 40 40" fill="none">
+                  <rect x="5" y="13" width="30" height="19" rx="3" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M14 13V10.5C14 9.1 15.1 8 16.5 8H23.5C24.9 8 26 9.1 26 10.5V13" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M5 21.5H35" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M17 13V18M23 13V18" stroke="#0071E3" stroke-width="2.2"/>
+                </svg>
+              </span>
+              <div class="name">工作简介</div>
+              <div class="desc">个人简历网站</div>
+              <div class="arrow">查看 &#8250;</div>
+            </a>
+
+            <a class="card" href="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">
+              <span class="icon">
+                <svg viewBox="0 0 40 40" fill="none">
+                  <rect x="5" y="7" width="30" height="26" rx="3" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M5 14H35" stroke="#0071E3" stroke-width="2.2"/>
+                  <rect x="10" y="18" width="7" height="10" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
+                  <rect x="21" y="18" width="9" height="5" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
+                </svg>
+              </span>
+              <div class="name">Job kit</div>
+              <div class="desc">求职看板</div>
+              <div class="arrow">查看 &#8250;</div>
+            </a>
+
+            <a class="card" href="https://gloriaetlaus-coder.github.io/never-speaking/">
+              <span class="icon">
+                <svg viewBox="0 0 40 40" fill="none">
+                  <path d="M6 12C6 9.2 8.2 7 11 7H23C25.8 7 28 9.2 28 12V18C28 20.8 25.8 23 23 23H16L9 29V23H6V12Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                  <path d="M31 13C33.2 13.8 35 15.9 35 18.5V30H31.5L26 34.5V30H24" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <div class="name">练英语</div>
+              <div class="desc">英语跟练</div>
+              <div class="arrow">查看 &#8250;</div>
+            </a>
+
+            <div class="card">
+              <a class="card-main" href="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">
+                <span class="icon">
+                  <svg viewBox="0 0 40 40" fill="none">
+                    <path d="M8 10V28H20V10H8Z M20 14L31 12V27H20" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                    <path d="M12 15H16M12 19H16" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <div class="name">简报</div>
+                <div class="desc">每日简报 · 最新 9月26日</div>
+              </a>
+              <div class="brief-row">
+                <button type="button" onclick="openSheet()">全部 28 期 &#8250;</button>
+              </div>
+            </div>
+
+            <a class="card" href="https://gloriaetlaus-coder.github.io/growth/">
+              <span class="icon">
+                <svg viewBox="0 0 40 40" fill="none">
+                  <path d="M20 33V14" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M20 15C20 15 12 14 11 6C19 6 20 15 20 15Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                  <path d="M20 20C20 20 28 19 29 11C21 11 20 20 20 20Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                  <path d="M8 33H32" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <div class="name">growth</div>
+              <div class="desc">生长轨迹</div>
+              <div class="arrow">查看 &#8250;</div>
+            </a>
+
+            <a class="card" href="https://gloriaetlaus-coder.github.io/good-day-mvp/">
+              <span class="icon">
+                <svg viewBox="0 0 40 40" fill="none">
+                  <path d="M8 32L27 13" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M25 8L26.5 12.5L31 14L26.5 15.5L25 20L23.5 15.5L19 14L23.5 12.5Z" stroke="#0071E3" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M31 21L31.9 23.6L34.5 24.5L31.9 25.4L31 28L30.1 25.4L27.5 24.5L30.1 23.6Z" stroke="#0071E3" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <div class="name">小工具</div>
+              <div class="desc">今朝 · Good day</div>
+              <div class="arrow">查看 &#8250;</div>
+            </a>
+
           </div>
-        </div>
-
-        <a class="card" href="https://gloriaetlaus-coder.github.io/growth/">
-          <span class="icon">
-            <svg viewBox="0 0 40 40" fill="none">
-              <path d="M20 33V14" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-              <path d="M20 15C20 15 12 14 11 6C19 6 20 15 20 15Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-              <path d="M20 20C20 20 28 19 29 11C21 11 20 20 20 20Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-              <path d="M8 33H32" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <div class="name">growth</div>
-          <div class="desc">生长轨迹</div>
-          <div class="arrow">查看 &#8250;</div>
-        </a>
-
-        <a class="card" href="https://gloriaetlaus-coder.github.io/good-day-mvp/">
-          <span class="icon">
-            <svg viewBox="0 0 40 40" fill="none">
-              <path d="M8 32L27 13" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-              <path d="M25 8L26.5 12.5L31 14L26.5 15.5L25 20L23.5 15.5L19 14L23.5 12.5Z" stroke="#0071E3" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M31 21L31.9 23.6L34.5 24.5L31.9 25.4L31 28L30.1 25.4L27.5 24.5L30.1 23.6Z" stroke="#0071E3" stroke-width="1.8" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <div class="name">小工具</div>
-          <div class="desc">今朝 · Good day</div>
-          <div class="arrow">查看 &#8250;</div>
-        </a>
-
+        </main>
       </div>
-    </main>
+    </div>
+
+    <iframe id="frame" title="content"></iframe>
   </div>
 
   <div class="overlay" id="overlay" onclick="if (event.target === this) closeSheet()">
@@ -235,8 +334,63 @@
     });
   })();
 
+  var frame = document.getElementById('frame');
+  var home = document.getElementById('home');
+  var railItems = Array.prototype.slice.call(document.querySelectorAll('.rail-item'));
+
+  function showTarget(url, railEl) {
+    home.style.display = 'none';
+    frame.style.display = 'block';
+    if (frame.getAttribute('src') !== url) frame.setAttribute('src', url);
+    railItems.forEach(function (el) { el.classList.remove('active'); });
+    if (railEl) railEl.classList.add('active');
+    document.getElementById('stage').scrollTop = 0;
+    closeSheet();
+  }
+
+  function showHome() {
+    frame.style.display = 'none';
+    home.style.display = '';
+    railItems.forEach(function (el) { el.classList.remove('active'); });
+  }
+
+  // 左侧栏链接：在页面内打开
+  railItems.forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      showTarget(el.getAttribute('data-url'), el);
+    });
+  });
+
+  // homepage 卡片：在页面内打开
+  document.querySelectorAll('.card[href], .card .card-main[href]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      if (e.target.closest('.brief-row')) return;
+      e.preventDefault();
+      var url = el.getAttribute('href');
+      var railEl = railItems.filter(function (r) { return r.getAttribute('data-url') === url; })[0];
+      showTarget(url, railEl);
+    });
+  });
+
+  // 弹层里的日期：在页面内打开
+  document.querySelectorAll('.day').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = el.getAttribute('href');
+      var railEl = railItems.filter(function (r) { return r.getAttribute('data-url') === url; })[0];
+      showTarget(url, railEl);
+    });
+  });
+
   function openSheet() { document.getElementById('overlay').classList.add('show'); }
   function closeSheet() { document.getElementById('overlay').classList.remove('show'); }
+
+  function collapseRail() { document.body.classList.add('rail-collapsed'); }
+  function expandRail() { document.body.classList.remove('rail-collapsed'); }
+
+  // 手机端默认折叠
+  if (window.innerWidth <= 768) collapseRail();
 </script>
 </body>
 </html>
