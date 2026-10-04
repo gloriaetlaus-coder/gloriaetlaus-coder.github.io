@@ -346,12 +346,14 @@
     if (railEl) railEl.classList.add('active');
     document.getElementById('stage').scrollTop = 0;
     closeSheet();
+    if (window.innerWidth <= 768) collapseRail();
   }
 
   function showHome() {
     frame.style.display = 'none';
     home.style.display = '';
     railItems.forEach(function (el) { el.classList.remove('active'); });
+    if (window.innerWidth <= 768) collapseRail();
   }
 
   // 左侧栏链接：在页面内打开
