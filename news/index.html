@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>📰 News · 每日简报</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro SC", "SF Pro Text", "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 顶栏 */
+  .topbar {
+    height: 54px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 22px; background: #ffffff; border-bottom: 1px solid #d2d2d7;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .brand { font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.2px; }
+  .brand .dot-logo { width: 9px; height: 9px; border-radius: 50%; background: #ff3b30; box-shadow: 14px 0 0 #ffcc00, 28px 0 0 #34c759; }
+  .nav a { font-size: 13px; color: #0071e3; text-decoration: none; margin-left: 18px; white-space: nowrap; }
+  .nav a:hover { text-decoration: underline; }
+
+  /* 主体两栏 */
+  .main { display: flex; height: calc(100vh - 54px); }
+
+  /* 左侧日历 */
+  .cal {
+    width: 340px; flex-shrink: 0; background: #ffffff; border-right: 1px solid #d2d2d7;
+    padding: 22px 20px; overflow-y: auto;
+  }
+  .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .cal-title { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+  .nav-btn {
+    width: 32px; height: 32px; border: none; background: #f5f5f7; border-radius: 50%;
+    cursor: pointer; font-size: 15px; color: #1d1d1f; display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .nav-btn:hover { background: #e8e8ed; }
+  .weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 6px; }
+  .weekdays div { text-align: center; font-size: 11px; color: #8e8e93; padding: 4px 0; font-weight: 600; }
+  .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .cell {
+    aspect-ratio: 1 / 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border-radius: 50%; cursor: default; position: relative;
+  }
+  .cell .num {
+    font-size: 14px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; transition: background 0.12s;
+  }
+  .cell.out { color: #c7c7cc; }
+  .cell.available { cursor: pointer; }
+  .cell.available:hover .num { background: #e8e8ed; }
+  .cell.today .num { background: #ff3b30; color: #ffffff; font-weight: 600; }
+  .cell.selected .num { background: #0071e3; color: #ffffff; font-weight: 600; }
+  .dot { width: 4px; height: 4px; border-radius: 50%; background: #0071e3; margin-top: 3px; }
+  .cell.today .dot, .cell.selected .dot { background: #ffffff; }
+
+  .cal-hint { margin-top: 18px; font-size: 12px; color: #8e8e93; line-height: 1.6; text-align: center; }
+
+  /* 右侧阅读区 */
+  .reader { flex: 1; display: flex; flex-direction: column; background: #f5f5f7; min-width: 0; }
+  .reader-bar {
+    height: 44px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; background: #fafafa; border-bottom: 1px solid #e5e5ea; font-size: 13px; color: #6e6e73;
+  }
+  .reader-bar a { color: #0071e3; text-decoration: none; }
+  .reader-bar a:hover { text-decoration: underline; }
+  iframe { flex: 1; width: 100%; border: none; background: #f5f5f7; }
+
+  .empty {
+    flex: 1; display: none; align-items: center; justify-content: center; flex-direction: column;
+    color: #8e8e93; gap: 10px; text-align: center; padding: 24px;
+  }
+  .empty .big { font-size: 40px; }
+
+  /* 手机端: 上下堆叠 */
+  @media (max-width: 860px) {
+    .main { flex-direction: column; height: auto; }
+    .cal { width: 100%; border-right: none; border-bottom: 1px solid #d2d2d7; max-height: 56vh; }
+    .reader { height: 78vh; }
+    .nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="brand"><span class="dot-logo"></span> News · 每日简报</div>
+    <nav class="nav">
+      <a href="https://gloriaetlaus-coder.github.io/good-day-mvp/" target="_blank" rel="noopener">今朝</a>
+      <a href="https://gloriaetlaus-coder.github.io/growth/" target="_blank" rel="noopener">Growth</a>
+      <a href="https://gloriaetlaus-coder.github.io/never-speaking/" target="_blank" rel="noopener">练英语</a>
+      <a href="https://gloriaetlaus-coder.github.io/jobkit/job_board.html" target="_blank" rel="noopener">Jobkit</a>
+      <a href="https://gloriaetlaus-coder.github.io/career/" target="_blank" rel="noopener">简历</a>
+    </nav>
+  </div>
+
+  <div class="main">
+    <!-- 左侧日历 -->
+    <aside class="cal">
+      <div class="cal-head">
+        <button class="nav-btn" type="button" onclick="prev()" aria-label="上个月">‹</button>
+        <div class="cal-title" id="cal-title">—</div>
+        <button class="nav-btn" type="button" onclick="next()" aria-label="下个月">›</button>
+      </div>
+      <div class="weekdays">
+        <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <div class="cal-hint">● 蓝点 = 当日有简报，点击即可查看</div>
+    </aside>
+
+    <!-- 右侧阅读 -->
+    <section class="reader">
+      <div class="reader-bar">
+        <span id="reader-date">选择左侧日期</span>
+        <a id="reader-ext" href="#" target="_blank" rel="noopener" style="display:none;">↗ 新窗口打开</a>
+      </div>
+      <iframe id="frame" title="简报内容" style="display:none;"></iframe>
+      <div class="empty" id="empty">
+        <div class="big">🗓️</div>
+        <div>点击左侧带蓝点的日期，查看那一天的海内外简报</div>
+      </div>
+    </section>
+  </div>
+
+<script>
+  var DATES_URL = './dates.json';
+  var BASE = 'https://gloriaetlaus-coder.github.io/news/';
+  var dates = new Set();
+  var view = { y: 0, m: 0 };   // m: 0-11
+  var selected = null;         // 'YYYY-MM-DD'
+  var frame = document.getElementById('frame');
+  var WEEK = ['周日','周一','周二','周三','周四','周五','周六'];
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function ymd(y, m, d) { return y + '-' + pad(m + 1) + '-' + pad(d); }
+
+  function init() {
+    fetch(DATES_URL).then(function (r) { return r.ok ? r.json() : []; }).then(function (arr) {
+      (arr || []).forEach(function (d) { dates.add(d); });
+      var hash = location.hash.replace('#', '');
+      if (hash && dates.has(hash)) selected = hash;
+      else if (dates.size) selected = Array.from(dates).sort().pop();
+      var t = new Date();
+      if (selected) {
+        var p = selected.split('-');
+        view = { y: +p[0], m: +p[1] - 1 };
+      } else {
+        view = { y: t.getFullYear(), m: t.getMonth() };
+      }
+      render();
+      if (selected) load(selected); else showEmpty();
+    }).catch(function () {
+      var t = new Date(); view = { y: t.getFullYear(), m: t.getMonth() }; render(); showEmpty();
+    });
+  }
+
+  function render() {
+    var y = view.y, m = view.m;
+    document.getElementById('cal-title').textContent = y + '年' + (m + 1) + '月';
+    var grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    var first = new Date(y, m, 1).getDay();
+    var daysInMonth = new Date(y, m + 1, 0).getDate();
+    var daysInPrev = new Date(y, m, 0).getDate();
+    var t = new Date();
+    var todayKey = ymd(t.getFullYear(), t.getMonth(), t.getDate());
+
+    for (var i = 0; i < first; i++) grid.appendChild(makeCell(daysInPrev - first + 1 + i, true, null, todayKey));
+    for (var d = 1; d <= daysInMonth; d++) grid.appendChild(makeCell(d, false, ymd(y, m, d), todayKey));
+    var total = first + daysInMonth;
+    var trail = Math.ceil(total / 7) * 7 - total;
+    for (var k = 1; k <= trail; k++) grid.appendChild(makeCell(k, true, null, todayKey));
+  }
+
+  function makeCell(d, out, key, todayKey) {
+    var c = document.createElement('div');
+    c.className = 'cell' + (out ? ' out' : '');
+    var num = document.createElement('div');
+    num.className = 'num';
+    num.textContent = d;
+    c.appendChild(num);
+    if (!out) {
+      if (key === todayKey) c.classList.add('today');
+      if (key === selected) c.classList.add('selected');
+      if (dates.has(key)) {
+        c.classList.add('available');
+        var dot = document.createElement('div');
+        dot.className = 'dot';
+        c.appendChild(dot);
+        c.addEventListener('click', function () { select(key); });
+      }
+    }
+    return c;
+  }
+
+  function select(key) {
+    selected = key;
+    if (history && history.replaceState) history.replaceState(null, '', '#' + key);
+    else location.hash = key;
+    render();
+    load(key);
+  }
+
+  function load(key) {
+    var p = key.split('-');
+    var dt = new Date(+p[0], +p[1] - 1, +p[2]);
+    document.getElementById('reader-date').textContent = p[0] + '年' + (+p[1]) + '月' + (+p[2]) + '日 ' + WEEK[dt.getDay()];
+    var ext = document.getElementById('reader-ext');
+    ext.href = BASE + p[0] + '/' + p[1] + '/' + p[2] + '/';
+    ext.style.display = 'inline';
+    document.getElementById('empty').style.display = 'none';
+    frame.style.display = 'block';
+    if (frame.getAttribute('src') !== ext.href) frame.setAttribute('src', ext.href);
+  }
+
+  function showEmpty() {
+    frame.style.display = 'none';
+    document.getElementById('empty').style.display = 'flex';
+    document.getElementById('reader-ext').style.display = 'none';
+  }
+
+  function prev() { view.m--; if (view.m < 0) { view.m = 11; view.y--; } render(); }
+  function next() { view.m++; if (view.m > 11) { view.m = 0; view.y++; } render(); }
+
+  window.addEventListener('hashchange', function () {
+    var hash = location.hash.replace('#', '');
+    if (hash && dates.has(hash) && hash !== selected) select(hash);
+  });
+
+  init();
+</script>
+</body>
+</html>
