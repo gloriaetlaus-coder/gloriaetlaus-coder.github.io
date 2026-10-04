@@ -115,13 +115,18 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: center;
     column-gap: 16px;
     row-gap: 6px;
-    color: #ffffff;
-    animation: silverpulse 5s ease-in-out infinite alternate, floaty 6s ease-in-out infinite alternate;
+    background: linear-gradient(110deg, #e4e9f0 0%, #ecf0f5 24%, #ffffff 42%, #ffffff 50%, #ffffff 58%, #ecf0f5 76%, #e4e9f0 100%);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 12s linear infinite, floaty 6s ease-in-out infinite alternate;
   }
-  h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
-  .tagline { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
+  h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; color: transparent; -webkit-text-fill-color: transparent; }
+  .tagline { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; color: transparent; -webkit-text-fill-color: transparent; }
 
   main { padding-bottom: 64px; width: 100%; }
   .grid {
@@ -152,8 +157,8 @@
   .card-main { display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; color: inherit; width: 100%; }
   .card .icon { width: 40px; height: 40px; }
   .card .icon svg { width: 40px; height: 40px; display: block; }
-  .card .name { margin-top: 18px; font-size: 20px; font-weight: 600; }
-  .card .desc { margin-top: 6px; font-size: 14px; color: #6e6e73; line-height: 1.5; }
+  .card .name { margin-top: 18px; font-size: 20px; font-weight: 600; color: #ffffff; text-shadow: 0 1px 3px rgba(90, 90, 100, 0.1); }
+  .card .desc { margin-top: 6px; font-size: 14px; color: #edeff2; line-height: 1.5; text-shadow: 0 1px 3px rgba(90, 90, 100, 0.1); }
 
   /* 每个模块自己的浅梦幻色 */
   .grid > *:nth-child(1) { --accent: #ed8cb8; --glow: rgba(237, 140, 184, 0.5); }
@@ -218,10 +223,6 @@
     from { background-position: 200% 0; }
     to { background-position: -100% 0; }
   }
-  @keyframes silverpulse {
-    from { text-shadow: 0 1px 4px rgba(120, 85, 70, 0.22), 0 0 8px rgba(255, 255, 255, 0); }
-    to { text-shadow: 0 1px 4px rgba(120, 85, 70, 0.22), 0 0 26px rgba(255, 255, 255, 0.9), 0 0 60px rgba(200, 224, 255, 0.55); }
-  }
 
   /* ===== 手机端 ===== */
   @media (max-width: 768px) {
@@ -280,8 +281,8 @@
                   <path d="M31 21L31.9 23.6L34.5 24.5L31.9 25.4L31 28L30.1 25.4L27.5 24.5L30.1 23.6Z" stroke="#0071E3" stroke-width="1.8" stroke-linejoin="round"/>
                 </svg>
               </span>
-              <div class="name">小工具</div>
-              <div class="desc">今朝 · Good day</div>
+              <div class="name">Good Day</div>
+              <div class="desc">小工具</div>
             </a>
 
             <a class="card" href="https://gloriaetlaus-coder.github.io/growth/">
@@ -305,8 +306,8 @@
                     <path d="M12 15H16M12 19H16" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
                   </svg>
                 </span>
-                <div class="name">简报</div>
-                <div class="desc">每日简报 · 最新 9月26日</div>
+                <div class="name">News</div>
+                <div class="desc">每日简报</div>
               </a>
               <div class="brief-row">
                 <button type="button" onclick="openSheet()">全部 28 期 &#8250;</button>
@@ -320,7 +321,7 @@
                   <path d="M31 13C33.2 13.8 35 15.9 35 18.5V30H31.5L26 34.5V30H24" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
                 </svg>
               </span>
-              <div class="name">练英语</div>
+              <div class="name">English</div>
               <div class="desc">英语跟练</div>
             </a>
 
@@ -346,7 +347,7 @@
                   <path d="M17 13V18M23 13V18" stroke="#0071E3" stroke-width="2.2"/>
                 </svg>
               </span>
-              <div class="name">工作简介</div>
+              <div class="name">Resume</div>
               <div class="desc">个人简历网站</div>
             </a>
 
