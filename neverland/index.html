@@ -2,9 +2,449 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=/news/">
-<script>window.location.replace('/news/');</script>
-<title>News</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neverland</title>
+<style>
+  :root { --rail-w: 132px; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro SC", "SF Pro Text", "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #ffffff;
+    color: #1d1d1f;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== 左侧吸附栏 ===== */
+  .rail {
+    position: fixed; top: 0; bottom: 0; left: 0;
+    width: var(--rail-w);
+    background: linear-gradient(180deg, #ffd9e3 0%, #ffe7c8 38%, #fff3cd 62%, #cfe1ff 100%);
+    border-right: 1px solid rgba(255, 255, 255, 0.6);
+    display: flex; flex-direction: column;
+    z-index: 5;
+    transition: transform 0.2s ease;
+    overflow: hidden;
+  }
+  body.rail-collapsed .rail { transform: translateX(-100%); }
+
+  .rail-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 6px 8px;
+    padding: 0 2px;
+  }
+
+  .rail-title {
+    display: block;
+    margin: 0;
+    padding: 12px 8px;
+    border-radius: 9px;
+    font-size: 14px; font-weight: 700; color: #1d1d1f;
+    text-decoration: none; cursor: pointer;
+    letter-spacing: -0.2px;
+    white-space: nowrap;
+  }
+  .rail-title:hover { color: #d4af37; background: rgba(255, 255, 255, 0.55); }
+
+  .rail-fold {
+    border: none; background: none; cursor: pointer;
+    font-family: inherit; font-size: 16px; color: #6e6e73; line-height: 1;
+    padding: 10px 9px; border-radius: 9px;
+    flex-shrink: 0;
+  }
+  .rail-fold:hover { color: #d4af37; background: rgba(255, 255, 255, 0.55); }
+
+  .rail-item {
+    display: block;
+    margin: 2px 8px;
+    padding: 9px 10px;
+    border-radius: 9px;
+    font-size: 13px; color: #1d1d1f;
+    text-decoration: none; cursor: pointer;
+    white-space: nowrap;
+  }
+  .rail-item:hover { background: rgba(255, 255, 255, 0.55); color: #d4af37; }
+  .rail-item.active { background: #ffffff; color: #d4af37; font-weight: 600; }
+
+  /* 折叠后的展开按钮：🍃 */
+  .rail-open {
+    display: none;
+    position: fixed; top: 14px; left: 14px;
+    width: 44px; height: 44px;
+    border: none; background: none; cursor: pointer;
+    padding: 0;
+    z-index: 6;
+    font-size: 30px; line-height: 44px;
+    animation: leafsway 3.5s ease-in-out infinite;
+    transform-origin: 50% 90%;
+    transition: transform 0.15s ease;
+  }
+  .rail-open:hover { animation: none; transform: scale(1.18); }
+  body.rail-collapsed .rail-open { display: block; }
+
+  /* ===== 右侧内容区 ===== */
+  .stage {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    left: var(--rail-w);
+    overflow-y: auto;
+    transition: left 0.2s ease;
+  }
+  body.rail-collapsed .stage { left: 0; }
+
+  #home {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffd9e3 0%, #ffe7c8 38%, #fff3cd 62%, #cfe1ff 100%);
+    background-size: 250% 250%;
+    animation: bgdrift 14s ease-in-out infinite alternate;
+  }
+
+  #frame {
+    display: none;
+    width: 100%; height: 100%;
+    border: none;
+    background: #ffffff;
+  }
+
+  /* ===== homepage ===== */
+  .wrap { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 32px; }
+  header { padding-top: 64px; padding-bottom: 40px; }
+  .headline {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 16px;
+    row-gap: 6px;
+  }
+  h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
+  .tagline { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; color: #6e6e73; }
+
+  main { padding-bottom: 64px; width: 100%; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .card {
+    display: block;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    border-radius: 18px;
+    padding: 28px 24px 24px;
+    text-decoration: none;
+    color: #1d1d1f;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    animation: floaty 3.6s ease-in-out infinite alternate, glow 3.2s ease-in-out infinite alternate;
+  }
+  .card:hover { animation: none; transform: translateY(-6px); text-decoration: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 12px 28px rgba(0, 0, 0, 0.1); }
+  .card-main { display: block; text-decoration: none; color: inherit; }
+  .card .icon { width: 40px; height: 40px; }
+  .card .icon svg { width: 40px; height: 40px; display: block; }
+  .card .name { margin-top: 18px; font-size: 20px; font-weight: 600; }
+  .card .desc { margin-top: 6px; font-size: 14px; color: #6e6e73; line-height: 1.5; }
+  .card .arrow { margin-top: 16px; font-size: 14px; color: var(--accent, #0071e3); font-weight: 500; }
+
+  /* 每个模块自己的浅梦幻色 */
+  .grid > *:nth-child(1) { --accent: #ed8cb8; --glow: rgba(237, 140, 184, 0.5); }
+  .grid > *:nth-child(2) { --accent: #52b788; --glow: rgba(82, 183, 136, 0.5); animation-delay: 0.5s, 0.4s; }
+  .grid > *:nth-child(3) { --accent: #f2916e; --glow: rgba(242, 145, 110, 0.5); animation-delay: 1s, 0.8s; }
+  .grid > *:nth-child(4) { --accent: #64a5e8; --glow: rgba(100, 165, 232, 0.5); animation-delay: 1.5s, 1.2s; }
+  .grid > *:nth-child(5) { --accent: #d9a845; --glow: rgba(217, 168, 69, 0.5); animation-delay: 2s, 1.6s; }
+  .grid > *:nth-child(6) { --accent: #55b8c7; --glow: rgba(85, 184, 199, 0.5); animation-delay: 2.5s, 2s; }
+  .grid .icon svg [stroke] { stroke: var(--accent); }
+
+  .brief-row { margin-top: 14px; padding-top: 14px; border-top: 1px solid #d2d2d7; }
+  .brief-row button {
+    background: none; border: none; padding: 0; cursor: pointer;
+    font-family: inherit; font-size: 14px; color: var(--accent, #0071e3); font-weight: 500;
+  }
+
+  /* ===== 期次弹层 ===== */
+  .overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .overlay.show { display: flex; }
+  .sheet {
+    background: #ffffff;
+    border-radius: 20px;
+    width: 100%; max-width: 560px;
+    max-height: 86vh;
+    overflow-y: auto;
+    padding: 28px;
+  }
+  .sheet-head { display: flex; justify-content: space-between; align-items: center; }
+  .sheet-head .t { font-size: 20px; font-weight: 600; }
+  .sheet-head button {
+    background: none; border: none; cursor: pointer;
+    font-family: inherit; font-size: 15px; color: #0071e3; font-weight: 500;
+    padding: 4px 8px;
+  }
+  .month { margin-top: 22px; }
+  .month .m { font-size: 15px; font-weight: 600; color: #1d1d1f; margin-bottom: 10px; }
+  .days { display: flex; flex-wrap: wrap; gap: 8px; }
+  .day {
+    min-width: 52px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    background: #f5f5f7; border-radius: 10px;
+    font-size: 14px; color: #1d1d1f; text-decoration: none;
+    cursor: pointer;
+  }
+  .day:hover { background: #0071e3; color: #ffffff; }
+
+  @keyframes bgdrift { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
+  @keyframes floaty { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+  @keyframes glow {
+    from { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 18px var(--glow, rgba(255, 255, 255, 0.4)); }
+    to { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 46px var(--glow, rgba(255, 255, 255, 0.4)); }
+  }
+  @keyframes leafsway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg); } }
+
+  /* ===== 手机端 ===== */
+  @media (max-width: 768px) {
+    .stage { left: 0; }
+    body:not(.rail-collapsed) .rail { box-shadow: 0 0 28px rgba(0, 0, 0, 0.18); }
+    header { padding-top: 44px; padding-bottom: 28px; }
+    h1 { font-size: 34px; }
+    .tagline { font-size: 34px; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .card { padding: 22px 20px 20px; }
+    .card .name { font-size: 17px; }
+  }
+  @media (max-width: 380px) {
+    .wrap { padding: 0 20px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
-<body>正在跳转到 News 简报…</body>
+<body>
+
+  <!-- 左侧吸附栏 -->
+  <nav class="rail" id="rail">
+    <div class="rail-head">
+      <a class="rail-title" onclick="showHome()">&#10024; Neverland</a>
+      <button class="rail-fold" type="button" onclick="collapseRail()" aria-label="折叠导航栏">&#171;</button>
+    </div>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/good-day-mvp/">&#129668; Good Day</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/growth/">&#127793; Growth</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">&#128240; News</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/never-speaking/">&#128172; English</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">&#128203; Jobkit</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/career/">&#128188; Resume</a>
+  </nav>
+  <button class="rail-open" type="button" onclick="expandRail()" aria-label="展开导航栏">&#127807;</button>
+
+  <!-- 右侧内容区 -->
+  <div class="stage" id="stage">
+
+    <div id="home">
+      <div class="wrap">
+        <header>
+          <div class="headline">
+            <h1>Neverland</h1>
+            <span class="tagline">&middot; Thinking Creating Changing</span>
+          </div>
+        </header>
+
+        <main>
+          <div class="grid">
+
+            <a class="card" href="https://gloriaetlaus-coder.github.io/good-day-mvp/">
+              <span class="icon">
+                <svg viewBox="0 0 40 40" fill="none">
+                  <path d="M8 32L27 13" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M25 8L26.5 12.5L31 14L26.5 15.5L25 20L23.5 15.5L19 14L23.5 12.5Z" stroke="#0071E3" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M31 21L31.9 23.6L34.5 24.5L31.9 25.4L31 28L30.1 25.4L27.5 24.5L30.1 23.6Z" stroke="#0071E3" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <div class="name">小工具</div>
+              <div class="desc">今朝 · Good day</div>
+              <div class="arrow">查看 &#8250;</div>
+            </a>
+
+            <a class="card" href="https://gloriaetlaus-coder.github.io/growth/">
+              <span class="icon">
+                <svg viewBox="0 0 40 40" fill="none">
+                  <path d="M20 33V14" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M20 15C20 15 12 14 11 6C19 6 20 15 20 15Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                  <path d="M20 20C20 20 28 19 29 11C21 11 20 20 20 20Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                  <path d="M8 33H32" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <div class="name">Growth</div>
+              <div class="desc">生长轨迹</div>
+              <div class="arrow">查看 &#8250;</div>
+            </a>
+
+            <div class="card">
+              <a class="card-main" href="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">
+                <span class="icon">
+                  <svg viewBox="0 0 40 40" fill="none">
+                    <path d="M8 10V28H20V10H8Z M20 14L31 12V27H20" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                    <path d="M12 15H16M12 19H16" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <div class="name">简报</div>
+                <div class="desc">每日简报 · 最新 9月26日</div>
+              </a>
+              <div class="brief-row">
+                <button type="button" onclick="openSheet()">全部 28 期 &#8250;</button>
+              </div>
+            </div>
+
+            <a class="card" href="https://gloriaetlaus-coder.github.io/never-speaking/">
+              <span class="icon">
+                <svg viewBox="0 0 40 40" fill="none">
+                  <path d="M6 12C6 9.2 8.2 7 11 7H23C25.8 7 28 9.2 28 12V18C28 20.8 25.8 23 23 23H16L9 29V23H6V12Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                  <path d="M31 13C33.2 13.8 35 15.9 35 18.5V30H31.5L26 34.5V30H24" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <div class="name">练英语</div>
+              <div class="desc">英语跟练</div>
+              <div class="arrow">查看 &#8250;</div>
+            </a>
+
+            <a class="card" href="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">
+              <span class="icon">
+                <svg viewBox="0 0 40 40" fill="none">
+                  <rect x="5" y="7" width="30" height="26" rx="3" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M5 14H35" stroke="#0071E3" stroke-width="2.2"/>
+                  <rect x="10" y="18" width="7" height="10" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
+                  <rect x="21" y="18" width="9" height="5" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
+                </svg>
+              </span>
+              <div class="name">Job Kit</div>
+              <div class="desc">求职看板</div>
+              <div class="arrow">查看 &#8250;</div>
+            </a>
+
+            <a class="card" href="https://gloriaetlaus-coder.github.io/career/">
+              <span class="icon">
+                <svg viewBox="0 0 40 40" fill="none">
+                  <rect x="5" y="13" width="30" height="19" rx="3" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M14 13V10.5C14 9.1 15.1 8 16.5 8H23.5C24.9 8 26 9.1 26 10.5V13" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M5 21.5H35" stroke="#0071E3" stroke-width="2.2"/>
+                  <path d="M17 13V18M23 13V18" stroke="#0071E3" stroke-width="2.2"/>
+                </svg>
+              </span>
+              <div class="name">工作简介</div>
+              <div class="desc">个人简历网站</div>
+              <div class="arrow">查看 &#8250;</div>
+            </a>
+
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <iframe id="frame" title="content"></iframe>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="if (event.target === this) closeSheet()">
+    <div class="sheet">
+      <div class="sheet-head">
+        <span class="t">简报全部期次</span>
+        <button type="button" onclick="closeSheet()">关闭</button>
+      </div>
+      <div class="month">
+        <div class="m">2026年8月</div>
+        <div class="days">
+          <a class="day" href="https://gloriaetlaus-coder.github.io/neverland/2026/08/26/">26日</a>
+          <a class="day" href="https://gloriaetlaus-coder.github.io/neverland/2026/08/27/">27日</a>
+          <a class="day" href="https://gloriaetlaus-coder.github.io/neverland/2026/08/28/">28日</a>
+        </div>
+      </div>
+      <div class="month">
+        <div class="m">2026年9月</div>
+        <div class="days" id="sep-days"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // 9月期次：1-9、11-26（无10日）
+  (function () {
+    var box = document.getElementById('sep-days');
+    var days = [1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26];
+    var base = 'https://gloriaetlaus-coder.github.io/neverland/2026/09/';
+    days.forEach(function (d) {
+      var dd = d < 10 ? '0' + d : '' + d;
+      var a = document.createElement('a');
+      a.className = 'day';
+      a.href = base + dd + '/';
+      a.textContent = d + '日';
+      box.appendChild(a);
+    });
+  })();
+
+  var frame = document.getElementById('frame');
+  var home = document.getElementById('home');
+  var railItems = Array.prototype.slice.call(document.querySelectorAll('.rail-item'));
+
+  function showTarget(url, railEl) {
+    home.style.display = 'none';
+    frame.style.display = 'block';
+    if (frame.getAttribute('src') !== url) frame.setAttribute('src', url);
+    railItems.forEach(function (el) { el.classList.remove('active'); });
+    if (railEl) railEl.classList.add('active');
+    document.getElementById('stage').scrollTop = 0;
+    closeSheet();
+    if (window.innerWidth <= 768) collapseRail();
+  }
+
+  function showHome() {
+    frame.style.display = 'none';
+    home.style.display = '';
+    railItems.forEach(function (el) { el.classList.remove('active'); });
+    if (window.innerWidth <= 768) collapseRail();
+  }
+
+  // 左侧栏链接：在页面内打开
+  railItems.forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      showTarget(el.getAttribute('data-url'), el);
+    });
+  });
+
+  // homepage 卡片：在页面内打开
+  document.querySelectorAll('.card[href], .card .card-main[href]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      if (e.target.closest('.brief-row')) return;
+      e.preventDefault();
+      var url = el.getAttribute('href');
+      var railEl = railItems.filter(function (r) { return r.getAttribute('data-url') === url; })[0];
+      showTarget(url, railEl);
+    });
+  });
+
+  // 弹层里的日期：在页面内打开
+  document.querySelectorAll('.day').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = el.getAttribute('href');
+      var railEl = railItems.filter(function (r) { return r.getAttribute('data-url') === url; })[0];
+      showTarget(url, railEl);
+    });
+  });
+
+  function openSheet() { document.getElementById('overlay').classList.add('show'); }
+  function closeSheet() { document.getElementById('overlay').classList.remove('show'); }
+
+  function collapseRail() { document.body.classList.add('rail-collapsed'); }
+  function expandRail() { document.body.classList.remove('rail-collapsed'); }
+
+  // 手机端默认折叠
+  if (window.innerWidth <= 768) collapseRail();
+</script>
+</body>
 </html>
