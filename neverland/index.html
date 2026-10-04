@@ -19,8 +19,8 @@
   .rail {
     position: fixed; top: 0; bottom: 0; left: 0;
     width: var(--rail-w);
-    background: #f5f5f7;
-    border-right: 1px solid #d2d2d7;
+    background: linear-gradient(180deg, #ffd9e3 0%, #ffe7c8 38%, #fff3cd 62%, #cfe1ff 100%);
+    border-right: 1px solid rgba(255, 255, 255, 0.6);
     display: flex; flex-direction: column;
     z-index: 5;
     transition: transform 0.2s ease;
@@ -30,13 +30,15 @@
 
   .rail-title {
     display: block;
-    padding: 18px 12px 14px;
+    margin: 10px 8px 8px;
+    padding: 12px 10px;
+    border-radius: 9px;
     font-size: 14px; font-weight: 700; color: #1d1d1f;
     text-decoration: none; cursor: pointer;
     letter-spacing: -0.2px;
     white-space: nowrap;
   }
-  .rail-title:hover { color: #d4af37; }
+  .rail-title:hover { color: #d4af37; background: rgba(255, 255, 255, 0.55); }
 
   .rail-item {
     display: block;
@@ -47,31 +49,31 @@
     text-decoration: none; cursor: pointer;
     white-space: nowrap;
   }
-  .rail-item:hover { background: #e8e8ed; color: #d4af37; }
+  .rail-item:hover { background: rgba(255, 255, 255, 0.55); color: #d4af37; }
   .rail-item.active { background: #ffffff; color: #d4af37; font-weight: 600; }
 
   .rail-collapse {
-    margin-top: auto;
-    margin-left: 8px; margin-right: 8px; margin-bottom: 14px;
+    margin: 10px 8px 14px;
     padding: 8px 10px;
     border: none; border-radius: 9px;
     background: none; cursor: pointer;
     font-family: inherit; font-size: 13px; color: #6e6e73;
     text-align: left;
   }
-  .rail-collapse:hover { background: #e8e8ed; }
+  .rail-collapse:hover { background: rgba(255, 255, 255, 0.55); }
 
-  /* 折叠后的展开按钮 */
+  /* 折叠后的展开按钮：一片小树叶 */
   .rail-open {
     display: none;
     position: fixed; top: 14px; left: 14px;
-    width: 38px; height: 38px;
-    border: 1px solid #d2d2d7; border-radius: 50%;
-    background: #ffffff; cursor: pointer;
-    font-size: 16px; color: #1d1d1f; line-height: 1;
+    width: 44px; height: 44px;
+    border: none; background: none; cursor: pointer;
+    padding: 0;
     z-index: 6;
+    transition: transform 0.15s ease;
   }
-  .rail-open:hover { border-color: #0071e3; color: #0071e3; }
+  .rail-open:hover { transform: scale(1.1) rotate(6deg); }
+  .rail-open svg { width: 44px; height: 44px; display: block; animation: leafsway 3.5s ease-in-out infinite; transform-origin: 50% 90%; }
   body.rail-collapsed .rail-open { display: block; }
 
   /* ===== 右侧内容区 ===== */
@@ -86,6 +88,8 @@
   #home {
     min-height: 100vh;
     background: linear-gradient(135deg, #ffd9e3 0%, #ffe7c8 38%, #fff3cd 62%, #cfe1ff 100%);
+    background-size: 200% 200%;
+    animation: bgdrift 40s ease-in-out infinite alternate;
   }
 
   #frame {
@@ -127,19 +131,29 @@
     color: #1d1d1f;
     cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+    animation: floaty 4.5s ease-in-out infinite alternate, glow 5.5s ease-in-out infinite alternate;
   }
-  .card:hover { transform: translateY(-2px); text-decoration: none; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06); }
+  .card:hover { animation: none; transform: translateY(-3px); text-decoration: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 10px 24px rgba(0, 0, 0, 0.08); }
   .card-main { display: block; text-decoration: none; color: inherit; }
   .card .icon { width: 40px; height: 40px; }
   .card .icon svg { width: 40px; height: 40px; display: block; }
   .card .name { margin-top: 18px; font-size: 20px; font-weight: 600; }
   .card .desc { margin-top: 6px; font-size: 14px; color: #6e6e73; line-height: 1.5; }
-  .card .arrow { margin-top: 16px; font-size: 14px; color: #0071e3; font-weight: 500; }
+  .card .arrow { margin-top: 16px; font-size: 14px; color: var(--accent, #0071e3); font-weight: 500; }
+
+  /* 每个模块自己的浅梦幻色 */
+  .grid > *:nth-child(1) { --accent: #ed8cb8; --glow: rgba(237, 140, 184, 0.4); }
+  .grid > *:nth-child(2) { --accent: #52b788; --glow: rgba(82, 183, 136, 0.4); animation-delay: 0.6s, 0.8s; }
+  .grid > *:nth-child(3) { --accent: #f2916e; --glow: rgba(242, 145, 110, 0.4); animation-delay: 1.2s, 1.6s; }
+  .grid > *:nth-child(4) { --accent: #64a5e8; --glow: rgba(100, 165, 232, 0.4); animation-delay: 1.8s, 2.4s; }
+  .grid > *:nth-child(5) { --accent: #d9a845; --glow: rgba(217, 168, 69, 0.4); animation-delay: 2.4s, 3.2s; }
+  .grid > *:nth-child(6) { --accent: #55b8c7; --glow: rgba(85, 184, 199, 0.4); animation-delay: 3s, 4s; }
+  .grid .icon svg [stroke] { stroke: var(--accent); }
 
   .brief-row { margin-top: 14px; padding-top: 14px; border-top: 1px solid #d2d2d7; }
   .brief-row button {
     background: none; border: none; padding: 0; cursor: pointer;
-    font-family: inherit; font-size: 14px; color: #0071e3; font-weight: 500;
+    font-family: inherit; font-size: 14px; color: var(--accent, #0071e3); font-weight: 500;
   }
 
   /* ===== 期次弹层 ===== */
@@ -179,6 +193,14 @@
   }
   .day:hover { background: #0071e3; color: #ffffff; }
 
+  @keyframes bgdrift { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
+  @keyframes floaty { from { transform: translateY(0); } to { transform: translateY(-5px); } }
+  @keyframes glow {
+    from { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 14px var(--glow, rgba(255, 255, 255, 0.3)); }
+    to { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 30px var(--glow, rgba(255, 255, 255, 0.3)); }
+  }
+  @keyframes leafsway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg); } }
+
   /* ===== 手机端 ===== */
   @media (max-width: 768px) {
     .stage { left: 0; }
@@ -209,7 +231,13 @@
     <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/career/">&#128188; Resume</a>
     <button class="rail-collapse" type="button" onclick="collapseRail()">折叠 &#187;</button>
   </nav>
-  <button class="rail-open" type="button" onclick="expandRail()" aria-label="展开导航栏">&#187;</button>
+  <button class="rail-open" type="button" onclick="expandRail()" aria-label="展开导航栏">
+    <svg viewBox="0 0 44 44" fill="none">
+      <path d="M22 4 C33 11 36 24 22 40 C8 24 11 11 22 4 Z" fill="#52b788"/>
+      <path d="M22 9V37" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M22 15L15 11M22 15L29 11M22 22L14 18M22 22L30 18M22 29L16 25M22 29L28 25" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round"/>
+    </svg>
+  </button>
 
   <!-- 右侧内容区 -->
   <div class="stage" id="stage">
