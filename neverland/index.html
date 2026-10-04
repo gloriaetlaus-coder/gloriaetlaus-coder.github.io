@@ -31,22 +31,31 @@
   .rail-head {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin: 32px 6px 8px;
+    justify-content: flex-end;
+    margin: 18px 6px 6px;
     padding: 0 2px;
   }
 
-  .rail-title {
-    display: block;
-    margin: 0;
-    padding: 12px 8px;
-    border-radius: 9px;
-    font-size: 14px; font-weight: 700; color: #1d1d1f;
+  .rail-title, .rail-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 5px 8px;
+    padding: 10px 12px;
+    width: calc(var(--rail-w) - 16px);
+    border-radius: 11px;
+    font-size: 14px; color: #1d1d1f;
     text-decoration: none; cursor: pointer;
-    letter-spacing: -0.2px;
     white-space: nowrap;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px) saturate(140%);
+    -webkit-backdrop-filter: blur(8px) saturate(140%);
+    transition: background 0.15s ease, color 0.15s ease;
+    box-sizing: border-box;
   }
-  .rail-title:hover { color: #d4af37; background: rgba(255, 255, 255, 0.55); }
+  .rail-title { font-weight: 700; letter-spacing: -0.2px; }
+  .rail-title:hover { color: #d4af37; background: rgba(255, 255, 255, 0.5); }
 
   .rail-fold {
     border: none; background: none; cursor: pointer;
@@ -57,17 +66,18 @@
   }
   .rail-fold:hover { color: #d4af37; background: rgba(255, 255, 255, 0.55); }
 
-  .rail-item {
-    display: block;
-    margin: 2px 8px;
-    padding: 9px 10px;
-    border-radius: 9px;
-    font-size: 13px; color: #1d1d1f;
-    text-decoration: none; cursor: pointer;
-    white-space: nowrap;
+  .rail-item:hover { background: rgba(255, 255, 255, 0.5); color: #d4af37; }
+  .rail-item.active { background: rgba(255, 255, 255, 0.72); color: #d4af37; font-weight: 600; }
+
+  .rico {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.3em;
+    font-size: 1.05em;
+    line-height: 1;
+    flex-shrink: 0;
   }
-  .rail-item:hover { background: rgba(255, 255, 255, 0.55); color: #d4af37; }
-  .rail-item.active { background: #ffffff; color: #d4af37; font-weight: 600; }
 
   /* 折叠后的展开按钮：🍃 */
   .rail-open {
@@ -109,60 +119,99 @@
   }
 
   /* ===== homepage ===== */
-  .wrap { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 32px; }
-  header { padding-top: 44px; padding-bottom: 40px; }
+  .wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 32px; }
+  header { padding-top: 44px; padding-bottom: 36px; text-align: center; }
   .headline {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
     column-gap: 16px;
     row-gap: 6px;
-    color: #ffffff;
+    color: #ffe07a;
     animation: floaty 6s ease-in-out infinite alternate;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 24px;
+    padding: 20px 40px;
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
   h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
   .tagline { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
 
   main { padding-bottom: 64px; width: 100%; }
-  .grid {
+
+  /* ===== 三大板块 ===== */
+  .columns {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 22px;
+    align-items: start;
   }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 22px;
+    padding: 18px 16px 20px;
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  .col-head { text-align: center; margin-bottom: 16px; }
+  .col-head .en {
+    display: block;
+    font-size: 23px; font-weight: 700; color: var(--accent, #1d1d1f);
+    letter-spacing: 0.3px;
+  }
+  .col-head .cn {
+    display: block;
+    font-size: 13px; color: rgba(29, 29, 31, 0.6);
+    margin-top: 3px; letter-spacing: 1px;
+  }
+  .col-career .col-head .cn { color: #ecd98f; }
+
+  /* 每列自己的主题色 */
+  .col-coding  { --accent: #64a5e8; --glow: rgba(100, 165, 232, 0.55); }
+  .col-hobby   { --accent: #ed8cb8; --glow: rgba(237, 140, 184, 0.55); }
+  .col-career  { --accent: #ecd98f; --glow: rgba(236, 217, 143, 0.55); }
+
   .card {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.32);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.55);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     border-radius: 18px;
-    padding: 28px 24px 24px;
+    padding: 22px 18px 20px;
+    margin-top: 12px;
     text-decoration: none;
     color: #1d1d1f;
     cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     animation: floaty 3.6s ease-in-out infinite alternate, glow 3.2s ease-in-out infinite alternate;
   }
+  .column .card:first-of-type { margin-top: 0; }
   .card:hover { animation: none; transform: translateY(-6px); text-decoration: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 12px 28px rgba(0, 0, 0, 0.1); }
   .card .icon { width: 40px; height: 40px; }
   .card .icon svg { width: 40px; height: 40px; display: block; }
-  .card .name { margin-top: 18px; font-size: 20px; font-weight: 600; color: var(--accent, #1d1d1f); }
-  .card .desc { margin-top: 6px; font-size: 14px; color: var(--accent, #1d1d1f); line-height: 1.5; font-weight: 600; }
+  .card .name { margin-top: 16px; font-size: 19px; font-weight: 600; color: var(--accent, #1d1d1f); }
+  .card .desc { margin-top: 6px; font-size: 13px; color: var(--accent, #1d1d1f); line-height: 1.5; font-weight: 600; }
 
-  /* 每个模块自己的浅梦幻色 */
-  .grid > *:nth-child(1) { --accent: #ed8cb8; --glow: rgba(237, 140, 184, 0.5); }
-  .grid > *:nth-child(2) { --accent: #52b788; --glow: rgba(82, 183, 136, 0.5); animation-delay: 0.5s, 0.4s; }
-  .grid > *:nth-child(3) { --accent: #f2916e; --glow: rgba(242, 145, 110, 0.5); animation-delay: 1s, 0.8s; }
-  .grid > *:nth-child(4) { --accent: #64a5e8; --glow: rgba(100, 165, 232, 0.5); animation-delay: 1.5s, 1.2s; }
-  .grid > *:nth-child(5) { --accent: #d9a845; --glow: rgba(217, 168, 69, 0.5); animation-delay: 2s, 1.6s; }
-  .grid > *:nth-child(6) { --accent: #55b8c7; --glow: rgba(85, 184, 199, 0.5); animation-delay: 2.5s, 2s; }
-  .grid .icon svg [stroke] { stroke: var(--accent); }
+  .column .card:nth-of-type(1) { animation-delay: 0s, 0s; }
+  .column .card:nth-of-type(2) { animation-delay: 0.6s, 0.4s; }
+
+  .column .icon svg [stroke] { stroke: var(--accent); }
 
   @keyframes bgdrift { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
   @keyframes floaty { from { transform: translateY(0); } to { transform: translateY(-10px); } }
@@ -176,16 +225,15 @@
   @media (max-width: 768px) {
     .stage { left: 0; }
     body:not(.rail-collapsed) .rail { box-shadow: 0 0 28px rgba(0, 0, 0, 0.18); }
-    header { padding-top: 44px; padding-bottom: 28px; }
+    header { padding-top: 44px; padding-bottom: 26px; }
     h1 { font-size: 34px; }
     .tagline { font-size: 34px; }
-    .grid { grid-template-columns: repeat(2, 1fr); }
-    .card { padding: 22px 20px 20px; }
-    .card .name { font-size: 17px; }
+    .headline { padding: 16px 22px; border-radius: 20px; }
+    .columns { grid-template-columns: 1fr; gap: 16px; }
+    .col-head .en { font-size: 21px; }
   }
   @media (max-width: 380px) {
     .wrap { padding: 0 20px; }
-    .grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -194,15 +242,15 @@
   <!-- 左侧吸附栏 -->
   <nav class="rail" id="rail">
     <div class="rail-head">
-      <a class="rail-title" onclick="showHome()">&#10024; Neverland</a>
       <button class="rail-fold" type="button" onclick="collapseRail()" aria-label="折叠导航栏">&#171;</button>
     </div>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/good-day-mvp/">&#129668; Good Day</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/growth/">&#127793; Growth</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">&#128240; News</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/never-speaking/">&#128172; English</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">&#128203; Jobkit</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/career/">&#128188; Resume</a>
+    <a class="rail-title" onclick="showHome()"><span class="rico">&#10024;</span>Neverland</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/good-day-mvp/"><span class="rico">&#129668;</span>Good Day</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/growth/"><span class="rico">&#127793;</span>Growth</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/"><span class="rico">&#128240;</span>News</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/never-speaking/"><span class="rico">&#128172;</span>English</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/jobkit/job_board.html"><span class="rico">&#128203;</span>Jobkit</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/career/"><span class="rico">&#128188;</span>Resume</a>
   </nav>
   <button class="rail-open" type="button" onclick="expandRail()" aria-label="展开导航栏">&#127811;</button>
 
@@ -219,80 +267,104 @@
         </header>
 
         <main>
-          <div class="grid">
+          <div class="columns">
 
-            <a class="card" href="https://gloriaetlaus-coder.github.io/good-day-mvp/">
-              <span class="icon">
-                <svg viewBox="0 0 40 40" fill="none">
-                  <path d="M8 32L27 13" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-                  <path d="M25 8L26.5 12.5L31 14L26.5 15.5L25 20L23.5 15.5L19 14L23.5 12.5Z" stroke="#0071E3" stroke-width="2" stroke-linejoin="round"/>
-                  <path d="M31 21L31.9 23.6L34.5 24.5L31.9 25.4L31 28L30.1 25.4L27.5 24.5L30.1 23.6Z" stroke="#0071E3" stroke-width="1.8" stroke-linejoin="round"/>
-                </svg>
-              </span>
-              <div class="name">Good Day</div>
-              <div class="desc">小工具</div>
-            </a>
+            <!-- 最左：Coding -->
+            <section class="column col-coding">
+              <div class="col-head">
+                <span class="en">Coding</span>
+                <span class="cn">代码与工具</span>
+              </div>
 
-            <a class="card" href="https://gloriaetlaus-coder.github.io/growth/">
-              <span class="icon">
-                <svg viewBox="0 0 40 40" fill="none">
-                  <path d="M20 33V14" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-                  <path d="M20 15C20 15 12 14 11 6C19 6 20 15 20 15Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                  <path d="M20 20C20 20 28 19 29 11C21 11 20 20 20 20Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                  <path d="M8 33H32" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-                </svg>
-              </span>
-              <div class="name">Growth</div>
-              <div class="desc">生长轨迹</div>
-            </a>
+              <a class="card" href="https://gloriaetlaus-coder.github.io/good-day-mvp/">
+                <span class="icon">
+                  <svg viewBox="0 0 40 40" fill="none">
+                    <path d="M8 32L27 13" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M25 8L26.5 12.5L31 14L26.5 15.5L25 20L23.5 15.5L19 14L23.5 12.5Z" stroke="#0071E3" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M31 21L31.9 23.6L34.5 24.5L31.9 25.4L31 28L30.1 25.4L27.5 24.5L30.1 23.6Z" stroke="#0071E3" stroke-width="1.8" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <div class="name">Good Day</div>
+                <div class="desc">小工具</div>
+              </a>
 
-            <a class="card" href="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">
-              <span class="icon">
-                <svg viewBox="0 0 40 40" fill="none">
-                  <path d="M8 10V28H20V10H8Z M20 14L31 12V27H20" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                  <path d="M12 15H16M12 19H16" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-                </svg>
-              </span>
-              <div class="name">News</div>
-              <div class="desc">每日简报</div>
-            </a>
+              <a class="card" href="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">
+                <span class="icon">
+                  <svg viewBox="0 0 40 40" fill="none">
+                    <path d="M8 10V28H20V10H8Z M20 14L31 12V27H20" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                    <path d="M12 15H16M12 19H16" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <div class="name">News</div>
+                <div class="desc">每日简报</div>
+              </a>
+            </section>
 
-            <a class="card" href="https://gloriaetlaus-coder.github.io/never-speaking/">
-              <span class="icon">
-                <svg viewBox="0 0 40 40" fill="none">
-                  <path d="M6 12C6 9.2 8.2 7 11 7H23C25.8 7 28 9.2 28 12V18C28 20.8 25.8 23 23 23H16L9 29V23H6V12Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                  <path d="M31 13C33.2 13.8 35 15.9 35 18.5V30H31.5L26 34.5V30H24" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                </svg>
-              </span>
-              <div class="name">English</div>
-              <div class="desc">英语跟练</div>
-            </a>
+            <!-- 中间：Hobby -->
+            <section class="column col-hobby">
+              <div class="col-head">
+                <span class="en">Hobby</span>
+                <span class="cn">兴趣与生长</span>
+              </div>
 
-            <a class="card" href="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">
-              <span class="icon">
-                <svg viewBox="0 0 40 40" fill="none">
-                  <rect x="5" y="7" width="30" height="26" rx="3" stroke="#0071E3" stroke-width="2.2"/>
-                  <path d="M5 14H35" stroke="#0071E3" stroke-width="2.2"/>
-                  <rect x="10" y="18" width="7" height="10" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
-                  <rect x="21" y="18" width="9" height="5" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
-                </svg>
-              </span>
-              <div class="name">Job Kit</div>
-              <div class="desc">求职看板</div>
-            </a>
+              <a class="card" href="https://gloriaetlaus-coder.github.io/growth/">
+                <span class="icon">
+                  <svg viewBox="0 0 40 40" fill="none">
+                    <path d="M20 33V14" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M20 15C20 15 12 14 11 6C19 6 20 15 20 15Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                    <path d="M20 20C20 20 28 19 29 11C21 11 20 20 20 20Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                    <path d="M8 33H32" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <div class="name">Growth</div>
+                <div class="desc">生长轨迹</div>
+              </a>
 
-            <a class="card" href="https://gloriaetlaus-coder.github.io/career/">
-              <span class="icon">
-                <svg viewBox="0 0 40 40" fill="none">
-                  <rect x="5" y="13" width="30" height="19" rx="3" stroke="#0071E3" stroke-width="2.2"/>
-                  <path d="M14 13V10.5C14 9.1 15.1 8 16.5 8H23.5C24.9 8 26 9.1 26 10.5V13" stroke="#0071E3" stroke-width="2.2"/>
-                  <path d="M5 21.5H35" stroke="#0071E3" stroke-width="2.2"/>
-                  <path d="M17 13V18M23 13V18" stroke="#0071E3" stroke-width="2.2"/>
-                </svg>
-              </span>
-              <div class="name">Resume</div>
-              <div class="desc">个人简历网站</div>
-            </a>
+              <a class="card" href="https://gloriaetlaus-coder.github.io/never-speaking/">
+                <span class="icon">
+                  <svg viewBox="0 0 40 40" fill="none">
+                    <path d="M6 12C6 9.2 8.2 7 11 7H23C25.8 7 28 9.2 28 12V18C28 20.8 25.8 23 23 23H16L9 29V23H6V12Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                    <path d="M31 13C33.2 13.8 35 15.9 35 18.5V30H31.5L26 34.5V30H24" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <div class="name">English</div>
+                <div class="desc">英语跟练</div>
+              </a>
+            </section>
+
+            <!-- 最右：Career -->
+            <section class="column col-career">
+              <div class="col-head">
+                <span class="en">Career</span>
+                <span class="cn">求职与履历</span>
+              </div>
+
+              <a class="card" href="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">
+                <span class="icon">
+                  <svg viewBox="0 0 40 40" fill="none">
+                    <rect x="5" y="7" width="30" height="26" rx="3" stroke="#0071E3" stroke-width="2.2"/>
+                    <path d="M5 14H35" stroke="#0071E3" stroke-width="2.2"/>
+                    <rect x="10" y="18" width="7" height="10" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
+                    <rect x="21" y="18" width="9" height="5" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
+                  </svg>
+                </span>
+                <div class="name">Job Kit</div>
+                <div class="desc">求职看板</div>
+              </a>
+
+              <a class="card" href="https://gloriaetlaus-coder.github.io/career/">
+                <span class="icon">
+                  <svg viewBox="0 0 40 40" fill="none">
+                    <rect x="5" y="13" width="30" height="19" rx="3" stroke="#0071E3" stroke-width="2.2"/>
+                    <path d="M14 13V10.5C14 9.1 15.1 8 16.5 8H23.5C24.9 8 26 9.1 26 10.5V13" stroke="#0071E3" stroke-width="2.2"/>
+                    <path d="M5 21.5H35" stroke="#0071E3" stroke-width="2.2"/>
+                    <path d="M17 13V18M23 13V18" stroke="#0071E3" stroke-width="2.2"/>
+                  </svg>
+                </span>
+                <div class="name">Resume</div>
+                <div class="desc">个人简历网站</div>
+              </a>
+            </section>
 
           </div>
         </main>
