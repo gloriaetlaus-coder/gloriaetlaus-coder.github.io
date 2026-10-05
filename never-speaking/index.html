@@ -121,6 +121,12 @@ body.mode-en .unit .pair{grid-template-columns:1fr;}
 }
 /* ---- 英文独立样式：衬线字体+底纹，与中文区分 ---- */
 .en{font-family:Georgia,'Times New Roman',serif;font-size:16px;line-height:1.7;background:#fbf8f1;border:1px solid var(--line);border-left:3px solid var(--line-strong);border-radius:0 10px 10px 0;padding:10px 12px;color:#1f1a13;}
+
+/* ---- 移动端字号放大 ---- */
+@media (max-width:860px){
+  :root{--size-1:16px;--size-2:14px;--size-3:12px;}
+  .en{font-size:17px;line-height:1.75;}
+}
 </style>
 </head>
 <body>
