@@ -127,6 +127,11 @@ body.mode-en .unit .pair{grid-template-columns:1fr;}
   :root{--size-1:16px;--size-2:14px;--size-3:12px;}
   .en{font-size:17px;line-height:1.75;}
 }
+
+/* ---- 修复：多演讲日的 speech-tabs 在手机上被压缩导致整行无法滑动 ---- */
+@media (max-width:860px){
+  .speech-tabs{flex:0 0 auto;touch-action:pan-x pan-y;}
+}
 </style>
 </head>
 <body>
