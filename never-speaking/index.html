@@ -266,6 +266,14 @@ button{-webkit-tap-highlight-color:transparent;}
   .mode-switch button{font-size:12px;padding-inline:9px;}
   .fav-btn{font-size:12.5px;}
 }
+
+/* ---- PC端铺满全宽 ---- */
+@media (min-width:861px){
+  .feed{max-width:none;margin:0;padding:14px 36px 60px;}
+}
+/* ---- 演讲标签：收起时用标题区分，超长截断；展开时显示全标题 ---- */
+.speech-tab{max-width:210px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.speech-tab.active{max-width:none;}
 </style>
 </head>
 <body>
@@ -634,12 +642,15 @@ function renderSpecialDay(){
   var baseCat = items[0].catLabel || '名人演讲';
   items.forEach(function(it, idx){
     var isActive = (idx===activeSpeech[day]);
-    var parts = [];
+    var label;
     if(isActive){
+      var parts = [];
       if(it.person) parts.push(it.person);
       if(it.title && it.title !== baseCat) parts.push(it.title);
+      label = parts.length ? ([baseCat].concat(parts).join(' - ')) : baseCat;
+    } else {
+      label = (it.title && it.title !== baseCat) ? (baseCat + ' \u00b7 ' + it.title) : (baseCat + ' ' + (idx+1));
     }
-    var label = parts.length ? ([baseCat].concat(parts).join(' - ')) : baseCat;
     tabs += '<button class="speech-tab'+(isActive?' active':'')+'" data-idx="'+idx+'">'+label+'</button>';
   });
   tabs += '</div>';
