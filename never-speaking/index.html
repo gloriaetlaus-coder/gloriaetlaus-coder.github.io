@@ -301,6 +301,20 @@ try { favSet = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]')); } cat
 function persistFav(){ try{ localStorage.setItem(FAV_KEY, JSON.stringify(Array.from(favSet))); }catch(e){} }
 function updateFavBtn(){ favBtn.textContent = '❤ 收藏 ('+favSet.size+')'; }
 function unitKey(it, bi){ return day + ':' + DAYS[day].items.indexOf(it) + ':' + bi; }
+/* ---- 按内容指纹删除：推送更新/条目重排后，删掉的段落不再复活 ---- */
+function cyrb53(str, seed){
+  var h1 = 0xdeadbeef ^ (seed||0), h2 = 0x41c6ce57 ^ (seed||0);
+  for(var i=0, ch; i<str.length; i++){
+    ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
+  return (h2>>>0).toString(36) + (h1>>>0).toString(36);
+}
+function contentKey(b){ return 'c:' + cyrb53(String((b&&b.en)||'').replace(/\s+/g,' ').trim(), 0); }
+function isDeleted(key, b){ return delSet.has(key) || (b && delSet.has(contentKey(b))); }
 
 var saved = null;
 try { saved = localStorage.getItem('never-mode'); } catch(e){}
@@ -441,7 +455,12 @@ ctxMenu.querySelectorAll('button').forEach(function(b){
       if(favSet.has(ctxKey)) favSet.delete(ctxKey); else favSet.add(ctxKey);
       persistFav(); updateFavBtn();
     } else if(b.dataset.act==='del'){
-      delSet.add(ctxKey); persistDel();     }
+      delSet.add(ctxKey);
+      var _kp = ctxKey.split(':');
+      var _it = DAYS[+_kp[0]] && DAYS[+_kp[0]].items[+_kp[1]];
+      var _bl = _it && _it.blocks[+_kp[2]];
+      if(_bl) delSet.add(contentKey(_bl));
+      persistDel();     }
     closeCtx();
     renderContent();
   });
@@ -497,7 +516,7 @@ function renderSpecialDay(){
   var html = '<div class="speech-view">';
   it2.blocks.forEach(function(b, bi){
     var key = unitKey(it2, bi);
-    if(delSet.has(key)) return;
+    if(isDeleted(key, b)) return;
     remaining++;
     html += unitHTML(key, b);
   });
@@ -523,7 +542,7 @@ function renderNormalDay(){
     var units = '';
     it.blocks.forEach(function(b, bi){
       var key = unitKey(it, bi);
-      if(delSet.has(key)) return;
+      if(isDeleted(key, b)) return;
       units += unitHTML(key, b);
     });
     html += units;
