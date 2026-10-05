@@ -111,6 +111,16 @@ body.mode-en .unit .pair{grid-template-columns:1fr;}
   .cn{border-left:none;padding-left:0;margin-top:4px;}
   .brand-pin .name{display:none;}
 }
+
+/* ---- 移动端适配：日期栏可横滑、增大点击区 ---- */
+.date-rail{touch-action:pan-x pan-y;scroll-snap-type:x proximity;}
+.date-chip{scroll-snap-align:center;}
+@media (max-width:860px){
+  .date-chip{width:46px;padding:9px 0;font-size:15px;}
+  .tab-row{touch-action:pan-x pan-y;}
+}
+/* ---- 英文独立样式：衬线字体+底纹，与中文区分 ---- */
+.en{font-family:Georgia,'Times New Roman',serif;font-size:16px;line-height:1.7;background:#fbf8f1;border:1px solid var(--line);border-left:3px solid var(--line-strong);border-radius:0 10px 10px 0;padding:10px 12px;color:#1f1a13;}
 </style>
 </head>
 <body>
@@ -326,7 +336,7 @@ function renderDateRail(){
       if(dd===day) activeChip = b;
     })(d);
   }
-  if(activeChip) dateRail.scrollLeft = Math.max(0, activeChip.offsetLeft - 150);
+  if(activeChip) activeChip.scrollIntoView({inline:'center',block:'nearest'});
 }
 
 dateRail.addEventListener('wheel', function(e){
