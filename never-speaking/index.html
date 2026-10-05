@@ -274,6 +274,12 @@ button{-webkit-tap-highlight-color:transparent;}
 /* ---- 演讲标签：收起时用标题区分，超长截断；展开时显示全标题 ---- */
 .speech-tab{max-width:210px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .speech-tab.active{max-width:none;}
+/* ---- PC端顶栏铺满全宽 ---- */
+@media (min-width:861px){
+  .date-rail,.tab-row{max-width:none;}
+  .date-rail{padding-left:36px;padding-right:36px;}
+  .tab-row{padding-left:36px;padding-right:36px;}
+}
 </style>
 </head>
 <body>
@@ -288,6 +294,7 @@ button{-webkit-tap-highlight-color:transparent;}
         <button data-mode="both" class="active">双语对照</button>
         <button data-mode="en">只看英文</button>
       </div>
+      <span class="brand-pin"><span class="icon">📚</span>英语自习室</span>
     </div>
   </div>
 </div>
@@ -311,7 +318,7 @@ button{-webkit-tap-highlight-color:transparent;}
 <script>
 var DAYS = {
   1: { items:[
-    { cat:'speech', catLabel:'名人演讲', title:'Women in Sports', person:'谷爱凌',
+    { cat:'speech', catLabel:'名人演讲', title:'Women in Sports', short:'Women Sports', person:'谷爱凌',
       video:{bv:'BV1uW421A7yL', label:'B站 · 中英双字幕'},
       blocks:[
         
@@ -319,14 +326,14 @@ var DAYS = {
         {en:"Life is going to be a bumpy road for all of us, and building resiliency early on is important. My experiences have made me more tenacious and have taught me to meet my setbacks in life with open arms.", cn:"对我们所有人来说，生活的道路都将是崎岖不平的，及早培养韧性很重要。我的经历让我更加坚韧，也教会我张开双臂迎接人生中的挫折。"},
         {en:"I encourage you all to step out of your comfort zone to show the boys that girls are just as powerful as they are.", cn:"我鼓励大家都走出自己的舒适区，向男孩们证明，女孩和他们一样强大。"}
       ]},
-    { cat:'speech', catLabel:'名人演讲', title:'Harvard World Development Forum', person:'谷爱凌',
+    { cat:'speech', catLabel:'名人演讲', title:'Harvard World Development Forum', short:'Harvard Forum', person:'谷爱凌',
       video:{bv:'BV1BD42157tx', label:'B站 · 中文字幕'},
       blocks:[
         {en:"\"After all, we're only young. What could we possibly do?\" My response to this quandary is simple. We must recognize our youth not as a hindrance, but as a strength.", cn:"「毕竟，我们年纪轻轻，能成什么事呢？」面对这个困境，我的回答很简单：我们必须认识到，青春年少不是障碍，而是一种力量。"},
         {en:"To be curious is to be humble, and to be humble is to be willing to be wrong.", cn:"求知需要谦逊，而谦逊意味着愿意犯错。"},
         {en:"Skiing has taught me to appreciate the value of resilience when it comes to modifying my approach after my original ideas were disproven. And I have been wrong. A lot.", cn:"滑雪教会我欣赏坚韧的价值——当最初的判断被现实否定后，学会调整方式。我犯过错误，犯过很多。"}
       ]},
-    { cat:'speech', catLabel:'名人演讲', title:"I Admit It. I'm in Love With Fear", person:'谷爱凌',
+    { cat:'speech', catLabel:'名人演讲', title:"I Admit It. I'm in Love With Fear", short:'Love Fear', person:'谷爱凌',
       video:{bv:'BV1uW421A7yL', label:'B站 · 谷爱凌英文演讲原声'},
       blocks:[
         {en:"\"Fear\" is really an umbrella term for three distinct sensations: excitement, uncertainty, and pressure. I've learned that the nuanced indicators of each of these feelings can be instrumental to success when recognized and positively leveraged, and harbingers of injury when ignored.", cn:"「恐惧」实际上概括了三种不同的感受：兴奋、不确定性和压力。我已经明白，如果意识到并积极利用这些感受中的微妙信号，会对成功有帮助；如果忽视它们，往往就是受伤的先兆。"},
@@ -337,7 +344,7 @@ var DAYS = {
       ]}
   ]},
   2: { items:[
-    { cat:'speech', catLabel:'名人演讲', title:'Work Super Hard', person:'马斯克',
+    { cat:'speech', catLabel:'名人演讲', title:'Work Super Hard', short:'Work Hard', person:'马斯克',
       video:{bv:'BV1DP4y157Y5', label:'B站 · 中英字幕'},
       blocks:[
         {en:"I think the first is, depending on how well you wanna do and particularly if you're starting a company, you need to work super-hard. So what does super-hard mean? Well, when my brother and I was starting our first company, instead of getting an apartment we just rented a small office and we slept on the couch. And we showered at the YMCA, and we had just one computer. So the website was up during the day, and I was coding at night, seven days a week, all the time. Work hard, like every waking hour.", cn:"第一，取决于你想做得多好，尤其如果要创办一家公司，你需要超级努力地工作。什么叫超级努力？我和哥哥创办第一家公司时，没租公寓，只租了间小办公室，睡在沙发上，在基督教青年会洗澡，只有一台电脑。网站白天运行，我晚上写代码，一周七天，从不间断。努力工作，把每个清醒的小时都用上。"},
@@ -346,7 +353,7 @@ var DAYS = {
         {en:"Focus on signal over noise. A lot of companies get confused. They spend money on things that don't actually make the product better. At Tesla we've never spent any money on advertising. We put all of the money into R&D and manufacturing and design, to try to make the car as good as possible.", cn:"专注于信号而非噪音。很多公司搞混了，把钱花在不能让产品更好的东西上。在特斯拉，我们从没在广告上花过一分钱，我们把所有钱投入研发、制造和设计，尽力把车做到最好。"},
         {en:"Now is the time to take risk. As you get older your obligations increase. And once you have a family you start taking risks not just for yourself but for your family as well. It gets much harder to do things that might not work out. So now is the time to do that before you have those obligations. So I would encourage you to take risks now. Do something bold. You won't regret it.", cn:"现在是冒险的时候。随着年龄增长，你的责任越来越多。一旦有了家庭，你冒险就不只是为自己，而是为家人。那些可能不成功的事，做起来会难得多。所以趁现在还没有这些负担，去冒险吧。做一些大胆的事，你不会后悔的。"}
       ]},
-    { cat:'speech', catLabel:'名人演讲', title:'Think Big & Dream Even Bigger', person:'马斯克',
+    { cat:'speech', catLabel:'名人演讲', title:'Think Big & Dream Even Bigger', short:'Dream Big', person:'马斯克',
       video:{bv:'BV1Tv411L7Pz', label:'B站 · 原声演讲'},
       blocks:[
         {en:"I read a quote from Arthur C. Clarke which said that \"A sufficiently advanced technology is indistinguishable from magic.\" And that's really true.", cn:"我读到亚瑟·克拉克的一句话：「任何足够先进的技术都与魔法无异。」这千真万确。"},
@@ -354,7 +361,7 @@ var DAYS = {
         {en:"We were able to, eventually with the fourth flight in 2008, reach orbit. That was also with the last bit of money that we had. Thank goodness that happened. I think the saying is 'fourth time is the charm.'", cn:"2008年我们终于用第四次发射进入轨道，用的还是我们最后的积蓄。谢天谢地它成功了。俗话说「第四次终成」。"},
         {en:"You guys are the magicians of the 21st century. Don't let anything hold you back. Imagination is the limit. Go out there and create some magic.", cn:"你们是21世纪的魔法师。不要让任何东西束缚你。想象力没有极限。走出去，创造一些魔法吧。"}
       ]},
-    { cat:'speech', catLabel:'名人演讲', title:'G20 Innovation Ministerial', person:'马斯克',
+    { cat:'speech', catLabel:'名人演讲', title:'G20 Innovation Ministerial', short:'G20', person:'马斯克',
       video:{bv:'BV1JUtj6QENd', label:'B站 · 双语音+文稿'},
       blocks:[
         {en:"You have to have an environment that's relatively free of regulation, meaning that new things must be default legal as opposed to default illegal.", cn:"你必须拥有一个监管相对较少的环境，这意味着新事物必须「默认合法」，而不是「默认非法」。"},
@@ -545,7 +552,6 @@ function renderCatFilter(){
   if(cats.length && (catFilter===null || !cats.some(function(c){ return c.cat===catFilter; }))){
     catFilter = cats[0].cat;
   }
-  appendBrandChip(catFilterEl);
   cats.forEach(function(it){
     var b = document.createElement('button');
     var active = (catFilter===it.cat);
@@ -638,7 +644,6 @@ function renderSpecialDay(){
   var items = DAYS[day].items;
   if(activeSpeech[day]===undefined) activeSpeech[day]=0;
   var tabs = '<div class="speech-tabs">';
-  tabs += '<span class="brand-pin"><span class="icon">📚</span>英语自习室</span>';
   var baseCat = items[0].catLabel || '名人演讲';
   items.forEach(function(it, idx){
     var isActive = (idx===activeSpeech[day]);
@@ -649,7 +654,7 @@ function renderSpecialDay(){
       if(it.title && it.title !== baseCat) parts.push(it.title);
       label = parts.length ? ([baseCat].concat(parts).join(' - ')) : baseCat;
     } else {
-      label = (it.title && it.title !== baseCat) ? (baseCat + ' \u00b7 ' + it.title) : (baseCat + ' ' + (idx+1));
+      label = it.short || it.title;
     }
     tabs += '<button class="speech-tab'+(isActive?' active':'')+'" data-idx="'+idx+'">'+label+'</button>';
   });
