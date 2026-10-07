@@ -118,19 +118,27 @@
   }
   .empty .big { font-size: 40px; }
 
-  /* 手机端: 紧凑日历 + 抽屉式折叠 */
-  @media (max-width: 860px) {
+  /* 手机 / 窄屏 + Safari「请求桌面版网站」模式(980px) 都走紧凑布局, 关键规则 !important 兜底 */
+  @media (max-width: 1024px) {
     .main {
-      flex-direction: column; height: auto; min-height: 100vh;
+      flex-direction: column !important;
+      height: auto !important;
+      min-height: 100vh;
     }
     .cal {
-      width: 100%; border-right: none; border-bottom: 1px solid #d2d2d7;
-      padding: 10px 12px 12px; overflow-y: auto; flex-shrink: 0;
+      width: 100% !important;
+      border-right: none;
+      border-bottom: 1px solid #d2d2d7;
+      padding: 10px 12px 12px;
+      overflow-y: auto;
+      flex-shrink: 0;
     }
     .reader {
-      flex: 1 1 auto; min-height: 480px; height: auto;
+      flex: 1 1 auto;
+      min-height: 480px;
+      height: auto;
     }
-    /* 紧凑 hero: 横排小条 */
+    /* 紧凑 hero */
     .sidebar-hero {
       padding: 8px 10px; margin-bottom: 8px;
       display: flex; align-items: center; gap: 10px; text-align: left;
@@ -139,7 +147,6 @@
     .sidebar-hero .logo { font-size: 1.3rem; margin-bottom: 0; }
     .sidebar-hero .title { font-size: 0.92rem; margin-bottom: 0; letter-spacing: 1px; }
     .sidebar-hero .badge, .sidebar-hero .footer-text { display: none; }
-    /* 紧凑日历控件 */
     .cal-head { margin-bottom: 6px; }
     .cal-title { font-size: 13px; }
     .nav-btn { width: 26px; height: 26px; font-size: 12px; }
@@ -148,15 +155,18 @@
     .cell .num { font-size: 12px; width: 26px; height: 26px; }
     .dot { width: 3px; height: 3px; margin-top: 2px; }
     .cal-hint { display: none; }
-    /* 手机折叠态: 顶部薄条 */
+    /* 折叠态: 顶部薄条 */
     .main.collapsed .cal {
-      padding: 6px 12px;
-      display: flex; align-items: center; justify-content: space-between;
+      width: 100% !important;
+      padding: 6px 12px !important;
+      display: flex !important; align-items: center; justify-content: space-between;
       background: #ffffff;
+      min-height: 36px;
     }
     .main.collapsed .mobile-cal-label {
-      display: flex; align-items: center; gap: 6px;
+      display: flex !important; align-items: center; gap: 6px;
       font-size: 13px; font-weight: 600; color: #1d1d1f;
+      white-space: nowrap;
     }
     .main.collapsed .collapse-btn { position: static; }
   }
