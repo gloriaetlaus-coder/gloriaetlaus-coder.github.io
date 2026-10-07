@@ -83,11 +83,23 @@
     font-size: 0.7rem; color: #6b7280; font-weight: 600;
     flex-shrink: 0; margin-top: 2px;
   }
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     body { padding: 10px; }
     .card { padding: 14px; }
-    .card-title { font-size: 0.96rem; }
+    .card-title { font-size: 0.96rem; width: 100%; }
     .points li { font-size: 0.86rem; }
+    /* 卡片头纵向堆叠, 标题拿满宽, 来源允许换行 */
+    .card-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      padding-left: 0;
+    }
+    .source {
+      white-space: normal;
+      font-size: 0.72rem;
+      width: 100%;
+    }
   }
 </style>
 </head>
