@@ -780,6 +780,13 @@ function drawSign(mood) {
     ripple.classList.remove('active');
     void ripple.offsetWidth;
     ripple.classList.add('active');
+    // 涟漪动画（含回声层最长 1.78s）结束后移除 active 并强制重排，
+    // 清掉 Chrome 在 scale 动画中缓存的多余可滚动溢出（幻影滚动空间）
+    if (ripple._cleanupTimer) clearTimeout(ripple._cleanupTimer);
+    ripple._cleanupTimer = setTimeout(() => {
+      ripple.classList.remove('active');
+      void ripple.offsetWidth;
+    }, 2000);
   }
 
   setTimeout(() => {

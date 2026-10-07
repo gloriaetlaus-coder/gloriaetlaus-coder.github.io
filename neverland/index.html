@@ -129,6 +129,34 @@
   .rail-open:active { cursor: grabbing; animation: none; transform: scale(1.1); }
   body.rail-collapsed .rail-open { display: block; }
 
+  /* 吸附栏暂时隐藏（代码保留，想去掉这个 class 即可恢复） */
+  body.rail-hidden .rail { display: none !important; }
+  body.rail-hidden .rail-open { display: block; } /* 栏藏了，泡泡常驻 */
+  /* 隐藏吸附栏时内容区占满全屏 */
+  body.rail-hidden .stage { left: 0 !important; }
+
+  /* ===== 泡泡粒子：点击泡泡后飘散一串小泡泡 ===== */
+  .spark-bubble {
+    position: fixed;
+    z-index: 9;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle at 32% 28%,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.35) 30%,
+      rgba(203, 184, 255, 0.30) 62%,
+      rgba(255, 182, 193, 0.22) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), inset 0 0 6px rgba(255, 255, 255, 0.5);
+    animation: bubble-rise var(--dur, 2s) cubic-bezier(0.22, 0.6, 0.36, 1) forwards;
+  }
+  @keyframes bubble-rise {
+    0%   { transform: translate(0, 0) scale(0.25); opacity: 0; }
+    14%  { opacity: 0.95; }
+    70%  { opacity: 0.7; }
+    100% { transform: translate(var(--dx, 0px), var(--dy, -120px)) scale(1); opacity: 0; }
+  }
+
   /* ===== 右侧内容区 ===== */
   .stage {
     position: fixed; top: 0; right: 0; bottom: 0;
@@ -368,7 +396,7 @@
   }
 </style>
 </head>
-<body>
+<body class="rail-hidden">
 
   <!-- 左侧吸附栏 -->
   <nav class="rail" id="rail">
@@ -485,6 +513,9 @@
   var home = document.getElementById('home');
   var railItems = Array.prototype.slice.call(document.querySelectorAll('.rail-item'));
 
+  // 记忆：上次打开的界面（'home' 或子页面 URL），下次进来直接恢复
+  var LAST_KEY = 'neverlandLastPage';
+
   function showTarget(url, railEl) {
     home.style.display = 'none';
     frame.style.display = 'block';
@@ -494,6 +525,7 @@
     if (railEl) railEl.classList.add('active');
     document.getElementById('stage').scrollTop = 0;
     if (window.innerWidth <= 768) collapseRail();
+    try { localStorage.setItem(LAST_KEY, url); } catch (e) {}
   }
 
   function showHome() {
@@ -502,6 +534,7 @@
     document.body.classList.remove('in-frame');
     railItems.forEach(function (el) { el.classList.remove('active'); });
     if (window.innerWidth <= 768) collapseRail();
+    try { localStorage.setItem(LAST_KEY, 'home'); } catch (e) {}
   }
 
   // 左侧栏链接：在页面内打开
@@ -547,14 +580,40 @@
   var suppressClick = false;
   var POS_KEY = 'neverlandRailOpenPos';
 
-  // 恢复上次拖动的位置
-  try {
-    var saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
-    if (saved && typeof saved.x === 'number') {
-      openBtn.style.left = Math.min(Math.max(4, saved.x), window.innerWidth - 60) + 'px';
-      openBtn.style.top = Math.min(Math.max(4, saved.y), window.innerHeight - 60) + 'px';
-    }
-  } catch (e) {}
+  // 恢复上次拖动的位置（贴边锚定：记"离哪条边多近"，换屏幕尺寸/横竖屏也不跑丢）
+  function restoreBubblePos() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
+      if (!saved || !saved.h) return;
+      var bw = openBtn.offsetWidth || 52, bh = openBtn.offsetHeight || 52;
+      var w = window.innerWidth, h = window.innerHeight;
+      var x = (saved.h === 'l') ? saved.hd : (w - bw - saved.hd);
+      var y = (saved.v === 't') ? saved.vd : (h - bh - saved.vd);
+      x = Math.min(Math.max(4, x), w - bw - 4);
+      y = Math.min(Math.max(4, y), h - bh - 4);
+      openBtn.style.left = x + 'px';
+      openBtn.style.top = y + 'px';
+    } catch (e) {}
+  }
+  restoreBubblePos();
+  window.addEventListener('resize', restoreBubblePos);
+
+  function saveBubblePos() {
+    try {
+      var x = parseFloat(openBtn.style.left) || 14;
+      var y = parseFloat(openBtn.style.top) || 14;
+      var bw = openBtn.offsetWidth || 52, bh = openBtn.offsetHeight || 52;
+      var w = window.innerWidth, h = window.innerHeight;
+      var halfX = x + bw / 2 < w / 2;
+      var halfY = y + bh / 2 < h / 2;
+      localStorage.setItem(POS_KEY, JSON.stringify({
+        h: halfX ? 'l' : 'r',
+        hd: halfX ? x : (w - x - bw),
+        v: halfY ? 't' : 'b',
+        vd: halfY ? y : (h - y - bh)
+      }));
+    } catch (e) {}
+  }
 
   openBtn.addEventListener('pointerdown', function (e) {
     var rect = openBtn.getBoundingClientRect();
@@ -583,12 +642,7 @@
     if (dragState && dragState.moved) {
       suppressClick = true;
       setTimeout(function () { suppressClick = false; }, 80);
-      try {
-        localStorage.setItem(POS_KEY, JSON.stringify({
-          x: parseFloat(openBtn.style.left) || 14,
-          y: parseFloat(openBtn.style.top) || 14
-        }));
-      } catch (e) {}
+      saveBubblePos();
     }
     dragState = null;
   }
@@ -597,10 +651,44 @@
 
   openBtn.addEventListener('click', function (e) {
     if (suppressClick) { e.preventDefault(); e.stopPropagation(); return; }
-    // 双功能：在子页面（iframe）里点泡泡 = 回首页；在首页点泡泡 = 展开吸附栏
+    // 子页面点泡泡 = 回首页；首页点泡泡 = 飘散一串泡泡粒子
     if (document.body.classList.contains('in-frame')) { showHome(); }
-    else { expandRail(); }
+    else {
+      var rect = openBtn.getBoundingClientRect();
+      burstBubbles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    }
   });
+
+  // 一串小泡泡从按钮位置向上飘散
+  function burstBubbles(x, y) {
+    for (var i = 0; i < 18; i++) {
+      (function (i) {
+        setTimeout(function () {
+          var b = document.createElement('div');
+          b.className = 'spark-bubble';
+          var s = 9 + Math.random() * 24;
+          b.style.width = s + 'px';
+          b.style.height = s + 'px';
+          b.style.left = (x + (Math.random() * 30 - 15)) + 'px';
+          b.style.top = (y + (Math.random() * 18 - 9)) + 'px';
+          b.style.setProperty('--dx', (Math.random() * 100 - 50) + 'px');
+          b.style.setProperty('--dy', (-80 - Math.random() * 150) + 'px');
+          b.style.setProperty('--dur', (1.5 + Math.random() * 1.3) + 's');
+          document.body.appendChild(b);
+          setTimeout(function () { b.remove(); }, 3200);
+        }, i * 48);
+      })(i);
+    }
+  }
+
+  // 恢复上次打开的界面（不是 home 才恢复；home 就保持起始状态）
+  try {
+    var lastPage = localStorage.getItem(LAST_KEY);
+    if (lastPage && lastPage !== 'home') {
+      var lastRail = railItems.filter(function (r) { return r.getAttribute('data-url') === lastPage; })[0];
+      showTarget(lastPage, lastRail);
+    }
+  } catch (e) {}
 
   // 手机端默认折叠
   if (window.innerWidth <= 768) collapseRail();

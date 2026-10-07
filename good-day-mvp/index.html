@@ -583,13 +583,17 @@ body::after {
   align-items: center;
   perspective: 1200px;
   position: relative;  /* 让情绪泡泡 absolute 定位到卡面上 */
+  overflow: clip;  /* 裁掉涟漪动画的瞬态溢出：Chrome 会把 scale 动画中的溢出
+                      错误缓存成约 3 屏的可滚动空间（overflow:clip 不产生滚动区） */
 }
 
 .sign-card-outer {
   position: relative;
   width: 100%;
   max-width: min(92vw, 320px);   /* 手机占屏更大，PC不超过320 */
-  height: 558px;  /* 卡片高度延长1cm ≈ 38px */
+  /* 高度自适应视口：内容(标语+卡片+提示词)正好收进一屏，矮屏时卡片缩小不再留可滚动空白 */
+  height: clamp(420px, calc(100vh - 235px), 558px);
+  height: clamp(420px, calc(100dvh - 235px), 558px);
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
 }
@@ -1281,12 +1285,14 @@ body::after {
 /* 水波纹涟漪扩散 — 从卡片中心向外逐层扩散，延伸到卡片边缘之外 */
 .water-ripple {
   position: absolute;
-  left: 50%;
-  top: 50%;
+  /* 用 calc+负外边距居中，不用 translate 百分比：避免 Chrome 在 scale 动画中
+     把百分比位移卷进溢出计算，产生约 3 屏的幻影滚动空间 */
+  left: calc(50% - 20px);
+  top: calc(50% - 20px);
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  transform: translate(-50%, -50%) scale(0.2);
+  transform: scale(0.2);
   opacity: 0;
   pointer-events: none;
   z-index: 10;  /* 提到卡片之上，让涟漪可见地扩散到卡片外 */
@@ -1322,7 +1328,7 @@ body::after {
 /* 主涟漪：从中心向外大幅扩散，延伸到卡片边缘之外 */
 @keyframes ripple-main {
   0%   {
-    transform: translate(-50%, -50%) scale(0.2);
+    transform: scale(0.2);
     opacity: 1;
     border: 3px solid rgba(220, 200, 250, 0.7);
     box-shadow:
@@ -1347,7 +1353,7 @@ body::after {
       0 0 72px 24px rgba(140, 120, 200, 0.04);
   }
   100% {
-    transform: translate(-50%, -50%) scale(14);
+    transform: scale(14);
     opacity: 0;
     border-color: rgba(190, 170, 235, 0);
     box-shadow:
@@ -1466,7 +1472,7 @@ body::after {
   .app {
   padding: 0 16px 6px; }  /* body 已加 safe-area，.app 只留水平+底部 padding */
   .stage { margin-top: 8px; }  /* 中卡间距 13→8px 缩小约0.13cm */
-  .sign-card-outer { max-width: min(92vw, 340px); height: 620px; }  /* 恢复原始高度，避免svh异常用固定px */
+  .sign-card-outer { max-width: min(92vw, 340px); height: clamp(450px, calc(100vh - 197px), 620px); height: clamp(450px, calc(100dvh - 197px), 620px); }  /* 高度随视口自适应，矮屏不再留滚动空白 */
   .sign-cn { font-size: clamp(26px, 8vw, 32px); }  /* 手机端中文主题词放大 */
   .sign-poem.english { font-size: 28px; }  /* 手机端外文主题词 34→28px 适配窄屏 */
   .sign-literal { font-size: clamp(22px, 6.5vw, 28px); }  /* 手机端直译增大 */
@@ -1489,7 +1495,7 @@ body::after {
   .title-halo { width: 260px; height: 120px; }
   .mood-chip { font-size: 16px; padding: 8px 13px; }  /* 手机端情绪按钮字号 12→16px(1.3倍)，只改字号 */
   .stage { margin-top: 8px; }  /* 中卡间距 13→8px 缩小约0.13cm */
-  .sign-card-outer { max-width: min(94vw, 320px); height: 600px; }  /* 恢复原始高度，360px窄屏 */
+  .sign-card-outer { max-width: min(94vw, 320px); height: clamp(430px, calc(100vh - 197px), 600px); height: clamp(430px, calc(100dvh - 197px), 600px); }  /* 360px窄屏，高度随视口自适应 */
   .sign-face.back { padding: 18px 14px 16px; }
   .sign-poem.english { font-size: 24px; }
   .sign-source { font-size: 11px; padding: 0 6px; }  /* 360px 出处 10→11px */
@@ -1500,7 +1506,7 @@ body::after {
 
 @media (min-width: 600px) {
   .title { font-size: 46px; }
-  .sign-card-outer { max-width: 320px; height: 558px; }
+  .sign-card-outer { max-width: 320px; height: clamp(420px, calc(100vh - 235px), 558px); height: clamp(420px, calc(100dvh - 235px), 558px); }
 }
 </style>
 </head>
