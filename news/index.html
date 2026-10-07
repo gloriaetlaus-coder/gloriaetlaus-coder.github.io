@@ -60,12 +60,48 @@
 
   /* 顶部信息块(原来是独立 headline, 现在合并到日历上方) */
   .sidebar-hero {
-    text-align: center; padding: 14px 14px 18px;
-    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
-    border: 1px solid #e5e9f2; border-radius: 14px;
-    margin-bottom: 18px;
-    box-shadow: 0 1px 4px rgba(99, 102, 241, 0.05);
+    display: none;  /* 内容已上移到 .news-header */
   }
+  /* PC 顶部一行式标题栏 (点击地球折叠/展开左侧日历) */
+  .news-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 10px 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e9f2;
+    flex-wrap: nowrap; white-space: nowrap;
+    overflow: hidden;
+    border-radius: 14px 14px 0 0;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .news-header .globe {
+    font-size: 1.4rem; cursor: pointer; user-select: none; flex-shrink: 0;
+    transition: transform 0.15s;
+  }
+  .news-header .globe:hover { transform: scale(1.12); }
+  .news-header .title {
+    font-weight: 800; color: #4338ca; letter-spacing: 1px; font-size: 15px;
+    flex-shrink: 0;
+  }
+  .news-header .badge {
+    font-size: 12px; color: #4338ca;
+    background: #eef2ff; padding: 3px 10px; border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .news-header .footer-text {
+    font-size: 12px; color: #86868b;
+    margin-left: auto;
+    overflow: hidden; text-overflow: ellipsis;
+    flex-shrink: 1; min-width: 0;
+  }
+  /* PC 折叠: 隐藏 .cal, reader 占满 */
+  .main.collapsed .cal {
+    width: 0 !important; min-width: 0 !important;
+    padding: 0 !important; border: none !important;
+    overflow: hidden; margin: 0;
+  }
+  .main.collapsed .collapse-btn { display: none; }
+  .main.collapsed .reader { flex: 1 1 auto; min-width: 0; }
   .sidebar-hero .logo { font-size: 1.8rem; margin-bottom: 4px; }
   .sidebar-hero .title {
     font-size: 1.15rem; font-weight: 800; color: #4338ca;
@@ -129,6 +165,8 @@
   @media (max-width: 1024px) {
     /* 移动端标题已用 mobile-cal-label, 隐藏桌面侧栏 hero 避免重复 */
     .sidebar-hero { display: none !important; }
+    /* 手机: 不显示 PC 顶部栏 (用 .cal 折叠时的 mobile-cal-label 充当顶部栏) */
+    .news-header { display: none; }
     .main {
       flex-direction: column !important;
       height: auto !important;
@@ -258,6 +296,12 @@
 
     <!-- 右侧阅读 -->
     <section class="reader">
+      <header class="news-header">
+        <span class="globe" onclick="toggleCollapse()" role="button" aria-label="折叠/展开侧栏" title="折叠/展开日历">🌍</span>
+        <span class="title">NEWS 每日简报</span>
+        <span class="badge">📡 过去24小时重要资讯</span>
+        <span class="footer-text">News 资讯工作台 · 每日自动抓取海外资讯并翻译推送</span>
+      </header>
       <div class="iframe-clip"><iframe id="frame" title="简报内容" style="display:none;"></iframe></div>
       <div class="empty" id="empty">
         <div class="big">🗓️</div>
