@@ -140,6 +140,19 @@
 
   #frame { display: none; width: 100%; height: 100%; border: none; background: #ffffff; }
 
+  /* iframe 模式 + 手机端 + 吸附栏展开时：铺透明拦截层，点它收栏
+     （iframe 内部的点击传不到外层页面，必须靠这层兜住） */
+  .scrim { display: none; }
+  @media (max-width: 768px) {
+    body.in-frame:not(.rail-collapsed) .scrim {
+      display: block;
+      position: fixed; top: 0; right: 0; bottom: 0; left: 0;
+      z-index: 4; /* 低于吸附栏(5)和泡泡按钮(6)，高于 iframe */
+      background: transparent;
+      cursor: pointer;
+    }
+  }
+
   /* ===== homepage（一屏内完整呈现，不滚动） ===== */
   #home {
     position: relative;
@@ -460,6 +473,9 @@
     <iframe id="frame" title="content"></iframe>
   </div>
 
+  <!-- iframe 模式下的点击拦截层：点空白处收起吸附栏 -->
+  <div class="scrim" id="scrim"></div>
+
 <script>
   var frame = document.getElementById('frame');
   var home = document.getElementById('home');
@@ -468,6 +484,7 @@
   function showTarget(url, railEl) {
     home.style.display = 'none';
     frame.style.display = 'block';
+    document.body.classList.add('in-frame');
     if (frame.getAttribute('src') !== url) frame.setAttribute('src', url);
     railItems.forEach(function (el) { el.classList.remove('active'); });
     if (railEl) railEl.classList.add('active');
@@ -478,6 +495,7 @@
   function showHome() {
     frame.style.display = 'none';
     home.style.display = '';
+    document.body.classList.remove('in-frame');
     railItems.forEach(function (el) { el.classList.remove('active'); });
     if (window.innerWidth <= 768) collapseRail();
   }
@@ -572,6 +590,9 @@
 
   // 手机端默认折叠
   if (window.innerWidth <= 768) collapseRail();
+
+  // iframe 拦截层：点击即收起吸附栏
+  document.getElementById('scrim').addEventListener('click', function () { collapseRail(); });
 
   // 注册 service worker：页面导航走 network-first，线上更新即时生效
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
