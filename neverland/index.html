@@ -383,7 +383,7 @@
     <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/jobkit/job_board.html"><span class="rico">&#128203;</span>Jobkit</a>
     <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/career/"><span class="rico">&#128188;</span>Resume</a>
   </nav>
-  <button class="rail-open" type="button" aria-label="展开导航栏">&#129767;</button>
+  <button class="rail-open" type="button" aria-label="回到首页 / 展开导航栏">&#129767;</button>
 
   <!-- 右侧内容区 -->
   <div class="stage" id="stage">
@@ -597,7 +597,9 @@
 
   openBtn.addEventListener('click', function (e) {
     if (suppressClick) { e.preventDefault(); e.stopPropagation(); return; }
-    expandRail();
+    // 双功能：在子页面（iframe）里点泡泡 = 回首页；在首页点泡泡 = 展开吸附栏
+    if (document.body.classList.contains('in-frame')) { showHome(); }
+    else { expandRail(); }
   });
 
   // 手机端默认折叠
