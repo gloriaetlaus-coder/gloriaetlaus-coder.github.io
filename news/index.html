@@ -371,13 +371,20 @@
 <script>
   // 注册 Service Worker, 自动每次绕过 GitHub Pages CDN 缓存拿新版
   if ('serviceWorker' in navigator) {
+    if (!window.__swGuard) window.__swGuard = true;
     navigator.serviceWorker.addEventListener('message', function(e) {
-      if (e.data && e.data.type === 'RELOAD') {
-        window.location.reload();
-      }
+      if (e.data && e.data.type === 'RELOAD') { window.location.reload(); }
+    });
+    navigator.serviceWorker.addEventListener('controllerchange', function() {
+      // SW 刚接管控制, 重新拉页面确保拿到新版
+      window.location.reload();
     });
     navigator.serviceWorker.register('/news/sw.js').then(function(reg) {
       reg.update();
+      // 如果当前页面已被旧 SW 控制, 跳过
+      if (navigator.serviceWorker.controller) {
+        // 已被控制, 后续刷新 SW 会自动加 cache-buster
+      }
     }).catch(function(err) { console.log('SW:', err); });
   }
   </script>
