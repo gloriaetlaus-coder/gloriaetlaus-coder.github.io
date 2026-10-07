@@ -64,7 +64,7 @@
   }
   /* PC 顶部一行式标题栏 (点击地球折叠/展开左侧日历) */
   .news-header {
-    display: flex; align-items: center; gap: 14px;
+    display: flex; align-items: center; justify-content: center; gap: 14px;
     padding: 10px 16px;
     background: #ffffff;
     border-bottom: 1px solid #e5e9f2;
@@ -90,7 +90,6 @@
   }
   .news-header .footer-text {
     font-size: 12px; color: #86868b;
-    margin-left: auto;
     overflow: hidden; text-overflow: ellipsis;
     flex-shrink: 1; min-width: 0;
   }
@@ -268,7 +267,6 @@
   <div class="main">
     <!-- 左侧栏: 头部信息 + 日历 -->
     <aside class="cal">
-      <button class="collapse-btn" type="button" onclick="toggleCollapse()" aria-label="折叠/展开侧栏" id="collapse-btn">‹</button>
       <div class="mobile-cal-label" onclick="toggleCollapse()" role="button" aria-label="展开/收起日历">
         <span class="globe">🌍</span>
         <span class="title-text">NEWS&nbsp;每日简报</span>
@@ -435,11 +433,7 @@
   function next() { view.m++; if (view.m > 11) { view.m = 0; view.y++; } render(); }
 
   function toggleCollapse() {
-    var main = document.querySelector('.main');
-    var btn = document.getElementById('collapse-btn');
-    main.classList.toggle('collapsed');
-    btn.textContent = main.classList.contains('collapsed') ? '›' : '‹';
-    btn.setAttribute('aria-label', main.classList.contains('collapsed') ? '展开侧栏' : '折叠侧栏');
+    document.querySelector('.main').classList.toggle('collapsed');
   }
 
   window.addEventListener('hashchange', function () {
