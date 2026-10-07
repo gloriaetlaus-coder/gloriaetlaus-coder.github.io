@@ -7,6 +7,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#FFF8E7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Neverland">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
   :root {
     --rail-w: 200px;
@@ -96,26 +103,30 @@
 
   .rico { display: inline-flex; width: 1.35em; justify-content: center; font-size: 1.05em; flex-shrink: 0; }
 
-  /* 折叠后的展开按钮 */
+  /* 折叠后的悬浮按钮（可拖动的小仙女） */
   .rail-open {
     display: none;
     position: fixed; top: 14px; left: 14px;
-    width: 46px; height: 46px;
+    width: 52px; height: 52px;
     border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 16px;
+    border-radius: 18px;
     background: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(14px) saturate(160%);
     -webkit-backdrop-filter: blur(14px) saturate(160%);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 6px 18px rgba(155, 126, 222, 0.2);
-    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 6px 18px rgba(155, 126, 222, 0.25);
+    cursor: grab;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
     padding: 0;
     z-index: 6;
-    font-size: 26px; line-height: 42px;
+    font-size: 28px; line-height: 48px;
     animation: leafsway 3.5s ease-in-out infinite;
     transform-origin: 50% 90%;
     transition: transform 0.15s ease;
   }
   .rail-open:hover { animation: none; transform: scale(1.15) rotate(8deg); }
+  .rail-open:active { cursor: grabbing; animation: none; transform: scale(1.1); }
   body.rail-collapsed .rail-open { display: block; }
 
   /* ===== 右侧内容区 ===== */
@@ -355,7 +366,7 @@
     <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/jobkit/job_board.html"><span class="rico">&#128203;</span>Jobkit</a>
     <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/career/"><span class="rico">&#128188;</span>Resume</a>
   </nav>
-  <button class="rail-open" type="button" onclick="expandRail()" aria-label="展开导航栏">&#127811;</button>
+  <button class="rail-open" type="button" aria-label="展开导航栏">&#129492;</button>
 
   <!-- 右侧内容区 -->
   <div class="stage" id="stage">
@@ -491,6 +502,65 @@
 
   function collapseRail() { document.body.classList.add('rail-collapsed'); }
   function expandRail() { document.body.classList.remove('rail-collapsed'); }
+
+  // ===== 可拖动的悬浮按钮：拖动换位置（记住），点一下展开 =====
+  var openBtn = document.querySelector('.rail-open');
+  var dragState = null;
+  var suppressClick = false;
+  var POS_KEY = 'neverlandRailOpenPos';
+
+  // 恢复上次拖动的位置
+  try {
+    var saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
+    if (saved && typeof saved.x === 'number') {
+      openBtn.style.left = Math.min(Math.max(4, saved.x), window.innerWidth - 60) + 'px';
+      openBtn.style.top = Math.min(Math.max(4, saved.y), window.innerHeight - 60) + 'px';
+    }
+  } catch (e) {}
+
+  openBtn.addEventListener('pointerdown', function (e) {
+    var rect = openBtn.getBoundingClientRect();
+    dragState = {
+      startX: e.clientX, startY: e.clientY,
+      origLeft: rect.left, origTop: rect.top,
+      moved: false
+    };
+    try { openBtn.setPointerCapture(e.pointerId); } catch (err) {}
+    e.preventDefault();
+  });
+
+  openBtn.addEventListener('pointermove', function (e) {
+    if (!dragState) return;
+    var dx = e.clientX - dragState.startX;
+    var dy = e.clientY - dragState.startY;
+    if (!dragState.moved && Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+    dragState.moved = true;
+    var x = Math.min(Math.max(4, dragState.origLeft + dx), window.innerWidth - openBtn.offsetWidth - 4);
+    var y = Math.min(Math.max(4, dragState.origTop + dy), window.innerHeight - openBtn.offsetHeight - 4);
+    openBtn.style.left = x + 'px';
+    openBtn.style.top = y + 'px';
+  });
+
+  function endDrag() {
+    if (dragState && dragState.moved) {
+      suppressClick = true;
+      setTimeout(function () { suppressClick = false; }, 80);
+      try {
+        localStorage.setItem(POS_KEY, JSON.stringify({
+          x: parseFloat(openBtn.style.left) || 14,
+          y: parseFloat(openBtn.style.top) || 14
+        }));
+      } catch (e) {}
+    }
+    dragState = null;
+  }
+  openBtn.addEventListener('pointerup', endDrag);
+  openBtn.addEventListener('pointercancel', endDrag);
+
+  openBtn.addEventListener('click', function (e) {
+    if (suppressClick) { e.preventDefault(); e.stopPropagation(); return; }
+    expandRail();
+  });
 
   // 手机端默认折叠
   if (window.innerWidth <= 768) collapseRail();
