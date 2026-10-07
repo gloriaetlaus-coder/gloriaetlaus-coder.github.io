@@ -4,95 +4,118 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Neverland</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root { --rail-w: 132px; }
+  :root {
+    --rail-w: 200px;
+    --cream: #FFF8E7;
+    --cream-2: #FFFDF6;
+    --pink: #FFB6C1;
+    --pink-soft: #FFD3E0;
+    --pink-deep: #E86A9A;
+    --lavender: #9B7EDE;
+    --lavender-soft: #DDD3FF;
+    --butter: #FFE066;
+    --butter-soft: #FFEFAF;
+    --sky-soft: #CFE5FF;
+    --ink: #6B5B7B;
+    --ink-soft: #8A7A96;
+    --font-cute: "Baloo 2", "ZCOOL KuaiLe", ui-rounded, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-body: "Nunito", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro SC", "SF Pro Text", "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    background: #ffffff;
-    color: #1d1d1f;
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--ink);
     -webkit-font-smoothing: antialiased;
+    overflow: hidden;
   }
 
-  /* ===== 左侧吸附栏 ===== */
+  /* ===== 左侧吸附栏（玻璃） ===== */
   .rail {
     position: fixed; top: 0; bottom: 0; left: 0;
     width: var(--rail-w);
-    background: linear-gradient(180deg, #ffd9e3 0%, #ffe7c8 38%, #fff3cd 62%, #cfe1ff 100%);
-    border-right: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.38);
+    backdrop-filter: blur(24px) saturate(170%);
+    -webkit-backdrop-filter: blur(24px) saturate(170%);
+    border-right: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.35);
     display: flex; flex-direction: column;
+    padding: 20px 14px;
+    gap: 8px;
     z-index: 5;
-    transition: transform 0.2s ease;
+    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
     overflow: hidden;
   }
   body.rail-collapsed .rail { transform: translateX(-100%); }
 
-  .rail-head {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin: 18px 6px 6px;
-    padding: 0 2px;
-  }
-
-  .rail-title, .rail-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 5px 8px;
-    padding: 10px 12px;
-    width: calc(var(--rail-w) - 16px);
-    border-radius: 11px;
-    font-size: 14px; color: #1d1d1f;
-    text-decoration: none; cursor: pointer;
-    white-space: nowrap;
-    background: rgba(255, 255, 255, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(8px) saturate(140%);
-    -webkit-backdrop-filter: blur(8px) saturate(140%);
-    transition: background 0.15s ease, color 0.15s ease;
-    box-sizing: border-box;
-  }
-  .rail-title { font-weight: 700; letter-spacing: -0.2px; }
-  .rail-title:hover { color: #d4af37; background: rgba(255, 255, 255, 0.5); }
-
+  .rail-head { display: flex; justify-content: flex-end; }
   .rail-fold {
     border: none; background: none; cursor: pointer;
-    font-family: inherit; font-size: 16px; color: #6e6e73; line-height: 1;
-    padding: 10px 9px; border-radius: 9px;
-    flex-shrink: 0;
-    transform: translateY(-2px);
+    font-family: var(--font-cute); font-size: 18px; color: #C9B6D9; line-height: 1;
+    padding: 6px 9px; border-radius: 9px;
+    transition: transform 0.15s ease, color 0.15s ease;
   }
-  .rail-fold:hover { color: #d4af37; background: rgba(255, 255, 255, 0.55); }
+  .rail-fold:hover { color: var(--lavender); transform: rotate(90deg) scale(1.15); }
 
-  .rail-item:hover { background: rgba(255, 255, 255, 0.5); color: #d4af37; }
-  .rail-item.active { background: rgba(255, 255, 255, 0.72); color: #d4af37; font-weight: 600; }
-
-  .rico {
-    display: inline-flex;
-    align-items: center;
+  .rail-title, .rail-item {
+    display: flex; align-items: center; gap: 9px;
+    padding: 11px 14px;
+    border-radius: 18px;
+    font-family: var(--font-body); font-size: 14px; font-weight: 700; color: var(--ink);
+    text-decoration: none; cursor: pointer; white-space: nowrap;
+    background: rgba(255, 255, 255, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    transition: transform 0.18s cubic-bezier(.34,1.56,.64,1), box-shadow 0.18s ease, border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+  }
+  .rail-title {
+    font-family: var(--font-cute); font-size: 17px; font-weight: 700; color: var(--lavender);
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 4px 14px rgba(255, 182, 193, 0.35);
     justify-content: center;
-    width: 1.3em;
-    font-size: 1.05em;
-    line-height: 1;
-    flex-shrink: 0;
+  }
+  .rail-item:hover {
+    transform: translateY(-2px) rotate(-1deg);
+    background: rgba(255, 255, 255, 0.62);
+    color: var(--pink-deep);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 5px 14px rgba(255, 182, 193, 0.4);
+  }
+  .rail-item.active {
+    background: rgba(255, 240, 244, 0.7);
+    border-color: rgba(255, 182, 193, 0.8);
+    color: var(--pink-deep);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 4px 12px rgba(255, 182, 193, 0.4);
   }
 
-  /* 折叠后的展开按钮：🍃 */
+  .rico { display: inline-flex; width: 1.35em; justify-content: center; font-size: 1.05em; flex-shrink: 0; }
+
+  /* 折叠后的展开按钮 */
   .rail-open {
     display: none;
     position: fixed; top: 14px; left: 14px;
-    width: 44px; height: 44px;
-    border: none; background: none; cursor: pointer;
+    width: 46px; height: 46px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 6px 18px rgba(155, 126, 222, 0.2);
+    cursor: pointer;
     padding: 0;
     z-index: 6;
-    font-size: 30px; line-height: 44px;
+    font-size: 26px; line-height: 42px;
     animation: leafsway 3.5s ease-in-out infinite;
     transform-origin: 50% 90%;
     transition: transform 0.15s ease;
   }
-  .rail-open:hover { animation: none; transform: scale(1.18); }
+  .rail-open:hover { animation: none; transform: scale(1.15) rotate(8deg); }
   body.rail-collapsed .rail-open { display: block; }
 
   /* ===== 右侧内容区 ===== */
@@ -100,137 +123,217 @@
     position: fixed; top: 0; right: 0; bottom: 0;
     left: var(--rail-w);
     overflow-y: auto;
-    transition: left 0.2s ease;
+    transition: left 0.25s cubic-bezier(.34,1.56,.64,1);
   }
   body.rail-collapsed .stage { left: 0; }
 
+  #frame { display: none; width: 100%; height: 100%; border: none; background: #ffffff; }
+
+  /* ===== homepage（一屏内完整呈现，不滚动） ===== */
   #home {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #ffd9e3 0%, #ffe7c8 38%, #fff3cd 62%, #cfe1ff 100%);
-    background-size: 250% 250%;
-    animation: bgdrift 14s ease-in-out infinite alternate;
+    position: relative;
+    height: 100vh;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    background: linear-gradient(135deg, #FFE9F0 0%, #F3ECFF 34%, #FFF6DC 66%, #E4F0FF 100%);
   }
 
-  #frame {
-    display: none;
-    width: 100%; height: 100%;
-    border: none;
-    background: #ffffff;
+  /* 玻璃后面流动的糖果色斑 */
+  .blob {
+    position: absolute; z-index: 0;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.75;
+    pointer-events: none;
+    animation: drift 16s ease-in-out infinite alternate;
+  }
+  .blob-1 { width: 42vw; height: 42vw; left: -8vw; top: -14vh; background: #FFC2D4; }
+  .blob-2 { width: 34vw; height: 34vw; right: -6vw; top: 6vh; background: #CBB8FF; animation-delay: -4s; }
+  .blob-3 { width: 38vw; height: 38vw; right: 10vw; bottom: -18vh; background: #FFEB9E; animation-delay: -8s; }
+  .blob-4 { width: 30vw; height: 30vw; left: 6vw; bottom: -12vh; background: #B8DCFF; animation-delay: -12s; }
+
+  @keyframes drift {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(4vw, 3vh) scale(1.12); }
   }
 
-  /* ===== homepage ===== */
-  .wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 32px; }
-  header { padding-top: 44px; padding-bottom: 36px; text-align: center; }
+  .wrap {
+    position: relative; z-index: 2;
+    flex: 1; min-height: 0;
+    width: 100%; max-width: 1040px; margin: 0 auto;
+    padding: 0 32px;
+    display: flex; flex-direction: column;
+  }
+
+  header { padding-top: max(18px, 2.6vh); padding-bottom: max(12px, 2vh); text-align: center; }
   .headline {
-    display: inline-flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-    column-gap: 16px;
-    row-gap: 6px;
-    color: #ffe07a;
-    animation: floaty 6s ease-in-out infinite alternate;
-    background: rgba(255, 255, 255, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    border-radius: 24px;
-    padding: 20px 40px;
-    backdrop-filter: blur(16px) saturate(150%);
-    -webkit-backdrop-filter: blur(16px) saturate(150%);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    position: relative;
+    display: inline-flex; flex-direction: column; align-items: center; gap: 4px;
+    background: rgba(255, 255, 255, 0.32);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 34px;
+    padding: max(20px, 3.2vh) 68px max(16px, 2.6vh);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 10px 32px rgba(255, 182, 193, 0.4);
+    transform: rotate(-1deg);
   }
-  h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
-  .tagline { font-size: 48px; font-weight: 700; letter-spacing: -0.5px; }
+  /* 钉在招牌上的小装饰 */
+  .pin { position: absolute; font-size: clamp(16px, 2.6vh, 24px); pointer-events: none; }
+  .pin-1 { top: -12px; right: 26px; transform: rotate(14deg); }
+  .pin-2 { bottom: -10px; left: 24px; transform: rotate(-10deg); }
+  h1 {
+    font-family: var(--font-cute);
+    font-size: clamp(46px, 8.8vh, 80px); font-weight: 800; letter-spacing: 0;
+    line-height: 1.02;
+  }
+  /* 每个字母自己的糖果色 + 波浪跳动 */
+  h1 span { display: inline-block; animation: letterwave 2.8s ease-in-out infinite; }
+  h1 span:nth-child(1) { color: #9B7EDE; animation-delay: 0s; }
+  h1 span:nth-child(2) { color: #E86A9A; animation-delay: .12s; }
+  h1 span:nth-child(3) { color: #4A90D9; animation-delay: .24s; }
+  h1 span:nth-child(4) { color: #E8A93C; animation-delay: .36s; }
+  h1 span:nth-child(5) { color: #5FBF8F; animation-delay: .48s; }
+  h1 span:nth-child(6) { color: #E86A9A; animation-delay: .6s; }
+  h1 span:nth-child(7) { color: #9B7EDE; animation-delay: .72s; }
+  h1 span:nth-child(8) { color: #4A90D9; animation-delay: .84s; }
+  h1 span:nth-child(9) { color: #E8A93C; animation-delay: .96s; }
+  .tagline {
+    font-family: var(--font-cute);
+    font-size: clamp(16px, 2.6vh, 22px); font-weight: 600;
+    color: var(--pink-deep);
+  }
 
-  main { padding-bottom: 64px; width: 100%; }
+  main { flex: 1; min-height: 0; display: flex; padding-bottom: max(18px, 3vh); }
 
   /* ===== 三大板块 ===== */
   .columns {
+    flex: 1;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
-    align-items: start;
+    gap: 24px;
+    align-items: stretch;
   }
+  .column { transform: rotate(-0.4deg); }
+  .column:nth-child(2) { transform: rotate(0.5deg) translateY(6px); }
+  .column:nth-child(3) { transform: rotate(-0.5deg); }
 
   .column {
-    display: flex;
-    flex-direction: column;
-    background: rgba(255, 255, 255, 0.28);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 22px;
-    padding: 18px 16px 20px;
-    backdrop-filter: blur(16px) saturate(150%);
-    -webkit-backdrop-filter: blur(16px) saturate(150%);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    display: flex; flex-direction: column; gap: 14px;
+    border-radius: 30px; padding: 18px 18px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    background: var(--glass, rgba(255, 255, 255, 0.26));
+    backdrop-filter: blur(20px) saturate(170%);
+    -webkit-backdrop-filter: blur(20px) saturate(170%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 8px 24px var(--glow);
   }
+  .col-coding { --glass: rgba(214, 234, 255, 0.34); --accent: #4A90D9; --glow: rgba(122, 165, 232, 0.3); }
+  .col-hobby  { --glass: rgba(255, 224, 236, 0.34); --accent: #E86A9A; --glow: rgba(237, 140, 184, 0.3); }
+  .col-career { --glass: rgba(255, 246, 216, 0.36); --accent: #C9A227; --glow: rgba(236, 217, 143, 0.32); }
 
-  .col-head { text-align: center; margin-bottom: 16px; }
+  .col-head { text-align: center; margin-bottom: 2px; flex-shrink: 0; }
   .col-head .en {
     display: block;
-    font-size: 23px; font-weight: 700; color: var(--accent, #1d1d1f);
-    letter-spacing: 0.3px;
+    font-family: var(--font-cute);
+    font-size: clamp(20px, 3.2vh, 26px); font-weight: 700; color: var(--accent);
+    transform: rotate(-1deg);
   }
+  .column:nth-child(2) .col-head .en { transform: rotate(1deg); }
   .col-head .cn {
     display: block;
-    font-size: 13px; color: rgba(29, 29, 31, 0.6);
-    margin-top: 3px; letter-spacing: 1px;
+    font-family: var(--font-body);
+    font-size: 12.5px; font-weight: 700; color: var(--ink-soft);
+    margin-top: 2px;
   }
-  .col-career .col-head .cn { color: #ecd98f; }
 
-  /* 每列自己的主题色 */
-  .col-coding  { --accent: #64a5e8; --glow: rgba(100, 165, 232, 0.55); }
-  .col-hobby   { --accent: #ed8cb8; --glow: rgba(237, 140, 184, 0.55); }
-  .col-career  { --accent: #ecd98f; --glow: rgba(236, 217, 143, 0.55); }
+  .col-coding { --accent: #4A90D9; --glow: rgba(122, 165, 232, 0.3); --line: rgba(255, 255, 255, 0.65); }
+  .col-hobby  { --accent: #E86A9A; --glow: rgba(237, 140, 184, 0.3); --line: rgba(255, 255, 255, 0.65); }
+  .col-career { --accent: #C9A227; --glow: rgba(236, 217, 143, 0.32); --line: rgba(255, 255, 255, 0.65); }
 
   .card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex: 0 0 auto;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
     text-align: center;
-    background: rgba(255, 255, 255, 0.32);
+    background: rgba(255, 255, 255, 0.38);
     backdrop-filter: blur(28px) saturate(180%);
     -webkit-backdrop-filter: blur(28px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-    border-radius: 18px;
-    padding: 22px 18px 20px;
-    margin-top: 12px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 12px 16px;
     text-decoration: none;
-    color: #1d1d1f;
+    color: var(--ink);
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    animation: floaty 3.6s ease-in-out infinite alternate, glow 3.2s ease-in-out infinite alternate;
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 6px 16px var(--glow);
   }
-  .column .card:first-of-type { margin-top: 0; }
-  .card:hover { animation: none; transform: translateY(-6px); text-decoration: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 12px 28px rgba(0, 0, 0, 0.1); }
-  .card .icon { width: 40px; height: 40px; }
-  .card .icon svg { width: 40px; height: 40px; display: block; }
-  .card .name { margin-top: 16px; font-size: 19px; font-weight: 600; color: var(--accent, #1d1d1f); }
-  .card .desc { margin-top: 6px; font-size: 13px; color: var(--accent, #1d1d1f); line-height: 1.5; font-weight: 600; }
+  /* 参差不齐：每张卡自己的角度 + 高低错落 */
+  .col-coding .card:nth-of-type(1)  { transform: rotate(-2deg); }
+  .col-coding .card:nth-of-type(2)  { transform: rotate(2.2deg) translateY(10px); }
+  .col-hobby .card:nth-of-type(1)   { transform: rotate(2deg) translateY(16px); }
+  .col-hobby .card:nth-of-type(2)   { transform: rotate(-2.4deg) translateY(4px); }
+  .col-career .card:nth-of-type(1)  { transform: rotate(-2.2deg) translateY(8px); }
+  .col-career .card:nth-of-type(2)  { transform: rotate(2deg) translateY(20px); }
 
-  .column .card:nth-of-type(1) { animation-delay: 0s, 0s; }
-  .column .card:nth-of-type(2) { animation-delay: 0.6s, 0.4s; }
+  .card:hover {
+    transform: translateY(-6px) rotate(0deg) scale(1.04);
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 14px 30px var(--glow);
+    text-decoration: none;
+  }
+  .card:hover .icon { animation: wiggle 0.45s ease-in-out; }
 
-  .column .icon svg [stroke] { stroke: var(--accent); }
+  .card .icon { font-size: clamp(26px, 4.4vh, 38px); line-height: 1; }
+  .card .name {
+    margin-top: 6px;
+    font-family: var(--font-cute);
+    font-size: clamp(15px, 2.3vh, 19px); font-weight: 700; color: var(--accent);
+  }
+  .card .desc {
+    margin-top: 2px;
+    font-family: var(--font-body);
+    font-size: 11.5px; font-weight: 700; color: #9A8FAB; line-height: 1.4;
+  }
 
-  @keyframes bgdrift { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
-  @keyframes floaty { from { transform: translateY(0); } to { transform: translateY(-10px); } }
-  @keyframes glow {
-    from { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 18px var(--glow, rgba(255, 255, 255, 0.4)); }
-    to { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 46px var(--glow, rgba(255, 255, 255, 0.4)); }
+  /* ===== 动画 ===== */
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+    50% { transform: translateY(-7px) rotate(0.5deg); }
+  }
+  @keyframes letterwave {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-7px) rotate(2.5deg); }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-9deg) scale(1.12); }
+    60% { transform: rotate(8deg) scale(1.1); }
   }
   @keyframes leafsway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg); } }
 
-  /* ===== 手机端 ===== */
+  @media (prefers-reduced-motion: reduce) {
+    .headline, .rail-open, .blob, h1 span { animation: none; }
+  }
+
+  /* ===== 手机端（同样保持一屏不滚动） ===== */
   @media (max-width: 768px) {
     .stage { left: 0; }
-    body:not(.rail-collapsed) .rail { box-shadow: 0 0 28px rgba(0, 0, 0, 0.18); }
-    header { padding-top: 44px; padding-bottom: 26px; }
-    h1 { font-size: 34px; }
-    .tagline { font-size: 34px; }
-    .headline { padding: 16px 22px; border-radius: 20px; }
-    .columns { grid-template-columns: 1fr; gap: 16px; }
-    .col-head .en { font-size: 21px; }
+    body:not(.rail-collapsed) .rail { box-shadow: 0 0 28px rgba(155, 126, 222, 0.25); }
+    .wrap { padding: 0 14px; }
+    header { padding-top: 12px; padding-bottom: 10px; }
+    .headline { padding: 10px 20px; border-radius: 20px; }
+    h1 { font-size: clamp(26px, 5.6vh, 36px); }
+    .tagline { font-size: clamp(12px, 2vh, 15px); }
+    .columns { gap: 10px; }
+    .column { gap: 10px; padding: 12px 10px 14px; border-radius: 22px; }
+    .col-head .cn { font-size: 10.5px; }
+    .card { border-radius: 18px; padding: 8px 8px; gap: 0; }
+    .card .desc { font-size: 10px; line-height: 1.35; }
+    .card .name { margin-top: 5px; }
+    .col-coding .card:nth-of-type(2) { transform: rotate(2.2deg) translateY(6px); }
+    .col-hobby .card:nth-of-type(1)  { transform: rotate(2deg) translateY(8px); }
+    .col-hobby .card:nth-of-type(2)  { transform: rotate(-2.4deg) translateY(2px); }
+    .col-career .card:nth-of-type(1) { transform: rotate(-2.2deg) translateY(4px); }
+    .col-career .card:nth-of-type(2) { transform: rotate(2deg) translateY(10px); }
   }
   @media (max-width: 380px) {
     .wrap { padding: 0 20px; }
@@ -245,7 +348,7 @@
       <button class="rail-fold" type="button" onclick="collapseRail()" aria-label="折叠导航栏">&#171;</button>
     </div>
     <a class="rail-title" onclick="showHome()"><span class="rico">&#10024;</span>Neverland</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/good-day-mvp/"><span class="rico">&#129668;</span>Good Day</a>
+    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/good-day-mvp/"><span class="rico">&#127780;</span>Good Day</a>
     <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/growth/"><span class="rico">&#127793;</span>Growth</a>
     <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/"><span class="rico">&#128240;</span>News</a>
     <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/never-speaking/"><span class="rico">&#128172;</span>English</a>
@@ -258,10 +361,19 @@
   <div class="stage" id="stage">
 
     <div id="home">
+
+      <!-- 玻璃后的流动色斑 -->
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="blob blob-4"></div>
+
       <div class="wrap">
         <header>
           <div class="headline">
-            <h1>Neverland</h1>
+            <span class="pin pin-1">&#10022;</span>
+            <span class="pin pin-2">&#10023;</span>
+            <h1><span>N</span><span>e</span><span>v</span><span>e</span><span>r</span><span>l</span><span>a</span><span>n</span><span>d</span></h1>
             <span class="tagline">&middot; Thinking Creating Changing</span>
           </div>
         </header>
@@ -273,30 +385,19 @@
             <section class="column col-coding">
               <div class="col-head">
                 <span class="en">Coding</span>
-                <span class="cn">代码与工具</span>
+                <span class="cn">代码与工具 · make things</span>
               </div>
 
               <a class="card" href="https://gloriaetlaus-coder.github.io/good-day-mvp/">
-                <span class="icon">
-                  <svg viewBox="0 0 40 40" fill="none">
-                    <path d="M8 32L27 13" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M25 8L26.5 12.5L31 14L26.5 15.5L25 20L23.5 15.5L19 14L23.5 12.5Z" stroke="#0071E3" stroke-width="2" stroke-linejoin="round"/>
-                    <path d="M31 21L31.9 23.6L34.5 24.5L31.9 25.4L31 28L30.1 25.4L27.5 24.5L30.1 23.6Z" stroke="#0071E3" stroke-width="1.8" stroke-linejoin="round"/>
-                  </svg>
-                </span>
+                <span class="icon">&#129684;</span>
                 <div class="name">Good Day</div>
-                <div class="desc">小工具</div>
+                <div class="desc">小工具 · 今天也要开心</div>
               </a>
 
               <a class="card" href="https://gloriaetlaus-coder.github.io/neverland/2026/09/26/">
-                <span class="icon">
-                  <svg viewBox="0 0 40 40" fill="none">
-                    <path d="M8 10V28H20V10H8Z M20 14L31 12V27H20" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                    <path d="M12 15H16M12 19H16" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-                  </svg>
-                </span>
+                <span class="icon">&#128240;</span>
                 <div class="name">News</div>
-                <div class="desc">每日简报</div>
+                <div class="desc">每日简报 · 早报时间</div>
               </a>
             </section>
 
@@ -304,31 +405,19 @@
             <section class="column col-hobby">
               <div class="col-head">
                 <span class="en">Hobby</span>
-                <span class="cn">兴趣与生长</span>
+                <span class="cn">兴趣与生长 · grow wild</span>
               </div>
 
               <a class="card" href="https://gloriaetlaus-coder.github.io/growth/">
-                <span class="icon">
-                  <svg viewBox="0 0 40 40" fill="none">
-                    <path d="M20 33V14" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M20 15C20 15 12 14 11 6C19 6 20 15 20 15Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                    <path d="M20 20C20 20 28 19 29 11C21 11 20 20 20 20Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                    <path d="M8 33H32" stroke="#0071E3" stroke-width="2.2" stroke-linecap="round"/>
-                  </svg>
-                </span>
+                <span class="icon">&#127793;</span>
                 <div class="name">Growth</div>
-                <div class="desc">生长轨迹</div>
+                <div class="desc">生长轨迹 · 慢慢长</div>
               </a>
 
               <a class="card" href="https://gloriaetlaus-coder.github.io/never-speaking/">
-                <span class="icon">
-                  <svg viewBox="0 0 40 40" fill="none">
-                    <path d="M6 12C6 9.2 8.2 7 11 7H23C25.8 7 28 9.2 28 12V18C28 20.8 25.8 23 23 23H16L9 29V23H6V12Z" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                    <path d="M31 13C33.2 13.8 35 15.9 35 18.5V30H31.5L26 34.5V30H24" stroke="#0071E3" stroke-width="2.2" stroke-linejoin="round"/>
-                  </svg>
-                </span>
+                <span class="icon">&#128172;</span>
                 <div class="name">English</div>
-                <div class="desc">英语跟练</div>
+                <div class="desc">英语跟练 · 开口说</div>
               </a>
             </section>
 
@@ -336,33 +425,19 @@
             <section class="column col-career">
               <div class="col-head">
                 <span class="en">Career</span>
-                <span class="cn">求职与履历</span>
+                <span class="cn">求职与履历 · get that bag</span>
               </div>
 
               <a class="card" href="https://gloriaetlaus-coder.github.io/jobkit/job_board.html">
-                <span class="icon">
-                  <svg viewBox="0 0 40 40" fill="none">
-                    <rect x="5" y="7" width="30" height="26" rx="3" stroke="#0071E3" stroke-width="2.2"/>
-                    <path d="M5 14H35" stroke="#0071E3" stroke-width="2.2"/>
-                    <rect x="10" y="18" width="7" height="10" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
-                    <rect x="21" y="18" width="9" height="5" rx="1.5" stroke="#0071E3" stroke-width="2.2"/>
-                  </svg>
-                </span>
+                <span class="icon">&#128203;</span>
                 <div class="name">Job Kit</div>
-                <div class="desc">求职看板</div>
+                <div class="desc">求职看板 · 冲鸭</div>
               </a>
 
               <a class="card" href="https://gloriaetlaus-coder.github.io/career/">
-                <span class="icon">
-                  <svg viewBox="0 0 40 40" fill="none">
-                    <rect x="5" y="13" width="30" height="19" rx="3" stroke="#0071E3" stroke-width="2.2"/>
-                    <path d="M14 13V10.5C14 9.1 15.1 8 16.5 8H23.5C24.9 8 26 9.1 26 10.5V13" stroke="#0071E3" stroke-width="2.2"/>
-                    <path d="M5 21.5H35" stroke="#0071E3" stroke-width="2.2"/>
-                    <path d="M17 13V18M23 13V18" stroke="#0071E3" stroke-width="2.2"/>
-                  </svg>
-                </span>
+                <span class="icon">&#128188;</span>
                 <div class="name">Resume</div>
-                <div class="desc">个人简历网站</div>
+                <div class="desc">个人简历网站 · 我是谁</div>
               </a>
             </section>
 
