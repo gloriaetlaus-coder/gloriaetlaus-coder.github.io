@@ -163,12 +163,29 @@
       background: #ffffff;
       min-height: 36px;
     }
-    .main.collapsed .mobile-cal-label {
-      display: flex !important; align-items: center; gap: 6px;
-      font-size: 13px; font-weight: 600; color: #1d1d1f;
+    /* 移动端顶部标题栏: 🌍 + NEWS 每日简报 (始终可见, 点击地球展开/收起) */
+    .mobile-cal-label {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #4f46e5;
       white-space: nowrap;
+      padding: 6px 0;
+      cursor: pointer;
+      width: 100%;
+      border-bottom: 1px solid #f0f0f5;
     }
-    .main.collapsed .collapse-btn { position: static; }
+    .mobile-cal-label .globe { font-size: 22px; line-height: 1; }
+    /* 移动端用 🌍 当折叠按钮, 隐藏原 › 按钮 */
+    .collapse-btn { display: none !important; }
+    /* 禁止横向滚动 + 确保内容满宽 */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    .main { width: 100% !important; overflow-x: hidden; }
+    .reader { width: 100% !important; overflow-x: hidden; }
+    iframe { width: 100% !important; display: block; }
   }
 </style>
 </head>
@@ -178,7 +195,10 @@
     <!-- 左侧栏: 头部信息 + 日历 -->
     <aside class="cal">
       <button class="collapse-btn" type="button" onclick="toggleCollapse()" aria-label="折叠/展开侧栏" id="collapse-btn">‹</button>
-      <div class="mobile-cal-label">📅 选择日期</div>
+      <div class="mobile-cal-label" onclick="toggleCollapse()" role="button" aria-label="展开/收起日历">
+        <span class="globe">🌍</span>
+        <span class="title-text">NEWS 每日简报</span>
+      </div>
       <div class="sidebar-hero">
         <div class="logo">🌍</div>
         <div class="title">NEWS 每日简报</div>
