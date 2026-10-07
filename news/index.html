@@ -47,7 +47,7 @@
     overflow: hidden;
     background: transparent;
   }
-  .main.collapsed .cal > *:not(.collapse-btn) { display: none; }
+  .main.collapsed .cal > *:not(.collapse-btn):not(.mobile-cal-label) { display: none; }
   .main.collapsed .collapse-btn {
     position: static; margin: 0 auto;
     border-color: #d2d2d7;
@@ -106,6 +106,7 @@
   .dot { width: 4px; height: 4px; border-radius: 50%; background: #0071e3; margin-top: 3px; }
   .cell.today .dot, .cell.selected .dot { background: #ffffff; }
   .cal-hint { margin-top: 14px; font-size: 12px; color: #8e8e93; line-height: 1.6; text-align: center; }
+  .mobile-cal-label { display: none; }
 
   /* 右侧阅读区 */
   .reader { flex: 1; display: flex; flex-direction: column; background: #f5f5f7; min-width: 0; }
@@ -117,11 +118,47 @@
   }
   .empty .big { font-size: 40px; }
 
-  /* 手机端: 上下堆叠 */
+  /* 手机端: 紧凑日历 + 抽屉式折叠 */
   @media (max-width: 860px) {
-    .main { flex-direction: column; height: auto; }
-    .cal { width: 100%; border-right: none; border-bottom: 1px solid #d2d2d7; max-height: 56vh; }
-    .reader { height: 78vh; }
+    .main {
+      flex-direction: column; height: auto; min-height: 100vh;
+    }
+    .cal {
+      width: 100%; border-right: none; border-bottom: 1px solid #d2d2d7;
+      padding: 10px 12px 12px; overflow-y: auto; flex-shrink: 0;
+    }
+    .reader {
+      flex: 1 1 auto; min-height: 480px; height: auto;
+    }
+    /* 紧凑 hero: 横排小条 */
+    .sidebar-hero {
+      padding: 8px 10px; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 10px; text-align: left;
+      border-radius: 10px;
+    }
+    .sidebar-hero .logo { font-size: 1.3rem; margin-bottom: 0; }
+    .sidebar-hero .title { font-size: 0.92rem; margin-bottom: 0; letter-spacing: 1px; }
+    .sidebar-hero .badge, .sidebar-hero .footer-text { display: none; }
+    /* 紧凑日历控件 */
+    .cal-head { margin-bottom: 6px; }
+    .cal-title { font-size: 13px; }
+    .nav-btn { width: 26px; height: 26px; font-size: 12px; }
+    .weekdays div { font-size: 10px; padding: 2px 0; }
+    .grid { gap: 2px; }
+    .cell .num { font-size: 12px; width: 26px; height: 26px; }
+    .dot { width: 3px; height: 3px; margin-top: 2px; }
+    .cal-hint { display: none; }
+    /* 手机折叠态: 顶部薄条 */
+    .main.collapsed .cal {
+      padding: 6px 12px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: #ffffff;
+    }
+    .main.collapsed .mobile-cal-label {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 600; color: #1d1d1f;
+    }
+    .main.collapsed .collapse-btn { position: static; }
   }
 </style>
 </head>
@@ -131,6 +168,7 @@
     <!-- 左侧栏: 头部信息 + 日历 -->
     <aside class="cal">
       <button class="collapse-btn" type="button" onclick="toggleCollapse()" aria-label="折叠/展开侧栏" id="collapse-btn">‹</button>
+      <div class="mobile-cal-label">📅 选择日期</div>
       <div class="sidebar-hero">
         <div class="logo">🌍</div>
         <div class="title">NEWS 每日简报</div>
@@ -174,7 +212,18 @@
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
   function ymd(y, m, d) { return y + '-' + pad(m + 1) + '-' + pad(d); }
 
+  function applyResponsiveCollapse() {
+    var main = document.querySelector('.main');
+    var btn = document.getElementById('collapse-btn');
+    if (window.innerWidth <= 860) {
+      main.classList.add('collapsed');
+      btn.textContent = '›';
+      btn.setAttribute('aria-label', '展开侧栏');
+    }
+  }
+
   function init() {
+    applyResponsiveCollapse();
     fetch(DATES_URL).then(function (r) { return r.ok ? r.json() : []; }).then(function (arr) {
       (arr || []).forEach(function (d) { dates.add(d); });
       var hash = location.hash.replace('#', '');
@@ -239,6 +288,11 @@
     else location.hash = key;
     render();
     load(key);
+    // 手机端选完日期自动收起日历, 把空间留给简报正文
+    if (window.innerWidth <= 860) {
+      var main = document.querySelector('.main');
+      if (!main.classList.contains('collapsed')) toggleCollapse();
+    }
   }
 
   function load(key) {
@@ -270,6 +324,7 @@
     var hash = location.hash.replace('#', '');
     if (hash && dates.has(hash) && hash !== selected) select(hash);
   });
+  window.addEventListener('resize', applyResponsiveCollapse);
 
   init();
 </script>
