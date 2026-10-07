@@ -120,6 +120,8 @@
 
   /* 手机 / 窄屏 + Safari「请求桌面版网站」模式(980px) 都走紧凑布局, 关键规则 !important 兜底 */
   @media (max-width: 1024px) {
+    /* 移动端标题已用 mobile-cal-label, 隐藏桌面侧栏 hero 避免重复 */
+    .sidebar-hero { display: none !important; }
     .main {
       flex-direction: column !important;
       height: auto !important;
