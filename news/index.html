@@ -225,7 +225,7 @@
   function applyResponsiveCollapse() {
     var main = document.querySelector('.main');
     var btn = document.getElementById('collapse-btn');
-    if (window.innerWidth <= 860) {
+    if (window.innerWidth <= 1024) {
       main.classList.add('collapsed');
       btn.textContent = '›';
       btn.setAttribute('aria-label', '展开侧栏');
@@ -299,7 +299,7 @@
     render();
     load(key);
     // 手机端选完日期自动收起日历, 把空间留给简报正文
-    if (window.innerWidth <= 860) {
+    if (window.innerWidth <= 1024) {
       var main = document.querySelector('.main');
       if (!main.classList.contains('collapsed')) toggleCollapse();
     }
