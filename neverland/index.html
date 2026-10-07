@@ -572,6 +572,11 @@
 
   // 手机端默认折叠
   if (window.innerWidth <= 768) collapseRail();
+
+  // 注册 service worker：页面导航走 network-first，线上更新即时生效
+  if ('serviceWorker' in navigator && location.protocol === 'https:') {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  }
 </script>
 </body>
 </html>
