@@ -166,19 +166,21 @@
     /* 移动端顶部标题栏: 🌍 + NEWS 每日简报 (始终可见, 点击地球展开/收起) */
     .mobile-cal-label {
       display: flex !important;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      font-size: 15px;
-      font-weight: 700;
+      gap: 2px;
+      font-size: 14px;
+      font-weight: 800;
       color: #4f46e5;
       white-space: nowrap;
-      padding: 6px 0;
+      padding: 10px 0 12px;
       cursor: pointer;
       width: 100%;
       border-bottom: 1px solid #f0f0f5;
+      letter-spacing: 0.5px;
     }
-    .mobile-cal-label .globe { font-size: 22px; line-height: 1; }
+    .mobile-cal-label .globe { font-size: 34px; line-height: 1; }
     /* 移动端用 🌍 当折叠按钮, 隐藏原 › 按钮 */
     .collapse-btn { display: none !important; }
     /* 禁止横向滚动 + 确保内容满宽 */
