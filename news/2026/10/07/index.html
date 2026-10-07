@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>🌍 News 每日简报 | 2026年10月7日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 12px 14px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    width: 100%; max-width: 100%;
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  .category.ai        { background: #e0f2fe; border: 1px solid #bae6fd; }
+  .category.finance   { background: #d1fae5; border: 1px solid #a7f3d0; }
+  .category.politics  { background: #ffe4e6; border: 1px solid #fecdd3; }
+  .category.business  { background: #ede9fe; border: 1px solid #ddd6fe; }
+  .card.ai .cat-tag       { background: #ffffff; color: #1e40af; border-color: #93c5fd; }
+  .card.finance .cat-tag  { background: #ffffff; color: #065f46; border-color: #6ee7b7; }
+  .card.politics .cat-tag { background: #ffffff; color: #991b1b; border-color: #fca5a5; }
+  .card.business .cat-tag { background: #ffffff; color: #5b21b6; border-color: #c4b5fd; }
+
+  .category {
+    border-radius: 14px;
+    padding: 12px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .cat-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.78rem; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px;
+    border: 1px solid;
+    flex-shrink: 0; margin-top: 2px;
+    white-space: nowrap;
+  }
+  .cat-tag .ico { font-size: 0.92rem; line-height: 1; }
+  .card {
+    background: #ffffff; border: 1px solid #e5e9f2; border-radius: 12px;
+    padding: 16px 22px; width: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1); transform: translateY(-1px); }
+  .card-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 14px; padding-left: 12px; margin-bottom: 10px;
+  }
+  .card-title {
+    font-size: 1rem; font-weight: 700; color: #111827;
+    line-height: 1.5; flex: 1; min-width: 0;
+    text-wrap: balance;
+  }
+  .card-header .source {
+    flex-shrink: 0; margin-top: 1px;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.76rem; color: #6b7280; background: #f9fafb;
+    padding: 3px 9px; border-radius: 8px; border: 1px solid #f3f4f6;
+    white-space: nowrap;
+  }
+  .points { list-style: none; margin: 0; padding-left: 12px; }
+  .points li {
+    display: flex; gap: 8px; margin-bottom: 5px;
+    font-size: 0.9rem; color: #374151; line-height: 1.5;
+    text-wrap: pretty;
+  }
+  .points li:last-child { margin-bottom: 0; }
+  .points li::before {
+    content: attr(data-num);
+    min-width: 20px; height: 20px; background: #f3f4f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: #6b7280; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  @media (max-width: 480px) {
+    body { padding: 10px; }
+    .card { padding: 14px; }
+    .card-title { font-size: 0.96rem; }
+    .points li { font-size: 0.86rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="category">
+
+    <div class="card ai">
+      <div class="card-header">
+        <span class="cat-tag"><span class="ico">🤖</span>科技 AI</span>
+        <div class="card-title">OpenAI DevDay 2026 发布 GPT-6.1 Sol、Agents API 与 ChatGPT Space</div>
+        <div class="source">🔗 来源：aistartupedge.com / news.abai.cloud</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">GPT-6.1 Sol 正式发布，输入 $2/百万Token、输出 $10/百万Token，价格大幅下降，性能接近 Astra 水平</li>
+        <li data-num="2">Agents API 新增 Computer Use 功能，支持代码执行与云端 Codex 环境，另有 Decisions API 上线</li>
+        <li data-num="3">ChatGPT Work 周活用户突破 3500 万，Dots 持续任务代理持续迭代</li>
+        <li data-num="4">Meta 同期升级 Muse 集成 Shopify 购物与邮件日历功能，Amazon 则申请退出 Muse 代理访问白名单</li>
+      </ul>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <span class="cat-tag"><span class="ico">🤖</span>科技 AI</span>
+        <div class="card-title">Anthropic 发布 Sonnet 5.5 并披露 IPO 招股书：估值或超 $2 万亿</div>
+        <div class="source">🔗 来源：aistartupedge.com / techcrunch</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">Sonnet 5.5 速度提升 30%、成本降低 30%，主打日常 Agent 与办公场景</li>
+        <li data-num="2">Anthropic IPO 招股书曝光：2025 年营收约 $46 亿，但基础设施支出高达 $73 亿，未来算力承诺约 $5180 亿</li>
+        <li data-num="3">Claude for Government 正式向美国联邦及州级机构提供 FedRAMP High 环境部署</li>
+      </ul>
+    </div>
+    <div class="card ai">
+      <div class="card-header">
+        <span class="cat-tag"><span class="ico">🤖</span>科技 AI</span>
+        <div class="card-title">挪威提议公共场所临时禁用 AI 眼镜，苹果强化 Mac AI 权限提示</div>
+        <div class="source">🔗 来源：business-standard.com / thedailystar.net</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">挪威政府拟对学校、医院、公园、海滩等公共场所使用 AI 眼镜实施临时禁令，以保护隐私</li>
+        <li data-num="2">苹果宣布将改变 macOS 系统，AI Agent 访问整机数据时必须向用户发出明确弹窗提示</li>
+        <li data-num="3">Wikipedia 披露 OpenAI AI 代理曾大规模探测其平台并发送数百万自动化请求，部分导致服务中断</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="category">
+
+    <div class="card finance">
+      <div class="card-header">
+        <span class="cat-tag"><span class="ico">💹</span>财经 投资</span>
+        <div class="card-title">特斯拉 Q3 交付量超预期 + 欧美央行持续加息压力</div>
+        <div class="source">🔗 来源：emeraldadv.com / newshunt.io / westernsouthern.com</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">特斯拉 Q3 交付 486,532 辆，超市场预期约 2.5 万辆，股价当日大涨 5.5%，但连续两季消耗库存超 2.2 万辆</li>
+        <li data-num="2">美联储 9 月加息 25 个基点，10 月 28 日议息会议前市场定价约 35% 概率再度加息；10 年期美债收益率创 2007 年以来新高</li>
+        <li data-num="3">欧洲债券市场震荡：法国 10 年期国债收益率飙至 2002 年以来最高，法德利差创欧债危机以来最大，意大利意外成为资金避风港</li>
+      </ul>
+    </div>
+    <div class="card finance">
+      <div class="card-header">
+        <span class="cat-tag"><span class="ico">💹</span>财经 投资</span>
+        <div class="card-title">全球 AI 投资持续火热，美股财报季即将登场</div>
+        <div class="source">🔗 来源：am.pictet.com / talkmarkets.com / toutiao.com</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">皮凯特资管：全球 AI 算力硬件年化增速超 20%，AI 相关支出已贡献全球企业盈利增长超 50%</li>
+        <li data-num="2">Alphabet、亚马逊、微软即将于 10 月发布 Q3 财报，三大科技巨头 AI 基础设施资本支出是市场关注焦点</li>
+        <li data-num="3">摩根士丹利警告：AI 驱动的美股繁荣与央行债务收紧并存，"债市的平静"才是真正考验</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="category">
+
+    <div class="card politics">
+      <div class="card-header">
+        <span class="cat-tag"><span class="ico">🌐</span>国际 政治</span>
+        <div class="card-title">美伊冲突持续升级，霍尔木兹海峡石油出口恢复至战前 80%</div>
+        <div class="source">🔗 来源：zerofox.com / warmonit.com / faf.ae</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">美国向中东派遣第三艘航母，特朗普警告若 Flydubai 航班刺袭事件证实与伊朗有关，将"强力"回击</li>
+        <li data-num="2">霍尔木兹海峡石油运输已恢复至战前约 80%（日产 1300-1400 万桶），伊朗自身石油出口因美海军封锁已完全停止</li>
+        <li data-num="3">胡塞武装夺取也门红海沿岸全部剩余领土，可在曼德海峡复制伊朗封锁战术，进一步威胁全球能源航运</li>
+      </ul>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <span class="cat-tag"><span class="ico">🌐</span>国际 政治</span>
+        <div class="card-title">厄立特里亚与埃塞俄比亚断交，乌克兰首次使用国产弹道导弹</div>
+        <div class="source">🔗 来源：faf.ae / warmonit.com / ena.et</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">厄立特里亚切断与埃塞俄比亚外交关系，导火索为埃塞指控厄、苏丹、埃及支持提格雷人民解放阵线武装</li>
+        <li data-num="2">乌克兰首次实战使用国产 FP-7 近程弹道导弹（射程约 200 公里），并加速研发远程版本 FP-9，正从外援依赖转向自主军工</li>
+        <li data-num="3">泽连斯基宣布将加大对俄罗斯炼油厂袭击力度；德国总理访乌承诺 10 亿欧元军援与 3.5 亿欧元能源修复资金</li>
+      </ul>
+    </div>
+    <div class="card politics">
+      <div class="card-header">
+        <span class="cat-tag"><span class="ico">🌐</span>国际 政治</span>
+        <div class="card-title">巴西大选首轮投票结束，中国二十届三中全会 10 月 26 日开幕</div>
+        <div class="source">🔗 来源：albertrussellthompson.com / isa-world.com</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">巴西 10 月 4 日举行大选首轮投票，若无候选人过半数将于 25 日进行决选；特朗普已公开向极右翼候选人小博索纳罗施压</li>
+        <li data-num="2">拉脱维亚 10 月 3 日完成议会选举，围绕波罗的海防务合作与对乌援助展开激烈博弈</li>
+        <li data-num="3">中国二十届三中全会 10 月 26-29 日召开，将为 2027 年二十一大做准备，当前中央委员会约 2/3 委员面临强制退休，标志世代交替启动</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="category">
+
+    <div class="card business">
+      <div class="card-header">
+        <span class="cat-tag"><span class="ico">🚀</span>商业 创业</span>
+        <div class="card-title">Instinct AI 融资 $10 亿估值 $100 亿领跑，OpenAI 拟再融资 $300 亿</div>
+        <div class="source">🔗 来源：worldstartupnews.com / startupwired.com / overnightsuccess.vc</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">AI 助手开发商 Instinct 获得 $10 亿美元 C 轮融资，估值达 $100 亿美元，标志着 AI Agent 赛道进入超级融资阶段</li>
+        <li data-num="2">OpenAI 据悉正洽谈超 $300 亿新融资，估值高达 $1.4 万亿美元；ElevenLabs 完成 $3 亿员工要约，估值翻倍至 $220 亿</li>
+        <li data-num="3">澳大利亚 Baseten（AI 推理基础设施）正融资 $20-25 亿，估值约 $260 亿，Blackbird 为早期支持方</li>
+      </ul>
+    </div>
+    <div class="card business">
+      <div class="card-header">
+        <span class="cat-tag"><span class="ico">🚀</span>商业 创业</span>
+        <div class="card-title">Marine Tech 融资热潮：Saronic 领衔 $17.5 亿，HCLTech 收购 Robotiq.ai</div>
+        <div class="source">🔗 来源：brief.news / fundreef.com / asiabusinessoutlook.com</div>
+      </div>
+      <ul class="points">
+        <li data-num="1">海上自主航行成新风口：Marine 初创企业累计融资近 $30 亿，Saronic（奥斯汀）以 $17.5 亿领跑专注无人水面舰艇</li>
+        <li data-num="2">HCLTech 宣布收购克罗地亚 RPA 公司 Robotiq.ai，交易对价约 900 万欧元，预计 2026 年底前完成</li>
+        <li data-num="3">TikTok 推出 AI 购物助手与 Buy Direct 功能，AI 赋能社交电商版图加速扩张</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>
