@@ -166,19 +166,7 @@
   }
   body.rail-collapsed .stage { left: 0; }
 
-  #frame { display: none; width: 100%; height: 100%; border: none; background: #ffffff; }
 
-  /* iframe 模式 + 吸附栏"临时展开"时：铺透明拦截层，点它收栏
-     （iframe 内部的点击传不到外层页面，必须靠这层兜住；
-       桌面端正常常开状态不铺，避免挡住子页面操作） */
-  .scrim { display: none; }
-  body.in-frame.rail-temp-expanded:not(.rail-collapsed) .scrim {
-    display: block;
-    position: fixed; top: 0; right: 0; bottom: 0; left: 0;
-    z-index: 4; /* 低于吸附栏(5)和泡泡按钮(6)，高于 iframe */
-    background: transparent;
-    cursor: pointer;
-  }
 
   /* ===== homepage（一屏内完整呈现，不滚动） ===== */
   #home {
@@ -403,13 +391,13 @@
     <div class="rail-head">
       <button class="rail-fold" type="button" onclick="collapseRail()" aria-label="折叠导航栏">&#171;</button>
     </div>
-    <a class="rail-title" onclick="showHome()"><span class="rico">&#10024;</span>Neverland</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/good-day-mvp/"><span class="rico">&#127780;</span>Good Day</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/growth/"><span class="rico">&#127793;</span>Growth</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/news/"><span class="rico">&#128240;</span>News</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/never-speaking/"><span class="rico">&#128172;</span>English</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/jobkit/job_board.html"><span class="rico">&#128203;</span>Jobkit</a>
-    <a class="rail-item" data-url="https://gloriaetlaus-coder.github.io/career/"><span class="rico">&#128188;</span>Resume</a>
+    <a class="rail-title" href="https://gloriaetlaus-coder.github.io/neverland/"><span class="rico">&#10024;</span>Neverland</a>
+    <a class="rail-item" href="https://gloriaetlaus-coder.github.io/good-day-mvp/"><span class="rico">&#127780;</span>Good Day</a>
+    <a class="rail-item" href="https://gloriaetlaus-coder.github.io/growth/"><span class="rico">&#127793;</span>Growth</a>
+    <a class="rail-item" href="https://gloriaetlaus-coder.github.io/news/"><span class="rico">&#128240;</span>News</a>
+    <a class="rail-item" href="https://gloriaetlaus-coder.github.io/never-speaking/"><span class="rico">&#128172;</span>English</a>
+    <a class="rail-item" href="https://gloriaetlaus-coder.github.io/jobkit/job_board.html"><span class="rico">&#128203;</span>Jobkit</a>
+    <a class="rail-item" href="https://gloriaetlaus-coder.github.io/career/"><span class="rico">&#128188;</span>Resume</a>
   </nav>
   <button class="rail-open" type="button" aria-label="回到首页 / 展开导航栏">&#129767;</button>
 
@@ -502,58 +490,11 @@
       </div>
     </div>
 
-    <iframe id="frame" title="content"></iframe>
   </div>
 
-  <!-- iframe 模式下的点击拦截层：点空白处收起吸附栏 -->
-  <div class="scrim" id="scrim"></div>
-
 <script>
-  var frame = document.getElementById('frame');
-  var home = document.getElementById('home');
-  var railItems = Array.prototype.slice.call(document.querySelectorAll('.rail-item'));
-
-  // 记忆：上次打开的界面（'home' 或子页面 URL），下次进来直接恢复
-  var LAST_KEY = 'neverlandLastPage';
-
-  function showTarget(url, railEl) {
-    home.style.display = 'none';
-    frame.style.display = 'block';
-    document.body.classList.add('in-frame');
-    if (frame.getAttribute('src') !== url) frame.setAttribute('src', url);
-    railItems.forEach(function (el) { el.classList.remove('active'); });
-    if (railEl) railEl.classList.add('active');
-    document.getElementById('stage').scrollTop = 0;
-    if (window.innerWidth <= 768) collapseRail();
-    try { localStorage.setItem(LAST_KEY, url); } catch (e) {}
-  }
-
-  function showHome() {
-    frame.style.display = 'none';
-    home.style.display = '';
-    document.body.classList.remove('in-frame');
-    railItems.forEach(function (el) { el.classList.remove('active'); });
-    if (window.innerWidth <= 768) collapseRail();
-    try { localStorage.setItem(LAST_KEY, 'home'); } catch (e) {}
-  }
-
-  // 左侧栏链接：在页面内打开
-  railItems.forEach(function (el) {
-    el.addEventListener('click', function (e) {
-      e.preventDefault();
-      showTarget(el.getAttribute('data-url'), el);
-    });
-  });
-
-  // homepage 卡片：在页面内打开
-  document.querySelectorAll('.card[href]').forEach(function (el) {
-    el.addEventListener('click', function (e) {
-      e.preventDefault();
-      var url = el.getAttribute('href');
-      var railEl = railItems.filter(function (r) { return r.getAttribute('data-url') === url; })[0];
-      showTarget(url, railEl);
-    });
-  });
+  // 所有卡片/左侧栏链接都是真实跳转（不再是 iframe 内嵌），
+  // 点进去后网址栏直接显示模块本身的链接，内容永远是最新线上版本。
 
   function collapseRail() {
     document.body.classList.add('rail-collapsed');
@@ -651,12 +592,9 @@
 
   openBtn.addEventListener('click', function (e) {
     if (suppressClick) { e.preventDefault(); e.stopPropagation(); return; }
-    // 子页面点泡泡 = 回首页；首页点泡泡 = 飘散一串泡泡粒子
-    if (document.body.classList.contains('in-frame')) { showHome(); }
-    else {
-      var rect = openBtn.getBoundingClientRect();
-      burstBubbles(rect.left + rect.width / 2, rect.top + rect.height / 2);
-    }
+    // 点泡泡 = 飘散一串泡泡粒子
+    var rect = openBtn.getBoundingClientRect();
+    burstBubbles(rect.left + rect.width / 2, rect.top + rect.height / 2);
   });
 
   // 一串小泡泡从按钮位置向上飘散
@@ -681,20 +619,8 @@
     }
   }
 
-  // 恢复上次打开的界面（不是 home 才恢复；home 就保持起始状态）
-  try {
-    var lastPage = localStorage.getItem(LAST_KEY);
-    if (lastPage && lastPage !== 'home') {
-      var lastRail = railItems.filter(function (r) { return r.getAttribute('data-url') === lastPage; })[0];
-      showTarget(lastPage, lastRail);
-    }
-  } catch (e) {}
-
   // 手机端默认折叠
   if (window.innerWidth <= 768) collapseRail();
-
-  // iframe 拦截层：点击即收起吸附栏
-  document.getElementById('scrim').addEventListener('click', function () { collapseRail(); });
 
   // 注册 service worker：页面导航走 network-first，线上更新即时生效
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
