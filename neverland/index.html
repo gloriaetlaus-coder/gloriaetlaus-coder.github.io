@@ -7,7 +7,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="data:,">
+<!-- ⚠️ 图标配置：请勿删除！删掉会导致手机桌面图标变成网页截图（灰咖色）、PC 标签页图标变灰 -->
+<link rel="icon" type="image/png" sizes="64x64" href="https://gloriaetlaus-coder.github.io/neverland/favicon.png?v=3">
+<link rel="icon" type="image/png" sizes="32x32" href="https://gloriaetlaus-coder.github.io/neverland/favicon-32.png?v=3">
+<link rel="apple-touch-icon" sizes="180x180" href="https://gloriaetlaus-coder.github.io/neverland/apple-touch-icon.png?v=3">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://gloriaetlaus-coder.github.io/neverland/apple-touch-icon.png?v=3">
+<link rel="manifest" href="https://gloriaetlaus-coder.github.io/neverland/manifest.webmanifest?v=3">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Neverland">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#FFF8E7">
 <style>
 :root{color-scheme:light dark;--rail-w:200px;--cream:#FFF8E7;--home-bg:linear-gradient(135deg,#FFE9F0 0%,#F3ECFF 34%,#FFF6DC 66%,#E4F0FF 100%);--ink:#6B5B7B;--ink-soft:#8A7A96;--pink-deep:#E86A9A;--lavender:#9B7EDE;--glass-line:rgba(255,255,255,.68);--card-text:#9A8FAB;--frame-bg:#fff;--font-cute:"Baloo 2","ZCOOL KuaiLe",ui-rounded,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;--font-body:"Nunito","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
@@ -46,5 +54,30 @@ function showToast(appName){window.clearTimeout(toastTimer);toast.textContent='�
 function burstBubbles(x,y){for(var i=0;i<18;i++){(function(delay){window.setTimeout(function(){var b=document.createElement('div'),s=9+Math.random()*24;b.className='spark-bubble';b.style.width=s+'px';b.style.height=s+'px';b.style.left=x+Math.random()*30-15+'px';b.style.top=y+Math.random()*18-9+'px';b.style.setProperty('--dx',Math.random()*100-50+'px');b.style.setProperty('--dy',-80-Math.random()*150+'px');b.style.setProperty('--dur',1.5+Math.random()*1.3+'s');document.body.appendChild(b);window.setTimeout(function(){b.remove()},3200)},delay)})(i*48)}}
 document.querySelector('.rail-fold').addEventListener('click',collapseRail);document.querySelector('.rail-title').addEventListener('click',function(e){e.preventDefault();showHome()});railItems.forEach(function(el){el.addEventListener('click',function(e){e.preventDefault();showTarget(el.getAttribute('data-url'),el)})});document.querySelectorAll('.web-card').forEach(function(el){el.addEventListener('click',function(e){e.preventDefault();var url=el.getAttribute('href');showTarget(url,findRail(url))})});document.querySelectorAll('.app-card').forEach(function(el){el.addEventListener('click',function(){showToast(el.getAttribute('data-app'))})});document.getElementById('scrim').addEventListener('click',collapseRail);
 openBtn.addEventListener('pointerdown',function(e){var rect=openBtn.getBoundingClientRect();dragState={startX:e.clientX,startY:e.clientY,origLeft:rect.left,origTop:rect.top,moved:false};try{openBtn.setPointerCapture(e.pointerId)}catch(err){}e.preventDefault()});openBtn.addEventListener('pointermove',function(e){if(!dragState)return;var dx=e.clientX-dragState.startX,dy=e.clientY-dragState.startY;if(!dragState.moved&&Math.abs(dx)<6&&Math.abs(dy)<6)return;dragState.moved=true;openBtn.style.left=Math.min(Math.max(4,dragState.origLeft+dx),window.innerWidth-openBtn.offsetWidth-4)+'px';openBtn.style.top=Math.min(Math.max(4,dragState.origTop+dy),window.innerHeight-openBtn.offsetHeight-4)+'px'});function endDrag(){if(dragState&&dragState.moved){suppressClick=true;window.setTimeout(function(){suppressClick=false},80)}dragState=null}openBtn.addEventListener('pointerup',endDrag);openBtn.addEventListener('pointercancel',endDrag);openBtn.addEventListener('click',function(e){if(suppressClick){e.preventDefault();e.stopPropagation();return}if(document.body.classList.contains('in-frame'))showHome();else{var rect=openBtn.getBoundingClientRect();burstBubbles(rect.left+rect.width/2,rect.top+rect.height/2)}});if(window.innerWidth<=768)collapseRail()})();
+</script>
+<script>
+/* 图标自愈：若日后改动误删了 head 里的图标配置，页面加载时自动补回（勿删） */
+(function () {
+  var base = 'https://gloriaetlaus-coder.github.io/neverland/';
+  function ensure(rel, href, attrs) {
+    var links = document.querySelectorAll('link[rel="' + rel + '"]');
+    for (var i = 0; i < links.length; i++) {
+      var h = links[i].getAttribute('href') || '';
+      if (h && h.indexOf('data:') !== 0) return;
+    }
+    for (var j = 0; j < links.length; j++) links[j].parentNode.removeChild(links[j]);
+    var l = document.createElement('link');
+    l.rel = rel; l.href = href;
+    if (attrs) { for (var k in attrs) l.setAttribute(k, attrs[k]); }
+    document.head.appendChild(l);
+  }
+  ensure('icon', base + 'favicon.png?v=3', { type: 'image/png', sizes: '64x64' });
+  ensure('apple-touch-icon', base + 'apple-touch-icon.png?v=3', { sizes: '180x180' });
+  if (!document.querySelector('link[rel="manifest"]')) {
+    var m = document.createElement('link');
+    m.rel = 'manifest'; m.href = base + 'manifest.webmanifest?v=3';
+    document.head.appendChild(m);
+  }
+})();
 </script>
 </body></html>
